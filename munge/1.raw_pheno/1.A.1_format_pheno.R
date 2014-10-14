@@ -12,6 +12,7 @@ pmatrix <- function(infile="Gvalues_Adj.GY", trait="GY"){
   pheno <- read.table(infile, header=TRUE)
   names(pheno) <- nm
   pheno$trait <- trait
+  message(sprintf("# [ %s ] rows loaded!", nrow(pheno)))
   return(pheno)  
 } 
 
@@ -21,30 +22,9 @@ asi <- pmatrix(infile="Gvalues_ASI", trait="ASI")
 dtp <- pmatrix(infile="Gvalues_DTP", trait="DTP")
 dts <- pmatrix(infile="Gvalues_DTS", trait="DTS")
 eht <- pmatrix(infile="Gvalues_EHT", trait="EHT")
-PHT <- pmatrix(infile="Gvalues_PHT", trait="PHT")
-TW <- pmatrix(infile="Gvalues_TW", trait="TW")
+pht <- pmatrix(infile="Gvalues_PHT", trait="PHT")
+tw <- pmatrix(infile="Gvalues_TW", trait="TW")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-gy <- read.table("Gvalues_Adj.GY", header=TRUE)
-asi <- read.table("Gvalues_ASI", header=TRUE)
-
-
-
-hist(gy$valHyb)
-
-
-
+trait <- rbind(gy, asi, dtp, dts, eht, pht, tw)
+write.table(trait, "~/Documents/Github/pvpDiallel/data/trait_matrix.csv", sep=",",
+            row.names=FALSE, quote=FALSE)

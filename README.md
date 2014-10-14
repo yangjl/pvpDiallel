@@ -1,4 +1,4 @@
-## Welcome to Project PVP Diallel!
+## Welcome to Project exPVP Diallel!
 
 
 ### Traits of interest:
@@ -8,8 +8,7 @@
 * **DTP**: days to pollen
 * **ASI**: anthesis-silk Interval
 * **Adj.GY**: adjusted grain yield
-* **WT**: _test weight?_
-* **PHT**: plant height 
+* **TW**: _test weight?_
 
 
 

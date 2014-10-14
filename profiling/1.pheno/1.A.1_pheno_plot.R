@@ -4,7 +4,7 @@
 
 setwd("/Users/yangjl/Box\ Sync/Projects/PVP-Diallel/GeneticValues/")
 
-
+trait <- read.csv("~/Documents/Github/pvpDiallel/data/trait_matrix.csv")
 
 
 
