@@ -1,37 +1,29 @@
-Welcome to ProjectTemplate!
+Welcome to Project PVP Diallel!
 
-This file introduces you to ProjectTemplate, but you should eventually replace
-the contents of this file with an introduction to your project. People who
-work with your data in the future will thank you for it, including your future
-self.
 
-ProjectTemplate is an R package that helps you organize your statistical
-analysis projects. Since you're reading this file, we'll assume that you've
-already called `create.project()` to set up this project and all of its
-contents.
+### Notes from Sofiane 10/13/2014
+```
+Here are the links to the data: 
 
-To load your new project, you'll first need to `setwd()` into the directory
-where this README file is located. Then you need to run the following two
-lines of R code:
+Genetic values, MPH, BPH and combining abilities: "/group/jrigrp2/DiallelSofiane/GeneticValues/"
 
-	library('ProjectTemplate')
-	load.project()
+"GCA-SCA*.txt" are the combining abilities (one file per traits)
 
-After you enter the second line of code, you'll see a series of automated
-messages as ProjectTemplate goes about doing its work. This work involves:
-* Reading in the global configuration file contained in `config`.
-* Loading any R packages you listed in he configuration file.
-* Reading in any datasets stored in `data` or `cache`.
-* Preprocessing your data using the files in the `munge` directory.
+"Gvalues_*" are the hybrid values with MPH and BPH as well (one file per trait)
 
-Once that's done, you can execute any code you'd like. For every analysis
-you create, we'd recommend putting a separate file in the `src` directory.
-If the files start with the two lines mentioned above:
+"GeneticValuesExPVPdiallelbis" is the file of fitted values that I used to create GCA-SCA and Gvalues. 
 
-	library('ProjectTemplate')
-	load.project()
 
-You'll have access to all of your data, already fully preprocessed, and
-all of the libraries you want to use.
 
-For more details about ProjectTemplate, see http://projecttemplate.net
+We have 7 traits PHT(plant height),	EHT(ear height),	DTS(days to silking),	DTP(Days to pollen),	ASI	Adj.GY (afjusted yield) and TW (Test weight).
+
+The SNP data (only the parents) is in "/group/jrigrp2/DiallelSofiane/BWA/SNPfiles/FinalSNPs_all.txt" 
+
+I also imputed missing alleles with Beagle and the data is in "/group/jrigrp2/DiallelSofiane/BWA/SNPfiles/ImpSNPs_all"
+
+The SNP annotation is in "/group/jrigrp2/DiallelSofiane/BWA/SNPfiles/SNP-DelCall-all.txt"
+
+The hybrid genotypes are in "/group/jrigrp2/DiallelSofiane/BWA/SNPfiles/HetGeno_chr*" with one file per chromosome; it was faster to run the analyses on parallel for all chromosomes and I had them in separate file to limit I/O problems.
+
+Finally,  I have the same hybrid information coded 0/1 in "/group/jrigrp2/DiallelSofiane/BWA/SNPfiles/Het0-1_chr$" 
+```
