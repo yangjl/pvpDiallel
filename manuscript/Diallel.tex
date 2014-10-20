@@ -1,0 +1,207 @@
+% -/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\-
+%  -X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-
+% -\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/-
+\documentclass[10pt]{article}
+\usepackage{geometry} 
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{comment}
+\usepackage[pdftex]{graphicx}  
+\usepackage{caption}
+\usepackage{natbib}
+\usepackage{mathtools}
+\usepackage{units}
+\usepackage{booktabs}
+\usepackage{booktabs}
+\usepackage{authblk}
+\renewcommand{\baselinestretch}{1.5}
+\geometry{a4paper} 
+\bibliographystyle{apalike}
+
+%nouvelle commande pour les commentaires
+\newcommand{\sme}[1]{\textcolor{red}{\bf #1}}
+
+
+
+%\usepackage[utf8]{inputenc} => pour les accents
+
+% -/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+%\chapter
+%\section
+%\subsection
+%\subsubsection
+%\subsubsection
+%\paragraph
+%\subparagraph
+% -\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+
+%----------------------------------------
+%AUTHORS
+%----------------------------------------
+
+\title{Heterosis and genetic load in an ExPVP partial diallel cross} 
+%\author[1]{Sofiane Mezmouk\thanks{smezmouk@ucdavis.edu}}
+%....
+%\author[3]{Rita H. Mumm\thanks{ritamumm@illinois.edu}}
+%\author[1,2]{Jeffrey Ross-Ibarra\thanks{rossibarra@ucdavis.edu}}
+%\affil[1]{Department of Plant Sciences, University of California Davis}
+%\affil[2]{Center for Population Biology and Genome Center, University of California Davis}
+%\affil[3]{Department of Crop Sciences and the Illinois Plant Breeding Center, University of Illinois at Urbana?Champaign, Urbana, IL 61801, USA}
+
+\date{}
+
+%-----------------------------------------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------------------------------------------
+% BEGIN DOCUMENT
+%-----------------------------------------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------------------------------------------
+\begin{document}
+
+\maketitle
+%----------------------------------------
+% ABSTRACT
+%----------------------------------------
+\begin{abstract} 
+ Il \'etait une fois l'h\'et\'erosis ....
+ %The story is: I have a partial diallel cross with both phenotypic and genotypic data and I observe over dominance at haplotypic level but at the SNP level; everything is explained by dominance. 
+\end{abstract}
+
+
+%----------------------------------------
+% INTRODUCTION
+%----------------------------------------
+\newpage
+\section*{Introduction}
+%----------------------------------------
+
+
+\begin{itemize}
+  \item Heterosis
+  \item Heterosis in maize
+  \item Diallel designs and their use for heterosis
+  \item What has been done before
+  \item What I have
+  \item  Main results
+\end{itemize}
+
+
+%----------------------------------------
+% RESULTS
+%----------------------------------------
+\section*{Results}
+%----------------------------------------
+
+\begin{itemize}
+  \item Genetic values, heritability, heterosis and combining ability 
+  \item SNP calls and annotation; distribution of deleterious mutations along the genome 
+  \item correlation between complementation at deleterious SNPs with heterosis and SCA for the different 
+  \item IBD region size and general statistics 
+  \item IBD correlation with heterosis and SCA
+  \item GWAS results at an SNP level and then comparison with haplotypic results 
+  \item Analyses of the significant haplotypic bloc to see if there is any pattern
+\end{itemize}
+
+%----------------------------------------
+% DISCUSSION
+%----------------------------------------
+\section*{Discussion}
+%----------------------------------------
+
+
+
+
+
+
+
+%----------------------------------------
+% MATERIAL & METHODS
+%----------------------------------------
+\section*{Materials and methods}
+%----------------------------------------
+
+\subsection*{Plant material and phenotypic data}
+%-------------------
+Twelve maize inbred lines, including B73, Mo17 and 10 lines with expired U.S. plant variety protection (LH1, LH123HT, LH82, PH207, 4676A, PHG39, PHG47, PHG84, PHJ40, PHZ51) were crossed in a partial diallel fashion covering all one way combinations \sme{(CITE)}. 
+ Both inbred lines and the 66 resulting hybrids were field evaluated in Urbana (Illinois, USA) from 2009 to 2011 with three replicates each year, organized in incomplete blocks.\\
+Phenotypic data was collected for plant height (PHT, in cm), ear height (EHT, in cm), days to 50\% silking (DTS), days to 50\% pollen shed (DTP), anthesis-silking interval (ASI, in days), grain yield adjusted to 15.5\% moisture (adj GY, in bu/A), and test weight (TWT, in pounds) \sme{(CITE)}.% Question for RHM: Should we site a paper for the phenotypic data? 
+
+\subsection*{Analyses}
+%-------------------
+
+\subsubsection*{Inbred line sequencing and SNP calls}
+
+% wet lab
+DNA from the twelve inbred lines was CTAB extracted \citep{Doyle1987} and Covaris sheared for Illumina library preparation. The DNA libraries were then sequenced to an average coverage of 10X \sme{(say where the sequencing was done?)}.
+
+%Read mapping
+Raw paired reads (reverse and forward for each sequence), were trimmed for adapter contamination with Scythe package (\url{https://github.com/vsbuffalo/scythe}) which calculate the probability of having a contamination given the adapter sequence, the number of mismatches and sequence quality. The reads were then trimmed for quality and sequence length ($\geq 20$ nucleotides) with Sickle package (\url{https://github.com/najoshi/sickle}) .
+
+Read pairs, kept after filtering,  were mapped to the maize B73 reference genome (AGPv2) with bwa-mem \citep{Li2009B}. Reads, with mapping quality (MAPQ) higher than 10 and with a best alignment score higher than the second best one, were kept for further analyses.
+
+%SNP calling
+Single nucleotide polymorphisms (SNPs) were called with mpileup from samtools utilities \citep{Li2009}. To deal with paralogy, which is a major problem in maize sequence mapping \citep{Chia2012}, all SNPs were filtered to a) be heterozygote in less than 3 inbred lines, b) have a mean minor allele depth over all genomes of at least 4, c) have a mean depth over all individuals lower than 30 and d) have missing/heterozygote alleles in less than 6 inbred lines (allelic information for at least 15 hybrids in the partial diallel design). 
+
+%SNP results after filtering
+After filtering 13,782,809 are kept for further comparisons, including 1,909,416 genic SNPs and 361,280 in protein coding regions). \\
+We estimated the allelic error rate by first comparing our genotype calls to those of 41,292 overlapping SNPs on the maize SNP50 bead chip \citep{Heerwaarden2012};  we then compared our SNP alleles for B73 and Mo17 with the 10,426,715 SNP previously identified in HapMap2 \citep{Chia2012}; finally, we compared our SNPs to 180,313 overlapping SNPs identified through Genotyping by sequencing \citep{Romay2013}. The comparisons showed 99.12\% allele similarity with shared SNPs previously identified. 
+
+All missing alleles were then imputed with BEAGLE package \citep{Browning2009} and identity by descent regions (IBD) between the 12 inbred lines were identified with BEAGLE's fastIBD method \citep{Browning2011}. The pairwise IBD region starts and ends were used to delimit haplotipic blocs where several inbred lines shared a homogenous haplotypes.%I need to clarify this last sentence.
+\subsubsection*{SNP annotation}
+
+The SNPs were annotated as synonymous and non-synonymous with the software polydNdS from the analysis package of libsequence  \citep{Thornton2003} using the first transcript of each gene in B73 5b filtered gene set. Deleterious effects of amino acid changes were then predicted with both SIFT \citep{Ng2003, Ng2006} and MAPP \citep{Stone2005} software packages as described by \citet{mezmouk2014}.
+
+\sme{Gerp predictions}
+
+
+\subsubsection*{Phenotypic data analyses}
+
+Best Linear Unbiased Estimation (BLUE) of the genetic effects were calculated with ASReml-R \sme{(CITE)} following the linear model: 
+%
+\[y_{ijkl} = \mu + \varsigma_{i} + \delta_{ij} + \beta_{jk} + \alpha_{l} +  \varsigma_{i} \cdot \alpha_{l} + \varepsilon\]
+%
+were 
+$y_{ijkl}$ is the phenotypic value of the $l^{th}$ genotype evaluated in the $k^{th}$ block of the $j^{th}$ replicate within the $i^{th}$ environment; 
+$\mu$, the whole mean; 
+$\varsigma_{i}$, the fixed effect of the $i^{th}$ environment;
+$\delta_{ij}$, the fixed effect of the $j^{th}$ replicate nested in the $i^{th}$ environment; 
+$\beta_{jk}$, the random effect of the $k^{th}$ block nested in the $j^{th}$ block; 
+$\alpha_{l}$, the the fixed genetic effect  of the $l^{th}$ individual; 
+$\varsigma_{i} \cdot \alpha_{l}$, the interaction effect of the $l^{th}$ individual with the $i^{th}$ environment; 
+$\varepsilon$, the model residuals.
+
+All fixed effects, including the genotype onces, were significant (Wald test p-value<0.05) for all traits except ASI for which the effect of the replicates within environments were not significant.
+
+Heterosi for each hybrid was then estimated by both best- and mid-parent heterosis ($BPH$ and $MPH$, respectively):
+%
+\[ MPH_{ij}=\hat{G_{ij}}-\frac{1}{2}(\hat{G_{i}}+\hat{G_{j}}) \]
+\[ BPH_{min,ij}=\hat{G_{ij}}-min(\hat{G_{i}} ,\hat{G_{j}}) \] 
+\[ BPH_{max,ij}=\hat{G_{ij}}-max(\hat{G_{i}} ,\hat{G_{j}}) \]
+%
+where $\hat{G_{ij}}$, $\hat{G_{i}}$ and $\hat{G_{j}}$ are the genetic values of the hybrid and its two parents $i$ and $j$. $BPH_{min}$ was used instead of $BPH_{max}$ for days to anthesis.\\
+
+Finally, general and specific combining ability (GCA ans SCA) respectively were estimated following \citet{Falconer1996}.
+
+\subsubsection*{Association mapping}
+SNP association with heterosis (BPH and MPH) was tested assuming dominance/recessivity of the reference allele or assuming overdominance where only the heterozygote alleles are expected to be significant. For each SNP, root mean square error were used to select the best fitting model. 
+Haplotype association with heterosis were tested comparing the heterozygote alleles to all homozygote ones all confounded. 
+
+
+\subsubsection*{Hybrid prediction}
+
+
+%----------------------------------------
+% REFERENCES
+%----------------------------------------
+\clearpage
+\bibliography{Diallel}
+
+\end{document}
+%-----------------------------------------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------------------------------------------
+% END DOCUMENT
+%-----------------------------------------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------------------------------------------
+% -/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\-
+%  -X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-
+% -\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/-
