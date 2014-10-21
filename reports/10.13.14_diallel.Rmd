@@ -5,7 +5,18 @@ date: "October 13th, 2014"
 output: rmarkdown::tufte_handout
 ---
 
-# Introduction
+# Phenotypic data
+
+## Reformat Sofiane's phenotypic data to a matrix
+
+Phentoypic data _per se_
+## data from external folder were loaded
+```{r, eval=FALSE}
+source("munge/1.raw_pheno/1.A.1_format_pheno.R")
+```
+
+
+
 
 The Tufte-\LaTeX\ [^tufte_latex] document classes define a style similar to the style Edward Tufte uses in his books and handouts. Tufte’s style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. 
 
@@ -22,10 +33,6 @@ An error is emitted if you try to use `###` and smaller headings.
 
 Images and graphics play an integral role in Tufte's work. To place figures or tables in the margin you can use the `fig.margin` knitr chunk option. For example:
 
-```{r, fig.margin = TRUE, fig.cap = "Sepal length vs. petal length, colored by species"}
-library(ggplot2)
-qplot(Sepal.Length, Petal.Length, data = iris, color = Species)
-```
 
 Note the use of the `fig.cap` chunk option to provide a figure caption. You can adjust the proportions of figures using the `fig.width` and `fig.height` chunk options. These are specified in inches, and will be automatically scaled down to fit within the handout margin.
 
@@ -44,9 +51,6 @@ Note the use of the `\caption` command to add additional text below the equation
 
 You can arrange for figures to span across the entire page by using the `fig.fullwidth` chunk option. 
 
-```{r, fig.width = 10, fig.height = 2, fig.fullwidth = TRUE, fig.cap = "Full width figure"}
-qplot(wt, mpg, data=mtcars, colour=factor(cyl))
-```
 
 Note the use of the `fig.width` and `fig.height` chunk options to establish the proportions of the figure. Full width figures look much better if their height is minimized.
 
@@ -54,9 +58,6 @@ Note the use of the `fig.width` and `fig.height` chunk options to establish the 
 
 Besides margin and full width figures, you can of course also include figures constrained to the main column.
 
-```{r, fig.cap = "Another figure"}
-qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot")
-```
 
 # Sidenotes
 
