@@ -1,4 +1,4 @@
-## Welcome to Project PVP Diallel!
+## Welcome to Project exPVP Diallel!
 
 
 ### Traits of interest:
@@ -8,8 +8,16 @@
 * **DTP**: days to pollen
 * **ASI**: anthesis-silk Interval
 * **Adj.GY**: adjusted grain yield
-* **WT**: _test weight?_
-* **PHT**: plant height 
+* **TW**: _test weight?_ what is this trait? 
+
+
+### Jinliang's report on phenotypic data checking
+
+```{r, eval=FALSE}
+source("~/Documents/Github/pvpDiallel/munge/1.raw_pheno/1.A.1_format_pheno.R")
+```
+
+
 
 
 
