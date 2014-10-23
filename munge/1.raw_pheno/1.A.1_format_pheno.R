@@ -3,7 +3,7 @@
 ## phenotypic data of offpvp diallel
 
 
-### pheno per se
+# pheno per se
 
 pmatrix <- function(infile="Gvalues_Adj.GY", trait="GY"){
   nm <- c("Hyb", "P1", "P2", "valHyb", "valP1", "valP2", "BPHmax", "pBPHmax", 
@@ -11,11 +11,11 @@ pmatrix <- function(infile="Gvalues_Adj.GY", trait="GY"){
   pheno <- read.table(infile, header=TRUE)
   names(pheno) <- nm
   pheno$trait <- trait
-  message(sprintf("# [ %s ] rows loaded for trati [ %s ]!", nrow(pheno), trait))
+  message(sprintf("[ %s ] rows loaded for trait [ %s ]!", nrow(pheno), trait))
   return(pheno)  
 } 
 
-###
+#
 gy <- pmatrix(infile="/Users/yangjl/Box\ Sync/Projects/PVP-Diallel/GeneticValues/Gvalues_Adj.GY", trait="GY")
 asi <- pmatrix(infile="/Users/yangjl/Box\ Sync/Projects/PVP-Diallel/GeneticValues/Gvalues_ASI", trait="ASI")
 dtp <- pmatrix(infile="/Users/yangjl/Box\ Sync/Projects/PVP-Diallel/GeneticValues/Gvalues_DTP", trait="DTP")

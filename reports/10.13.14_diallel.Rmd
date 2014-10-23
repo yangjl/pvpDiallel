@@ -7,11 +7,14 @@ output: rmarkdown::tufte_handout
 
 # Phenotypic data
 
-## Reformat Sofiane's phenotypic data to a matrix
+## Reformat Sofiane's phenotypic data to a matrix.
+
 
 Phentoypic data _per se_
+
 ## data from external folder were loaded
-```{r, eval=FALSE}
+```{r, eval=F}
+setwd("~/Documents/Github/pvpDiallel/")
 source("munge/1.raw_pheno/1.A.1_format_pheno.R")
 ```
 
