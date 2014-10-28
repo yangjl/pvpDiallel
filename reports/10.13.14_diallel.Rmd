@@ -3,20 +3,77 @@ title: "Diallel Research Report"
 author: "Jinliang Yang"
 date: "October 13th, 2014"
 output: rmarkdown::tufte_handout
+
 ---
+\begin{abstract}
+This manual shows features of graphics in the \textbf{knitr} package
+in detail, including the
+graphical devices, plot recording, plot rearrangement, control of
+plot sizes, the tikz device, figure captions, animations and other
+types of plots such as \textbf{rgl} or GGobi plots.
+  
+\end{abstract}
+
+The path and R package dependencies in this project were managed by `Packrat`[^r1] and `knitr`.
+```{r setup}
+library(knitr)
+opts_knit$set(root.dir=normalizePath('../'))
+```
 
 # Phenotypic data
 
 ## Reformat Sofiane's phenotypic data to a matrix.
 
-
-Phentoypic data _per se_
-
 ## data from external folder were loaded
 ```{r, eval=F}
-setwd("~/Documents/Github/pvpDiallel/")
 source("munge/1.raw_pheno/1.A.1_format_pheno.R")
 ```
+
+## plot the phentoypic data _per se_
+
+```{r, fig.lp="cor-plot1", fig.width = 10, fig.height = 3, fig.fullwidth = TRUE, fig.cap = "phenotypic data distribution"}
+source("profiling/1.pheno/1.A.1_pheno_plot.R")
+```
+
+Based on the normality test, the above seven traits show P-values range from c(). Therefore, we have no evidence to reject the normal distribution of the phenotype. 
+
+## Levels of heterosis of the seven traits
+```{r,  fig.width = 10, fig.height = 5, fig.fullwidth = TRUE, fig.cap = "Variations of the levels of heterosis"}
+source("profiling/1.pheno/1.A.2_pheno_loh_plot.R")
+
+```
+
+## Correlation of the seven phenotypic traits
+```{r, fig.width = 4, fig.height = 4, fig.cap = "Correlation plot of the seven traits"}
+source("profiling/1.pheno/1.A.3_pheno_cor_plot.R")
+### get the pheno per se
+myp1 <- get_pheno(trait=trait, pheno="valHyb")
+pairs(myp1[, 2:8], text.panel = diag, upper.panel=panel.smooth, 
+      lower.panel=panel.cor, gap=0, main="", pch=19, col="grey", lwd=2)
+```
+
+some words here.
+
+```{r, fig.width = 4, fig.height = 4, fig.cap = "Correlation plot of the seven traits"}
+source("profiling/1.pheno/1.A.3_pheno_cor_plot.R")
+### get percentage of BPHmax
+myp2 <- get_pheno(trait=trait, pheno="pBPHmax")
+pairs(myp2[, 2:8], text.panel = diag, upper.panel=panel.smooth, 
+      lower.panel=panel.cor, gap=0, main="", pch=19, col="grey", lwd=2)
+
+```
+
+some words here.
+
+```{r, fig.width = 4, fig.height = 4, fig.cap = "Correlation plot of the seven traits", fig.cap="pMPH"}
+source("profiling/1.pheno/1.A.3_pheno_cor_plot.R")
+### get percentage of BPHmax
+myp3 <- get_pheno(trait=trait, pheno="pMPH")
+pairs(myp3[, 2:8], text.panel = diag, upper.panel=panel.smooth, 
+      lower.panel=panel.cor, gap=0, main="", pch=19, col="grey", lwd=2)
+
+```
+
 
 
 
@@ -85,7 +142,7 @@ xtable(head(mtcars[,1:6]), caption = "First rows of mtcars")
 [^tufte_latex]: https://code.google.com/p/tufte-latex/
 [^books_be]: http://www.edwardtufte.com/tufte/books_be
 
-
+[^r1]: http://rstudio.github.io/packrat/
 
 
 

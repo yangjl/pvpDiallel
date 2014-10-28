@@ -11,3 +11,6 @@
 .Rproj.user
 packrat/lib*/
 packrat/src/
+
+*_cache/
+*_files/
