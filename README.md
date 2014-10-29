@@ -13,6 +13,11 @@
 
 ### Jinliang's report on phenotypic data checking
 
+The 1st report could be found in the report folder, which was generated using *.Rmd.
+Or you could found the final pdf through the following link: 
+[report1](https://github.com/yangjl/pvpDiallel/blob/master/reports/10.13.14_diallel.pdf)
+
+
 ```{r, eval=FALSE}
 source("~/Documents/Github/pvpDiallel/munge/1.raw_pheno/1.A.1_format_pheno.R")
 ```
