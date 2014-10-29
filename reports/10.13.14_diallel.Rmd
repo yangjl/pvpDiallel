@@ -1,49 +1,50 @@
 ---
-title: "Diallel Research Report"
+title: "Diallel Research Report One"
 author: "Jinliang Yang"
 date: "October 13th, 2014"
 output: rmarkdown::tufte_handout
-
 ---
+
 \begin{abstract}
-This manual shows features of graphics in the \textbf{knitr} package
-in detail, including the
-graphical devices, plot recording, plot rearrangement, control of
-plot sizes, the tikz device, figure captions, animations and other
-types of plots such as \textbf{rgl} or GGobi plots.
-  
+One purpose of this manual is to document research progress and to facilitate communication. I try to make this \textbf{pvpDiallel} project completely reproducible with the help of some R packages. The dependencies in this project are managed by \textbf{Packrat}. It enables the collaborator to run it immediately after cloning this repo without installing anything. Because some of the work is time consuming, I tend to turn off these code chunks that need heavy computational power. But you could still find the source codes or their paths in this report. This document itself was generated in \textbf{Rstudio} using \textbf{rmarkdown} with the \textbf{tufte\_handout} output format. 
 \end{abstract}
 
-The path and R package dependencies in this project were managed by `Packrat`[^r1] and `knitr`.
+
 ```{r setup}
+# set up the project and global enviroment
 library(knitr)
 opts_knit$set(root.dir=normalizePath('../'))
 ```
 
 # Phenotypic data
 
-## Reformat Sofiane's phenotypic data to a matrix.
+The phenotypic data _per se_, GCA and SCA was reformatted from Sofiane's files and transformed them to a data matrix. The following chunk of code could not be re-ran because data from external folders were loaded. The original phenotypic data could be found here 
+`/group/jrigrp2/DiallelSofiane/GeneticValues/` on `farm`. 
 
-## data from external folder were loaded
 ```{r, eval=F}
+### data per se, GCA and SCA
 source("munge/1.raw_pheno/1.A.1_format_pheno.R")
+source("munge/1.raw_pheno/1.A.2_format_gca_sca.R")
 ```
 
 ## plot the phentoypic data _per se_
 
-```{r, fig.lp="cor-plot1", fig.width = 10, fig.height = 3, fig.fullwidth = TRUE, fig.cap = "phenotypic data distribution"}
+```{r, fig.width = 10, fig.height = 3, fig.fullwidth = TRUE, fig.cap = "phenotypic data distribution"}
 source("profiling/1.pheno/1.A.1_pheno_plot.R")
 ```
 
-Based on the normality test, the above seven traits show P-values range from c(). Therefore, we have no evidence to reject the normal distribution of the phenotype. 
+From Figure 1, the phenotypic values of seven traits were bell-shape distributed. After normality tests using `shapiro.test`, the p-value for the first trait __ASI__ was a little bit above 0.05 and all the others are >>0.05. These normality test p-values are: `r round(res, 3)`. Generally, we do not have evidences to reject the normal distribution of these phenotypes. And, the trait values may not need to be transformed. 
 
 ## Levels of heterosis of the seven traits
-```{r,  fig.width = 10, fig.height = 5, fig.fullwidth = TRUE, fig.cap = "Variations of the levels of heterosis"}
+As reported by Flint-Garcia _et al_ [^r1] and observed by my previous studies, the levels of heterosis are varied. The variation of the levels of heterosis was also observed in the current study using both pMPH and pBPH. Interestingly, __ASI__ showed a negative heterosis; __DTS__, __DTP__ and __TW__ exhibited almost no heterosis; __PHT__ and __EHT__ exhibited moderate levels of heterosis; and __GY__ exhibited very strong heterosis.
+
+```{r,  fig.width = 10, fig.height = 5, fig.fullwidth = TRUE, fig.cap = "Variation of the levels of heterosis"}
 source("profiling/1.pheno/1.A.2_pheno_loh_plot.R")
 
 ```
 
 ## Correlation of the seven phenotypic traits
+
 ```{r, fig.width = 4, fig.height = 4, fig.cap = "Correlation plot of the seven traits"}
 source("profiling/1.pheno/1.A.3_pheno_cor_plot.R")
 ### get the pheno per se
@@ -52,9 +53,12 @@ pairs(myp1[, 2:8], text.panel = diag, upper.panel=panel.smooth,
       lower.panel=panel.cor, gap=0, main="", pch=19, col="grey", lwd=2)
 ```
 
-some words here.
+In the Figure 3, correlations of trait _per se_ were plotted with the above codes. For the Figure 4 and Figure 5, similar codes were used but not shown in this report.
 
-```{r, fig.width = 4, fig.height = 4, fig.cap = "Correlation plot of the seven traits"}
+As shown in Figure 3, __DTS__ vs. __DTP__ and __PHT__ vs. __EHT__ were highly positively correlated. These positive correlations were also hold for pBPH and pMPH. While, the trait values _per se_ of __ASI__ negatively correlated with __DTS__. However, the negative correlation become not statistically significant for pBPH and pMPH of the pairs of the traits. With the correlation of these traits, we expect to find some shared trait-associated variants after GWAS.    
+
+
+```{r, echo=FALSE, fig.width = 4, fig.height = 4, fig.cap = "Correlation plot of pBPHmax"}
 source("profiling/1.pheno/1.A.3_pheno_cor_plot.R")
 ### get percentage of BPHmax
 myp2 <- get_pheno(trait=trait, pheno="pBPHmax")
@@ -63,9 +67,8 @@ pairs(myp2[, 2:8], text.panel = diag, upper.panel=panel.smooth,
 
 ```
 
-some words here.
 
-```{r, fig.width = 4, fig.height = 4, fig.cap = "Correlation plot of the seven traits", fig.cap="pMPH"}
+```{r, echo=FALSE, fig.width = 4, fig.height = 4, fig.cap = "Correlation plot of pMPH"}
 source("profiling/1.pheno/1.A.3_pheno_cor_plot.R")
 ### get percentage of BPHmax
 myp3 <- get_pheno(trait=trait, pheno="pMPH")
@@ -74,75 +77,20 @@ pairs(myp3[, 2:8], text.panel = diag, upper.panel=panel.smooth,
 
 ```
 
+# general combining ability of the traits
 
 
-
-
-The Tufte-\LaTeX\ [^tufte_latex] document classes define a style similar to the style Edward Tufte uses in his books and handouts. Tufte’s style is known for its extensive use of sidenotes, tight integration of graphics with text, and well-set typography. 
-
-# Headings
-
-This style provides a- and b-heads (that is, `#` and `##`), demonstrated above.
-An error is emitted if you try to use `###` and smaller headings.
-
-\newthought{In his later books}[^books_be], Tufte starts each section with a bit of vertical space, a non-indented paragraph, and sets the first few words of the sentence in small caps. To accomplish this using this style, use the `\newthought` command as demonstrated at the beginning of this paragraph.
-
-# Figures
-
-## Margin Figures
-
-Images and graphics play an integral role in Tufte's work. To place figures or tables in the margin you can use the `fig.margin` knitr chunk option. For example:
-
-
-Note the use of the `fig.cap` chunk option to provide a figure caption. You can adjust the proportions of figures using the `fig.width` and `fig.height` chunk options. These are specified in inches, and will be automatically scaled down to fit within the handout margin.
-
-## Equations
-
-You can also include \LaTeX\ equations in the margin by explicitly invoking the `marginfigure` environment.
-
-\begin{marginfigure}
-$$\frac{d}{dx}\left( \int_{0}^{x} f(u)\,du\right)=f(x).$$
-\caption{An equation}
-\end{marginfigure}
-
-Note the use of the `\caption` command to add additional text below the equation.
-
-## Full Width Figures
-
-You can arrange for figures to span across the entire page by using the `fig.fullwidth` chunk option. 
-
-
-Note the use of the `fig.width` and `fig.height` chunk options to establish the proportions of the figure. Full width figures look much better if their height is minimized.
-
-## Main Column Figures
-
-Besides margin and full width figures, you can of course also include figures constrained to the main column.
-
-
-# Sidenotes
-
-One of the most prominent and distinctive features of this style is the extensive use of sidenotes. There is a wide margin to provide ample room for sidenotes and small figures. Any use of a footnote will automatically be converted to a sidenote. ^[This is a sidenote that was entered using a footnote.] 
-
-If you'd like to place ancillary information in the margin without the sidenote mark (the superscript number), you can use the `\marginnote` command. \marginnote{This is a margin note.  Notice that there isn't a number preceding the note.}
-
-Note also that the two footnote references (`tufte_latex` and `books_be`, both defined below) were also included in the margin on the first page of this document.
-
-# Tables
-
-You can use the **xtable** package to format \LaTeX\ tables that integrate well with the rest of the Tufte handout style. Note that it's important to set the `xtable.comment` and `xtable.booktabs` options as shown below to ensure the table is formatted correctly for inclusion in the document.
 
 ```{r, results='asis'}
 library(xtable)
+source("profiling/1.pheno/1.B.1_GCA_table.R")
 options(xtable.comment = FALSE)
 options(xtable.booktabs = TRUE)
-xtable(head(mtcars[,1:6]), caption = "First rows of mtcars")
+xtable(GCA, caption = "General combining abilities of the seven traits")
 ```
 
 
-[^tufte_latex]: https://code.google.com/p/tufte-latex/
-[^books_be]: http://www.edwardtufte.com/tufte/books_be
-
-[^r1]: http://rstudio.github.io/packrat/
+[^r1]: Flint-Garcia SA, Buckler ES, Tiffin P, Ersoz E, Springer NM (2009) Heterosis Is Prevalent for Multiple Traits in Diverse Maize Germplasm. PLoS ONE 4(10): e7433. doi:10.1371/journal.pone.0007433
 
 
 

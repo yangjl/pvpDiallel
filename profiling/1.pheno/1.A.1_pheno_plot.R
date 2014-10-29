@@ -20,3 +20,20 @@ plot_trait_per_se <- function(trait=trait, ...){
 #####
 plot_trait_per_se(trait=trait)
 
+normality_test <- function(trait=trait){
+  ti <- c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW")
+  
+  res <- vector()
+  for(i in 1:length(ti)){
+    myp <- subset(trait, trait==ti[i])
+    out <- shapiro.test(myp$valHyb)
+    res <- c(res, out$p.value)
+  }
+  return(res)
+}
+
+#######
+res <- normality_test(trait=trait)
+
+
+
