@@ -16,3 +16,5 @@ packrat/src/
 *_files/
 *.RData
 *.Rhistory
+
+largedata/

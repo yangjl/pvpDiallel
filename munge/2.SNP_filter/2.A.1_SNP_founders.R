@@ -7,4 +7,11 @@ snp <- read.table("FinalSNPs_all.txt", header=T)
 dim(snp)
 #[1] 13,782,809       18
 
+snp <- snp[, -5:-6]
+names(snp)[1:4] <- c("chr", "pos", "ref", "alt")
+#0       1       2       3       4       5       6       7       8       9        10
+#10991 2142843 1761501 1629370 1506567 1372563 1136154 1207457 1076253 1077722 861388
+snp <- subset()
+
+
 
