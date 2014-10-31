@@ -17,3 +17,5 @@ packrat/src/
 *.RData
 *.Rhistory
 largedata/
+slurm-log/
+slurm-scripts/
