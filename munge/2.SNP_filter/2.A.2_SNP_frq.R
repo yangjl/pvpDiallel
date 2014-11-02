@@ -34,7 +34,7 @@ write.table(snp11m, "largedata/SNP/allsnps_11m.dsf5", sep="\t", row.names=FALSE,
 
 map<- snp11m[, 1:7]
 names(map)[1:3] <- c("snpid", "AGPv2_chr", "AGPv2_pos")
-write.table(snp11m, "largedata/SNP/allsnps_11m.map", sep="\t", row.names=FALSE, quote=FALSE)
+write.table(map, "largedata/SNP/allsnps_11m.map", sep="\t", row.names=FALSE, quote=FALSE)
 
 
 

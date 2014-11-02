@@ -1,15 +1,35 @@
 # Jinliang Yang
 # July 10th, 2014
 
-source("lib/sh4GenSel.R")
+source("lib/slurm4GenSel.R")
 
-sh4GenSel(pwd="/home/jolyang/Documents/pvpDiallel/largedata/GenSel", 
+sh4GenSel(pwd="largedata/GenSel", 
           sh= "test.sh", 
           pi=0.99999, 
-          geno="/home/jolyang/Documents/pvpDiallel/largedata/SNP/snp11m_add_gensel", 
-          pheno="/home/jolyang/Documents/pvpDiallel/largedata/pheno/",
+          geno="/home/jolyang/Documents/pvpDiallel/largedata/SNP/snp11m_add_gensel.newbin", 
+          pheno="/home/jolyang/Documents/pvpDiallel/largedata/pheno/gy_diallel.txt",
           map="/home/jolyang/Documents/pvpDiallel/largedata/SNP/allsnps_11m.map",
           chainLength=41000, burnin=1000, varGenotypic=4, varResidual=1)
+
+sbatch -p bigmemh gensel_test.sh
+
+slurm4GenSel(
+  wd="slurm-scripts/", sh="gy_test.sh", 
+  sbatho="/home/jolyang/Documents/pvpDiallel/slurm-log/testout-%j.txt",
+  sbathe="#SBATCH -e /home/jolyang/Documents/pvpDiallel/slurm-log/error-%j.txt",
+  sbathJ="gyjob",
+  
+  pi=0.99999, findsale ="no",
+  geno="/home/jolyang/Documents/pvpDiallel/largedata/SNP/snp11m_add_gensel.newbin", 
+  pheno="/home/jolyang/Documents/pvpDiallel/largedata/pheno/gy.txt",
+  map="/home/jolyang/Documents/pvpDiallel/largedata/SNP/allsnps_11m.map",
+  chainLength=11000, burnin=1000, varGenotypic=1.4, varResidual=2
+)
+
+
+
+
+
 
 
 

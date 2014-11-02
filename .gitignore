@@ -18,4 +18,3 @@ packrat/src/
 *.Rhistory
 largedata/
 slurm-log/
-slurm-scripts/
