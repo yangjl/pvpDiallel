@@ -14,9 +14,9 @@ sh4GenSel(pwd="largedata/GenSel",
 sbatch -p bigmemh gensel_test.sh
 
 slurm4GenSel(
-  wd="slurm-scripts/", sh="gy_test.sh", 
+  sh="slurm-scripts/gy_test.sh", 
   sbatho="/home/jolyang/Documents/pvpDiallel/slurm-log/testout-%j.txt",
-  sbathe="#SBATCH -e /home/jolyang/Documents/pvpDiallel/slurm-log/error-%j.txt",
+  sbathe="/home/jolyang/Documents/pvpDiallel/slurm-log/error-%j.txt",
   sbathJ="gyjob",
   
   pi=0.99999, findsale ="no",

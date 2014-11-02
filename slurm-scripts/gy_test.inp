@@ -1,4 +1,4 @@
-// gensel input file written 2014-11-02 11:22:26
+// gensel input file written 2014-11-02 11:31:39
 analysisType Bayes
 bayesType BayesC
 chainLength 11000

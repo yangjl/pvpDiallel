@@ -4,7 +4,7 @@
 # location: farm
 
 
-slurm4GenSel <- function(wd="/home/jolyang/Documents/pvpDiallel/", sh="largedata/GenSel/CL_test.sh", 
+slurm4GenSel <- function(sh="largedata/GenSel/CL_test.sh", 
                       sbatho="/home/jolyang/Documents/pvpDiallel/slurm-log/testout-%j.txt",
                       sbathe="/home/jolyang/Documents/pvpDiallel/slurm-log/error-%j.txt",
                       sbathJ="jobid",
@@ -16,7 +16,7 @@ slurm4GenSel <- function(wd="/home/jolyang/Documents/pvpDiallel/", sh="largedata
                       chainLength=1000, burnin=100, varGenotypic=1.4, varResidual=2
                       ){
   #####
-  setwd(wd)
+  wd <- getwd()
   inp <- gsub("sh$", "inp", sh);
   log <- gsub("sh$", "log", sh)
   
