@@ -44,7 +44,7 @@ slurm4GenSel <- function(sh="largedata/GenSel/CL_test.sh",
   
       message(paste("###>>> In this path: cd ", wd, sep=""), "\n",
               paste("###>>> note --ntaks=x, 8GB of memory per CPU"),"\n",
-              paste("###>>> RUN: sbatch -p bigmemh --ntasks=2", sh))
+              paste("###>>> RUN: sbatch -p serial --mem 24000", sh))
 }
 
 ############################

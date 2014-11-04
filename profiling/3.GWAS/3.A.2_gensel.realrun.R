@@ -24,7 +24,7 @@ for(i in 1:7){
     geno="/home/jolyang/Documents/pvpDiallel/largedata/SNP/snp11m_add_gensel.newbin", 
     pheno=phenofile,
     map="/home/jolyang/Documents/pvpDiallel/largedata/SNP/allsnps_11m.map",
-    chainLength=41000, burnin=1000, varGenotypic= gen[i], varResidual= res[i]
+    chainLength=101000, burnin=1000, varGenotypic= gen[i], varResidual= res[i]
   )
 }
 
