@@ -1,0 +1,53 @@
+---
+title: "Using Rmarkdown and Github for reproducible and collabrative research"
+author: "Jinliang Yang"
+date: "November 5, 2014"
+output: beamer_presentation
+---
+
+## Setup your project
+
+- using __github__ do the version control
+- using **packrat** do the R package dependency management
+- using **ProjectTemplate** to layout the directories  
+
+```{r, eval=FALSE}
+#install.packages('ProjectTemplate')
+library('ProjectTemplate')
+create.project('temp')
+system("mv temp/* .")
+system("rm -r temp/")
+```
+Or simply just copy your directory system everything here!
+
+## Setup your project
+\graphicspath{{../graphs/}}
+\begin{figure}
+\includegraphics{dir.png}
+\caption{Minor allele frequency and missing rate of the about 14 million SNP on founder lines}
+\label{fig:mfig1}
+\end{figure}
+
+## R Markdown
+This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+
+## Slide with Bullets
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+## Slide with R Code and Output
+
+```{r}
+summary(cars)
+```
+
+## Slide with Plot
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
