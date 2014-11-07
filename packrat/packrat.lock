@@ -14,6 +14,12 @@ Version: 1.17.1
 Hash: bb5fdc266f716b8a289a4f92007d53e3
 Requires: bitops
 
+Package: data.table
+Source: CRAN
+Version: 1.9.2
+Hash: f4b376b88117e86fad182086ed992829
+Requires: reshape2
+
 Package: digest
 Source: CRAN
 Version: 0.6.4
@@ -67,10 +73,27 @@ GithubUsername: rstudio
 GithubRef: v0.98.1000
 GithubSha1: e738f79a22521c57fad67a1679302385973cd958
 
+Package: plyr
+Source: CRAN
+Version: 1.8.1
+Hash: 6a287219196e18bc6261dc11b41b1ca0
+Requires: Rcpp
+
 Package: ProjectTemplate
 Source: CRAN
 Version: 0.5-1
 Hash: 884be7024aa4eb7bee03f75ecac5d668
+
+Package: Rcpp
+Source: CRAN
+Version: 0.11.3
+Hash: d9cc0a13885961b2d004cf73b0fb68dd
+
+Package: reshape2
+Source: CRAN
+Version: 1.4
+Hash: e50809918ebb73dff47de17d36d12975
+Requires: plyr, Rcpp, stringr
 
 Package: rmarkdown
 Source: github

@@ -13,3 +13,12 @@ snp <- subset(snp, chr != 0)
 
 write.table(snp, "largedata/SNP/allsnps_13.7m.dsf2", sep="\t", row.names=FALSE, quote=FALSE)
 
+
+
+############# dsf2vcf
+tab5rows <- read.table(inputfile, header=TRUE, nrows=5)
+classes <- sapply(tab5rows, class)
+res <- read.table(inputfile, header=TRUE, colClasses=classes)
+
+library(data.table)
+dsf <- fread("largedata/SNP/allsnps_13.7m.dsf2", header=TRUE)

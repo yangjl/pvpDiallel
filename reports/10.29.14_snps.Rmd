@@ -3,6 +3,7 @@ title: "Diallel SNPs"
 author: "Jinliang Yang"
 date: "Octo 29th, 2014"
 output: rmarkdown::tufte_handout
+
 ---
 
 # SNP for founder lines
