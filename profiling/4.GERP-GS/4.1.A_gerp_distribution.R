@@ -49,6 +49,8 @@ chr10 <- readgerp(gerpfile="largedata/GERPv2/roast.chrom.10.msa.in.rates.full", 
 
 save(file="largedata/lcache/4.1.A_gerpdis.RData", list=c("chr1", "chr2", "chr3", "chr4", "chr5",
                                       "chr6", "chr7", "chr8", "chr9", "chr10"))
+chrall <- rbind(chr1, chr2, chr3, chr4, chr5, chr6, chr7, chr8, chr9, chr10)
+write.table(chrall, "largedata/GERPv2/gerp130m.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
 
