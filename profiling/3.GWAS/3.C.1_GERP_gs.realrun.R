@@ -1,5 +1,7 @@
 # Jinliang Yang
-# Nov 2nd, 2014
+# Nov 23rd, 2014
+# run the cv with GERP SNPs
+source("lib/slurm4GenSelCV.R")
 
 
 #test run of the 66 diallel of trait per se with additive model
@@ -8,25 +10,72 @@ res <- c(0.38, 0.46, 0.46, 15, 88, 41, 0.64)
 gen <- c(0.18, 5.1, 6.0, 123, 65, 377, 0.82)
 
 
-source("lib/slurm4GenSel_v2.R")
-for(i in 1:7){ 
-  trait <- tolower(ti[i])
-  shfile <- paste("slurm-scripts/", trait, "_realrun.sh", sep="")
-  phenofile <- paste("/home/jolyang/Documents/pvpDiallel/largedata/pheno/", trait, ".txt", sep="")
+### run a single trait as a test!!!
+# using GERP data
+# run 12 CV
+
+Set12Run <- function(include="/home/jolyang/Documents/Github/pvpDiallel/largedata/SNP/inmarker/snp_gerp_bg0.txt",
+                     trait = "DTP", shfile="slurm-scripts/DTP_gerprun.sh", jobid="dtpgerp",
+                     inpbase="cvgerp"){
   
-  slurm4GenSel(
-    sh=shfile, 
-    sbatho="/home/jolyang/Documents/pvpDiallel/slurm-log/testout-%j.txt",
-    sbathe="/home/jolyang/Documents/pvpDiallel/slurm-log/error-%j.txt",
-    sbathJ=trait,
+  ### generate 12 inp
+  geno="/home/jolyang/Documents/Github/pvpDiallel/largedata/SNP/snp11m_add_gensel.newbin"
+  myinp <- c()
+  for(i in 1:12){
+    inp <- paste("slurm-scripts/", trait, inpbase, i, ".inp", sep="")
+    trainP <- paste("/home/jolyang/Documents/Github/pvpDiallel/largedata/pheno/CV/", tolower(trait), "_train", i, ".txt", sep="")
+    testP <- paste("/home/jolyang/Documents/Github/pvpDiallel/largedata/pheno/CV/", tolower(trait), "_test", i, ".txt", sep="")
     
-    pi=0.9998, findsale ="no",
-    geno="/home/jolyang/Documents/pvpDiallel/largedata/SNP/snp11m_add_gensel.newbin", 
-    pheno=phenofile,
-    map="/home/jolyang/Documents/pvpDiallel/largedata/SNP/allsnps_11m.map",
-    chainLength=101000, burnin=1000, varGenotypic= gen[i], varResidual= res[i]
-  )
+    ##### parameters pass to GenSel input
+    GenSel_inp(inp=inp, geno=geno,inmarker=include, trainpheno=trainP, testpheno=testP, pi=0.9999, findsale ="no", 
+               chainLength=41000, burnin=1000, varGenotypic= gen[2], varResidual= res[2])
+    myinp <- c(myinp, inp)
+  }
+  ##### 1 slurm script
+  slurm4GenSelCV(sh=shfile, inp=myinp,
+                 sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
+                 sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
+                 sbathJ=jobid)
 }
+
+#### RUN GERP for DTP
+Set12Run(include="/home/jolyang/Documents/Github/pvpDiallel/largedata/SNP/inmarker/snp_gerp_bg0.txt",
+         inpbase="_gerp",
+         trait = "DTP", shfile="slurm-scripts/DTP_gerprun.sh", jobid="dtpgerp")
+
+#### RUN 10 random SNP sets
+for(k in 1:10){
+  Set12Run(include=paste("/home/jolyang/Documents/Github/pvpDiallel/largedata/SNP/inmarker/snprandom_set", k, ".txt", sep=""),
+           inpbase= paste("_randsnp", k, "_s", sep=""),
+           trait = "DTP", shfile=paste("slurm-scripts/DTP_rand", k, ".sh", sep=""), jobid=paste("dtp", k, sep=""))
+}
+
+
+### RUN 29k GERP for ASI
+Set12Run(include="/home/jolyang/Documents/Github/pvpDiallel/largedata/SNP/inmarker/snp_gerp_bg2.txt",
+         inpbase="_gerp",
+         trait = "ASI", shfile="slurm-scripts/ASI_gerprun.sh", jobid="asi_gerp")
+
+#### RUN 10 random 29k SNP sets for ASI trait
+for(k in 1:10){
+  Set12Run(include=paste("/home/jolyang/Documents/Github/pvpDiallel/largedata/SNP/inmarker/snp29k_set", k, ".txt", sep=""),
+           inpbase= paste("_snp29k", k, "_s", sep=""),
+           trait = "ASI", shfile=paste("slurm-scripts/ASI_rand", k, ".sh", sep=""), jobid=paste("asi", k, sep=""))
+}
+
+
+
+sbatch -p bigmemh --ntasks=3 slurm-scripts/DTP_gerprun.sh
+sbatch -p serial --ntasks=3  slurm-scripts/DTP_rand1.sh
+
+
+
+
+
+
+
+
+
 
 
 

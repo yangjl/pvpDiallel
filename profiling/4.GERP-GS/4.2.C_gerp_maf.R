@@ -21,7 +21,7 @@ plot(snpnz$MAF, snpnz$RS)
 
 hist(snpnz$RS, breaks=50, main="Distribution of GERP", xlab="GERP score")
 abline(v=0, lty=2, col="grey", lwd=3)
-nrow(subset(snpnz, RS>0))
+nrow(subset(snpnz, RS>2))
 nrow(subset(snpnz, RS<0))
 
 
