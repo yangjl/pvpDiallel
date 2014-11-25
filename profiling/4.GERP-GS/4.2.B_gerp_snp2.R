@@ -22,10 +22,15 @@ snpb2 <- subset(snpnon, RS >2 )
 write.table(subset(snpb2, select="snpid"), "largedata/SNP/inmarker/snp_gerp_bg2.txt", sep="\t", 
             row.names=FALSE, col.names=FALSE, quote=FALSE)
 
+snps4 <- subset(snpnon, RS < -4 )
+#system("mkdir largedata/SNP/inmarker")
+write.table(subset(snps4, select="snpid"), "largedata/SNP/inmarker/snp_gerp_sm4.txt", sep="\t", 
+            row.names=FALSE, col.names=FALSE, quote=FALSE)
 
 
 
 
+#############################################################################
 
 ##### generate same number of random SNPs
 getRandomSNP <- function(fromdf=snp11m, num=nrow(snpb), nrep=10, basenm="snprandom_set", writeto="largedata/SNP/inmarker/"){
@@ -47,6 +52,8 @@ getRandomSNP <- function(fromdf=snp11m, num=nrow(snpb), nrep=10, basenm="snprand
 set.seed(1234567)
 getRandomSNP(fromdf=snp11m, num=nrow(snpb), nrep=10, basenm="snprandom_set", writeto="largedata/SNP/inmarker/")
 getRandomSNP(fromdf=snp11m, num=nrow(snpb2), nrep=10, basenm="snp29k_set", writeto="largedata/SNP/inmarker/")
+getRandomSNP(fromdf=snp11m, num=nrow(snps4), nrep=10, basenm="snps4_set", writeto="largedata/SNP/inmarker/")
+
 
 
 
