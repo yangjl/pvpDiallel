@@ -153,6 +153,11 @@ Version: 0.2.4
 Hash: b8b1af97bd07818605223060386b00dd
 Requires: dichromat, labeling, munsell, plyr, RColorBrewer
 
+Package: stringi
+Source: CRAN
+Version: 0.3-1
+Hash: 6795f234a744d2458b1f43fd482c0f5a
+
 Package: stringr
 Source: CRAN
 Version: 0.6.2
