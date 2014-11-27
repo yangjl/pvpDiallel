@@ -65,7 +65,7 @@ for(k in 1:10){
            trait = "ASI", shfile=paste("slurm-scripts/ASI_snp29k_", k, ".sh", sep=""), jobid=paste("asi", k, sep=""))
 }
 
-### RUN < -4 29k GERP for ASI
+### RUN < -4 GERP for ASI
 Set12Run(include="/home/jolyang/Documents/Github/pvpDiallel/largedata/SNP/inmarker/snp_gerp_sm4.txt",
          inpbase="_gerpsm4_", pi=0.998,varid=1,
          trait = "ASI", shfile="slurm-scripts/ASI_gerpsm4.sh", jobid="asi_gerp4")
@@ -78,26 +78,38 @@ for(k in 1:10){
 }
 
 
+### RUN >2 29k GERP for DTP
+Set12Run(include="/home/jolyang/Documents/Github/pvpDiallel/largedata/SNP/inmarker/snp_gerp_bg2.txt",
+         inpbase="_gerp29k_s", pi=0.998, varid=2,
+         trait = "DTP", shfile="slurm-scripts/DTP_gerp29k.sh", jobid="dtp29k_gerp")
+
+#### RUN 10 random 29k SNP sets for ASI trait
+for(k in 1:10){
+  Set12Run(include=paste("/home/jolyang/Documents/Github/pvpDiallel/largedata/SNP/inmarker/snp29k_set", k, ".txt", sep=""),
+           inpbase= paste("_snp29k", k, "_s", sep=""), pi=0.998, varid=2,
+           trait = "DTP", shfile=paste("slurm-scripts/DTP_snp29k_", k, ".sh", sep=""), jobid=paste("dtp29k", k, sep=""))
+}
+
+### RUN < -4 37k GERP for DTP
+Set12Run(include="/home/jolyang/Documents/Github/pvpDiallel/largedata/SNP/inmarker/snp_gerp_sm4.txt",
+         inpbase="_gerpsm4_s", pi=0.998, varid=2,
+         trait = "DTP", shfile="slurm-scripts/DTP_gerpsm4.sh", jobid="dtpsm4_gerp")
+
+#### RUN 10 random 37k SNP sets for ASI trait
+for(k in 1:10){
+  Set12Run(include=paste("/home/jolyang/Documents/Github/pvpDiallel/largedata/SNP/inmarker/snps4_set", k, ".txt", sep=""),
+           inpbase= paste("_snpsm4k", k, "_s", sep=""), pi=0.998, varid=2,
+           trait = "DTP", shfile=paste("slurm-scripts/DTP_snpsm4_", k, ".sh", sep=""), jobid=paste("dtpsm4_k", k, sep=""))
+}
+
+
 
 
 sbatch -p bigmemh --ntasks=2 slurm-scripts/DTP_gerprun.sh
 sbatch -p serial --ntasks=2  slurm-scripts/ASI_gerp29k.sh
 sbatch -p serial --ntasks=2  slurm-scripts/ASI_snp29k_1.sh
 
-sbatch -p serial --ntasks=2  slurm-scripts/ASI_gerpsm4.sh
-sbatch -p serial --ntasks=2  slurm-scripts/ASI_snpsm4_1.sh
-
-
-
-
-
-
-
-
-
-
-
-
-
+sbatch -p serial --ntasks=2  slurm-scripts/DTP_gerpsm4.sh
+sbatch -p serial --ntasks=2  slurm-scripts/DTP_snpsm4_1.sh
 
 
