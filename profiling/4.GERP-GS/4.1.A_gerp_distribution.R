@@ -47,96 +47,13 @@ chr9 <- readgerp(gerpfile="largedata/GERPv2/roast.chrom.9.msa.in.rates.full", ch
 chr10 <- readgerp(gerpfile="largedata/GERPv2/roast.chrom.10.msa.in.rates.full", chr=10)
 # Chr [10]: tot length [ 150189435 ], >0 [ 5834100 ], <0 [ 3066858 ]
 
-save(file="largedata/lcache/4.1.A_gerpdis.RData", list=c("chr1", "chr2", "chr3", "chr4", "chr5",
-                                      "chr6", "chr7", "chr8", "chr9", "chr10"))
+save(file="largedata/lcache/4.1.A_gerpdis.RData", 
+     list=c("chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10"))
 chrall <- rbind(chr1, chr2, chr3, chr4, chr5, chr6, chr7, chr8, chr9, chr10)
+# server only
 write.table(chrall, "largedata/GERPv2/gerp130m.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
-
-
-
 chr1 <- readgerp(gerpfile="largedata/GERPv2/roast.chrom.1.msa.in.rates.full", chr=1)
-
-
-
-
-
-names(chr10) <- c("N", "RS")
-
-
-
-hist(chr1[chr1$RS!=0,]$RS, breaks=100)
-
-#### read the table fast
-chr2 <- fread("largedata/GERPv2/roast.chrom.2.msa.in.rates.full", header=FALSE)
-names(chr2) <- c("N", "RS")
-nrow(subset(chr2, RS > 0)) 
-
-hist(chr2[chr2$RS!=0,]$RS, breaks=100)
-
-chr <- rbind(chr1, chr2)
-
-#chr10 <- chr10[chr10$RS!=0, ]
-hist(chr10$RS, breaks=50)
-
-nrow(subset(chr10, RS > 0)) / 150189435
-
-chr <- chr10
-BINSIZE=1000
-chr$bin <- paste(chr$chr, round(chr$pos/BINSIZE, 0), sep="_")
-
-
-tab <- ddply(chr, .(bin), summarise,
-             binrs = mean(RS))
-
-tab$chr <- as.numeric(as.character(gsub("_.*", "", tab$bin)))
-tab$pos <- as.numeric(as.character(gsub(".*_", "", tab$bin)))
-
-plot(x=tab$pos, y=tab$binrs, pch=19, cex=0.2)
-
-
-
-
-
-
-
-message(sprintf("###>>> input [ %s ]", nrow(res)))
-
-
-chr1 <- read.table
-
-
-
-
-ele10 <- read.table("~/Documents/Data/GERP/roast.chrom.1.msa.in.rates.full")
-
-
-#Columns 6-8 arent actually listed in the README file. 
-#Column 6 is the total number of bases within conserved elements up to a including
-#that row. I believe that columns 7 and 8 correspond to the false positive rate assuming a given p-value, 
-#but Id have to contact to Sidow lab to be sure.
-
-gerp1 <- read.table("~/Documents/Data/GERP/roast.chrom.1.msa.in.rates.full", header=FALSE)
-gerp1$pos <- 1:nrow(gerp1)
-
-
-sub1 <- subset(gerp1, V2!=0)
-
-
-hist(sub1$V2)
-
-
-#plot(x=sub1$pos, y=sub1$V2)
-
-
-
-
-
-
-
-
-
-
 
 

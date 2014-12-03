@@ -18,7 +18,7 @@ samWINplot <- function(trait=traits[1]){
   pdf(paste("largedata/lgraphs/", trait, "_winqtl.pdf", sep=""), width=10, height=4)
   quickMHTplot(res=bayes1, main=trait, cex=.6, pch=19, 
                col=rep(c("slateblue", "cyan4"), 5), 
-               GAP=5e+06, ylab="phenotypic variance explained %", yaxis=1, ylim=c(0, 0.5),
+               GAP=5e+06, ylab="phenotypic variance explained %", yaxis=c(0.1, 0.2, 0.3, 0.4), ylim=c(0, 0.5),
                col2plot="var")
   abline(h=0.15, col="red", lty=2, lwd=2)
   dev.off()

@@ -11,8 +11,6 @@ ChrPlot <- function(binsize=1000000, tab=tab1m){
   plot(c(0, max(cl$BP)/binsize), c(10,110), type="n", main="binsize = 1000bp", 
        xlab="Physical position (Kb)", ylab="", yaxt="n", bty="n")
   
-  
-  
   axis(side=2, tick =FALSE, las=1, at=c(105, 95, 85, 75, 65, 55, 45, 35, 25, 15), 
        labels=paste("Chr", 1:10, sep=""))
   
@@ -55,9 +53,5 @@ ChrPlot1M <- function(binsize=1000000, tab=tab1m){
   for (chri in 1:10){
     mytab <- subset(tab, chr == chri)
     points(mytab$pos, 105 - 10*(chri-1) + mytab$binrs/5, pch=19, cex=0.6, col=cols[chri])
-  }
-  
-  
-  
-  
+  } 
 }

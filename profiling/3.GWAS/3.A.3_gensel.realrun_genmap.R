@@ -31,24 +31,24 @@ for(i in 1:7){
 
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntaks=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p serial --ntasks=3 slurm-scripts/asi_realrun.sh
+###>>> RUN: sbatch -p serial --mem 24000 slurm-scripts/asi_realrun.sh
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntaks=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p serial --ntasks=3 slurm-scripts/dtp_realrun.sh
+###>>> RUN: sbatch -p serial --mem 24000 slurm-scripts/dtp_realrun.sh
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntaks=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p serial --ntasks=3 slurm-scripts/dts_realrun.sh
+###>>> RUN: sbatch -p serial --mem 24000 slurm-scripts/dts_realrun.sh
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntaks=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p serial --ntasks=3 slurm-scripts/eht_realrun.sh
+###>>> RUN: sbatch -p serial --mem 24000 slurm-scripts/eht_realrun.sh
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntaks=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p serial --ntasks=3 slurm-scripts/gy_realrun.sh
+###>>> RUN: sbatch -p serial --mem 24000 slurm-scripts/gy_realrun.sh
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntaks=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p serial --ntasks=3 slurm-scripts/pht_realrun.sh
+###>>> RUN: sbatch -p serial --mem 24000 slurm-scripts/pht_realrun.sh
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntaks=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p serial --ntasks=3 slurm-scripts/tw_realrun.sh
+###>>> RUN: sbatch -p serial --mem 24000 slurm-scripts/tw_realrun.sh
 
 

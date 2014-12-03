@@ -23,4 +23,3 @@ plot_loh <- function(trait=trait, ...){
 trait <- read.csv("data/trait_matrix.csv")
 plot_loh(trait=trait)
 
-

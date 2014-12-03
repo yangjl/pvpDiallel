@@ -25,7 +25,7 @@ source("lib/quickMHTplot.R")
 bayes1 <- getBayes("largedata/GenSel/testrun/asi_trun.mrkRes1", mfcutoff=0)
 #bayes1s <- subset(bayes1, ModelFreq > 0.005)
 pdf("largedata/lgraphs/asi_gs.pdf", width=10, height=4)
-quickMHTplot(res=bayes1, main="ASI, pai=0.9999, chain length=11000", cex=.9, pch=16, 
+quickMHTplot(res=bayes1, main="ASI, pai=0.9999, chain length=101000", cex=.9, pch=16, 
              col=rep(c("slateblue", "cyan4"), 5), 
              GAP=5e+06, ylab="model frequency", yaxis=NULL,
              col2plot="ModelFreq")
