@@ -16,7 +16,7 @@ quickMHTplot <- function(res=res, cex=.9, pch=16, col=rep(c("slateblue", "cyan4"
   #### setup the cavon
   if(is.null(yaxis)){
     plot(x=-1000, y=-1000,  type="p", xaxt="n", xlab="", 
-         xlim=c(0, max(chrtick$chrlines)), ylim=c(0, max(res[, col2plot], na.rm=TRUE)*1.3 ),
+         xlim=c(0, max(chrtick$chrlines)), ylim=c(0, max(res[, col2plot], na.rm=TRUE)*2 ),
          ...)
   }else{
     plot(x=-1000, y=-1000,  type="p", xaxt="n", yaxt="n", xlab="",

@@ -3,9 +3,9 @@
 ### purpose: apply gam and project the genomic position to cM
 
 get_training_map <- function(){
-  nammap <- read.csv("~/Documents/KRN_GWAS_v3/GWAS3_proj/data/NAM_map_and_genos/NAM_map_20080419.csv")
+  nammap <- read.csv("data/NAM_map_20080419.csv")
   nammap <- nammap[, 1:5]
-  phy <- read.csv("~/Documents/KRN_GWAS_v3/GWAS3_proj/data/NAM_map_and_genos/NAM_1144SNPs_AGPv2_positions.csv")
+  phy <- read.csv("data/NAM_1144SNPs_AGPv2_positions.csv")
   phy <- phy[, 1:6]
   
   map <- merge(nammap, phy, by.x="marker", by.y="SNP_NAME")
@@ -20,20 +20,25 @@ map <- get_training_map()
 
 
 ##############################################
-cvd_p2g <- function(map=map){
+use_p2g <- function(training=map){
   source("lib/p2g.R")
   
   ### format data for predicting genetic position
-  cvsnp <- read.csv("reports/Stable13_cv_summary.csv")
-  cvsnp <- cvsnp[, c(1,3,4,2,5:18)]
-  
+  ###
+  pfile <- read.table("largedata/SNP/allsnps_11m.map", sep="\t", header=TRUE)
+  names(pfile)[1:3] <- c("marker_name", "chromosome", "Physical")
   #Input file:  Three columns: 1.marker_name 2.chromosome (Integer) 
   #3. Physical position (Colname must be Physical);
-  cvp <- p2g(predict=cvsnp, train=map) 
-  cvsnp <- merge(cvp, cvsnp[, -2:-3], by.x="marker", by.y="snpid")
-  return(cvsnp)
+  pfile$chromosome <- as.numeric(as.character(pfile$chromosome))
+  pfile$Physical <- as.numeric(as.character(pfile$Physical))
+  gp <- p2g(train=map, predictdf=pfile[,1:3]) 
+  gp$genetic <- 1000000*gp$genetic
+  gp <- gp[, c(1,2,4)]
+  names(gp) <- c("snpid", "AGPv2_chr", "AGPv2_pos")
+  return(gp)
 }
 
-cvsnp <- cvd_p2g(map=map)
 
-save(file="cache/cvsnp_p2g.RData", list=c("map", "cvsnp"))
+snpmap <- use_p2g(training=map)
+write.table(snpmap, "largedata/SNP/allsnps_11m_genetic.map", sep="\t", row.names=FALSE, quote=FALSE)
+

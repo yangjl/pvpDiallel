@@ -28,9 +28,9 @@ p2g <- function (predictdf=test, train="gam_training_nam.map.txt") {
     markername <- data.frame(marker[marker[,2]==chr,1])
     phy <- data.frame(marker[marker[,2]==chr,3])
     colnames(phy)="Physical"
-    gen<-data.frame(predict.gam(out,phy))
-    gen2<-round(gen,2)
-    Pchr<-cbind(markername,chr,phy,gen2)
+    gen <- data.frame(predict.gam(out,phy))
+    gen2 <- round(gen, 5)
+    Pchr <- cbind(markername,chr,phy,gen2)
     marker_Pos <- rbind(marker_Pos,Pchr)
   }
   # change column name:
