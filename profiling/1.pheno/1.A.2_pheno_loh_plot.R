@@ -5,6 +5,8 @@
 
 #######
 plot_loh <- function(trait=trait, ...){
+  trait$pMPH <- abs(trait$pMPH)
+  trait$pBPHmax <- abs(trait$pBPHmax)
   par(mfrow=c(1,2))
   bymed <- with(trait, reorder(trait, pMPH, median))
   boxplot(pMPH ~ bymed, data=trait,
@@ -17,7 +19,7 @@ plot_loh <- function(trait=trait, ...){
           main="percentage of better parental heterosis")
   
 }
-#####
+##### note: change to abs value
 trait <- read.csv("data/trait_matrix.csv")
 plot_loh(trait=trait)
 

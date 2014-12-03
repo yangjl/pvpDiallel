@@ -8,7 +8,7 @@
 * **DTP**: days to pollen
 * **ASI**: anthesis-silk Interval
 * **Adj.GY**: adjusted grain yield
-* **TW**: _test weight?_ what is this trait? 
+* **TW**: test weight
 
 
 ### Jinliang's report on phenotypic data checking
@@ -21,9 +21,6 @@ Or you could found the final pdf through the following link:
 ```{r, eval=FALSE}
 source("~/Documents/Github/pvpDiallel/munge/1.raw_pheno/1.A.1_format_pheno.R")
 ```
-
-
-
 
 
 ### Notes from Sofiane 10/13/2014
