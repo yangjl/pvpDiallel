@@ -11,18 +11,24 @@ snptab <- ddply(snpnz, .(MAF2), summarise,
                 rsmean= mean(RS),
                 rssd = sd(RS))
 
-plot(snptab$MAF2, snptab$rsmean)
+plot(snptab$MAF2, snptab$rsmean, type="o")
 cor.test(as.numeric(as.character(snptab$MAF2)), snptab$rsmean)
 ##############################################################
 
-plot(snpnz$MAF, snpnz$RS)
+plot(snpnz$MAF, snpnz$RS, type="o")
 ?ddply()
 
 
-hist(snpnz$RS, breaks=50, main="Distribution of GERP", xlab="GERP score")
+par(mfrow=c(1,2))
+hist(snpnz$RS, breaks=50, main="Distribution of GERP (N=1.2M)", xlab="GERP score")
 abline(v=0, lty=2, col="grey", lwd=3)
 nrow(subset(snpnz, RS>2))
 nrow(subset(snpnz, RS<0))
+
+plot(snptab$MAF2, snptab$rsmean, type="o", xlab="MAF", ylab="Avg. GERP", main="GERP vs. MAF")
+
+
+
 
 
 

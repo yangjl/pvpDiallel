@@ -25,15 +25,12 @@ ChrPlot <- function(binsize=1000000, tab=tab1m){
     lines(c(0, cl[i,]$BP/binsize),c(105-10*(i-1), 105-10*(i-1)), lwd=4, col="grey")
     #lines (c(centromere[i,]$Start,centromere[i,]$End),
     #       c(105-10*i, 105-10*i),lwd=5, col="tomato") 
-  }
-  
-  
+  }  
 }
-
+###
+ChrPlot(binsize=1000000, tab=tab1m)
 #######################
 ChrPlot1M <- function(binsize=1000000, tab=tab1m){
-  
-  
   #### read chr length
   cl <- read.table("data/ZmB73_RefGen_v2.length", header=FALSE)
   names(cl) <- c("chrom", "BP")
@@ -55,3 +52,5 @@ ChrPlot1M <- function(binsize=1000000, tab=tab1m){
     points(mytab$pos, 105 - 10*(chri-1) + mytab$binrs/5, pch=19, cex=0.6, col=cols[chri])
   } 
 }
+###
+ChrPlot1M(binsize=1000000, tab=tab1m)

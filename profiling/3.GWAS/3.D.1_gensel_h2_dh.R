@@ -20,4 +20,15 @@ vars <- data.frame(trait=c("TW", "DTP", "DTS", "PHT", "EHT", "ASI", "GY"),
 heterosis <- merge(heterosis, vars, by="trait")
 heterosis <- heterosis[order(heterosis$pMPH),]
 
-plot(x=heterosis$pMPH, y=heterosis$h2, type="o")
+
+#####plot the correlation
+par(mfrow=c(1,2))
+plot(x=heterosis$pHPH, y=heterosis$h2, type="p", ylim=c(0,100), xlab="pBPH", ylab="h^2 (SNP)", main="Better Parental Heterosis")
+cor.test(x=heterosis$pHPH, y=heterosis$h2)
+reg2 <- lm(h2~pHPH, data=heterosis)
+abline(reg2, lwd=2, col="red")
+
+plot(x=heterosis$pMPH, y=heterosis$h2, type="p", ylim=c(0, 100), xlab="pMPH", ylab="h^2 (SNP)", main="Mid-Parental Heterosis")
+cor.test(x=heterosis$pMPH, y=heterosis$h2)
+reg1 <- lm(h2~pMPH, data=heterosis)
+abline(reg1, lwd=2, col="red")
