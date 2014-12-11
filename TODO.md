@@ -1,54 +1,44 @@
+---
+output: pdf_document
+---
 
+# To Do List
 
+1. IBD blocks
+2. SNP in the bin
+3. cM method, try to fix the negative cM issue
+4. 
 
-Short reminder of what has been done:
+------
 
-Diallel phenotypic data 
+# Short reminder of what has been done (By Sofiane):
 
-analyses of the phenotypic data 
+## phentoype
+1. Diallel phenotypic data 
+2. analyses of the phenotypic data 
+3. estimates of MPH, BPHmax, BPHmin
+4. estimates of GCA and SCA
 
-estimates of MPH, BPHmax, BPHmin
+## Diallel parent sequence data 
 
-estimates of GCA and SCA
+1. sequences mapped to the B73 ref. 
+2. SNP calls and filtering 
+3. IBS estimates with Beagle 
+4. Haplotypic bloc definition 
+5. Synonymous/non synonymous SNP calls 
+6. deleterious SNPs calls (SIFT and MAPP)
 
+## Statistics 
 
+1. GWAS at SNP level 
+2. SNP heterozygosity with heterosis
+3. SNP heterozygosity with heterosis assuming dominance (I included one of the homozygotes with the heterozygotes)
+4. SNPs with the genetic values of the hybrids
+5. SNPs with SCA
 
-Diallel parent sequence data 
+## GWAS at the Haplotype level
 
-sequences mapped to the B73 ref. 
-
-SNP calls and filtering 
-
-IBS estimates with Beagle 
-
-Haplotypic bloc definition 
-
-Synonymous/non synonymous SNP calls 
-
-deleterious SNPs calls (SIFT and MAPP)
-
-
-
-Statistics 
-
-GWAS at SNP level 
-
-SNP heterozygosity with heterosis
-
-SNP heterozygosity with heterosis assuming dominance (I included one of the homozygotes with the heterozygotes)
-
-SNPs with the genetic values of the hybrids
-
-SNPs with SCA
-
-
-
-GWAS at the Hplotype level
-
-heterozygosity with heterosis 
-
-
-
+1. heterozygosity with heterosis 
 
 
 Summaries of the results:
@@ -69,7 +59,7 @@ MPH, BPHmax and BPHmins
 
 I looked at significant haplotypic blocs with minimum allele count of at least 5 that are significant (pval<0.0001) and checked what is the better model for significant SNPs (pval<0.001) in the haplotype: dominance or additivity
 
-Check the number of haplotypes in each haplotypic group and identify the polymorphisms and seather that are deleterious
+Check the number of haplotypes in each haplotypic group and identify the polymorphisms and weather that are deleterious
 
 it’s stil running on the server …
 

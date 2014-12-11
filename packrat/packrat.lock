@@ -1,7 +1,33 @@
 PackratFormat: 1.4
 PackratVersion: 0.4.0.12
 RVersion: 3.0.2
-Repos: CRAN=http://cran.rstudio.com
+Repos: CRAN=http://cran.rstudio.com,
+    BioCsoft=http://bioconductor.org/packages/2.13/bioc,
+    BioCann=http://bioconductor.org/packages/2.13/data/annotation,
+    BioCexp=http://bioconductor.org/packages/2.13/data/experiment,
+    BioCextra=http://bioconductor.org/packages/2.13/extra
+
+Package: Biobase
+Source: Bioconductor
+Version: 2.22.0
+Hash: cb1b8b1d9d4816ad9bb6ce7c70dcf1da
+Requires: BiocGenerics
+
+Package: BiocGenerics
+Source: Bioconductor
+Version: 0.8.0
+Hash: 32338a2da716fd80253bedd1234cfa81
+
+Package: BiocInstaller
+Source: Bioconductor
+Version: 1.12.1
+Hash: f32da01f2fdb5a033520b5bd81cf3a6c
+
+Package: Biostrings
+Source: Bioconductor
+Version: 2.30.1
+Hash: a5e0348df0ce8c330db58fd745c697b0
+Requires: BiocGenerics, IRanges, XVector
 
 Package: bitops
 Source: CRAN
@@ -13,6 +39,12 @@ Source: CRAN
 Version: 1.17.1
 Hash: bb5fdc266f716b8a289a4f92007d53e3
 Requires: bitops
+
+Package: cn.mops
+Source: Bioconductor
+Version: 1.8.9
+Hash: f333b631df7de7cc04cebaef6c9c80ad
+Requires: Biobase, BiocGenerics, GenomicRanges, IRanges, Rsamtools
 
 Package: colorspace
 Source: CRAN
@@ -46,6 +78,12 @@ Source: CRAN
 Version: 1.0
 Hash: a90c211d7df7e61a72b8ab6c99c2e848
 
+Package: GenomicRanges
+Source: Bioconductor
+Version: 1.14.4
+Hash: 64b585135eb7cd837f813e00d2974f34
+Requires: BiocGenerics, IRanges, XVector
+
 Package: ggplot2
 Source: CRAN
 Version: 1.0.0
@@ -67,6 +105,12 @@ Source: CRAN
 Version: 0.2.6
 Hash: 2c87108d130de261ac3c468d3316ae42
 Requires: digest
+
+Package: IRanges
+Source: Bioconductor
+Version: 1.20.7
+Hash: c0a0fbb6ba0fde38c110caa28dc7753b
+Requires: BiocGenerics
 
 Package: knitr
 Source: CRAN
@@ -147,6 +191,13 @@ GithubUsername: rstudio
 GithubRef: v0.98.1000
 GithubSha1: fd8dafdea0b4cc68b9dc3da0557a506e60e77ee2
 
+Package: Rsamtools
+Source: Bioconductor
+Version: 1.14.3
+Hash: f588af4018941e69ec251f9b60b17921
+Requires: BiocGenerics, Biostrings, bitops, GenomicRanges, IRanges,
+    XVector, zlibbioc
+
 Package: scales
 Source: CRAN
 Version: 0.2.4
@@ -168,7 +219,18 @@ Source: CRAN
 Version: 1.7-4
 Hash: 7b30b5ca6c7ae80c4f916502e3ad0237
 
+Package: XVector
+Source: Bioconductor
+Version: 0.2.0
+Hash: 19fcab82fcb5b04d20735a4a8894027f
+Requires: BiocGenerics, IRanges
+
 Package: yaml
 Source: CRAN
 Version: 2.1.13
 Hash: e5d041c001f6d641fd009c1f6ef7d831
+
+Package: zlibbioc
+Source: Bioconductor
+Version: 1.8.0
+Hash: 80ee4932b08733bcfbb1238c468e5c7e
