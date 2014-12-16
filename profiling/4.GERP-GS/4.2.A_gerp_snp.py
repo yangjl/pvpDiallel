@@ -18,5 +18,7 @@ snp11mgp = snp11mgp[["snpid", "N", "RS", "chr", "pos"]]
 snp11mgp.to_csv("largedata/SNP/allsnps_11m_gerpv2_tidy.csv", index=False)
 
 
-
+#####
+snp11m = pd.read_table("largedata/SNP/allsnps_11m.dsf5", sep="\t")
+gerp = pd.read_csv("largedata/SNP/allsnps_11m_gerpv2_tidy.csv")
 

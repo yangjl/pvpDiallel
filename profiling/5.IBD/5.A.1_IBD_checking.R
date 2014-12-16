@@ -14,10 +14,20 @@ ibd8 <- read.table("largedata/IBD/HapltypeShare_chr8.txt", header=TRUE)
 ibd9 <- read.table("largedata/IBD/HapltypeShare_chr9.txt", header=TRUE)
 ibd10 <- read.table("largedata/IBD/HapltypeShare_chr10.txt", header=TRUE)
 
+ibdall <- rbind(ibd1, ibd2, ibd3, ibd4, ibd5, ibd6, ibd7, ibd8, ibd9, ibd10)
+ibd <- ibdall[, 1:3]
+ibd$len <- ibd$End - ibd$Start
+ibd$Chr <- paste("chr", ibd$Chr, sep="")
 
-table(ibd1[,4])
-table(ibd1[,5])
+#Note: start, 0-based; end, 1-based
+write.table(ibd[, 1:3], "largedata/IBD/ibd_chrall.bed3", sep="\t", row.names=FALSE,
+            col.names=FALSE, quote=FALSE)
 
+
+
+## using BEDtools to map all the SNPs to the IBD regions
+bedtools intersect -a largedata/SNP/allsnps_11m.bed3 -b largedata/IBD/ibd_chrall.bed3 -wa -wb \
+> largedata/IBD/allsnps_11m_IBD.bed
 
 
 
