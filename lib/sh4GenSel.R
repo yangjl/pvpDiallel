@@ -16,7 +16,7 @@ sh4GenSel <- function(pwd="~/Documents/Heterosis_GWAS/Method/GenSel/testrun",
   inp <- gsub("sh", "inp", sh);
   log <- gsub("sh", "log", sh)
   
-  GenSel_inp(inp=inp, geno=geno, pheno=pheno, chainLength=chainLength, map=map, pi=pi,findsale ="no",
+  GenSel_inp(inp=inp, geno=geno, pheno=pheno, chainLength=chainLength, map=map, pi=pi,findscale ="no",
              burnin=burnin, varGenotypic=varGenotypic, varResidual=varResidual)
   
   cat(paste("#Note:", Sys.time(), sep=" "),
@@ -30,7 +30,7 @@ sh4GenSel <- function(pwd="~/Documents/Heterosis_GWAS/Method/GenSel/testrun",
 }
 
 
-GenSel_inp <- function(inp="CL_test.inp", pi=0.995, findsale ="no",
+GenSel_inp <- function(inp="CL_test.inp", pi=0.995, findscale ="no",
                        geno="/Users/yangjl/Documents/GWAS2_KRN/SNP/merged/geno_chr", 
                        pheno="/Users/yangjl/Documents/Heterosis_GWAS/pheno2011/reports/cd_GenSel_fullset.txt",
                        map="/Users/yangjl/Documents/linkage.map",
@@ -52,7 +52,7 @@ GenSel_inp <- function(inp="CL_test.inp", pi=0.995, findsale ="no",
         "seed 1234",
         "mcmcSamples yes",
         "plotPosteriors no",
-        paste("FindScale", findsale),
+        paste("FindScale", findscale),
         "modelSequence no",
         "isCategorical no",
         "linkageMap AGPv2",
