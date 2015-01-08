@@ -32,3 +32,8 @@ bedtools intersect -a largedata/SNP/allsnps_11m.bed3 -b largedata/IBD/ibd_chrall
 
 
 
+
+
+
+
+

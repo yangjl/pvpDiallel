@@ -22,3 +22,9 @@ snp11mgp.to_csv("largedata/SNP/allsnps_11m_gerpv2_tidy.csv", index=False)
 snp11m = pd.read_table("largedata/SNP/allsnps_11m.dsf5", sep="\t")
 gerp = pd.read_csv("largedata/SNP/allsnps_11m_gerpv2_tidy.csv")
 
+#### Circular Shuffling
+gerp = pd.read_table("largedata/SNP/allsnps_11m_gerpv2_tidy.csv", sep=",")
+
+gerp[["N", "RS"]] = gerp[["N", "RS"]].reindex(np.random.permutation(gerp[["N", "RS"]].index))
+
+
