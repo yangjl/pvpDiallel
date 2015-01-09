@@ -34,37 +34,32 @@ for(i in 1:10){
 
 
 
-
-
-
-
-
 ################### and then generate map ###############################################
 
-
-
-
-
-
-### need map file
-
-### checking output results
-library(data.table)
-test <- fread("largedata/SNP/gerpIBD_output_a1.gs", header=TRUE, sep="\t")
-
-
 ### checing gerpIBD results and write the map file
-h5 <- read.table("largedata/SNP/gerpIBD_output_a1.gs", header=TRUE, nrow=5)
+getMap <- function(infile="largedata/SNP/gerpIBD_output_a1.gs", outfile=NULL){
+  
+  h5 <- read.table(infile, header=TRUE, nrow=5)
+  
+  map <- data.frame(ibdid=names(h5)[-1], AGPv2_chr=1, AGPv2_pos=1)
+  map$ibdid <- gsub("X", "", map$ibdid)
+  map$AGPv2_chr <- gsub("_.*", "", map$ibdid)
+  map$AGPv2_pos <- gsub(".*_", "", map$ibdid)
+  
+  if(is.null(outfile)){
+    outfile <- gsub("gs", "map", infile)
+  }
+  write.table(map, outfile, row.names=FALSE, quote=FALSE, sep="\t")
+}
 
-map <- data.frame(ibdid=names(h5)[-1], AGPv2_chr=1, AGPv2_pos=1)
-map$ibdid <- gsub("X", "", map$ibdid)
-map$AGPv2_chr <- gsub("_.*", "", map$ibdid)
-map$AGPv2_pos <- gsub(".*_", "", map$ibdid)
 
-write.table(map, "largedata/SNP/gerpIBD_output.map", row.names=FALSE, quote=FALSE, sep="\t")
+for(num in 4:7){
+  getMap(infile= paste0("largedata/SNP/gerpIBD_cs", num, "_a1.gs"), outfile=NULL)
+  getMap(infile= paste0("largedata/SNP/gerpIBD_cs", num, "_a2.gs"), outfile=NULL)
+  getMap(infile= paste0("largedata/SNP/gerpIBD_cs", num, "_d1.gs"), outfile=NULL)
+  getMap(infile= paste0("largedata/SNP/gerpIBD_cs", num, "_d2.gs"), outfile=NULL)
+  message(sprintf("###--->>> output cs [ %s ] ", num)) 
+}
 
 
 
-
-
-res <- read.table("currentest_d2.gs", header=TRUE)
