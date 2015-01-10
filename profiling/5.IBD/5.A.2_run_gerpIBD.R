@@ -4,8 +4,7 @@
 
 
 source("lib/setUpslurm.R")
-
-###### example
+###### read data
 setUpslurm(slurmsh="largedata/SNP/gerp_cs1.sh",
            oneline=TRUE,
            codesh="gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 \\
@@ -14,25 +13,6 @@ setUpslurm(slurmsh="largedata/SNP/gerp_cs1.sh",
            sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
            sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
            sbathJ="gerpibd1")
-  
-#################  
-for(i in 1:10){
-  input1 <- paste("largedata/SNP/gerp_cs", i, ".sh", sep="")
-  input2 <- paste("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 \\
--g largedata/SNP/allsnps_11m_gerpv2_cs", i, ".csv -o largedata/SNP/gerpIBD_cs", i, sep="")
-  input3 <- paste("gerpibd", i, sep="")
-  
-  setUpslurm(slurmsh=input1,
-             oneline=TRUE,
-             codesh=input2,
-             wd=NULL,
-             sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
-             sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
-             sbathJ=input3) 
-}
-#RUN: sbatch -p serial --mem 16000 largedata/SNP/gerp_cs1.sh
-
-
 
 ################### and then generate map ###############################################
 
@@ -52,14 +32,4 @@ getMap <- function(infile="largedata/SNP/gerpIBD_output_a1.gs", outfile=NULL){
   write.table(map, outfile, row.names=FALSE, quote=FALSE, sep="\t")
 }
 
-
-for(num in 4:7){
-  getMap(infile= paste0("largedata/SNP/gerpIBD_cs", num, "_a1.gs"), outfile=NULL)
-  getMap(infile= paste0("largedata/SNP/gerpIBD_cs", num, "_a2.gs"), outfile=NULL)
-  getMap(infile= paste0("largedata/SNP/gerpIBD_cs", num, "_d1.gs"), outfile=NULL)
-  getMap(infile= paste0("largedata/SNP/gerpIBD_cs", num, "_d2.gs"), outfile=NULL)
-  message(sprintf("###--->>> output cs [ %s ] ", num)) 
-}
-
-
-
+getMap(infile= "largedata/SNP/gerpIBD_output.gs", outfile=NULL)

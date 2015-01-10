@@ -43,8 +43,8 @@ slurm4GenSel <- function(sh="largedata/GenSel/CL_test.sh",
       file=sh, sep="\n", append=FALSE);
   
       message(paste("###>>> In this path: cd ", wd, sep=""), "\n",
-              paste("###>>> note --ntaks=x, 8GB of memory per CPU"),"\n",
-              paste("###>>> RUN: sbatch -p serial --mem 24000", sh))
+              paste("###>>> note --ntask=x, 8GB of memory per CPU"),"\n",
+              paste("###>>> RUN: sbatch -p serial --mem 16000", sh))
 }
 
 ############################
@@ -73,9 +73,9 @@ GenSel_inp <- function(inp="CL_test.inp", pi=0.995, findsale ="no",
         paste("FindScale", findsale),
         "modelSequence no",
         "isCategorical no",
-        "linkageMap AGPv2",
-        "addMapInfoToMarkers yes",
-        "windowBV yes",
+        #"linkageMap AGPv2",
+        "addMapInfoToMarkers no",
+        "windowBV no",
         "",
         "// markerFileName",
         paste("markerFileName", geno, sep=" "), 
@@ -84,7 +84,7 @@ GenSel_inp <- function(inp="CL_test.inp", pi=0.995, findsale ="no",
         paste("phenotypeFileName", pheno, sep=" "),
         "",
         "// mapOrderFileName",
-        paste("mapOrderFileName", map, sep=" "),
+        #paste("mapOrderFileName", map, sep=" "),
         
         file=inp, sep="\n"
     )	
