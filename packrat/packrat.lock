@@ -1,7 +1,33 @@
 PackratFormat: 1.4
 PackratVersion: 0.4.0.12
 RVersion: 3.0.2
-Repos: CRAN=http://cran.rstudio.com
+Repos: CRAN=http://cran.rstudio.com,
+    BioCsoft=http://bioconductor.org/packages/2.13/bioc,
+    BioCann=http://bioconductor.org/packages/2.13/data/annotation,
+    BioCexp=http://bioconductor.org/packages/2.13/data/experiment,
+    BioCextra=http://bioconductor.org/packages/2.13/extra
+
+Package: Biobase
+Source: Bioconductor
+Version: 2.22.0
+Hash: cb1b8b1d9d4816ad9bb6ce7c70dcf1da
+Requires: BiocGenerics
+
+Package: BiocGenerics
+Source: Bioconductor
+Version: 0.8.0
+Hash: 32338a2da716fd80253bedd1234cfa81
+
+Package: BiocInstaller
+Source: Bioconductor
+Version: 1.12.1
+Hash: f32da01f2fdb5a033520b5bd81cf3a6c
+
+Package: Biostrings
+Source: Bioconductor
+Version: 2.30.1
+Hash: a5e0348df0ce8c330db58fd745c697b0
+Requires: BiocGenerics, IRanges, XVector
 
 Package: bitops
 Source: CRAN
@@ -13,6 +39,28 @@ Source: CRAN
 Version: 1.17.1
 Hash: bb5fdc266f716b8a289a4f92007d53e3
 Requires: bitops
+
+Package: cn.mops
+Source: Bioconductor
+Version: 1.8.9
+Hash: f333b631df7de7cc04cebaef6c9c80ad
+Requires: Biobase, BiocGenerics, GenomicRanges, IRanges, Rsamtools
+
+Package: colorspace
+Source: CRAN
+Version: 1.2-4
+Hash: b775bd08a10f968fef582304b7c3ab9c
+
+Package: data.table
+Source: CRAN
+Version: 1.9.2
+Hash: f4b376b88117e86fad182086ed992829
+Requires: reshape2
+
+Package: dichromat
+Source: CRAN
+Version: 2.0-0
+Hash: 42be2136555fa4b6167605df56d8cd7c
 
 Package: digest
 Source: CRAN
@@ -30,6 +78,23 @@ Source: CRAN
 Version: 1.0
 Hash: a90c211d7df7e61a72b8ab6c99c2e848
 
+Package: GenomicRanges
+Source: Bioconductor
+Version: 1.14.4
+Hash: 64b585135eb7cd837f813e00d2974f34
+Requires: BiocGenerics, IRanges, XVector
+
+Package: ggplot2
+Source: CRAN
+Version: 1.0.0
+Hash: c8bff66238347472f08b6a35608539ff
+Requires: digest, gtable, plyr, proto, reshape2, scales
+
+Package: gtable
+Source: CRAN
+Version: 0.1.2
+Hash: 0cf4a2b54c02b35dec7e74a8ebed12a0
+
 Package: highr
 Source: CRAN
 Version: 0.3
@@ -41,11 +106,22 @@ Version: 0.2.6
 Hash: 2c87108d130de261ac3c468d3316ae42
 Requires: digest
 
+Package: IRanges
+Source: Bioconductor
+Version: 1.20.7
+Hash: c0a0fbb6ba0fde38c110caa28dc7753b
+Requires: BiocGenerics
+
 Package: knitr
 Source: CRAN
 Version: 1.6
 Hash: 0f6457facba94bccad17a7c67c2f4168
 Requires: digest, evaluate, formatR, highr, markdown, stringr
+
+Package: labeling
+Source: CRAN
+Version: 0.3
+Hash: 568a992912caf7eeddfb121924154047
 
 Package: markdown
 Source: CRAN
@@ -58,6 +134,12 @@ Source: CRAN
 Version: 0.2
 Hash: 9179db921fcb2e5be44e217042ed06bc
 
+Package: munsell
+Source: CRAN
+Version: 0.4.2
+Hash: fa8af6d040041439b249351e9d16ae9a
+Requires: colorspace
+
 Package: packrat
 Source: github
 Version: 0.4.0.12
@@ -67,10 +149,37 @@ GithubUsername: rstudio
 GithubRef: v0.98.1000
 GithubSha1: e738f79a22521c57fad67a1679302385973cd958
 
+Package: plyr
+Source: CRAN
+Version: 1.8.1
+Hash: 6a287219196e18bc6261dc11b41b1ca0
+Requires: Rcpp
+
 Package: ProjectTemplate
 Source: CRAN
 Version: 0.5-1
 Hash: 884be7024aa4eb7bee03f75ecac5d668
+
+Package: proto
+Source: CRAN
+Version: 0.3-10
+Hash: 668a9e87cedbdc5f56c396edf1bd2648
+
+Package: RColorBrewer
+Source: CRAN
+Version: 1.0-5
+Hash: 6a849b729bec970204ca88b96906adbc
+
+Package: Rcpp
+Source: CRAN
+Version: 0.11.3
+Hash: d9cc0a13885961b2d004cf73b0fb68dd
+
+Package: reshape2
+Source: CRAN
+Version: 1.4
+Hash: e50809918ebb73dff47de17d36d12975
+Requires: plyr, Rcpp, stringr
 
 Package: rmarkdown
 Source: github
@@ -82,6 +191,24 @@ GithubUsername: rstudio
 GithubRef: v0.98.1000
 GithubSha1: fd8dafdea0b4cc68b9dc3da0557a506e60e77ee2
 
+Package: Rsamtools
+Source: Bioconductor
+Version: 1.14.3
+Hash: f588af4018941e69ec251f9b60b17921
+Requires: BiocGenerics, Biostrings, bitops, GenomicRanges, IRanges,
+    XVector, zlibbioc
+
+Package: scales
+Source: CRAN
+Version: 0.2.4
+Hash: b8b1af97bd07818605223060386b00dd
+Requires: dichromat, labeling, munsell, plyr, RColorBrewer
+
+Package: stringi
+Source: CRAN
+Version: 0.3-1
+Hash: 6795f234a744d2458b1f43fd482c0f5a
+
 Package: stringr
 Source: CRAN
 Version: 0.6.2
@@ -92,7 +219,18 @@ Source: CRAN
 Version: 1.7-4
 Hash: 7b30b5ca6c7ae80c4f916502e3ad0237
 
+Package: XVector
+Source: Bioconductor
+Version: 0.2.0
+Hash: 19fcab82fcb5b04d20735a4a8894027f
+Requires: BiocGenerics, IRanges
+
 Package: yaml
 Source: CRAN
 Version: 2.1.13
 Hash: e5d041c001f6d641fd009c1f6ef7d831
+
+Package: zlibbioc
+Source: Bioconductor
+Version: 1.8.0
+Hash: 80ee4932b08733bcfbb1238c468e5c7e

@@ -9,10 +9,12 @@
 *.log
 *.dvi
 .Rproj.user
-packrat/lib*/
 packrat/src/
 
 *_cache/
 *_files/
 *.RData
 *.Rhistory
+largedata/
+slurm-log/
+slurm-scripts/

@@ -1,0 +1,37 @@
+---
+title: "Diallel GERP for Prediction"
+author: "Jinliang Yang"
+date: "Dec 12nd, 2014"
+output: rmarkdown::tufte_handout
+---
+
+# Three strategies in using GERP for Genomic Prediction
+Select SNPs with high GERP score according to three roles listed below:  
+1. Conserved segments    
+2. IBD Region  
+3. Physical position  
+
+## Conserved segments
+
+```{r, eval=F}
+### load the GERP element data
+source("../profiling/4.GERP-GS/4.4.A_gerp_cregion.R")
+```
+
+A total of `29,869,451` conserved elements were identified, which accounted for `1.4%` of the total genomic space.  
+From these conserved regions, we randomly selected 1,000 SNPs with GERP score >2 for genomic prediction. A random set of 1,000 SNPs were selected from unconserved genomic regions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
