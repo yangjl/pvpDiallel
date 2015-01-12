@@ -14,7 +14,7 @@ Run7Trait <- function(){
   gen <- c(0.18, 5.1, 6.0, 123, 65, 377, 0.82)
   
   
-  for(i in ti){
+  for(i in 1:7){
     for(mode in c("a1", "a2", "d1", "d2")){
       for(cv in 1:5){
         for(sp in 1:10){
