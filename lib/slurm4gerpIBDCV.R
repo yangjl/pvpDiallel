@@ -33,13 +33,20 @@ slurm4GenSelCV <- function(
     
     cat(shcommand,
         file=shfile, sep="\n", append=TRUE);
- 
-    cat("",
-        paste("python /home/jolyang/bin/send_email.py -s", shcommand,
-        file=shfile, sep="\n", append=TRUE);
+    
+    if(length(shcommand) > 1){
+      cat("",
+          paste("python /home/jolyang/bin/send_email.py -s", shcommand[length(shcommand)]),
+          file=shfile, sep="\n", append=TRUE);
+    }else{
+      cat("",
+          paste("python /home/jolyang/bin/send_email.py -s", shcommand),
+          file=shfile, sep="\n", append=TRUE);
+    }
+    
     
     message(paste("###>>> In this path: cd ", wd, sep=""), "\n",
-            paste("###>>> note --ntask=x, 8GB of memory per CPU"),"\n",
+            paste("###>>> note --ntask=x, 8GB of memory per CPU"), "\n",
             paste("###>>> RUN: sbatch -p bigmemm --ntask=2 --mem 16000", shfile),
             "")
   
