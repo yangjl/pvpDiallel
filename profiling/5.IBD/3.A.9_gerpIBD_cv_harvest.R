@@ -50,16 +50,26 @@ SplitName <- function(infile=rand1){
 
 
 #### extract with real data
-res1 <- harvestCV(dir="slurm-scripts/", fileptn="*_real_.*\\.ghatREL", remove=FALSE)
-res1 <- SplitName(infile=res1)
-write.table(res1, "cache/res1.csv", sep=",", row.names=FALSE, quote=FALSE)
+writeCV <- function(){
+  res1 <- harvestCV(dir="slurm-scripts/", fileptn="*_real_.*\\.ghatREL", remove=FALSE)
+  res1 <- SplitName(infile=res1) #885
+  print(table(res1$trait))
+  
+  ### extract with re-sampled data
+  rand1 <- harvestCV(dir="slurm-scripts/", fileptn="*_cs.*\\.ghatREL", remove=FALSE)
+  rand1 <- SplitName(infile=rand1)
+  table(rand1$trait) #each trait should be 2000 data points
+  rand1 <- subset(rand1, trait != "asi")
+  rand1$trait <- tolower(rand1$trait)
+  
+  res1$type <- "real"
+  rand1$type <- "random"
+  allfile <- rbind(res1, rand1)
+  
+  write.table(allfile, "cache/cv_results.csv", sep=",", row.names=FALSE, quote=FALSE)
+}
 
-mean(subset(res1, trait == "asi" & mode=="a2")$R2)
-#0.3959
 
-### extract with re-sampled data
-rand1 <- harvestCV(dir="slurm-scripts/", fileptn="*_cs.*\\.ghatREL", remove=FALSE)
-rand1 <- SplitName(infile=rand1)
 
 nrow(subset(rand1, trait=="ASI" & mode=="a2"))
 mean(subset(rand1, trait=="tw" & mode=="a2")$r)
