@@ -18,4 +18,4 @@ packrat/src/
 largedata/
 slurm-log/
 slurm-scripts/
-
+packrat/lib*/
