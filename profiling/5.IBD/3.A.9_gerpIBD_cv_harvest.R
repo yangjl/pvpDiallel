@@ -47,10 +47,8 @@ SplitName <- function(infile=rand1){
   return(infile)
 }
 
-
-
 #### extract with real data
-writeCV <- function(){
+main <- function(){
   res1 <- harvestCV(dir="slurm-scripts/", fileptn="*_real_.*\\.ghatREL", remove=FALSE)
   res1 <- SplitName(infile=res1) #885
   print(table(res1$trait))
@@ -69,16 +67,4 @@ writeCV <- function(){
   write.table(allfile, "cache/cv_results.csv", sep=",", row.names=FALSE, quote=FALSE)
 }
 
-
-
-nrow(subset(rand1, trait=="ASI" & mode=="a2"))
-mean(subset(rand1, trait=="tw" & mode=="a2")$r)
-#0.28
-
-t.test(subset(rand1, trait=="ASI" & mode=="d2")$r, subset(res1, trait == "asi" & mode=="d2")$r)
-
-
-t.test(subset(rand1, trait=="pht" & mode=="d1")$r, subset(res1, trait == "pht" & mode=="d1")$r)
-
-
-
+main()
