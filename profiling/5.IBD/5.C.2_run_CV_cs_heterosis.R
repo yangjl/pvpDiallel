@@ -60,8 +60,8 @@ for(myi in 1:7){
 #sbatch -p serial --ntasks=2 --mem 16000 slurm-scripts/BPHmax/BPHmax_dts_run2000.sh
 #sbatch -p serial --ntasks=2 --mem 16000 slurm-scripts/BPHmax/BPHmax_eht_run2000.sh
 #sbatch -p serial --ntasks=2 --mem 16000 slurm-scripts/BPHmax/BPHmax_gy_run2000.sh
-#sbatch -p serial --ntasks=2 --mem 16000 slurm-scripts/BPHmax/BPHmax_pht_run2000.sh
-#sbatch -p serial --ntasks=2 --mem 16000 slurm-scripts/BPHmax/BPHmax_tw_run2000.sh
+sbatch -p bigmemm --ntasks=2 --mem 16000 slurm-scripts/BPHmax/BPHmax_pht_run2000.sh
+sbatch -p bigmemm --ntasks=2 --mem 16000 slurm-scripts/BPHmax/BPHmax_tw_run2000.sh
 
 ################################################################
 wd <- getwd()
