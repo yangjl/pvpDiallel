@@ -4,7 +4,7 @@ output: pdf_document
 
 # To Do List
 
-1. IBD blocks
+1. Run the BPH trait after trait _per se_
 2. SNP in the bin
 3. cM method, try to fix the negative cM issue
 4. 

@@ -7,6 +7,11 @@ Repos: CRAN=http://cran.rstudio.com,
     BioCexp=http://bioconductor.org/packages/2.13/data/experiment,
     BioCextra=http://bioconductor.org/packages/2.13/extra
 
+Package: beanplot
+Source: CRAN
+Version: 1.2
+Hash: 3e0cb783da3c0a9cdf6a8a745ecd73b9
+
 Package: Biobase
 Source: Bioconductor
 Version: 2.22.0

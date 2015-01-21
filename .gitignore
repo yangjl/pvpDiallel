@@ -1,3 +1,4 @@
+TSW*
 *.DS_Store
 *.aux
 *.bbl
@@ -18,3 +19,4 @@ packrat/src/
 largedata/
 slurm-log/
 slurm-scripts/
+packrat/lib*/

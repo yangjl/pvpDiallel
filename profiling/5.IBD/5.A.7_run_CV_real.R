@@ -21,7 +21,7 @@ Run7Trait <- function(){
           myinp <- paste0("slurm-scripts/", ti[i], "_real_", mode,"_cv",cv, "_sp",sp, ".inp")
           GS_cv_inp(
             inp= myinp, pi=0.999,
-            geno= paste0(wd, "/largedata/SNP/gerpIBD_cs_", mode, ".gs.newbin"), 
+            geno= paste0(wd, "/largedata/SNP/gerpIBD_output_", mode, ".gs.newbin"), 
             trainpheno= paste0(wd, "/largedata/pheno/CV5fold/", ti[i], "_train", cv, "_sp", sp, ".txt"),
             testpheno= paste0(wd, "/largedata/pheno/CV5fold/", ti[i], "_test", cv, "_sp", sp, ".txt"),
             chainLength=11000, burnin=1000, varGenotypic=gen[i], varResidual=res[i]
