@@ -85,6 +85,12 @@
   \item  Main results
 \end{itemize}
 
+Why we care about deleterious variants. Discuss results of Mezmouk 2014. We are extending this in three ways
+\begin{itemize}
+  \item all deleterious SNPs not just coding
+  \item genome-wide not just reduced representation
+  \item using GS to test whether they improve prediction
+\end{itemize}
 
 %----------------------------------------
 % RESULTS
@@ -102,6 +108,11 @@
   \item Analyses of the significant haplotypic bloc to see if there is any pattern
 \end{itemize}
 
+\subsection*{Evolutionary conservation information improved prediction accuracies}
+
+Current methods for GS weigh all the available SNPs equally in model training, without considering their functional differences. Genetic variations detected at evolutionary conserved sites tend to be deleterious and, thus, may be more informative for GS. To utilize this kind of information as a prior into the GS model, we proposed a method to put more weight on evolutionarily constrained sites. As a proof-of-concept, a half diallel population based on 12 diverse inbred lines was used, from which seven phenotypic traits were collected. Some of these traits show high levels of heterosis. After sequencing the 12 founder lines, about 14 million SNPs were discovered and the SNPs were used to identify 502,913 haplotype blocks shared through identity by descent (IBD). A five fold cross-validation experiment was conducted using the summary statistics of the SNP conservation scores, which were computed by evaluating sequences similarity of multiple divergent species, in the IBD blocks as explanatory variables. The results show that the prediction accuracies are significantly better than shuffled data with randomly assigned conservation scores. This study demonstrates the importance of incorporating evolutionary information in GS and its potential use in plant breeding.
+
+
 %----------------------------------------
 % DISCUSSION
 %----------------------------------------
@@ -109,7 +120,10 @@
 %----------------------------------------
 
 
-
+\begin{itemize}
+  \item how do results match with heritability and heterosis?
+  \item do we support deleterious model of Mezmouk et al.?
+\end{itemize}
 
 
 
@@ -187,8 +201,19 @@ SNP association with heterosis (BPH and MPH) was tested assuming dominance/reces
 Haplotype association with heterosis were tested comparing the heterozygote alleles to all homozygote ones all confounded. 
 
 
-\subsubsection*{Hybrid prediction}
+\subsubsection*{Genomic-enabled prediction with GERP scores in IBD regions}
 
+In this study, we used summary statistics of GERP scores in the IBD regions to fit the genomic selection model for phenotypic prediction. The sum of the conservation score at the detected variation loci in a given IBD block was used as the explainatory variable. A customized python script was used to compute the conservation statistics of each IBD block across the diallel population.
+
+
+
+Four summary statistics were used for each IBD block, they are 1) number of conserved SNPs in additive mode, 2) sum of the conservation scores in additive mode, 3) number of conserved SNPs in dominant mode and 4) sum of the conservation scores (GERP) in dominant mode.
+First, a python script gerpIBD.py was developed to compute the conservation statistics of each IBD block across a diallel population. The scores were normalized across samples. The script was uploaded to the repo of zmSNPtools. Use -help for more detail of the program.
+Second, gerp scores were circular shuffled and were used to gen- erate N set of random assigned conservation statistics for each IBD block.
+Third, seven phenotypic traits were trained with the conserva- tion statistics in IBD block as genotype. The results were compared with circular shuffled genotypes. The results showed the real data fit always better than the shuffled genotypes.
+Finally, we trained the GS model with subset of the phenotypic data and predict the validation set using a 5-fold cross-validation strategy.
+
+\subsubsection*{Stastistical model for Genomic-enabled prediction}
 
 %----------------------------------------
 % REFERENCES
