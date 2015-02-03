@@ -1,3 +1,6 @@
+---
+output: word_document
+---
 # Introduction
 
 Why we care about deleterious variants.  
