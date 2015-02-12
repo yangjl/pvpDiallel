@@ -13,11 +13,11 @@
 \usepackage{mathtools}
 \usepackage{units}
 \usepackage{booktabs}
-\usepackage{booktabs}
 \usepackage{authblk}
 \renewcommand{\baselinestretch}{1.5}
 \geometry{a4paper} 
 \bibliographystyle{apalike}
+
 
 %nouvelle commande pour les commentaires
 \newcommand{\sme}[1]{\textcolor{red}{\bf #1}}
@@ -41,15 +41,18 @@
 %----------------------------------------
 
 \title{Heterosis and genetic load in an ExPVP partial diallel cross} 
-%\author[1]{Sofiane Mezmouk\thanks{smezmouk@ucdavis.edu}}
-%....
-%\author[3]{Rita H. Mumm\thanks{ritamumm@illinois.edu}}
-%\author[1,2]{Jeffrey Ross-Ibarra\thanks{rossibarra@ucdavis.edu}}
-%\affil[1]{Department of Plant Sciences, University of California Davis}
-%\affil[2]{Center for Population Biology and Genome Center, University of California Davis}
-%\affil[3]{Department of Crop Sciences and the Illinois Plant Breeding Center, University of Illinois at Urbana?Champaign, Urbana, IL 61801, USA}
+
+\author[1]{Jinliang Yang\thanks{jolyang@ucdavis.edu}}
+\author[1,2,3]{Sofiane Mezmouk\thanks{smezmouk@ucdavis.edu}}
+\author[4]{Rita H. Mumm\thanks{ritamumm@illinois.edu}}
+\author[1,2]{Jeffrey Ross-Ibarra\thanks{rossibarra@ucdavis.edu}}
+\affil[1]{Department of Plant Sciences, University of California, Davis, CA 95616, USA}
+\affil[2]{Center for Population Biology and Genome Center, University of California Davis}
+\affil[3]{Current address: KWS SAAT AG, Grimsehlstr. 31, 37555 Einbeck, Germany}
+\affil[4]{Department of Crop Sciences, University of Illinois at Urbana-Champaign, Urbana, IL 61801, USA}
 
 \date{}
+
 
 %-----------------------------------------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------------------------------------
@@ -62,10 +65,15 @@
 %----------------------------------------
 % ABSTRACT
 %----------------------------------------
-\begin{abstract} 
- Il \'etait une fois l'h\'et\'erosis ....
- %The story is: I have a partial diallel cross with both phenotypic and genotypic data and I observe over dominance at haplotypic level but at the SNP level; everything is explained by dominance. 
-\end{abstract}
+\newpage
+
+\section*{Abstract}
+
+%The story is: I have a partial diallel cross with both phenotypic and genotypic data and I observe over dominance at haplotypic level but at the SNP level; everything is explained by dominance. 
+
+Genomic selection (GS) has gained popularity recently as the availability of genome-wide markers has increased. Current methods for GS weigh all the available SNPs equally in model training, without considering their functional differences. Genetic variations detected at evolutionary conserved sites tend to be deleterious and, thus, may be more informative for GS. To utilize this kind of information as a prior into the GS model, we proposed a method to put more weight on evolutionarily constrained sites. As a proof-of-concept, a half diallel population based on 12 diverse inbred lines was used, from which seven phenotypic traits were collected. Some of these traits show high levels of heterosis. After sequencing the 12 founder lines, about 14 million SNPs were discovered and the SNPs were used to identify 502,913 haplotype blocks shared through identity by descent (IBD). A five fold cross-validation experiment was conducted using the summary statistics of the SNP conservation scores, which were computed by evaluating sequences similarity of multiple divergent species, in the IBD blocks as explanatory variables. The results show that the prediction accuracies are significantly better than shuffled data with randomly assigned conservation scores. This study demonstrates the importance of incorporating evolutionary information in GS and its potential use in plant breeding.
+
+
 
 
 %----------------------------------------
@@ -75,9 +83,8 @@
 \section*{Introduction}
 %----------------------------------------
 
-
 \begin{itemize}
-  \item Heterosis
+  \item Heterosis and deleterious alleles
   \item Heterosis in maize
   \item Diallel designs and their use for heterosis
   \item What has been done before
@@ -85,12 +92,88 @@
   \item  Main results
 \end{itemize}
 
-Why we care about deleterious variants. Discuss results of Mezmouk 2014. We are extending this in three ways
+
+
+\textbf{Heterosis was observed long time ago. many theories were proposed to explain it.}
+
+
+The phenomenon of heterosis or hybrid vigor, refering to the superior performance of hybrids as compared to their parents, was intially documented by Darwin and recovered by Shull and East (Duvick 2001). This phenomenon has been observed for many species, from here to there (citation). Although it has been entensively studied, the mechianism controlling for heterosis remains unclear. Recently studies indicated that the complementation effect of the deleterious alleles may play an important role in determining this phenomenon. Deleterious alleles was arisen from new mutations during the evolutionary process. Because of the determintal or lethal of the large effect deleterious alleles, Natural selection tends to against. 
+
+\textbf{Many new mutations, most deleterious}
+
+~90 mutations per meiosis (Clark et al. 2005 MBE, Jiao et al. 2012 Nature Genetics), maize HapMap2 new mutations of large effect (Hufford et al 2012 Nature Genetics, Soletzki 2011 MBE).
+Purifying selection retards recovery of diversity in genic regions.
+
+
+\textbf{Inbreeding depression and segregating deleterious variants}
+\begin{itemize}
+  \item likely cause of inbreeding depression in Zea
+  \item Purging: fewer, lower frq premature stop condons in maize
+  \item ~8\% FGS >= 1 stop codon segregating
+  \item exponential growth since domestication increases number of weakly deleterious mutations
+  \item exponential growth leads to more rare causal variants (Lohmueller 2013), and these explain a larger proportion of Va.
+\end{itemize}
+
+
+\textbf{Theory of residual heterozygosity suggests complementation} 
+
+Residual heterozygosity in RILs correlates negatively with recomination (Gore et al. 2009 Science, McMullen et al. 2009 Science). Low recombination is effective over long time scales (Haddrill et al. 2007 Genome Biology). Deleterious alleles not correlated with recombination (G3) 
+
+QTL for heterosis enriched in centromeric regions (Lariepe et al, 2012 Genetics).
+Selection in high recombination regions improve inbreds?
+Haplotype blocks in low recombination maintain heterosis (Duvick 2005, Advances in agronomy)
+
+
+But, Low Fst and few fixed deleterious variants among groups. 
+
+GWAS hits enriched for genes with deleterious alleles. 1) no enrichment for individual deleterious SNPs (too rare); 2) all traits show enrichment at the gene level; 3) no gene enrichment for synoymous SNPs.
+
+
+
+Theoretical and empirical evidences suggrested that large proportion of new mutations are deleterious and large effect deleterious alleles were maintained in a low frequency in the population because they were selection against. 
+
+
+
+
+
+
+
+
+In the past centry, researchers proposed many genetic models, including dominance, overdominance and epistasis to explain it (Birchler et al. 2003; Goff and Zhang 2013). 
+
+Under certain circumstances, some of these genetic models might be favored. For example, an overdominant locus with heterozygous loss-of-function allele in tomato elevated yield by up to 60\% (Krieger et al. 2010). However, in general, heterosis could not be adequately explained by a single gene or a simple model (Birchler et al. 2003).
+
+
+The fate of deleterious alleles may be impacted by mating system and recombination rate.   
+
+
+pesudo-overdominance model
+
+lack of recombination in low recombination region. 
+
+The cumulative effect of deleterious mutations 
+
+
+The complementation of deleterious alleles in different heterotic groups tend to explain it very well.
+
+Previous study observed that an excess deleterious SNPs.
+
+However, because most of the deleterious allele are minor effect. it makes it hard to detect. We therefore, take a genomic enabled prediction approach. 
+
+
+
+\textbf{Why we care about deleterious variants. Discuss results of Mezmouk 2014. We are extending this in three ways}  
 \begin{itemize}
   \item all deleterious SNPs not just coding
   \item genome-wide not just reduced representation
   \item using GS to test whether they improve prediction
 \end{itemize}
+
+
+
+
+
+
 
 %----------------------------------------
 % RESULTS
