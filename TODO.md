@@ -4,6 +4,22 @@ output: pdf_document
 
 # To Do List
 
+-----
+
+Was talking to a colleague yesterday about the work you guys are doing, and he expressed concerns about the genomic prediction.  He wanted to know if the GERP SNPs do better than random SNPs in genes or random SNPs in similar recombination bins.  I think the first is easy to calculate, and we should probably do so.  What do you think?
+
+This is a good point! 
+But if there is a correlation between the number of genes and conserved SNPs along the genome, it will be hard to dissociate them. 
+What about separating SNPs in protein coding sequences from the ones in the introns?
+--
+Actually I like the intron idea as that separates out linkage to causative sites from actual GERP scores.  What do you think Jinliang?  Or we could do genic SNPs with low GERP scores vs. genic SNPs with high GERP scores?
+
+-Jeff
+------
+
+
+
+
 1. Run the BPH trait after trait _per se_
 2. SNP in the bin
 3. cM method, try to fix the negative cM issue

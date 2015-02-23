@@ -16,7 +16,7 @@ setUpslurm(slurmsh="largedata/SNP/gerp_cs1.sh",
 
 ################### and then generate map ###############################################
 
-### checing gerpIBD results and write the map file
+### checking gerpIBD results and write the map file
 getMap <- function(infile="largedata/SNP/gerpIBD_output_a1.gs", outfile=NULL){
   
   h5 <- read.table(infile, header=TRUE, nrow=5)
