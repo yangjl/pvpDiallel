@@ -63,18 +63,64 @@ slurm4GenSelCV(
 
 ####
 wd <- getwd()
-mysh <- Run7Trait_v2(inppwd="slurm-scripts/pBPHmax/", phenopwd="/largedata/pheno/CV5fold_pBPHmax/")
+mysh <- Run7Trait_gerpfeature(inppwd="slurm-scripts/gerpfeature/", phenopwd="/largedata/pheno/CV5fold_BPHmax/",
+                              g=2)
 
 slurm4GenSelCV(
-  shfile= "slurm-scripts/pBPHmax/pBPH_real_run1000.sh", shcommand = mysh,
-  sbathJ= "pBPH-cv_realrun",  
+  shfile= "slurm-scripts/bphcv_gerpf_run700.sh", shcommand = mysh,
+  sbathJ= "bphcv_gerpf1",  
   sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
   sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
 )
 
-###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
-###>>> note --ntask=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p bigmemm --ntasks=2 --mem 16000 slurm-scripts/pBPHmax/pBPH_real_run1000.sh
+#### EXON >0
+wd <- getwd()
+mysh3 <- Run7Trait_gerpfeature(inppwd="slurm-scripts/exon/", phenopwd="/largedata/pheno/CV5fold_BPHmax/",
+                              g=3)
 
+slurm4GenSelCV(
+  shfile= "slurm-scripts/bphcv_gerpf3_run700.sh", shcommand = mysh3,
+  sbathJ= "bphcv_gerpf3",  
+  sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+  sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+)
 
+#### EXON <0
+wd <- getwd()
+mysh4 <- Run7Trait_gerpfeature(inppwd="slurm-scripts/exon/", phenopwd="/largedata/pheno/CV5fold_BPHmax/",
+                              g=4)
+
+slurm4GenSelCV(
+  shfile= "slurm-scripts/bphcv_gerpf4_run700.sh", shcommand = mysh4,
+  sbathJ= "bphcv_gerpf4",  
+  sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+  sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+)
+###>>> RUN: sbatch -p bigmemm --mem 16000 slurm-scripts/bphcv_gerpf4_run700.sh
+
+#### INTRON >0
+wd <- getwd()
+mysh5 <- Run7Trait_gerpfeature(inppwd="slurm-scripts/intron/", phenopwd="/largedata/pheno/CV5fold_BPHmax/",
+                              g=5)
+
+slurm4GenSelCV(
+  shfile= "slurm-scripts/bphcv_gerpf5_run700.sh", shcommand = mysh5,
+  sbathJ= "bphcv_gerpf5",  
+  sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+  sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+)
+###>>> RUN: sbatch -p bigmemh --mem 16000 slurm-scripts/bphcv_gerpf5_run700.sh
+
+#### INTRON <0
+wd <- getwd()
+mysh6 <- Run7Trait_gerpfeature(inppwd="slurm-scripts/intron/", phenopwd="/largedata/pheno/CV5fold_BPHmax/",
+                              g=6)
+
+slurm4GenSelCV(
+  shfile= "slurm-scripts/bphcv_gerpf6_run700.sh", shcommand = mysh6,
+  sbathJ= "bphcv_gerpf6",  
+  sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+  sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+)
+###>>> RUN: sbatch -p bigmemh --mem 16000 slurm-scripts/bphcv_gerpf6_run700.sh
 
