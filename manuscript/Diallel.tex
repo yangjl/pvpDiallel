@@ -173,7 +173,9 @@ However, because most of the deleterious allele are minor effect. it makes it ha
 
 
 
+previous show deleterious in GWAS set. Here we introduce it to teh genome-wide level.
 
+SIFTMAPP 
 
 
 
@@ -201,7 +203,7 @@ Figure S1.
 
 
 
-\subsection*{GERP and general statistics}
+\subsection*{GERP, SIFTMAPP and general statistics}
 
 %GERP statistics
 Introduce GERP SNP and GERP elements. For each position of the multiple alignment, the conservation score is computed in rejected substitution by subtracting the estimated evolutionary rate from the neutral rate (citation).
@@ -331,6 +333,9 @@ Haplotype association with heterosis were tested comparing the heterozygote alle
 \subsubsection*{Genomic-enabled prediction with GERP scores in IBD regions}
 
 In this study, we used summary statistics of GERP scores in the IBD regions to fit the genomic selection model for phenotypic prediction. The sum of the conservation score at the detected variation loci in a given IBD block was used as the explainatory variable. A customized python script was used to compute the conservation statistics of each IBD block across the diallel population.
+
+To rule out the prossibility that SNP in genic regions are more conserved than intergenic SNPs. We elected the SNPs in genic regions and did the circular shuffling to random assign GERP scores the the same set of the selected SNPs.
+
 
 
 
