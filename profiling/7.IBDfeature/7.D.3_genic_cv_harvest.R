@@ -31,49 +31,30 @@ SplitName <- function(infile=rand1){
   
   infile$file <- as.character(infile$file)
   infile$trait <- "A"
+  infile$cs <- "cs"
   infile$mode <- "a"
-  infile$cv <- "cv"
   infile$sp <- "sp"
+  infile$cv <- "cv"
   for(i in 1:nrow(infile)){
     tem <- unlist(strsplit(infile$file[i], split="_"))
     infile$trait[i] <- tem[1]
-    #infile$cs[i] <- tem[2]
-    infile$mode[i] <- tem[2]
-    infile$cv[i] <- tem[3]
-    infile$sp[i] <- tem[4] 
+    infile$cs[i] <- tem[2]
+    infile$mode[i] <- tem[3]
+    infile$sp[i] <- tem[4]
+    infile$cv[i] <- tem[5]
   }
   return(infile)
 }
 
 #### extract with real data
-main1 <- function(){
-  res1 <- harvestCV(dir="slurm-scripts/exon/", fileptn="\\.ghatREL", remove=FALSE)
+main4 <- function(){
+  res1 <- harvestCV(dir="slurm-scripts/genic/", fileptn="\\.ghatREL", remove=FALSE)
   res1 <- SplitName(infile=res1) #885
   print(table(res1$trait))
   
-  write.table(res1, "cache/cv_exon_BPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
+  write.table(res1, "cache/genic_cv_cs_BPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
 }
 
-main1()
+main4()
 
-#### extract with real data
-main2 <- function(){
-  res1 <- harvestCV(dir="slurm-scripts/intron/", fileptn="\\.ghatREL", remove=FALSE)
-  res1 <- SplitName(infile=res1) #885
-  print(table(res1$trait))
-  
-  write.table(res1, "cache/cv_intron_pBPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
-}
 
-main2()
-
-#### extract with genic data
-main3 <- function(){
-  res1 <- harvestCV(dir="slurm-scripts/gerpfeature/", fileptn="\\.ghatREL", remove=FALSE)
-  res1 <- SplitName(infile=res1) #885
-  print(table(res1$trait))
-  
-  write.table(res1, "cache/cv_genic_BPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
-}
-
-main3()

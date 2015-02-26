@@ -249,28 +249,16 @@ Current methods for GS weigh all the available SNPs equally in model training, w
 \section*{Materials and methods}
 %----------------------------------------
 
-
-\subsection*{Diallel experimental design by Mumm}
-%------------------
-A broad population was been created, based on a study by Mikel and Dudley (2006), which spans the range of genetic diversity in U.S. contemporary proprietary dent corn germplasm.  Twelve founder inbred corn lines were selected and crossed in a diallel fashion.  Ten are proprietary inbreds that have come off of Plant Variety Protection (PVP) and represent the lineage of key heterotic germplasm pools used in present-day commercial corn hybrids, and two are predominant public inbreds B73 and Mo17.  This diallel facilitated the creation of F1 hybrids that are adapted to the U.S., fairly elite in performance, and commercially relevant (see Table 1).  The set is diverse enough to facilitate a broad sweep of the heterotic sub-groups that comprise U.S. commercial germplasm.  Of the total 66 F1 hybrids (no reciprocals), 32 hybrids represent F-inbred x M-inbred crosses whereas the others represent within-heterotic-group crosses.
-
-Table 1.
-
-The experimental design includes the 66 F1 hybrids, the 12 inbred parents, and 2 current commercial check hybrids grown in an incomplete block design with 3 replications; hybrids and inbreds were grouped separately.  The test was grown at Urbana, IL in 2009, 2010, and 2011.  Plots consisted of 4 rows (17.5 long, each which is ~1/1000th an acre), with all observations taken from the inside 2 rows to minimize effects of shading and maturity differences from adjacent plots.   
-
-Observations were collected on traits pertaining to grain yield, grain yield components including ear attributes, flowering, plant and ear height, lodging, staygreen, barrenness, and seedling vigor.   Plots were hand harvested to facilitate collection of yield component data. 
-
-
 \subsection*{Plant material and phenotypic data}
 %-------------------
-Twelve maize inbred lines, including B73, Mo17 and 10 lines with expired U.S. plant variety protection (LH1, LH123HT, LH82, PH207, 4676A, PHG39, PHG47, PHG84, PHJ40, PHZ51) were crossed in a partial diallel fashion covering all one way combinations \sme{(CITE)}. 
- Both inbred lines and the 66 resulting hybrids were field evaluated in Urbana (Illinois, USA) from 2009 to 2011 with three replicates each year, organized in incomplete blocks.\\
-Phenotypic data was collected for plant height (PHT, in cm), ear height (EHT, in cm), days to 50\% silking (DTS), days to 50\% pollen shed (DTP), anthesis-silking interval (ASI, in days), grain yield adjusted to 15.5\% moisture (adj GY, in bu/A), and test weight (TWT, in pounds) \sme{(CITE)}.% Question for RHM: Should we site a paper for the phenotypic data? 
+Twelve maize inbred lines were selected and crossed in a partial diallel fashion without considering reciprocal effects \sme{(CITE)}. Ten (LH1, LH123HT, LH82, PH207, 4676A, PHG39, PHG47, PHG84, PHJ40, PHZ51) of these inbreds are proprietary inbreds that have expired from Plant Variety Protection (PVP) and represent the lineage of key heterotic germplasm pools used in present-day commercial corn hybrids, and two are predominant public inbreds B73 and Mo17. This diallel facilitated the creation of F1 hybrids that are adapted to the U.S., fairly elite in performance, and commercially relevant. The set is diverse enough to facilitate a broad sweep of the heterotic sub-groups that comprise U.S. commercial germplasm. \\
+
+The experimental design includes the 66 F1 hybrids, the 12 inbred parents, and 2 current commercial check hybrids grown in an incomplete block design with 3 replications; hybrids and inbreds were grouped separately. The test was grown at Urbana, IL in 2009, 2010, and 2011.  Plots consisted of 4 rows, with all observations taken from the inside 2 rows to minimize effects of shading and maturity differences from adjacent plots. Both inbred lines and the 66 resulting hybrids were field evaluated. Phenotypic data was collected for plant height (PHT, in cm), ear height (EHT, in cm), days to 50\% silking (DTS), days to 50\% pollen shed (DTP), anthesis-silking interval (ASI, in days), grain yield adjusted to 15.5\% moisture (adj GY, in bu/A), and test weight (TWT, in pounds) \sme{(CITE)}.% Question for RHM: Should we cite a paper for the phenotypic data? 
 
 \subsection*{Analyses}
 %-------------------
 
-\subsubsection*{Inbred line sequencing and SNP calls}
+\subsubsection*{Inbred line sequencing and SNP callings}
 
 % wet lab
 DNA from the twelve inbred lines was CTAB extracted \citep{Doyle1987} and Covaris sheared for Illumina library preparation. The DNA libraries were then sequenced to an average coverage of 10X \sme{(say where the sequencing was done?)}.
@@ -287,25 +275,29 @@ Single nucleotide polymorphisms (SNPs) were called with mpileup from samtools ut
 After filtering 13,782,809 are kept for further comparisons, including 1,909,416 genic SNPs and 361,280 in protein coding regions). \\
 We estimated the allelic error rate by first comparing our genotype calls to those of 41,292 overlapping SNPs on the maize SNP50 bead chip \citep{Heerwaarden2012};  we then compared our SNP alleles for B73 and Mo17 with the 10,426,715 SNP previously identified in HapMap2 \citep{Chia2012}; finally, we compared our SNPs to 180,313 overlapping SNPs identified through Genotyping by sequencing \citep{Romay2013}. The comparisons showed 99.12\% allele similarity with shared SNPs previously identified. 
 
-All missing alleles were then imputed with BEAGLE package \citep{Browning2009} and identity by descent regions (IBD) between the 12 inbred lines were identified with BEAGLE's fastIBD method \citep{Browning2011}. The pairwise IBD region starts and ends were used to delimit haplotipic blocs where several inbred lines shared a homogenous haplotypes.%I need to clarify this last sentence.
-\subsubsection*{SNP annotation}
 
+\subsubsection*{Haplotype identification and SNP annotation}
+
+%IBD
+All missing alleles were then imputed with BEAGLE package \citep{Browning2009} and identity by descent regions (IBD) between the 12 inbred lines were identified with BEAGLE's fastIBD method \citep{Browning2011}. The pairwise IBD region starts and ends were used to delimit haplotipic blocs where several inbred lines shared a homogenous haplotypes.%I need to clarify this last sentence.
+
+%SIFT and MAPP
 The SNPs were annotated as synonymous and non-synonymous with the software polydNdS from the analysis package of libsequence  \citep{Thornton2003} using the first transcript of each gene in B73 5b filtered gene set. Deleterious effects of amino acid changes were then predicted with both SIFT \citep{Ng2003, Ng2006} and MAPP \citep{Stone2005} software packages as described by \citet{mezmouk2014}.
 
-\sme{Gerp predictions/IBD calling?}
+%GERP
+Genomic evolutionary rate profiling (GERP) \sme{CITE}, which estimates the evolutionary constraint by quantifying substitution deficits after multiple genome alignments, was obtained from \sme{CITE eli2015} for AGPv2. 
 
-How to call IBD?
 
 
 \subsubsection*{Phenotypic data analyses}
 
-Best Linear Unbiased Estimation (BLUE) of the genetic effects were calculated with ASReml-R \sme{(CITE)} following the linear model: 
+Best Linear Unbiased Estimation (BLUE) of the genetic effects were calculated with ASReml-R \sme{(CITE)} following the linear model \sme{check the following mixed linear model?}: 
 %
 \[y_{ijkl} = \mu + \varsigma_{i} + \delta_{ij} + \beta_{jk} + \alpha_{l} +  \varsigma_{i} \cdot \alpha_{l} + \varepsilon\]
 %
-were 
+where 
 $y_{ijkl}$ is the phenotypic value of the $l^{th}$ genotype evaluated in the $k^{th}$ block of the $j^{th}$ replicate within the $i^{th}$ environment; 
-$\mu$, the whole mean; 
+$\mu$, the overall mean; 
 $\varsigma_{i}$, the fixed effect of the $i^{th}$ environment;
 $\delta_{ij}$, the fixed effect of the $j^{th}$ replicate nested in the $i^{th}$ environment; 
 $\beta_{jk}$, the random effect of the $k^{th}$ block nested in the $j^{th}$ block; 
@@ -330,22 +322,18 @@ SNP association with heterosis (BPH and MPH) was tested assuming dominance/reces
 Haplotype association with heterosis were tested comparing the heterozygote alleles to all homozygote ones all confounded. 
 
 
-\subsubsection*{Genomic-enabled prediction with GERP scores in IBD regions}
+\subsubsection*{Genomic-enabled prediction with GERP score}
 
-In this study, we used summary statistics of GERP scores in the IBD regions to fit the genomic selection model for phenotypic prediction. The sum of the conservation score at the detected variation loci in a given IBD block was used as the explainatory variable. A customized python script was used to compute the conservation statistics of each IBD block across the diallel population.
+A haplotype based genomic selection (GS) strategy was conceived by using the IBD blocks as the explanatory variables containing conservation information. The reference genome sites with GERP score />0 were considered as conserved sites and genomic variations at these sites were deemed as deleterious. To incoporate the conservation information into IBD blocks, SNPs falling into a given IBD block were added up using their GERP scores as the conservation estimates of the IBD block. This estimation was calculated using a python script gerpIBD (\url{https://github.com/RILAB/pvpDiallel}) with additive and dominant models. Under the additive model, 2 x GERP score was assigned to the homozygous loci with non-reference SNP calls; 1 x GERP score was assigned to the heterozygous loci; and 0 was assigned to the homozygous loci with reference SNP calls. Under the dominant model, 1 x GERP score was assigned to both the homzygous loci with non-reference SNP calls and heterozygous loci; 0 was assigned to homozygous loci with reference SNP calls.
 
-To rule out the prossibility that SNP in genic regions are more conserved than intergenic SNPs. We elected the SNPs in genic regions and did the circular shuffling to random assign GERP scores the the same set of the selected SNPs.
+To rule out the prossibility that genic SNPs are more conserved than intergenic ones. We elected the SNPs in genic regions and did the circular shuffling to random assign GERP scores the the same set of the selected SNPs.
+
+seven phenotypic traits were trained with the conserva- tion statistics in IBD block as genotype.
+A Bayesian-based approach, BayesC \sme{CITE}, was employed for the GS experiments. To conduct predict, the diallel population was randomly divided into training and validation sets for 10 times according to a 5-fold cross-validation method. First, the BayesC model was trained independently on each of the training set. Second, the prediction accuracy was obtained by comparing the predicted and observed phenotypes on the conresponding validation set. 
 
 
+In addition, the GERP scores were circularly shuffled. The cross-validation experiments using the circularly shuffled data were conducted on the same training and validation sets.  
 
-
-Four summary statistics were used for each IBD block, they are 1) number of conserved SNPs in additive mode, 2) sum of the conservation scores in additive mode, 3) number of conserved SNPs in dominant mode and 4) sum of the conservation scores (GERP) in dominant mode.
-First, a python script gerpIBD.py was developed to compute the conservation statistics of each IBD block across a diallel population. The scores were normalized across samples. The script was uploaded to the repo of zmSNPtools. Use -help for more detail of the program.
-Second, gerp scores were circular shuffled and were used to gen- erate N set of random assigned conservation statistics for each IBD block.
-Third, seven phenotypic traits were trained with the conserva- tion statistics in IBD block as genotype. The results were compared with circular shuffled genotypes. The results showed the real data fit always better than the shuffled genotypes.
-Finally, we trained the GS model with subset of the phenotypic data and predict the validation set using a 5-fold cross-validation strategy.
-
-\subsubsection*{Stastistical model for Genomic-enabled prediction}
 
 %----------------------------------------
 % REFERENCES

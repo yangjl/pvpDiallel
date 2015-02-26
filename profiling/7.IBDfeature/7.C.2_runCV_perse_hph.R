@@ -43,7 +43,7 @@ Run7Trait_genic_cs <- function(inppwd="slurm-scripts/gerpfeature/", phenopwd="/l
 }
 
 
-####
+#### BPHmax
 source("lib/slurm4gerpIBDCV.R")
 for(i in 1:10){
   wd <- getwd()
@@ -56,7 +56,6 @@ for(i in 1:10){
     sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
   )
 }
-
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntask=x, 8GB of memory per CPU
 ###>>> RUN: sbatch -p bigmemm slurm-scripts/bph_genic_cs1.sh
@@ -78,4 +77,56 @@ for(i in 1:10){
 
 ###>>> RUN: sbatch -p bigmemh slurm-scripts/bph_genic_cs10.sh
 
+
+
+####
+source("lib/slurm4gerpIBDCV.R")
+for(i in 1:10){
+  wd <- getwd()
+  mysh <- Run7Trait_genic_cs(inppwd="slurm-scripts/genicperse/", phenopwd="/largedata/pheno/CV5fold/",
+                             geno_pattern="gerpIBD_cs",cs=i)
+  slurm4GenSelCV(
+    shfile= paste0("slurm-scripts/ps_genic_cs", i, ".sh"), shcommand = mysh,
+    sbathJ= paste0("ps_genic_cs", i),  
+    sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+    sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+  )
+}
+
+###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
+###>>> note --ntask=x, 8GB of memory per CPU
+###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs1.sh
+
+###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs2.sh
+
+###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs3.sh
+
+###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs4.sh
+
+###>>> RUN: sbatch -p serial--ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs5.sh
+
+###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs6.sh
+
+###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs7.sh
+
+###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs8.sh
+
+###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs9.sh
+
+###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs10.sh
+
+####
+source("lib/slurm4gerpIBDCV.R")
+for(i in 1:10){
+  wd <- getwd()
+  mysh <- Run7Trait_genic_cs(inppwd="slurm-scripts/genicphph/", phenopwd="/largedata/pheno/CV5fold_pBPHmax/",
+                             geno_pattern="gerpIBD_cs",cs=i)
+  slurm4GenSelCV(
+    shfile= paste0("slurm-scripts/pbph_genic_cs", i, ".sh"), shcommand = mysh,
+    sbathJ= paste0("pbph_genic_cs", i),  
+    sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+    sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+  )
+}
+###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/pbph_genic_cs1.sh
 
