@@ -22,36 +22,36 @@ table(subset(res0, type=="random")$trait)
 library("beanplot")
 
 
-res1 <- subset(res0, mode %in% c("a2", "d2"))
-par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
+res1 <- subset(res0, type=="realgenic" & mode %in% c("a2", "d2"))
+#par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
 res1$mode <- factor(res1$mode, levels = c("a2", "d2"))
 res1$trait <- factor(res1$trait, levels = c("tw", "dtp", "dts", "pht", "eht", "asi", "gy"))
-beanplot(R2 ~ mode + trait, data = res1, ll = 0.04, cex=1.5,
+beanplot(r ~ mode + trait, data = res1, ll = 0.04, cex=1.5,  ylim=c(0, 1),
          main = "Dominant for BPHmax (Exon GERP >0 and GERP <0)", ylab = "cross-validation accuracy", side = "both",
          border = NA, col = list(c("blue", "red"), c("grey", "black")))
-#legend("bottomleft", fill = c("black", "grey"),
-#       legend = c("Group 2", "Group 1"))
+legend("bottomleft", fill = c("black", "grey"),
+       legend = c("Group 2", "Group 1"))
 
 
 res1 <- subset(res0, mode == "d2")
-par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
+#par(lend = 1)
 res1$type <- factor(res1$type, levels = c("realgenic", "cs"))
 res1$trait <- factor(res1$trait, levels = c("tw", "dtp", "dts", "pht", "eht", "asi", "gy"))
-beanplot(R2 ~ type + trait, data = res1, ll = 0.04, cex=1.5,
-         main = "Dominant GERP Score for pHPH", ylab = "cross-validation accuracy", side = "both",
+beanplot(R2 ~ type + trait, data = res1, ll = 0.04, cex=1.5, cutmin=0, cutmax=1, ylim=c(0, 1),
+         main = "Dominant for HPH", side = "both", ylab = "cross-validation accuracy",
          border = NA, col = list(c("blue", "red"), c("grey", "black")))
 #legend("bottomleft", fill = c("black", "grey"),
 #       legend = c("Group 2", "Group 1"))
 
 res1 <- subset(res0, mode == "a2")
-par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
+#par(mfrow=c(2,2))
 res1$type <- factor(res1$type, levels = c("realgenic", "cs"))
 res1$trait <- factor(res1$trait, levels = c("tw", "dtp", "dts", "pht", "eht", "asi", "gy"))
-beanplot(R2 ~ type + trait, data = res1, ll = 0.04, cex=1.5,
-         main = "Dominant GERP Score for pHPH", ylab = "cross-validation accuracy", side = "both",
+beanplot(R2 ~ type + trait, data = res1, ll = 0.04, cex=1.5,  ylim=c(0, 1),overallline = "median",
+         main = "Additive for HPH", ylab = "cross-validation accuracy", side = "both",
          border = NA, col = list(c("blue", "red"), c("grey", "black")))
-#legend("bottomleft", fill = c("black", "grey"),
-#       legend = c("Group 2", "Group 1"))
+#legend("bottomleft", fill = c("blue", "grey"),
+#       legend = c("real data", "permutation"))
 
 
 
@@ -76,7 +76,7 @@ runttest <- function(res0=res0, mymode="d2", mytrait=myt[1]){
 
 #####
 myt <- c("tw", "dtp", "dts", "pht", "eht", "asi", "gy")
-runttest(res0=res0, mymode="d2", mytrait=myt[2:7])
+runttest(res0=res0, mymode="d2", mytrait=myt[1:7])
 
 
 

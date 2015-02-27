@@ -79,7 +79,7 @@ for(i in 1:10){
 
 
 
-####
+#### trait per se
 source("lib/slurm4gerpIBDCV.R")
 for(i in 1:10){
   wd <- getwd()
@@ -95,19 +95,19 @@ for(i in 1:10){
 
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntask=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs1.sh
+###>>> RUN: sbatch -p bigmemm --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs1.sh
 
-###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs2.sh
+###>>> RUN: sbatch -p bigmemm --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs2.sh
 
-###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs3.sh
+###>>> RUN: sbatch -p bigmemm --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs3.sh
 
-###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs4.sh
+###>>> RUN: sbatch -p bigmemm --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs4.sh
 
-###>>> RUN: sbatch -p serial--ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs5.sh
+###>>> RUN: sbatch -p bigmemm--ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs5.sh
 
-###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs6.sh
+###>>> RUN: sbatch -p bigmemm --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs6.sh
 
-###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs7.sh
+###>>> RUN: sbatch -p bigmemm --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs7.sh
 
 ###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/ps_genic_cs8.sh
 
@@ -128,5 +128,4 @@ for(i in 1:10){
     sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
   )
 }
-###>>> RUN: sbatch -p serial --ntasks=2 --mem 8000 slurm-scripts/pbph_genic_cs1.sh
-
+###>>> sbatch -p bigmemm slurm-scripts/pbph_genic_cs1.sh

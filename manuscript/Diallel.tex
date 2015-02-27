@@ -120,6 +120,7 @@ Maize was domesticated from teonsinte 9000 years ago (citation). The exponential
 \end{itemize}
 
 
+
 \textbf{Theory of residual heterozygosity suggests complementation} 
 
 The practice of removing deleterious alleles in low recombination regions or removing deleterious alleles in tightly linked regions become less effective. For example, residual heterozygosity in RILs correlates negatively with recomination (Gore et al. 2009 Science, McMullen et al. 2009 Science). Low recombination is effective over long time scales (Haddrill et al. 2007 Genome Biology). Deleterious alleles not correlated with recombination (G3). QTL for heterosis enriched in centromeric regions (Lariepe et al, 2012 Genetics).
@@ -222,6 +223,12 @@ Figure S3. GERP in gene, exon and intron.
 
 Figure S4. GERP in IBD design with additive and dominance model.
 
+Some prior knowledge have not been used for model training. 
+SNPs with high GERP score were considered as evolutionary conserved. The mutation at these sites tend to be deleterious. However, because SNPs with high GERP score are negatively correlated with the MAF (Figure and citation), they become less useful due to statistical limitation (citation). To capture the information carried by these potentially deleterious sites, we conducted the genomic-enabled prediction with the SNP's GERP score. 
+
+The population in this study is relative small with only 66 individuals. The 20k conserved SNPs are highly colinear with others. To solve this problem, we use the haplotype-based approach for model training, where the haplotype was coded with the SNP conservation score as the explainatory variables. 
+
+With a 5-fold cross-validation approach, the prediction accuracies of the real data and cicularly shuffled data were compared. To rule out the prossibility that genic SNPs are more conserved than intergenic ones. We elected the SNPs in genic regions and did the circular shuffling to random assign GERP scores the the same set of the selected SNPs.
 
 
 
@@ -251,7 +258,7 @@ Current methods for GS weigh all the available SNPs equally in model training, w
 
 \subsection*{Plant material and phenotypic data}
 %-------------------
-Twelve maize inbred lines were selected and crossed in a partial diallel fashion without considering reciprocal effects \sme{(CITE)}. Ten (LH1, LH123HT, LH82, PH207, 4676A, PHG39, PHG47, PHG84, PHJ40, PHZ51) of these inbreds are proprietary inbreds that have expired from Plant Variety Protection (PVP) and represent the lineage of key heterotic germplasm pools used in present-day commercial corn hybrids, and two are predominant public inbreds B73 and Mo17. This diallel facilitated the creation of F1 hybrids that are adapted to the U.S., fairly elite in performance, and commercially relevant. The set is diverse enough to facilitate a broad sweep of the heterotic sub-groups that comprise U.S. commercial germplasm. \\
+Twelve maize inbred lines were selected and crossed in a partial diallel fashion without considering reciprocal effects \sme{(CITE)}. Ten of these inbreds (LH1, LH123HT, LH82, PH207, 4676A, PHG39, PHG47, PHG84, PHJ40, PHZ51) are proprietary inbreds that have expired from Plant Variety Protection (PVP) and represent the lineage of key heterotic germplasm pools used in present-day commercial corn hybrids, and two are predominant public inbreds B73 and Mo17. This diallel facilitated the creation of F1 hybrids that are adapted to the U.S., fairly elite in performance, and commercially relevant. The set is diverse enough to facilitate a broad sweep of the heterotic sub-groups that comprise U.S. commercial germplasm. \\
 
 The experimental design includes the 66 F1 hybrids, the 12 inbred parents, and 2 current commercial check hybrids grown in an incomplete block design with 3 replications; hybrids and inbreds were grouped separately. The test was grown at Urbana, IL in 2009, 2010, and 2011.  Plots consisted of 4 rows, with all observations taken from the inside 2 rows to minimize effects of shading and maturity differences from adjacent plots. Both inbred lines and the 66 resulting hybrids were field evaluated. Phenotypic data was collected for plant height (PHT, in cm), ear height (EHT, in cm), days to 50\% silking (DTS), days to 50\% pollen shed (DTP), anthesis-silking interval (ASI, in days), grain yield adjusted to 15.5\% moisture (adj GY, in bu/A), and test weight (TWT, in pounds) \sme{(CITE)}.% Question for RHM: Should we cite a paper for the phenotypic data? 
 
@@ -326,7 +333,6 @@ Haplotype association with heterosis were tested comparing the heterozygote alle
 
 A haplotype based genomic selection (GS) strategy was conceived by using the IBD blocks as the explanatory variables containing conservation information. The reference genome sites with GERP score />0 were considered as conserved sites and genomic variations at these sites were deemed as deleterious. To incoporate the conservation information into IBD blocks, SNPs falling into a given IBD block were added up using their GERP scores as the conservation estimates of the IBD block. This estimation was calculated using a python script gerpIBD (\url{https://github.com/RILAB/pvpDiallel}) with additive and dominant models. Under the additive model, 2 x GERP score was assigned to the homozygous loci with non-reference SNP calls; 1 x GERP score was assigned to the heterozygous loci; and 0 was assigned to the homozygous loci with reference SNP calls. Under the dominant model, 1 x GERP score was assigned to both the homzygous loci with non-reference SNP calls and heterozygous loci; 0 was assigned to homozygous loci with reference SNP calls.
 
-To rule out the prossibility that genic SNPs are more conserved than intergenic ones. We elected the SNPs in genic regions and did the circular shuffling to random assign GERP scores the the same set of the selected SNPs.
 
 seven phenotypic traits were trained with the conserva- tion statistics in IBD block as genotype.
 A Bayesian-based approach, BayesC \sme{CITE}, was employed for the GS experiments. To conduct predict, the diallel population was randomly divided into training and validation sets for 10 times according to a 5-fold cross-validation method. First, the BayesC model was trained independently on each of the training set. Second, the prediction accuracy was obtained by comparing the predicted and observed phenotypes on the conresponding validation set. 
