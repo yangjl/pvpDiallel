@@ -73,6 +73,17 @@ slurm4GenSelCV(
   sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
 )
 
+
+
+
+
+
+
+
+
+
+#############################
+
 #### EXON >0
 wd <- getwd()
 mysh3 <- Run7Trait_gerpfeature(inppwd="slurm-scripts/exon/", phenopwd="/largedata/pheno/CV5fold_BPHmax/",

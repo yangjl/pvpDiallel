@@ -47,14 +47,21 @@ SplitName <- function(infile=rand1){
 }
 
 #### extract with real data
-main4 <- function(){
-  res1 <- harvestCV(dir="slurm-scripts/genic/", fileptn="\\.ghatREL", remove=FALSE)
+main4 <- function(dir="slurm-scripts/genic/", outfile="cache/genic_cv_cs_BPHmax.csv"){
+  res1 <- harvestCV(dir=dir, fileptn="\\.ghatREL", remove=FALSE)
   res1 <- SplitName(infile=res1) #885
   print(table(res1$trait))
   
-  write.table(res1, "cache/genic_cv_cs_BPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
+  write.table(res1, outfile, sep=",", row.names=FALSE, quote=FALSE)
 }
 
-main4()
+main4(dir="slurm-scripts/genic/", outfile="cache/genic_cv_cs_BPHmax.csv")
+
+
+main4(dir="slurm-scripts/genicperse/", outfile="cache/genic_cv_real_perse.csv")
+main4(dir="slurm-scripts/genicphph/", outfile="cache/genic_cv_cs_pHPH.csv")
+
+
+
 
 
