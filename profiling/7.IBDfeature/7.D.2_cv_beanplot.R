@@ -3,16 +3,16 @@
 
 #http://www.jstatsoft.org/v28/c01/paper
 
-res0 <- read.csv("cache/cv_exon_BPHmax.csv")
+res0 <- read.csv("cache/cv_results.csv.csv")
 
-table(subset(res0, type=="real")$trait)
-table(subset(res0, type=="random")$trait)
+table(subset(res0, type=="realgenic")$trait)
+table(subset(res0, type=="cs")$trait)
 
 
 library("beanplot")
 
 
-res1 <- subset(res0, mode %in% c("3d2", "4d2"))
+res1 <- subset(res0, mode %in% c("a2"))
 par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
 res1$mode <- factor(res1$mode, levels = c("3d2", "4d2"))
 res1$trait <- factor(res1$trait, levels = c("tw", "dtp", "dts", "pht", "eht", "asi", "gy"))
