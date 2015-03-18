@@ -17,7 +17,7 @@
 \renewcommand{\baselinestretch}{1.5}
 \geometry{a4paper} 
 \bibliographystyle{apalike}
-
+\graphicspath{{../graphs/}} % Location of the graphics files
 
 %nouvelle commande pour les commentaires
 \newcommand{\sme}[1]{\textcolor{red}{\bf #1}}
@@ -113,7 +113,7 @@ Deleterious alleles were arisen from new mutations during meiosis. In maize, abo
 %pesudo-overdominance model
 In maize, the total number of these mildly deleterious mutations is substantial because of the exponential growth of population size after domestication. The modern breeding aims to remove these deleterious mutations and pyramiding beneficial alleles for agronomical purposes. In practice, the relatively homogeneous maize germplasm pool was artificially divided into different heterotic groups \citep{Heerwaarden2012}. It enabled the germplasm improvement could be conducted in a parallel fashion. By doing this, the maize yield has been steadily improved since the early 20th century \yang{citation}. However, the removing of deleterious mutations in low recombination regions or in tightly linked regions is less effective. Studies indicated that residual heterozygosity correlates negatively with recombination \citep{Gore2009, McMullen2009} and the low recombination is effective over long period of time \citep{Haddrill2007}. As a consequence, the deleterious alleles would be accumulated in the pericentromeric region and the vigorous performance could only be realized by combining two sets of non-deleterious or beneficial alleles in repulsion state, thus lead to pesudo-overdominance. Recent QTL study identified loci controlling for heterosis are enriched in centromeric regions \citep{Lariepe2012}, which may support this pesudo-overdominance hypothesis.
 
-To study the relationship between deleterious variants, especially those with minor effect or rare in the population, and their contribution to heterosis, a diallel population was employed \citep{}. This diallel population enabled us to invistigate the different modes of inheritance of the deleterious variant in a hybrid population with super dense SNP markers; while only relative little sequencing efforts need to be conducted on founder lines. Our previous study observed that an excess of deleterious SNPs were enriched in GWAS set \citep{Mezmouk2014}. In that study, deleterious variants were defined as nonsynonymous mutations. Clearly, deleterious varinats are not limitted to coding regions. Here, we expanded the characterization of deleterious variants to genome wide by using genomic evolutionary rate profiling (GERP) \citep{Cooper2005}. GERP scores were obtained by computing the regected substitutions subtracted by the neutral rate after multiple sequence alignment of a set of closed species \citep{Davydov2010}. Because most of the deleterious alleles are rare, their effects are hard to be detected by traditional GWAS approach. To overcome it, a genomic selection approach was conceived, which enable us to estimate the combined effects of all the possible deleterious variants simuteously. As the results, genomic selection with GERP score incorporated in the prediction model show better performance than circular shuffled data for some phentoypic traits. This study demonstrates the importance of incorporating evolutionary information in genomic selection and its potential use in plant breeding.
+To study the relationship between deleterious variants, especially those with minor effect or rare in the population, and their contribution to heterosis, a diallel population was employed \citep{}. This diallel population enabled us to invistigate the different modes of inheritance of the deleterious variant in a hybrid population with super dense SNP markers; while only relative little sequencing efforts need to be conducted on founder lines. Our previous study observed that an excess of deleterious SNPs were enriched in GWAS set \citep{Mezmouk2014}. In that study, deleterious variants were defined as nonsynonymous mutations. Clearly, deleterious varinats are not limitted to coding regions. Here, we expanded the characterization of deleterious variants to genome wide by using genomic evolutionary rate profiling (GERP) \citep{Cooper2005}. GERP scores were obtained by computing the regected substitutions subtracted by the neutral rate after multiple sequence alignment of a set of related species \citep{Davydov2010}. \yang{Sofina's GWAS results.}. Because most of the deleterious alleles are rare, their effects are difficult to be detected by traditional GWAS approach. To overcome it, a genomic selection approach was conceived, which enable us to estimate the combined effects of all the possible deleterious variants simuteously. As the results, genomic selection with GERP score incorporated in the prediction model show better performance than circular shuffled data for some phentoypic traits. This study demonstrates the importance of incorporating evolutionary information in genomic selection and its potential use in plant breeding.
    
 
 
@@ -185,6 +185,8 @@ Current methods for GS weigh all the available SNPs equally in model training, w
   \item do we support deleterious model of Mezmouk et al.?
 \end{itemize}
 
+In this study, more than 500,000 deleterious SNPs were identified in elite maize lines including in noncoding regions of the genome. Majority of them were maintained in a low frequency, which consistent with the previous observation \yang{Eli PNAS, 2015} and indicate the deleteriousness of the variants in the conserved sites. A genomic selection pipeline was developed, which utilized evolutionary conservation information in the model.
+Cross-validation results suggested prediction accuracies for some traits could be significantly improved by incorporating GERP scores. 
 
 
 
@@ -272,6 +274,7 @@ Haplotype association with heterosis were tested comparing the heterozygote alle
 A haplotype based genomic selection (GS) strategy was conceived by using the IBD blocks as the explanatory variables containing conservation information. The reference genome sites with GERP score />0 were considered as conserved sites and genomic variations at these sites were deemed as deleterious. To incoporate the conservation information into IBD blocks, SNPs falling into a given IBD block were added up using their GERP scores as the conservation estimates of the IBD block. This estimation was calculated using a python script gerpIBD (\url{https://github.com/RILAB/pvpDiallel}) with additive and dominant models. Under the additive model, 2 x GERP score was assigned to the homozygous loci with non-reference SNP calls; 1 x GERP score was assigned to the heterozygous loci; and 0 was assigned to the homozygous loci with reference SNP calls. Under the dominant model, 1 x GERP score was assigned to both the homzygous loci with non-reference SNP calls and heterozygous loci; 0 was assigned to homozygous loci with reference SNP calls.
 
 
+
 seven phenotypic traits were trained with the conservation statistics in IBD block as genotype.
 A Bayesian-based approach, BayesC \sme{CITE}, was employed for the GS experiments. To conduct predict, the diallel population was randomly divided into training and validation sets for 10 times according to a 5-fold cross-validation method. First, the BayesC model was trained independently on each of the training set. Second, the prediction accuracy was obtained by comparing the predicted and observed phenotypes on the conresponding validation set. 
 
@@ -292,26 +295,55 @@ In addition, the GERP scores were circularly shuffled. The cross-validation expe
 \pagebreak
 \section*{Figures and Tables}
 
-\begin{figure}[here]
-\includegraphics[width=0.9\textwidth]{../graphs/mafmissing.pdf}
-\caption{A prototype of the Job Information dialog}
-\label{fig:mafmiss}
-\end{figure}
+\begin{center}\vspace{1cm}
+\includegraphics[width=0.8\linewidth]{cvres.pdf}
+\captionof{figure}{
+\color{black} \textbf{Beanplots of cross-validation accuracies.}
+Cross-validation experiments were conducted using genic SNPs and circular shuffled data from the same set of the genic SNPs for traits \emph{per se} (\textbf{A, B}) and pHPH (\textbf{C, D}) under additive (\textbf{A, C}) and dominant (\textbf{B, D}) models. Accuaries from the real data were plotted on the left side of the bean (blue) and permutation results plotted on the right (grey). Horizotal bars on beans indicate mean accuracies. The grey dashed line indicates the overall average accuracy. Stars indicate significantly improved cross-validation accuracies.
+}
+\end{center}\vspace{1cm}
 
 
 %----------------------------------------
 % SUPPLEMENTARY FIGURES
 %----------------------------------------
-\beginsupplement
 \pagebreak
+\beginsupplement
 \section*{Supplementary Figures and Tables}
 
 
+%Figure
+\begin{center}\vspace{1cm}
+\includegraphics[width=0.8\linewidth]{pvp.pdf}
+\captionof{figure}
+{\color{black} \textbf{Diallel experimental design and distribution of phenotypic data.}
+\textbf{(A)} Twelve maize inbred lines were selected and crossed in a half diallel. Ten of these (LH1, LH123HT, LH82, PH207, 4676A, PHG39, PHG47, PHG84, PHJ40, PHZ51) are proprietary inbreds that have expired from Plant Variety Protection (PVP) and represent the lineage of key heterotic germplasm pools used in present-day commercial corn hybrids. Two of them are important public inbreds, B73 and Mo17. \textbf{(B)} Phenotypic data were collected for anthesis-silking interval (ASI, in days), days to 50\% pollen shed (DTP), days to 50\% silking (DTS), ear height (EHT, in cm), grain yield adjusted to 15.5\% moisture (GY, in bu/A), plant height (PHT, in cm), and test weight (TW, in pounds). Analyses were carried out on the traits per se as well as percent high parent heterosis (pHPH).
+}
+\end{center}\vspace{1cm}
+
+
+
+\begin{center}\vspace{1cm}
+\includegraphics[width=0.8\linewidth]{gerp.pdf}
+\captionof{figure}{
+\color{black} \textbf{GERP distribution of SNPs and relationship between GERP and minor allele frequency.}
+\textbf{(A)} GERP scores were obtained for $\sim$1.2 million ($\sim$10\%) SNPs. Of these, 506,898 (42\%) were under evolutionary constraint and considered as deleterious variants. 
+\textbf{(B)} Mean GERP scores were calculated for each bin (bin size = 0.01) of minor allele frequency (MAF). It shows that variants at conserved sites are maintained at low frequency. The red line and grey lines define the regression and its 95\% confidence interval.}
+\end{center}\vspace{1cm}
+
+
+
+
+
 \begin{figure}[here]
-\includegraphics[width=0.9\textwidth]{../graphs/mafmissing.pdf}
-\caption{A prototype of the Job Information dialog}
-\label{fig:maf2}
+\includegraphics[width=0.9\textwidth]{gerpIBD.pdf}
+\caption{
+\textbf{Incoporation of conservation information into IBD blocks.}
+Regions of the genome that are identical by descent (IBD) among the 12 inbreds were identified using Beagle \citep{Browning2009}.  The GERP scores of SNPs in an IBD block were summed under both additive and dominant models. Under the additive model, 2 x GERP score was assigned to genotypes homozygous for the non-reference allele, 1 x GERP score was assigned to heterozygotes, and 0 was assigned to the homozygous reference genotype. Under the dominant model, 1 x GERP score was assigned to both genotypes with a nonreference allle and 0 to the homozygous reference genotype.}
+\label{fig:gerpibd}
 \end{figure}
+
+
 
 
 \end{document}

@@ -59,7 +59,7 @@ main4(dir="slurm-scripts/genic/", outfile="cache/genic_cv_cs_BPHmax.csv")
 
 
 main4(dir="slurm-scripts/genicperse/", outfile="cache/genic_cv_real_perse.csv")
-main4(dir="slurm-scripts/genicphph/", outfile="cache/genic_cv_cs_pHPH.csv")
+main4(dir="slurm-scripts/genicphph/", outfile="cache/genic_cv_all_pHPH.csv")
 
 
 
