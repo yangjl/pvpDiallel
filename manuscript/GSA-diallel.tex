@@ -1,0 +1,417 @@
+\documentclass[9pt,twocolumn,twoside]{gsajnl}
+\newcommand{\sme}[1]{\textcolor{red}{\bf #1}}
+\newcommand{\yang}[1]{\textcolor{blue}{\bf #1}}
+\graphicspath{{../graphs/}} % Location of the graphics files
+\newcommand{\beginsupplement}{%
+        \setcounter{table}{0}
+        \renewcommand{\thetable}{S\arabic{table}}%
+        \setcounter{figure}{0}
+        \renewcommand{\thefigure}{S\arabic{figure}}%
+     }
+
+\articletype{inv} % article type
+% {inv} Investigation 
+% {gs} Genomic Selection
+% {goi} Genetics of Immunity 
+% {gos} Genetics of Sex 
+% {mp} Multiparental Populations
+
+\title{Utilizing evolutionary conservation information to improve prediction accuracy in genomic selection}
+
+\author[$\ast$, 2]{Jinliang Yang}
+\author[$\ast$, $\S$, 2, 3]{Sofiane Mezmouk}
+\author[$\dagger$]{Andy Baumgarten}
+\author[$\ddagger$]{Rita H. Mumm}
+\author[$\ast$, $\S$, 1]{Jeffrey Ross-Ibarra}
+
+\affil[$\ast$]{Department of Plant Sciences, University of California, Davis, CA 95616, USA}
+\affil[$\S$]{Center for Population Biology and Genome Center, University of California Davis}
+\affil[$\dagger$]{Pioneer, IA, USA}
+\affil[$\ddagger$]{Department of Crop Sciences, University of Illinois at Urbana-Champaign, Urbana, IL 61801, USA}
+
+\keywords{genomic selection; diallel; GERP; maize}
+
+\runningtitle{Genomic Selection Using GERP score} % For use in the footer 
+
+\correspondingauthor{Jeffrey Ross-Ibarra}
+
+\begin{abstract}
+Genomic selection (GS) has gained popularity recently as the availability of genome-wide markers has increased. Current methods for GS weigh all the available SNPs equally in model training, without considering their functional differences. Genetic variations detected at evolutionary conserved sites tend to be deleterious and, thus, may be more informative for GS. To utilize this kind of information as a prior into the GS model, we proposed a method to put more weight on evolutionarily constrained sites. As a proof-of-concept, a half diallel population based on 12 diverse inbred lines was used, from which seven phenotypic traits were collected. Some of these traits show high levels of heterosis. After sequencing the 12 founder lines, about 14 million SNPs were discovered and the SNPs were used to identify 502,913 haplotype blocks shared through identity by descent (IBD). A five fold cross-validation experiment was conducted using the summary statistics of the SNP conservation scores, which were computed by evaluating sequences similarity of multiple divergent species, in the IBD blocks as explanatory variables. The results show that the prediction accuracies are significantly better than shuffled data with randomly assigned conservation scores. This study demonstrates the importance of incorporating evolutionary information in GS and its potential use in plant breeding.
+\end{abstract}
+
+\setboolean{displaycopyright}{true}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{firststyle}
+\marginmark
+\firstpagefootnote
+\correspondingauthoraffiliation{Department of Plant Sciences, University of California, Davis, CA 95616, USA. Email: rossibarra@ucdavis.edu}
+\blfootnote{\textsuperscript{2}These authors contributed equally to this work}
+\blfootnote{\textsuperscript{3}Current address: KWS SAAT AG, Grimsehlstr. 31, 37555 Einbeck, Germany}
+\vspace{-11pt}%
+
+\lettrine[lines=2]{\color{color2}T}{}his \textit{Genetics} journal template is provided to help you write your work in the correct journal format. Instructions for use are provided below. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Introduction}
+
+%\textbf{Prediction approach for deleterious alleles} 
+
+\textbf{Why we care about deleterious variants. Discuss results of Mezmouk 2014. We are extending this in three ways}  
+\begin{itemize}
+  \item all deleterious SNPs not just coding
+  \item genome-wide not just reduced representation
+  \item using GS to test whether they improve prediction
+\end{itemize}
+
+
+%\textbf{Heterosis was observed long time ago. many theories were proposed to explain it.}
+
+The phenomenon of heterosis has been observed for many species across taxa, from yeast \citep{Shapira2014} to vertebrates \citep{Gama2013}. Although heterosis has been broadly applied for food production and has been extensively studied by many researchers, the underlying mechanism controlling for it remains elusive. Recent studies indicated that the complementation of the deleterious alleles, which fit the classical dominance genetic model, may play an important role in determining heterosis \citep{Charlesworth2009}. Deleterious alleles were arisen from new mutations during meiosis. In maize, about 90 new mutations were generated per meiosis \citep{Clark2005}, majority of which were deemed to be deleterious according to empirical estimates \citep{Joseph2004}. In a natural outcross population, the negative effects on fitness of these deleterious alleles make them subject to be selected against. Therefore, deleterious alleles were mainly maintained in a low frequency \citep{Eyre-Walker2007}. 
+
+%\textbf{Many new mutations, most deleterious}
+
+%~90 mutations per meiosis (Clark et al. 2005 MBE, Jiao et al. 2012 Nature Genetics), maize HapMap2 new mutations of large effect (Hufford et al 2012 Nature Genetics, Soletzki 2011 MBE).
+%Purifying selection retards recovery of diversity in genic regions.
+
+%pesudo-overdominance model
+In maize, the total number of mildly deleterious mutations is substantial because of the exponential growth of population size after domestication. The modern breeding probably aims to remove these deleterious mutations and pyramiding beneficial alleles for agronomical important traits. In practice, the relatively homogeneous maize germplasm pool was artificially divided into different heterotic groups \citep{Heerwaarden2012}. It enabled the improvement of germplasm pools to be conducted in a parallel fashion, and therefore, facilitated the breeding efficiency. By doing this, the maize yield has been steadily improved since the early 20th century \yang{citation}. However, the removing of deleterious mutations in low recombination regions or in tightly linked regions is less effective. Studies indicated that residual heterozygosity correlates negatively with recombination \citep{Gore2009, McMullen2009} and the low recombination is effective over long period of time \citep{Haddrill2007}. As a consequence, the deleterious alleles would be accumulated in the pericentromeric region and the vigorous performance could only be realized by combining two sets of non-deleterious or beneficial alleles in repulsion state, thus lead to pesudo-overdominance. Recent QTL study identified loci controlling for heterosis are enriched in centromeric regions \citep{Lariepe2012}, which partly support this pesudo-overdominance hypothesis.
+
+To study the relationship between deleterious variants, especially those with minor effect or rare in the population, and their contribution to heterosis, a diallel population was employed \citep{}. This diallel population enabled us to invistigate the different modes of inheritance of the deleterious variant in a hybrid population with super dense SNP markers; while only relative little sequencing efforts need to be conducted on founder lines. Our previous study observed that an excess of deleterious SNPs were enriched in GWAS set \citep{Mezmouk2014}. In that study, deleterious variants were defined as nonsynonymous mutations. Clearly, deleterious varinats are not limitted to coding regions. Here, we expanded the characterization of deleterious variants to genome wide by using genomic evolutionary rate profiling (GERP) \citep{Cooper2005}. GERP scores were obtained by computing the regected substitutions subtracted by the neutral rate after multiple sequence alignment of a set of related species \citep{Davydov2010}. \yang{Sofina's GWAS results.}. Because most of the deleterious alleles are rare, their effects are difficult to be detected by traditional GWAS approach. To overcome it, a genomic selection approach was conceived, which enable us to estimate the combined effects of all the possible deleterious variants simuteously. As the results, genomic selection with GERP score incorporated in the prediction model show better performance than circular shuffled data for some phenotypic traits and their heterosis transformations. This study demonstrates the importance of incorporating evolutionary information in genomic selection and its potential use in plant breeding.
+   
+
+
+\section*{Materials and Methods}
+
+\subsection*{Plant Material and Phenotypic Data}
+%-------------------
+Twelve maize inbred lines were selected and crossed in a partial diallel fashion without considering reciprocal effects \sme{(CITE)}. Ten of these inbreds (LH1, LH123HT, LH82, PH207, 4676A, PHG39, PHG47, PHG84, PHJ40, PHZ51) are proprietary inbreds that have expired from Plant Variety Protection (PVP) and represent the lineage of key heterotic germplasm pools used in present-day commercial corn hybrids, and two are predominant public inbreds B73 and Mo17.  
+The experimental design includes the 66 F1 hybrids, the 12 inbred parents, and 2 current commercial check hybrids grown in an incomplete block design with 3 replications; hybrids and inbreds were grouped separately. The test was grown at Urbana, IL in 2009, 2010, and 2011.  Plots consisted of 4 rows, with all observations taken from the inside 2 rows to minimize effects of shading and maturity differences from adjacent plots. Both inbred lines and the 66 resulting hybrids were field evaluated. Phenotypic data was collected for plant height (PHT, in cm), ear height (EHT, in cm), days to 50\% silking (DTS), days to 50\% pollen shed (DTP), anthesis-silking interval (ASI, in days), grain yield adjusted to 15.5\% moisture (adj GY, in bu/A), and test weight (TWT, in pounds) \sme{(CITE)}.% Question for RHM: Should we cite a paper for the phenotypic data? 
+
+Best Linear Unbiased Estimation (BLUE) of the genetic effects were calculated with ASReml-R \sme{(CITE)} following the linear model \yang{check the following mixed linear model?}: 
+%
+\[y_{ijkl} = \mu + \varsigma_{i} + \delta_{ij} + \beta_{jk} + \alpha_{l} +  \varsigma_{i} \cdot \alpha_{l} + \varepsilon\]
+%
+where 
+$y_{ijkl}$ is the phenotypic value of the $l^{th}$ genotype evaluated in the $k^{th}$ block of the $j^{th}$ replicate within the $i^{th}$ environment; 
+$\mu$, the overall mean; 
+$\varsigma_{i}$, the fixed effect of the $i^{th}$ environment;
+$\delta_{ij}$, the fixed effect of the $j^{th}$ replicate nested in the $i^{th}$ environment; 
+$\beta_{jk}$, the random effect of the $k^{th}$ block nested in the $j^{th}$ block; 
+$\alpha_{l}$, the the fixed genetic effect  of the $l^{th}$ individual; 
+$\varsigma_{i} \cdot \alpha_{l}$, the interaction effect of the $l^{th}$ individual with the $i^{th}$ environment; 
+$\varepsilon$, the model residuals.
+
+All fixed effects, including the genotype onces, were significant (Wald test p-value<0.05) for all traits except ASI for which the effect of the replicates within environments were not significant.
+
+Heterosis for each hybrid was then estimated by both best- and mid-parent heterosis ($BPH$ and $MPH$, respectively):
+%
+\[ MPH_{ij}=\hat{G_{ij}}-\frac{1}{2}(\hat{G_{i}}+\hat{G_{j}}) \]
+\[ BPH_{min,ij}=\hat{G_{ij}}-min(\hat{G_{i}} ,\hat{G_{j}}) \] 
+\[ BPH_{max,ij}=\hat{G_{ij}}-max(\hat{G_{i}} ,\hat{G_{j}}) \]
+%
+where $\hat{G_{ij}}$, $\hat{G_{i}}$ and $\hat{G_{j}}$ are the genetic values of the hybrid and its two parents $i$ and $j$. $BPH_{min}$ was used instead of $BPH_{max}$ for days to anthesis.\\
+
+Finally, general and specific combining ability (GCA ans SCA) respectively were estimated following \citep{Falconer1996}.
+
+
+\subsection*{Sequencing of Founder Lines and SNP Callings}
+
+% wet lab
+DNA from the twelve inbred lines was CTAB extracted \citep{Doyle1987} and Covaris sheared for Illumina library preparation. The DNA libraries were then sequenced to an average coverage of 10X \sme{(say where the sequencing was done?)}.
+
+%Read mapping
+Raw paired reads (reverse and forward for each sequence), were trimmed for adapter contamination with Scythe package (\url{https://github.com/vsbuffalo/scythe}) which calculate the probability of having a contamination given the adapter sequence, the number of mismatches and sequence quality. The reads were then trimmed for quality and sequence length ($\geq 20$ nucleotides) with Sickle package (\url{https://github.com/najoshi/sickle}) .
+
+Read pairs, kept after filtering,  were mapped to the maize B73 reference genome (AGPv2) with bwa-mem \citep{Li2009B}. Reads, with mapping quality (MAPQ) higher than 10 and with a best alignment score higher than the second best one, were kept for further analyses.
+
+%SNP calling
+Single nucleotide polymorphisms (SNPs) were called with mpileup from samtools utilities \citep{Li2009}. To deal with paralogy, which is a major problem in maize sequence mapping \citep{Chia2012}, all SNPs were filtered to a) be heterozygote in less than 3 inbred lines, b) have a mean minor allele depth over all genomes of at least 4, c) have a mean depth over all individuals lower than 30 and d) have missing/heterozygote alleles in less than 6 inbred lines (allelic information for at least 15 hybrids in the partial diallel design). 
+
+%SNP results after filtering
+After filtering 13,782,809 are kept for further comparisons, including 1,909,416 genic SNPs and 361,280 in protein coding regions). \\
+We estimated the allelic error rate by first comparing our genotype calls to those of 41,292 overlapping SNPs on the maize SNP50 bead chip \citep{Heerwaarden2012};  we then compared our SNP alleles for B73 and Mo17 with the 10,426,715 SNP previously identified in HapMap2 \citep{Chia2012}; finally, we compared our SNPs to 180,313 overlapping SNPs identified through Genotyping by sequencing \citep{Romay2013}. The comparisons showed 99.12\% allele similarity with shared SNPs previously identified. 
+
+
+\subsection*{Haplotype identification and SNP annotation}
+
+%IBD
+All missing alleles were then imputed with BEAGLE package \citep{Browning2009} and identity by descent regions (IBD) between the 12 inbred lines were identified with BEAGLE's fastIBD method \citep{Browning2011}. The pairwise IBD region starts and ends were used to delimit haplotipic blocs where several inbred lines shared a homogenous haplotypes.%I need to clarify this last sentence.
+
+%SIFT and MAPP
+The SNPs were annotated as synonymous and non-synonymous with the software polydNdS from the analysis package of libsequence  \citep{Thornton2003} using the first transcript of each gene in B73 5b filtered gene set. Deleterious effects of amino acid changes were then predicted with both SIFT \citep{Ng2003, Ng2006} and MAPP \citep{Stone2005} software packages as described by \citep{Mezmouk2014}.
+
+%GERP
+Genomic evolutionary rate profiling (GERP) \sme{CITE}, which estimates the evolutionary constraint by quantifying substitution deficits after multiple genome alignments, was obtained from \yang{cite eli2015} for AGPv2. 
+
+\subsection*{Association mapping}
+SNP association with heterosis (BPH and MPH) was tested assuming dominance/recessivity of the reference allele or assuming overdominance where only the heterozygote alleles are expected to be significant. For each SNP, root mean square error were used to select the best fitting model. 
+Haplotype association with heterosis were tested comparing the heterozygote alleles to all homozygote ones all confounded. 
+
+
+\subsection*{Genomic-enabled prediction with GERP score}
+
+A haplotype based genomic selection (GS) strategy was conceived by using the IBD blocks as the explanatory variables containing conservation information. The reference genome sites with GERP score />0 were considered as conserved sites and genomic variations at these sites were deemed as deleterious. To incoporate the conservation information into IBD blocks, SNPs falling into a given IBD block were added up using their GERP scores as the conservation estimates of the IBD block. This estimation was calculated using a python script gerpIBD (\url{https://github.com/RILAB/pvpDiallel}) with additive and dominant models. Under the additive model, 2 x GERP score was assigned to the homozygous loci with non-reference SNP calls; 1 x GERP score was assigned to the heterozygous loci; and 0 was assigned to the homozygous loci with reference SNP calls. Under the dominant model, 1 x GERP score was assigned to both the homzygous loci with non-reference SNP calls and heterozygous loci; 0 was assigned to homozygous loci with reference SNP calls.
+
+seven phenotypic traits were trained with the conservation statistics in IBD block as genotype.
+A Bayesian-based approach, BayesC \sme{CITE}, was employed for the GS experiments. To conduct predict, the diallel population was randomly divided into training and validation sets for 10 times according to a 5-fold cross-validation method. First, the BayesC model was trained independently on each of the training set. Second, the prediction accuracy was obtained by comparing the predicted and observed phenotypes on the conresponding validation set. 
+
+In addition, the GERP scores were circularly shuffled. The cross-validation experiments using the circularly shuffled data were conducted on the same training and validation sets.  
+
+\subsection*{Data Access}
+
+\textit{GENETICS} is committed to the open access to all primary data (see \href{http://www.genetics.org/content/184/1/1.full}{Genetics, 184: 1}). Please indicate where data can be found (supplemental files, public repository, or published with another paper).
+
+\subsection*{Statistical Analysis} 
+
+It is important to indicate what statistical analysis has been performed; not just the name of the software and options selected, but the method and model applied. In the case of many genes being examined simultaneously, or many phenotypes, a multiple comparison correction should be used to control the type I error rate, or a rationale for not applying a correction must be provided. The type of correction applied should be clearly stated. It should also be clear whether the p-values reported are raw, or after correction. Corrected p-values are often appropriate, but raw p-values should be available in the supporting materials so that others may perform their own corrections. In large scale data exploration studies (e.g. genome wide expression studies) a clear and complete description of the replication structure must be provided. 
+
+
+%%%%%%%%%%%%%%%%%%%% RESULTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Results}
+
+\begin{itemize}
+  \item Genetic values, heritability, heterosis and combining ability 
+  \item SNP calls and annotation; distribution of deleterious mutations along the genome 
+  \item correlation between complementation at deleterious SNPs with heterosis and SCA for the different 
+  \item IBD region size and general statistics 
+  \item IBD correlation with heterosis and SCA
+  \item GWAS results at an SNP level and then comparison with haplotypic results 
+  \item Analyses of the significant haplotypic bloc to see if there is any pattern
+\end{itemize}
+
+\subsection*{Genetic values, heritability and heterosis of the half diallel population}
+
+A half diallel population was created using 12 maize inbred lines. Two of them are important public inbreds, B73 and Mo17. And the other ten of them are (LH1, LH123HT, LH82, PH207, 4676A, PHG39, PHG47, PHG84, PHJ40, PHZ51) are proprietary inbreds that have expired from Plant Variety Protection (PVP) and represent the lineage of key heterotic germplasm pools used in present-day commercial corn hybrids. This diallel facilitated the creation of F1 hybrids that are adapted to the U.S., fairly elite in performance, and commercially relevant. The set is diverse enough to facilitate a broad sweep of the heterotic sub-groups that comprise U.S. commercial germplasm.
+
+%%%%% ---------------------- %%%%%
+\begin{table*}[htbp]
+\centering
+\caption{\bf Phenotypic values, heterosis and heritability}
+\begin{tableminipage}{\textwidth}
+\begin{tabularx}{\textwidth}{XXXXX}
+\hline
+Trait & Heritability\footnote{This is an example of a footnote in a table. Lowercase, superscript italic letters (a, b, c, etc.) are used by default. You can also use *, **, and *** to indicate conventional levels of statistical significance, explained below the table.} & MPH\% & HPH\% & Notes \\
+\hline
+ASI & 82\% & 1 & 82\% & anthesis-silking interval \\
+DTP & 65\% & 3 & 82\% & days to 50\% pollen shed \\
+DTS & 73\% & 2 & 82\% & days to 50\% silking \\
+EHT & 73\% & 2 & 82\% & ear height \\
+GY & 73\% & 2 & 82\% & grain yield adjusted to 15.5\% moisture \\
+PHT & 73\% & 2 & 82\% & plant height \\
+TW & 73\% & 2 & 82\% & test weight \\
+\hline
+\end{tabularx}
+  \label{tab:pheno}
+\end{tableminipage}
+\end{table*}
+%%%%% ---------------------- %%%%%
+
+A mixed linear model (MLM) was fitted, where the hybrid genotype was fitted as the fixed effect and other factors were fitted as random effects. The BLUE for genotype were derived from the model. As shown in the Figure \ref{fig:pvp-pheno}, phenotypic values were normally distributed (normality test P values). Levels of heterosis measured by percent high-parental heterosis and percent mid-parental heterosis varied from trait to trait. As expected, GY exhibited the largest levels of heterosis measured by both high-parental heterosis and percent mid-parental heterosis (Table \ref{tab:pheno}). The broad sense heritability ranged from 0.0 to 0.0.  
+
+
+Phenotypic data was collected for plant height (PHT, in cm), ear height (EHT, in cm), days to 50\% silking (DTS), days to 50\% pollen shed (DTP), anthesis-silking interval (ASI, in days), grain yield adjusted to 15.5\% moisture (adj GY, in bu/A), and test weight (TWT, in pounds)
+
+
+\subsection*{GERP, SIFTMAPP and general statistics}
+
+%GERP statistics
+Introduce GERP SNP and GERP elements. For each position of the multiple alignment, the conservation score is computed in rejected substitution by subtracting the estimated evolutionary rate from the neutral rate (citation).
+224,087 GERP elements were identified in B73v2. 
+29,869,451 bps (1.4\% of the maize genome).
+
+In a 1-Mb bin windown, GERP were conserved near the telomeric regions; the GERP scores are smaller in centeromic regions (Figure S2). 
+
+Genic region and minor allele frequency issue.
+
+%%%%%%%% ------------- %%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{gerp.pdf}
+\caption{GERP distribution of SNPs and relationship between GERP and minor allele frequency. GERP scores were obtained for $\sim$1.2 million ($\sim$10\%) SNPs. Of these, 506,898 (42\%) were under evolutionary constraint and considered as deleterious variants. 
+\textbf{(B)} Mean GERP scores were calculated for each bin (bin size = 0.01) of minor allele frequency (MAF). It shows that variants at conserved sites are maintained at low frequency. The red line and grey lines define the regression and its 95\% confidence interval.}
+\label{fig:gerp}
+\end{figure}
+%%%%%%%% ------------- %%%%%%%%%%%
+
+
+\subsection*{IBD region size and general statistics}
+
+Identity by descent was esimated with fasibd.
+Average size 44,980 bp (36 to 10,320,000 bp)
+Figure \ref{fig:gerp}.
+
+
+
+Figure S2. distribution of GERP, GERP vs. MAF.
+
+
+
+Figure S3. GERP in gene, exon and intron.
+
+
+\subsection*{Evolutionary conservation information improved prediction accuracies}
+
+Figure S4. GERP in IBD design with additive and dominance model.
+
+Some prior knowledge have not been used for model training. 
+SNPs with high GERP score were considered as evolutionary conserved. The mutation at these sites tend to be deleterious. However, because SNPs with high GERP score are negatively correlated with the MAF (Figure and citation), they become less useful due to statistical limitation (citation). To capture the information carried by these potentially deleterious sites, we conducted the genomic-enabled prediction with the SNP's GERP score. 
+
+The population in this study is relative small with only 66 individuals. The 20k conserved SNPs are highly colinear with others. To solve this problem, we use the haplotype-based approach for model training, where the haplotype was coded with the SNP conservation score as the explainatory variables. 
+
+With a 5-fold cross-validation approach, the prediction accuracies of the real data and cicularly shuffled data were compared. To rule out the prossibility that genic SNPs are more conserved than intergenic ones. We elected the SNPs in genic regions and did the circular shuffling to random assign GERP scores the the same set of the selected SNPs.
+
+As the results, for traits \emph{per se}, model prediction accuracies were significantly improved for ASI, DTS and PHT when incorporating GERP score information under the additive model. Prediction accuracies were significantly improved for ASI, DTP, GY and TW under the dominant model. In general, the average prediction rates are higher using the additive model (\emph{r} = 0.8) than the dominant model (\emph{r} = 0.7). For heterosis, incorporation of GERP scores only improved grain yield prediction and only under a dominant model.  
+
+
+
+
+%%%%%%%%%%%%%%%%%%%% DISCUSSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Discussion}
+
+\begin{itemize}
+  \item how do results match with heritability and heterosis?
+  \item do we support deleterious model of Mezmouk et al.?
+\end{itemize}
+
+In this study, more than 500,000 deleterious SNPs were identified in elite maize lines including in noncoding regions of the genome. Majority of them were maintained in a low frequency, which consistent with the previous observation \yang{Eli PNAS, 2015} and indicate the deleteriousness of the variants in the conserved sites. A genomic selection pipeline was developed, which utilized evolutionary conservation information in the model.
+Cross-validation results suggested prediction accuracies for some traits could be significantly improved by incorporating GERP scores. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Additional guidelines}
+
+\subsection*{Numbers} In the text, write out numbers nine or less except as part of a date, a fraction or decimal, a percentage, or a unit of measurement. Use Arabic numbers for those larger than nine, except as the first word of a sentence; however, try to avoid starting a sentence with such a number.
+
+\subsection*{Units} Use abbreviations of the customary units of measurement only when they are preceded by a number: "3 min" but "several minutes". Write "percent" as one word, except when used with a number: "several percent" but "75\%." To indicate temperature in centigrade, use ° (for example, 37°); include a letter after the degree symbol only when some other scale is intended (for example, 45°K).
+
+\subsection*{Nomenclature and Italicization} Italicize names of organisms even when  when the species is not indicated.  Italicize the first three letters of the names of restriction enzyme cleavage sites, as in HindIII. Write the names of strains in roman except when incorporating specific genotypic designations. Italicize genotype names and symbols, including all components of alleles, but not when the name of a gene is the same as the name of an enzyme. Do not use "+" to indicate wild type. Carefully distinguish between genotype (italicized) and phenotype (not italicized) in both the writing and the symbolism.
+
+\section*{In-text Citations}
+
+Add citations using the \verb|\citep{}| command, for example \citep{neher2013genealogies} or for multiple citations, \citep{neher2013genealogies, rodelsperger2014characterization}
+
+\section*{Examples of Article Components}
+\label{sec:examples}
+
+The sections below show examples of different header levels, which you can use in the primary sections of the manuscript (Results, Discussion, etc.) to organize your content.
+
+\section*{First level section header}
+
+Use this level to group two or more closely related headings in a long article.
+
+\subsection*{Second level section header}
+
+Second level section text.
+
+\subsubsection*{Third level section header:}
+
+Third level section text. These headings may be numbered, but only when the numbers must be cited in the text. 
+
+\section*{Figures and Tables}
+
+Figures and Tables should be labelled and referenced in the standard way using the \verb|\label{}| and \verb|\ref{}| commands.
+
+\subsection*{Sample Figure}
+
+Figure \ref{fig:spectrum} shows an example figure.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{example-figure}
+\caption{Example figure from \url{10.1534/genetics.114.173807}. Please include your figures in the manuscript for the review process. You can upload figures to Overleaf via the Project menu. Upon acceptance, we'll ask for your figure files to be uploaded in any of the following formats: TIFF (.tiff), JPEG (.jpg), Microsoft PowerPoint (.ppt), EPS (.eps), or Adobe Illustrator (.ai).  Images should be a minimum of 300 dpi in resolution and 500 dpi minimum if line art images.  RGB, CMYK, and Grayscale are all acceptable. Halftones should be high contrast with sharp detail, because some loss of detail and contrast is inevitable in the production process. Figures should be 10-20 cm in width and 1-25 cm in height. Graph axes must be exactly perpendicular and all lines of equal density.
+Label multiple figure parts with A, B, etc. in bolded type, and use Arrows and numbers to draw attention to areas you want to highlight. Legends should start with a brief title and should be a self-contained description of the content of the figure that provides enough detail to fully understand the data presented. All conventional symbols used to indicate figure data points are available for typesetting; unconventional symbols should not be used. Italicize all mathematical variables (both in the figure legend and figure) , genotypes, and additional symbols that are normally italicized.  
+}%
+\label{fig:spectrum}
+\end{figure}
+
+\subsection*{Sample Video}
+
+Figure \ref{video:spectrum} shows how to include a video in your manuscript.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{example-figure}
+\caption{Example movie (the figure file above is used as a placeholder for this example). \textit{GENETICS} supports video and movie files that can be linked from any portion of the article - including the abstract. Acceptable formats include .asf, avi, .wav, and all types of Windows Media files.   
+}%
+\label{video:spectrum}
+\end{figure}
+
+
+\subsection*{Sample Table}
+
+Table \ref{tab:shape-functions} shows an example table. Avoid shading, color type, line drawings, graphics, or other illustrations within tables. Use tables for data only; present drawings, graphics, and illustrations as separate figures. Histograms should not be used to present data that can be captured easily in text or small tables, as they take up much more space.  
+
+Tables numbers are given in Arabic numerals. Tables should not be numbered 1A, 1B, etc., but if necessary, interior parts of the table can be labeled A, B, etc. for easy reference in the text.  
+
+
+\begin{table*}[htbp]
+\centering
+\caption{\bf Students and their grades}
+\begin{tableminipage}{\textwidth}
+\begin{tabularx}{\textwidth}{XXXX}
+\hline
+Student & Grade\footnote{This is an example of a footnote in a table. Lowercase, superscript italic letters (a, b, c, etc.) are used by default. You can also use *, **, and *** to indicate conventional levels of statistical significance, explained below the table.} & Rank & Notes \\
+\hline
+Alice & 82\% & 1 & Performed very well.\\
+Bob & 65\% & 3 & Not up to his usual standard.\\
+Charlie & 73\% & 2 & A good attempt.\\
+\hline
+\end{tabularx}
+  \label{tab:shape-functions}
+\end{tableminipage}
+\end{table*}
+
+\section*{Sample Equation}
+
+Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
+\begin{equation}
+S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
+      = \frac{1}{n}\sum_{i}^{n} X_i
+\label{eq:refname1}
+\end{equation}
+denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
+
+\bibliography{Diallel}
+
+
+%----------------------------------------
+% SUPPLEMENTARY FIGURES
+%----------------------------------------
+\pagebreak
+\beginsupplement
+\section*{Supporting Information}
+
+
+%Figure
+\begin{center}\vspace{1cm}
+\includegraphics[width=0.8\linewidth]{pvp.pdf}
+\captionof{figure}
+{\color{black} \textbf{Diallel experimental design and distribution of phenotypic data.}
+\textbf{(A)} Twelve maize inbred lines were selected and crossed in a half diallel. Ten of these (LH1, LH123HT, LH82, PH207, 4676A, PHG39, PHG47, PHG84, PHJ40, PHZ51) are proprietary inbreds that have expired from Plant Variety Protection (PVP) and represent the lineage of key heterotic germplasm pools used in present-day commercial corn hybrids. Two of them are important public inbreds, B73 and Mo17. \textbf{(B)} Phenotypic data were collected for anthesis-silking interval (ASI, in days), days to 50\% pollen shed (DTP), days to 50\% silking (DTS), ear height (EHT, in cm), grain yield adjusted to 15.5\% moisture (GY, in bu/A), plant height (PHT, in cm), and test weight (TW, in pounds). Analyses were carried out on the traits per se as well as percent high parent heterosis (pHPH).
+}
+\label{fig:pvp-pheno}
+\end{center}\vspace{1cm}
+
+
+
+
+
+
+
+
+\begin{figure}[here]
+\includegraphics[width=0.9\textwidth]{gerpIBD.pdf}
+\caption{
+\textbf{Incoporation of conservation information into IBD blocks.}
+Regions of the genome that are identical by descent (IBD) among the 12 inbreds were identified using Beagle \citep{Browning2009}.  The GERP scores of SNPs in an IBD block were summed under both additive and dominant models. Under the additive model, 2 x GERP score was assigned to genotypes homozygous for the non-reference allele, 1 x GERP score was assigned to heterozygotes, and 0 was assigned to the homozygous reference genotype. Under the dominant model, 1 x GERP score was assigned to both genotypes with a nonreference allle and 0 to the homozygous reference genotype.}
+\label{fig:gerpibd}
+\end{figure}
+
+
+
+
+\end{document}
