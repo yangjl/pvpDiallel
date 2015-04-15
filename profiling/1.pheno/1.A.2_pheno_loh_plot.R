@@ -7,6 +7,7 @@
 plot_loh <- function(trait=trait, ...){
   trait$pMPH <- abs(trait$pMPH)
   trait$pBPHmax <- abs(trait$pBPHmax)
+  trait$pBPHmin <- abs(trait$pBPHmin)
   par(mfrow=c(1,2))
   bymed <- with(trait, reorder(trait, pMPH, median))
   boxplot(pMPH ~ bymed, data=trait,
@@ -21,5 +22,8 @@ plot_loh <- function(trait=trait, ...){
 }
 ##### note: change to abs value
 trait <- read.csv("data/trait_matrix.csv")
+trait[trait$trait == "ASI", ]$pBPHmax <- trait[trait$trait == "ASI", ]$pBPHmin
+
+
 plot_loh(trait=trait)
 
