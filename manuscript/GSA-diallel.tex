@@ -206,33 +206,23 @@ TW & 73\% & 2 & 82\% & test weight \\
 
 
 
-\subsection*{Putative deleterious SNPs}
+\subsection*{Genomic sites under evolutionary constraint}
 %%% SIFT, MAPP and general statistics
 %GERP statistics
 
-In this study, all twelve inbreds were sequenced to an average depth of $\sim$10X. Reads were mapped to the maize B73 reference genome (AGPv2) with bwa-mem. After filtering of depth, heteozygosity and missingness, 13.8 million SNPs were kept for further analysis, including 1.9 million SNPs in genic regions and 361,280 in protein coding regions. Genome-wide putative deleterious variants were characterized by using genomic evolutionary rate profiling (GERP) (Davydov et al., 2010), which computed the rejected substitution rate relative to the neutral rate at basepair level. 
+In this study, all twelve inbreds were sequenced to an average depth of $\sim$10X. Reads were mapped to the maize B73 reference genome (AGPv2) with bwa-mem. After filtering of depth, heterozygosity and missingness, 13.8 million SNPs were kept for further analysis, including 1.9 million SNPs in genic regions and 361,280 in protein coding regions. We estimated the allelic error rate by first comparing our genotype calls to those of 41,292 overlapping SNPs on the maize SNP50 bead chip \citep{Heerwaarden2012}; we then compared our SNP alleles for B73 and Mo17 with the 10,426,715 SNP previously identified in HapMap2 \citep{Chia2012}; finally, we compared our SNPs to 180,313 overlapping SNPs identified through genotyping by sequencing (GBS) \citep{Romay2013}. The comparisons showed 99.12\% allele similarity with shared SNPs previously identified.  
 
-%SNP results after filtering
-After filtering 13,782,809 are kept for further comparisons, including 1,909,416 genic SNPs and 361,280 in protein coding regions). \\
-We estimated the allelic error rate by first comparing our genotype calls to those of 41,292 overlapping SNPs on the maize SNP50 bead chip \citep{Heerwaarden2012};  we then compared our SNP alleles for B73 and Mo17 with the 10,426,715 SNP previously identified in HapMap2 \citep{Chia2012}; finally, we compared our SNPs to 180,313 overlapping SNPs identified through Genotyping by sequencing \citep{Romay2013}. The comparisons showed 99.12\% allele similarity with shared SNPs previously identified. 
+Evolutionary constraint information for genomic sites was obtained by computing the rejected substitution rate relative to the neutral rate after multiple genome alignment, or genomic evolutionary rate profiling (GERP) \citep{Davydov2010}. This approach could estimate the GERP score at a base-pair level, extending the definition of deleterious variants to intergenic regions compared to previous approaches, such as SIFT (\yang{citation}) or MAPP (\yang{citation}). In B73 reference genome AGPv2, a total of 86,006,888 sites (4.2\% of the genome) \yang{how this compared to human}, were detected having GERP scores />0; and these sites were determined as evoulationary constraint sites. Genomic variants occured on them were potentially deleterious. From genome-wide of view, generally, genomic sequences are evolutionarily conserved near the telomeric regions and the conserveness dropped toward conteromic regions (Figure S2); there are some exceptions, such as the long arm of chr4, chr5 and chr1.  
 
-224,087 GERP elements were identified in B73v2. 29,869,451 bps (1.4\% of the maize genome).
+Although genomic sites with GERP >0 were conservationary constraint, they are not immune to mutation. Indeed, in our diallel population, N SNPs were detected at sites with GERP score />0. Consistent with previous study (\citep{})\yang{eli}, the minor allele frequcy (MAF) was negatively correlated with the mean GERP scores (correlation P value =). This observation indicated the putative deleterious alleles tend to be purged and maintained in a low frequency in the population. 
 
-In a 1-Mb bin windown, GERP were conserved near the telomeric regions; the GERP scores are smaller in centeromic regions (Figure S2).
-
-Introduce GERP SNP and GERP elements. For each position of the multiple alignment, the conservation score is computed in rejected substitution by subtracting the estimated evolutionary rate from the neutral rate (citation).
-
-
-Genic region and minor allele frequency issue.
-
-where the haplotype was coded with the SNP conservation score as the explainatory variables. 
-
-Some prior knowledge have not been used for model training. 
-SNPs with high GERP score were considered as evolutionary conserved. The mutation at these sites tend to be deleterious. However, because SNPs with high GERP score are negatively correlated with the MAF (Figure and citation), they become less useful due to statistical limitation (citation). To capture the information carried by these potentially deleterious sites, we conducted the genomic-enabled prediction with the SNP's GERP score. 
+%In a 1-Mb bin windown, GERP were conserved near the telomeric regions; the GERP scores are smaller in centeromic regions (Figure S2).
+%Genic region and minor allele frequency issue.
+%where the haplotype was coded with the SNP conservation score as the explainatory variables. 
 
 
 
-%%%%%%%% ------------- %%%%%%%%%%%
+%%%%%%%% ------- GERPLOT------ %%%%%%%%%%%
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{gerp.pdf}
@@ -243,9 +233,11 @@ SNPs with high GERP score were considered as evolutionary conserved. The mutatio
 %%%%%%%% ------------- %%%%%%%%%%%
 
 
+
+
 \subsection*{IBD region size and general statistics}
 
-
+The phenotypic effects of the genetic load of these potentially deleterious alleles have not been explored. To estimate their phenotypic effects and their contributions to heterosis, we conceived a genomic selection approach to predict their joint effects in the population. However, because SNPs with high GERP score are negatively correlated with the MAF (Figure and citation), they become less useful due to statistical limitation (citation). To capture the information carried by these potentially deleterious sites, we conducted the genomic-enabled prediction with the SNP's GERP score. 
 
 Identity by descent was esimated with fasibd.
 Average size 44,980 bp (36 to 10,320,000 bp)
@@ -265,11 +257,22 @@ With a 5-fold cross-validation approach, the prediction accuracies of the real d
 
 MAF by caterogies!
 
-As the results, for traits \emph{per se}, model prediction accuracies were significantly improved for ASI, DTS and PHT when incorporating GERP score information under the additive model. Prediction accuracies were significantly improved for ASI, DTP, GY and TW under the dominant model. In general, the average prediction rates are higher using the additive model (\emph{r} = 0.8) than the dominant model (\emph{r} = 0.7). For heterosis, incorporation of GERP scores only improved grain yield prediction and only under a dominant model.  
+As the results, for traits \emph{per se}, model prediction accuracies were significantly improved for ASI, DTS and PHT when incorporating GERP score information under the additive model. Prediction accuracies were significantly improved for ASI, DTP, GY and TW under the dominant model. In general, the average prediction rates are higher using the additive model (\emph{r} = 0.8) than the dominant model (\emph{r} = 0.7). For heterosis, incorporation of GERP scores only improved grain yield prediction and only under a dominant model (Figure \ref{fig:beanplot}).  
 
 A Bayesian-based approach (BayesC) (Habier et al., 2011) was employed for the genomic selection (GS) experiments. To estimate predict accuracies, the diallel population was randomly divided into training and validation sets for 10 times using a 5-fold cross-validation method. Circular permuta- tions were used both considering all SNPs or considering only genic SNPs to control for differences between genic and nongenic regions.
 
 For traits per se, model prediction accuracies were significantly improved for ASI, DTS and PHT when incorporating GERP score information under the additive model. Prediction accuracies were significantly improved for ASI, DTP, GY and TW under the dominant model. In general, the aver- age prediction rates are higher using the additive model (r = 0.8) than the dominant model (r = 0.7). For heterosis, incorporation of GERP scores only improved grain yield prediction and only under a dominant model.
+
+%%%%%%%% ----- BEANPLOT-------- %%%%%%%%%%%
+\section*{Figures and Tables}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{cvres.pdf}
+\caption{Beanplots of cross-validation accuracies. Cross-validation experiments were conducted using genic SNPs and circular shuffled data from the same set of the genic SNPs for traits \emph{per se} (\textbf{A, B}) and pHPH (\textbf{C, D}) under additive (\textbf{A, C}) and dominant (\textbf{B, D}) models. Accuaries from the real data were plotted on the left side of the bean (blue) and permutation results plotted on the right (grey). Horizotal bars on beans indicate mean accuracies. The grey dashed line indicates the overall average accuracy. Stars indicate significantly improved cross-validation accuracies.}
+\label{fig:beanplot}
+\end{figure}
+%%%%%%%% ------------- %%%%%%%%%%%
 
 \subsection*{The top predictors are enriched in centeromeic regions}
 
@@ -294,7 +297,7 @@ Cross-validation results suggested prediction accuracies for some traits could b
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+\clearpage
 \bibliography{Diallel}
 
 

@@ -1,8 +1,8 @@
 ### Jinliang Yang
 ### chr plot of the avg RS in bins
 
-
-tab <- rbind(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10)
+ob <- load(file="cache/4.1.B_gerpbins.RData")
+#tab <- rbind(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10)
 
 ChrPlot <- function(binsize=1000000, tab=tab1m){
   #### read chr length
