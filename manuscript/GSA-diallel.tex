@@ -220,7 +220,7 @@ Although genomic sites with GERP >0 were conservationary constraint, they are no
 %Genic region and minor allele frequency issue.
 %where the haplotype was coded with the SNP conservation score as the explainatory variables. 
 
-
+\yang{how many in genic and how many in non-genic}
 
 %%%%%%%% ------- GERPLOT------ %%%%%%%%%%%
 \begin{figure}[htbp]
@@ -233,6 +233,7 @@ Although genomic sites with GERP >0 were conservationary constraint, they are no
 %%%%%%%% ------------- %%%%%%%%%%%
 
 
+Supplementary Figure and a little bit story of the conserved regions.
 
 
 \subsection*{IBD region size and general statistics}
@@ -243,9 +244,17 @@ Identity by descent was esimated with fasibd.
 Average size 44,980 bp (36 to 10,320,000 bp)
 Figure \ref{fig:gerp}.
 
+SNPs in IBD regions
+IBD: ranged from 1 to 370,152, with the mean of 10,167 and median 4162.
+Number of SNPs in the IBD blocks: 1-1600, mean 22.83 and median 9.
+
+
+
 To estimate the phenotypic effects of the genetic loads, we conceived the Genomic selection approach to evaluate whether incorporaing the GERP score would potentially improve the prediction accucy. However, the population in this study is relative small with only 66 individuals. The 20k conserved SNPs are highly colinear with others. Simpe SNP based analysis would suffer a lot from so called big p small n problem. To alliviate this problem, we employed a haplotype-based approach for genomic selection, where IBD blocks were considered as a haplotype (\yang{citation}).
 
 With pairwise comparisons, IBD regions were chopped into 55,000 IBD blocks. These IBD blocks have the average size of 44,980 bp (ranged from 36 to 10,320,000 bp, Figure S3). 
+
+For IBD blocks > 1-kb and contains at least one deleterious alleles (SNP variation with GERP >0), they were used for the analysis. Two modes, additive and dominant, were used to code the IBD blocks as the measurement of the conserveness of haplotypes.  
 
 
 \subsection*{Evolutionary conservation information improved prediction accuracies}
@@ -264,8 +273,6 @@ A Bayesian-based approach (BayesC) (Habier et al., 2011) was employed for the ge
 For traits per se, model prediction accuracies were significantly improved for ASI, DTS and PHT when incorporating GERP score information under the additive model. Prediction accuracies were significantly improved for ASI, DTP, GY and TW under the dominant model. In general, the aver- age prediction rates are higher using the additive model (r = 0.8) than the dominant model (r = 0.7). For heterosis, incorporation of GERP scores only improved grain yield prediction and only under a dominant model.
 
 %%%%%%%% ----- BEANPLOT-------- %%%%%%%%%%%
-\section*{Figures and Tables}
-
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{cvres.pdf}
@@ -277,7 +284,15 @@ For traits per se, model prediction accuracies were significantly improved for A
 \subsection*{The top predictors are enriched in centeromeic regions}
 
 1. It capture high order of interactions.  
+
 2. Explainary variables came from the centeromic regions.
+
+TO DO:
+0. preparing all the traits (per se, HPH, MPH, pHPH and pMPH)
+1. comparing same no. of random SNPs vs. GERP SNPs without considering their SCORE.
+2. comparing MAF in different caterigories
+3. training all the data and get the idea of significant ones.
+
 
 
 %%%%%%%%%%%%%%%%%%%% DISCUSSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

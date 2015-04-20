@@ -23,6 +23,8 @@ GerpBin <- function(chr=chr10, BINSIZE=1000000){
 ### server and local
 ob <- load("largedata/lcache/4.1.A_gerpdis.RData")
 chrall <- rbind(chr1, chr2, chr3, chr4, chr5, chr6, chr7, chr8, chr9, chr10)
+dim(chrall)
+#[1] 130,896,913         4
 
 ### binsize = 1000bp
 tab1k <- GerpBin(chr=chrall, BINSIZE=1000)

@@ -6,6 +6,7 @@
 trait5fold <- function(times=10, typep="valHyb", outdir="largedata/pheno/CV5fold/"){
   
   trait <- read.csv("data/trait_matrix.csv")
+  ### => Table_S1.trait_matrix.csv
   trait$Hyb <- paste(trait$P1, trait$P2, sep="x")
   ti <- c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW")
   parent <- unique(c(as.character(trait$P1), as.character(trait$P2)))
@@ -58,20 +59,42 @@ trait5fold <- function(times=10, typep="valHyb", outdir="largedata/pheno/CV5fold
   }  
 }
 
-####
+#### trait per se
 set.seed(12345)
 # total file 7 traits x 5fold x 10 sample =350 x 2(test file and validation file)
 trait5fold(times=10, typep="valHyb", outdir="largedata/pheno/CV5fold/")
 
-####
+#### BPHmax
 set.seed(12345)
 # total file 7 traits x 5fold x 10 sample =350 x 2(test file and validation file)
 trait5fold(times=10, typep="BPHmax", outdir="largedata/pheno/CV5fold_BPHmax/") 
 
-####
+#### pBPHmax
 set.seed(12345)
 # total file 7 traits x 5fold x 10 sample =350 x 2(test file and validation file)
 trait5fold(times=10, typep="pBPHmax", outdir="largedata/pheno/CV5fold_pBPHmax/") 
+
+#### BPHmin
+set.seed(12345)
+# total file 7 traits x 5fold x 10 sample =350 x 2(test file and validation file)
+trait5fold(times=10, typep="BPHmin", outdir="largedata/pheno/CV5fold_BPHmin/")
+
+#### pBPHmin
+set.seed(12345)
+# total file 7 traits x 5fold x 10 sample =350 x 2(test file and validation file)
+trait5fold(times=10, typep="pBPHmin", outdir="largedata/pheno/CV5fold_pBPHmin/") 
+
+#### MPH
+set.seed(12345)
+# total file 7 traits x 5fold x 10 sample =350 x 2(test file and validation file)
+trait5fold(times=10, typep="pBPHmax", outdir="largedata/pheno/CV5fold_MPH/") 
+
+#### pMPH
+set.seed(12345)
+# total file 7 traits x 5fold x 10 sample =350 x 2(test file and validation file)
+trait5fold(times=10, typep="pBPHmax", outdir="largedata/pheno/CV5fold_pMPH/") 
+
+
 
 
 
