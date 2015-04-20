@@ -23,12 +23,16 @@ GerpBin <- function(chr=chr10, BINSIZE=1000000){
 ### server and local
 ob <- load("largedata/lcache/4.1.A_gerpdis.RData")
 chrall <- rbind(chr1, chr2, chr3, chr4, chr5, chr6, chr7, chr8, chr9, chr10)
+dim(chrall)
+#[1] 130,896,913         4
 
 ### binsize = 1000bp
 tab1k <- GerpBin(chr=chrall, BINSIZE=1000)
+tab10k <- GerpBin(chr=chrall, BINSIZE=10000)
+tab100k <- GerpBin(chr=chrall, BINSIZE=100000)
 tab1m  <- GerpBin(chr=chrall, BINSIZE=1000000)
 
-save(file="cache/4.1.B_gerpbins.RData", list=c("tab1k", "tab1m"))
+save(file="cache/4.1.B_gerpbins.RData", list=c("tab1k", "tab10k", "tab100k", "tab1m"))
 #tab1k <- rbbind(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10)
 #plot(x=tab$pos, y=tab$binrs, pch=19, cex=0.3, main="Chr10", xlab="Chr", ylab="Avg RS")
 
