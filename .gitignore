@@ -5,13 +5,11 @@ TSW*
 *.bib
 *.blg
 *.synctex.gz
-*.pdf
 *.ps
 *.log
 *.dvi
 .Rproj.user
 packrat/src/
-
 *_cache/
 *_files/
 *.RData
