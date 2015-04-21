@@ -35,7 +35,7 @@ RunByTrait_v2 <- function(i=1, inppwd="slurm-scripts/BPHmax/", phenopwd="/larged
   return(shcommand)
 }
 
-################################################################
+####################### BPHmax #########################################
 wd <- getwd()
 ti <- tolower(c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW"))
 
@@ -63,7 +63,7 @@ for(myi in 1:7){
 sbatch -p bigmemm --ntasks=2 --mem 16000 slurm-scripts/BPHmax/BPHmax_pht_run2000.sh
 sbatch -p bigmemm --ntasks=2 --mem 16000 slurm-scripts/BPHmax/BPHmax_tw_run2000.sh
 
-################################################################
+########################## pBPHmax ######################################
 wd <- getwd()
 ti <- tolower(c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW"))
 
@@ -91,6 +91,98 @@ sbatch -p bigmemh --ntasks=2 --mem 16000 slurm-scripts/pBPHmax/pBPHmax_pht_run1k
 sbatch -p bigmemh --ntasks=2 --mem 16000 slurm-scripts/pBPHmax/pBPHmax_tw_run1k.sh
 
 
+####################### MPH #########################################
+wd <- getwd()
+ti <- tolower(c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW"))
+
+for(myi in 1:7){
+  sh1 <- RunByTrait_v2(i=myi,inppwd="slurm-scripts/gerpall_MPH/", phenopwd="/largedata/pheno/CV5fold_MPH/")
+  ### slurm input
+  slurm4GenSelCV(
+    shfile= paste0("slurm-scripts/gerpall_MPH/gerpall_MPH_", ti[myi], ".sh"), shcommand = sh1,
+    sbathJ= paste0("gerpall_MPH_", ti[myi]),  
+    sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+    sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+  )
+}
+
+
+###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
+###>>> note --ntask=x, 8GB of memory per CPU
+###>>> RUN: sbatch -p bigmemh slurm-scripts/gerpall_MPH/gerpall_MPH_asi.sh
+
+#sbatch -p bigmemh slurm-scripts/gerpall_MPH/gerpall_MPH_asi.sh
+#sbatch -p bigmemh  slurm-scripts/gerpall_MPH/gerpall_MPH_dtp.sh
+#sbatch -p bigmemh slurm-scripts/gerpall_MPH/gerpall_MPH_dts.sh
+#sbatch -p bigmemh slurm-scripts/gerpall_MPH/gerpall_MPH_eht.sh
+#sbatch -p bigmemh slurm-scripts/gerpall_MPH/gerpall_MPH_gy.sh
+#sbatch -p bigmemh slurm-scripts/gerpall_MPH/gerpall_MPH_pht.sh
+#sbatch -p bigmemh slurm-scripts/gerpall_MPH/gerpall_MPH_tw.sh
+
+########################## pMPH ######################################
+wd <- getwd()
+ti <- tolower(c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW"))
+
+for(myi in 1:7){
+  sh1 <- RunByTrait_v2(i=myi,inppwd="slurm-scripts/gerpall_pMPH/", phenopwd="/largedata/pheno/CV5fold_pMPH/")
+  ### slurm input
+  slurm4GenSelCV(
+    shfile= paste0("slurm-scripts/gerpall_MPH/gerpall_pMPH_", ti[myi], ".sh"), shcommand = sh1,
+    sbathJ= paste0("gerpall_pMPH_", ti[myi]),  
+    sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+    sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+  )
+}
+
+###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
+###>>> note --ntask=x, 8GB of memory per CPU
+sbatch -p serial --ntasks 2 slurm-scripts/gerpall_MPH/gerpall_pMPH_asi.sh
+sbatch -p serial --ntasks 2 slurm-scripts/gerpall_MPH/gerpall_pMPH_dtp.sh
+sbatch -p serial --ntasks 2 slurm-scripts/gerpall_MPH/gerpall_pMPH_dts.sh
+sbatch -p serial --ntasks 2 slurm-scripts/gerpall_MPH/gerpall_pMPH_eht.sh
+sbatch -p serial --ntasks 2 slurm-scripts/gerpall_MPH/gerpall_pMPH_gy.sh
+sbatch -p serial --ntasks 2 slurm-scripts/gerpall_MPH/gerpall_pMPH_pht.sh
+sbatch -p serial --ntasks 2 slurm-scripts/gerpall_MPH/gerpall_pMPH_tw.sh
+
+
+####################### BPHmin #########################################
+wd <- getwd()
+ti <- tolower(c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW"))
+
+for(myi in 1:7){
+  sh1 <- RunByTrait_v2(i=myi,inppwd="slurm-scripts/gerpall_BPHmin/", phenopwd="/largedata/pheno/CV5fold_BPHmin/")
+  ### slurm input
+  slurm4GenSelCV(
+    shfile= paste0("slurm-scripts/gerpall_BPHmin/BPHmin_", ti[myi], ".sh"), shcommand = sh1,
+    sbathJ= paste0("BPHmin_", ti[myi]),  
+    sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+    sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+  )
+}
+
+
+###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
+###>>> note --ntask=x, 8GB of memory per CPU
+###>>> RUN: sbatch -p bigmemh slurm-scripts/gerpall_BPHmin/BPHmin_asi.sh
+
+########################## pBPHmin ######################################
+wd <- getwd()
+ti <- tolower(c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW"))
+
+for(myi in 1:7){
+  sh1 <- RunByTrait_v2(i=myi,inppwd="slurm-scripts/gerpall_pBPHmin/", phenopwd="/largedata/pheno/CV5fold_pBPHmin/")
+  ### slurm input
+  slurm4GenSelCV(
+    shfile= paste0("slurm-scripts/gerpall_pBPHmin/pBPHmin_", ti[myi], ".sh"), shcommand = sh1,
+    sbathJ= paste0("pBPHmin_", ti[myi]),  
+    sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+    sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+  )
+}
+
+###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
+###>>> note --ntask=x, 8GB of memory per CPU
+###>>> RUN: sbatch -p bigmemh slurm-scripts/gerpall_pBPHmin/pBPHmin_asi.sh
 
 
 

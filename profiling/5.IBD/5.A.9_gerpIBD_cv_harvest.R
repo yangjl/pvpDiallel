@@ -64,7 +64,7 @@ main <- function(){
   rand1$type <- "random"
   allfile <- rbind(res1, rand1)
   
-  write.table(allfile, "cache/cv_results.csv", sep=",", row.names=FALSE, quote=FALSE)
+  write.table(allfile, "cache/gerpall_perse.csv", sep=",", row.names=FALSE, quote=FALSE)
 }
 
 main()

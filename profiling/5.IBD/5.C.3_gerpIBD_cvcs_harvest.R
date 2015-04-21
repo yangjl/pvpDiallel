@@ -61,7 +61,7 @@ main1 <- function(){
   rand1$type <- "random"
   allfile <- rbind(res1, rand1)
   
-  write.table(allfile, "cache/cv_results_BPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
+  write.table(allfile, "cache/gerpall_BPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
 }
 
 main1()
@@ -81,7 +81,7 @@ main2 <- function(){
   rand1$type <- "random"
   allfile <- rbind(res1, rand1)
   
-  write.table(allfile, "cache/cv_results_pBPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
+  write.table(allfile, "cache/gerpall_pBPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
 }
 
 main2()
