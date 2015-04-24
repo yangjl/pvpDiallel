@@ -3,10 +3,13 @@
 
 #http://www.jstatsoft.org/v28/c01/paper
 
-res0 <- read.csv("cache/cv_results_pBPHmax.csv")
+res0 <- read.csv("cache/gerpall_pBPHmax.csv")
+res1 <- read.csv("cache/gerpall_perse.csv")
+res2 <- read.csv("cache/gerpall_pBPHmax.csv")
 
-table(subset(res0, type=="real")$trait)
-table(subset(res0, type=="random")$trait)
+
+table(subset(res1, type=="real")$trait)
+table(subset(res1, type=="random")$trait)
 
 
 library("beanplot")

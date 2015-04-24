@@ -73,7 +73,7 @@ main2 <- function(){
   print(table(res1$trait))
   
   ### extract with re-sampled data
-  rand1 <- harvestCV(dir="slurm-scripts/pBPHmax/", fileptn="*_cs.*\\.ghatREL", remove=FALSE)
+  rand1 <- harvestCV(dir="slurm-scripts/gerpall_pBPHmax/", fileptn="*_cs.*\\.ghatREL", remove=FALSE)
   rand1 <- SplitName(infile=rand1)
   table(rand1$trait) #each trait should be 2000 data points
  
@@ -85,3 +85,40 @@ main2 <- function(){
 }
 
 main2()
+
+#################################################################################
+#### extract pHPHmin
+getoutput <- function(dir="slurm-scripts/gerpall_pBPHmin/", remove=FALSE){
+  res1 <- harvestCV(dir=dir, fileptn="*_real_.*\\.ghatREL", remove=remove)
+  res1 <- SplitName(infile=res1) #885
+  print(table(res1$trait))
+  
+  ### extract with re-sampled data
+  rand1 <- harvestCV(dir=dir, fileptn="*_cs.*\\.ghatREL", remove=remove)
+  rand1 <- SplitName(infile=rand1)
+  table(rand1$trait) #each trait should be 2000 data points
+  
+  res1$type <- "real"
+  rand1$type <- "random"
+  allfile <- rbind(res1, rand1)
+  
+  return(allfile)
+  
+}
+
+#####===>
+pBPHmin <- getoutput(dir="slurm-scripts/gerpall_pBPHmin/", remove=FALSE)
+#write.table(allfile, "cache/gerpall_pBPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+BPHmin <- getoutput(dir="slurm-scripts/gerpall_BPHmin/", remove=FALSE)
+#write.table(allfile, "cache/gerpall_pBPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+MPH <- getoutput(dir="slurm-scripts/gerpall_MPH/", remove=FALSE)
+write.table(MPH, "cache/gerpall_MPH.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+pMPH <- getoutput(dir="slurm-scripts/gerpall_pMPH/", remove=FALSE)
+write.table(MPH, "cache/gerpall_MPH.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+
+
+

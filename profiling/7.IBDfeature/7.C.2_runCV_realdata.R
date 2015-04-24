@@ -54,7 +54,7 @@ slurm4GenSelCV(
 )
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntask=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p bigmemh --ntasks=2 --mem 16000 slurm-scripts/ps_genic_real.sh
+###>>> RUN: sbatch -p serial --ntasks=2 --mem 4000 slurm-scripts/ps_genic_real.sh
 
 #### BPHmax
 source("lib/slurm4gerpIBDCV.R")
@@ -75,18 +75,18 @@ slurm4GenSelCV(
 
 #### pBPHmax
 source("lib/slurm4gerpIBDCV.R")
-mysh <- Run7Trait_genic_real(inppwd="slurm-scripts/genicphph/", phenopwd="/largedata/pheno/CV5fold_pBPHmax/",
+mysh <- Run7Trait_genic_real(inppwd="slurm-scripts/genicphphmax/", phenopwd="/largedata/pheno/CV5fold_pBPHmax/",
                              geno_pattern="gerp_gene_b0_")
 slurm4GenSelCV(
   shfile= "slurm-scripts/phph_genic_real.sh",
   shcommand = mysh,
-  sbathJ= "phph_genic_real",  
+  sbathJ= "phphmax_genic_real",  
   sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
   sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
 )
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntask=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p bigmemh --ntasks=2 --mem 16000 slurm-scripts/phph_genic_real.sh
+###>>> RUN: sbatch -p serial --ntasks=2 --mem 4000 slurm-scripts/phph_genic_real.sh
 
 ######-------- ############
 

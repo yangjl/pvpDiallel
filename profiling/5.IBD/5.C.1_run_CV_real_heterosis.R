@@ -68,7 +68,7 @@ slurm4GenSelCV(
 
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntask=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p bigmemm --ntasks=2 --mem 16000 slurm-scripts/pBPHmax/pBPH_real_run1000.sh
+###>>> RUN: sbatch -p bigmemh slurm-scripts/pBPHmax/pBPH_real_run1000.sh
 
 #### MPH
 wd <- getwd()
@@ -80,7 +80,7 @@ slurm4GenSelCV(
   sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
   sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
 )
-###>>> RUN: sbatch -p bigmemh --ntasks 2 --mem 16000 slurm-scripts/MPH_real_run1000.sh
+###>>> RUN: sbatch -p serial --ntasks 2 --mem 4000 slurm-scripts/MPH_real_run1000.sh
 
 #### pMPH
 wd <- getwd()
@@ -88,8 +88,38 @@ mysh <- Run7Trait_v2(inppwd="slurm-scripts/gerpall_pMPH/", phenopwd="/largedata/
 
 slurm4GenSelCV(
   shfile= "slurm-scripts/pMPH_real_run1000.sh", shcommand = mysh,
-  sbathJ= "p    MPH-cv_realrun",  
+  sbathJ= "pMPH-cv_realrun",  
   sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
   sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
 )
-###>>> RUN: sbatch -p bigmemh --ntasks 2 --mem 16000 slurm-scripts/MPH_real_run1000.sh
+###>>> RUN: sbatch -p bigmemh slurm-scripts/pMPH_real_run1000.sh
+
+#### HPHmax
+wd <- getwd()
+mysh <- Run7Trait_v2(inppwd="slurm-scripts/gerpall_BPHmin/", phenopwd="/largedata/pheno/CV5fold_BPHmin/")
+
+slurm4GenSelCV(
+  shfile= "slurm-scripts/BPHmin_real_run1000.sh", shcommand = mysh,
+  sbathJ= "BPHmin_realrun",  
+  sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+  sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+)
+
+###>>> RUN: sbatch -p bigmemh slurm-scripts/BPHmin_real_run1000.sh
+
+#### pBPHmin
+wd <- getwd()
+mysh <- Run7Trait_v2(inppwd="slurm-scripts/gerpall_pBPHmin/", phenopwd="/largedata/pheno/CV5fold_pBPHmin/")
+
+slurm4GenSelCV(
+  shfile= "slurm-scripts/pBPHmin_real_run1000.sh", shcommand = mysh,
+  sbathJ= "pBPHmin_realrun",  
+  sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+  sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+)
+
+###>>> RUN: sbatch -p bigmemh slurm-scripts/pBPHmin_real_run1000.sh
+
+
+
+

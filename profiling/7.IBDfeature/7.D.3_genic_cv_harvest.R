@@ -47,21 +47,38 @@ SplitName <- function(infile=rand1){
 }
 
 #### extract with real data
-main4 <- function(dir="slurm-scripts/genic/", outfile="cache/genic_cv_cs_BPHmax.csv"){
+main4 <- function(dir="slurm-scripts/genic/"){
   res1 <- harvestCV(dir=dir, fileptn="\\.ghatREL", remove=FALSE)
   res1 <- SplitName(infile=res1) #885
   print(table(res1$trait))
   
-  write.table(res1, outfile, sep=",", row.names=FALSE, quote=FALSE)
+  return(res1)
 }
 
-main4(dir="slurm-scripts/genic/", outfile="cache/genic_cv_cs_BPHmax.csv")
+###### BPHmax
+BPHmax <- main4(dir="slurm-scripts/genicbphmax/")
+write.table(BPHmax, "cache/genic_real_BPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
 
+perse <- main4(dir="slurm-scripts/genicperse/")
 
-main4(dir="slurm-scripts/genicperse/", outfile="cache/genic_cv_real_perse.csv")
+pBPHmax <- main4(dir="slurm-scripts/pBPHmax/")
+
 main4(dir="slurm-scripts/genicphph/", outfile="cache/genic_cv_all_pHPH.csv")
 
+####### MPH
+MPH <- main4(dir="slurm-scripts/genicmph/")
+#write.table(BPHmax, "cache/genic_real_BPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+####### pMPH
+pMPH <- main4(dir="slurm-scripts/genicpmph/")
+#write.table(BPHmax, "cache/genic_real_BPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
+####### BPHmin
+BPHmin <- main4(dir="slurm-scripts/genicbphmin/")
+#write.table(BPHmax, "cache/genic_real_BPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+####### pBPHmin
+pBPHmin <- main4(dir="slurm-scripts/genicpbphmin/")
 
 

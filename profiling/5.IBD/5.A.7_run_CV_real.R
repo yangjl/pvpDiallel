@@ -49,5 +49,5 @@ slurm4GenSelCV(
   
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntask=x, 8GB of memory per CPU
-sbatch -p bigmemh --ntasks=2 --mem 16000 slurm-scripts/cv_realrun2000.sh
+sbatch -p serial --ntasks=2 --mem 4000 slurm-scripts/cv_realrun2000.sh
 
