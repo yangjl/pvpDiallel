@@ -1,10 +1,10 @@
+TSW*
 *.DS_Store
 *.aux
 *.bbl
 *.bib
 *.blg
 *.synctex.gz
-*.pdf
 *.ps
 *.log
 *.dvi

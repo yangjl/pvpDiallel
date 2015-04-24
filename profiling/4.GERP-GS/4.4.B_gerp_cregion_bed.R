@@ -19,5 +19,6 @@ GERPelem2bed6 <- function(indf=gerpelemt, chr="chr1"){
 gerp <- read.table("largedata/GERPv2/gerpelemt.bed6", header=FALSE)
 
 ### GERP command
-bedtools intersect -a largedata/GERPv2/gerpelemt.bed6 -b largedata/SNP/allsnps_11m.bed3 > largedata/SNP/allsnps_11m_gerpelemt.bed
+bedtools intersect -a largedata/GERPv2/gerpelemt.bed6 -b largedata/SNP/allsnps_11m.bed3 
+> largedata/SNP/allsnps_11m_gerpelemt.bed
 
