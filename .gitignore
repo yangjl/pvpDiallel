@@ -10,7 +10,6 @@
 *.dvi
 .Rproj.user
 packrat/src/
-
 *_cache/
 *_files/
 *.RData
@@ -18,4 +17,3 @@ packrat/src/
 largedata/
 slurm-log/
 slurm-scripts/
-packrat/lib*/
