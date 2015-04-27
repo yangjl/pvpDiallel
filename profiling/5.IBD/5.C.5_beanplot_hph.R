@@ -1,47 +1,66 @@
 ### Jinliang Yang
-### beanplot
-
-#####
-res1 <- runttest(resfile="cache/gerpall_perse.csv")
-res2 <- runttest(resfile="cache/gerpall_BPHmax.csv")
-res3 <- runttest(resfile="cache/gerpall_pBPHmax.csv")
-res4 <- runttest(resfile="cache/gerpall_BPHmin.csv")
-res5 <- runttest(resfile="cache/gerpall_pBPHmin.csv")
-res6 <- runttest(resfile="cache/gerpall_MPH.csv")
-res7 <- runttest(resfile="cache/gerpall_pMPH.csv")
-
-pval <- rbind(res1, res2, res3, res4, res5, res6, res7)
-pval <- subset(pval, mode %in% c("a2", "d2"))
-write.table(pval, "cache/pval_gerpall.csv", sep=",", row.names=FALSE, quote=FALSE)
+### beanplot of the final results with all the SNPs
 
 
+#########################################
+##>>>>>
+library("beanplot")
+add_bean_plot <- function(resdf = HPH, mymode="a2", ...){
+  
+  res0 <- resdf
+  
+  res0$cs <- gsub("cs0", "real", res0$cs)
+  res0$cs <- gsub("cs.*", "cs", res0$cs)
+  res1 <- subset(res0, mode == mymode)
+  par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
+  
+  res1$cs <- factor(res1$cs, levels = c("real", "cs"))
+  res1$trait <- toupper(res1$trait)
+  res1$trait <- factor(res1$trait, levels = toupper(c("asi", "dtp", "dts", "eht", "gy", "pht", "tw")) )
+  beanplot(r ~ cs + trait, data = res1, ll = 0.04, cex=1.5,
+           side = "both", border = NA, col = list(c("blue", "red"), c("grey", "black")) , ...)
+  #legend("bottomleft", fill = c("black", "grey"),
+  #       legend = c("Group 2", "Group 1"))
+  
+}
 
+##### get the data frames
+bph_max <- read.csv("cache/gerpall_BPHmax.csv")
+bph_max <- subset(bph_max, trait != "asi")
+bph_min <- read.csv("cache/gerpall_BPHmin.csv")
+
+BPH <- rbind(bph_max, bph_min)
+
+pbph_max <- read.csv("cache/gerpall_pBPHmax.csv")
+pbph_max <- subset(pbph_max, trait != "asi")
+pbph_min <- read.csv("cache/gerpall_pBPHmin.csv")
+
+pBPH <- rbind(pbph_max, pbph_min)
+perse <- read.csv("cache/gerpall_perse.csv")
 ##################################################################################################################
 
+pdf("manuscript/Figure_Table/S_gerpall.pdf", width=8, height=10)
+par(mfrow=c(3,2))
+add_bean_plot(resdf = perse, mymode="a2", 
+              main = "Trait per se with additive model", ylab = "CV Accuracy (r)")
+add_bean_plot(resdf = perse, mymode="d2", 
+              main = "Trait per se with dominant model", ylab = "CV Accuracy (r)")
 
-library("beanplot")
+add_bean_plot(resdf = BPH, mymode="a2", 
+              main = "BPH with additive model", ylab = "CV Accuracy (r)")
+add_bean_plot(resdf = BPH, mymode="d2", 
+              main = "BPH with dominant model", ylab = "CV Accuracy (r)")
+
+add_bean_plot(resdf = pHPH, mymode="a2", 
+              main = "pBPH with additive model", ylab = "CV Accuracy (r)")
+add_bean_plot(resdf = pHPH, mymode="d2", 
+              main = "pBPH with dominant model", ylab = "CV Accuracy (r)")
+
+dev.off()
 
 
-res1 <- subset(res0, mode == "a2")
-par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
-res1$type <- factor(res1$type, levels = c("real", "random"))
-res1$trait <- factor(res1$trait, levels = c("tw", "dtp", "dts", "pht", "eht", "asi", "gy"))
-beanplot(R2 ~ type + trait, data = res1, ll = 0.04, cex=1.5,
-         main = "Additive GERP Score for pHPH", ylab = "cross-validation accuracy", side = "both",
-         border = NA, col = list(c("blue", "red"), c("grey", "black")))
-#legend("bottomleft", fill = c("black", "grey"),
-#       legend = c("Group 2", "Group 1"))
 
 
-res1 <- subset(res0, mode == "d2")
-par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
-res1$type <- factor(res1$type, levels = c("real", "random"))
-res1$trait <- factor(res1$trait, levels = c("tw", "dtp", "dts", "pht", "eht", "asi", "gy"))
-beanplot(R2 ~ type + trait, data = res1, ll = 0.04, cex=1.5,
-         main = "Dominant GERP Score for pHPH", ylab = "cross-validation accuracy", side = "both",
-         border = NA, col = list(c("blue", "red"), c("grey", "black")))
-#legend("bottomleft", fill = c("black", "grey"),
-#       legend = c("Group 2", "Group 1"))
 
 
 
