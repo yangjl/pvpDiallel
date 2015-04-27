@@ -1,15 +1,22 @@
 ### Jinliang Yang
 ### beanplot
 
-#http://www.jstatsoft.org/v28/c01/paper
+#####
+res1 <- runttest(resfile="cache/gerpall_perse.csv")
+res2 <- runttest(resfile="cache/gerpall_BPHmax.csv")
+res3 <- runttest(resfile="cache/gerpall_pBPHmax.csv")
+res4 <- runttest(resfile="cache/gerpall_BPHmin.csv")
+res5 <- runttest(resfile="cache/gerpall_pBPHmin.csv")
+res6 <- runttest(resfile="cache/gerpall_MPH.csv")
+res7 <- runttest(resfile="cache/gerpall_pMPH.csv")
 
-res0 <- read.csv("cache/gerpall_pBPHmax.csv")
-res1 <- read.csv("cache/gerpall_perse.csv")
-res2 <- read.csv("cache/gerpall_pBPHmax.csv")
+pval <- rbind(res1, res2, res3, res4, res5, res6, res7)
+pval <- subset(pval, mode %in% c("a2", "d2"))
+write.table(pval, "cache/pval_gerpall.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
-table(subset(res1, type=="real")$trait)
-table(subset(res1, type=="random")$trait)
+
+##################################################################################################################
 
 
 library("beanplot")
@@ -41,20 +48,6 @@ beanplot(R2 ~ type + trait, data = res1, ll = 0.04, cex=1.5,
 
 
 
-
-
-
-
-myt <- c("tw", "dtp", "dts", "pht", "eht", "asi", "gy")
-runttest <- function(mymode="d2", mytrait=myt[1]){
-  test <- t.test(subset(res0, type=="real" & trait== mytrait & mode == mymode)$r, 
-                 subset(res0, type=="random" & trait == mytrait & mode == mymode)$r, alternative ="greater")
-  print(test)
-}
-runttest(mymode="a2", mytrait=myt[7])
-for(i in 1:7){
-  runttest(mymode="d2", mytrait=myt[i])
-}
 
 
 

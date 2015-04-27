@@ -108,16 +108,16 @@ getoutput <- function(dir="slurm-scripts/gerpall_pBPHmin/", remove=FALSE){
 
 #####===>
 pBPHmin <- getoutput(dir="slurm-scripts/gerpall_pBPHmin/", remove=FALSE)
-#write.table(allfile, "cache/gerpall_pBPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
+write.table(pBPHmin, "cache/gerpall_pBPHmin.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 BPHmin <- getoutput(dir="slurm-scripts/gerpall_BPHmin/", remove=FALSE)
-#write.table(allfile, "cache/gerpall_pBPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
+write.table(BPHmin, "cache/gerpall_BPHmin.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 MPH <- getoutput(dir="slurm-scripts/gerpall_MPH/", remove=FALSE)
 write.table(MPH, "cache/gerpall_MPH.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 pMPH <- getoutput(dir="slurm-scripts/gerpall_pMPH/", remove=FALSE)
-write.table(MPH, "cache/gerpall_MPH.csv", sep=",", row.names=FALSE, quote=FALSE)
+write.table(pMPH, "cache/gerpall_pMPH.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
 
