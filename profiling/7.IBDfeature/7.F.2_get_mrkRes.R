@@ -41,3 +41,7 @@ getmrkres <- function(dir="slurm-scripts/wholeset/"){
 mrkres <- getmrkres(dir="slurm-scripts/wholeset/")
 
 write.table(mrkres, "cache/mrkres_GenVar_wholeset.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+
+mrkres <- read.csv("cache/mrkres_GenVar_wholeset.csv")
+mrkres <- mrkres[order(mrkres$GenVar, decreasing=TRUE),]

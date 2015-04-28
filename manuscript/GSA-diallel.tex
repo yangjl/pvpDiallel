@@ -265,20 +265,13 @@ As shown in Figure \ref{fig:gerpall}, for traits \emph{per se}, prediction accur
 %%%%%%%% ------------- %%%%%%%%%%%
 
 
-Incorporation of GERP scores showed the potential to improve prediction accuarices. However, because SNPs in genic regions tend to evolutionarily consertive and therefore had a relative higher GERP scores. Our circular shuffling approach had a chance to shift the high GERP score to intergenic regions. To rule out the prossibility that the method is not weight higher on genic SNPs. We elected the SNPs in genic regions and did the circular shuffling to random assign GERP scores the the same set of the selected SNPs. By doing this,  but becasue they all from the genic regions, circular shuffling would not take positional advantages any more. Note that less conserved SNPs were selected (N=), for traits \emph{per se}, model prediction accuracies were significantly improved GY under the additive model (FDR < 0.001). Prediction accuracies were significantly improved for GY and PHT under the additive model.   
+Incorporation of GERP scores showed the potential to improve prediction accuarices. However, because SNPs in genic regions tend to evolutionarily consertive and therefore had a relative higher GERP scores. Our circular shuffling approach had a chance to shift the high GERP score to intergenic regions. To rule out the prossibility that the method is not weight higher on genic SNPs. We elected the SNPs in genic regions and did the circular shuffling to random assign GERP scores the the same set of the selected SNPs. By doing this,  but becasue they all from the genic regions, circular shuffling would not take positional advantages any more. Note that less conserved SNPs were selected (N=), for traits \emph{per se}, model prediction accuracies were significantly improved GY under the additive model (FDR < 0.001). Prediction accuracies were significantly improved for GY and PHT under the additive model (Figure \ref{fig:genicsnp}).   
 
 A Bayesian-based approach (BayesC) (Habier et al., 2011) was employed for the genomic selection (GS) experiments. To estimate predict accuracies, the diallel population was randomly divided into training and validation sets for 10 times using a 5-fold cross-validation method. Circular permuta- tions were used both considering all SNPs or considering only genic SNPs to control for differences between genic and nongenic regions.
 
 For traits per se, model prediction accuracies were significantly improved for ASI, DTS and PHT when incorporating GERP score information under the additive model. Prediction accuracies were significantly improved for ASI, DTP, GY and TW under the dominant model. In general, the aver- age prediction rates are higher using the additive model (r = 0.8) than the dominant model (r = 0.7). For heterosis, incorporation of GERP scores only improved grain yield prediction and only under a dominant model.
 
-%%%%%%%% ----- BEANPLOT-------- %%%%%%%%%%%
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\linewidth]{Figure_cvres.pdf}
-\caption{Beanplots of cross-validation accuracies. Cross-validation experiments were conducted using genic SNPs and circular shuffled data from the same set of the genic SNPs for traits \emph{per se} (\textbf{A, B}) and pHPH (\textbf{C, D}) under additive (\textbf{A, C}) and dominant (\textbf{B, D}) models. Accuaries from the real data were plotted on the left side of the bean (blue) and permutation results plotted on the right (grey). Horizotal bars on beans indicate mean accuracies. The grey dashed line indicates the overall average accuracy. Stars indicate significantly improved cross-validation accuracies.}
-\label{fig:beanplot}
-\end{figure}
-%%%%%%%% ------------- %%%%%%%%%%%
+
 
 \subsection*{The top predictors are enriched in centeromeic regions}
 
@@ -345,6 +338,13 @@ Regions of the genome that are identical by descent (IBD) among the 12 inbreds w
 \end{figure}
 
 
-
+%%%%%%%% ----- BEANPLOT-------- %%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{SFig_genicsnp.pdf}
+\caption{Beanplots of cross-validation accuracies using genic SNPs. Cross-validation experiments were conducted using genic SNPs and circular shuffled data from the same set of the genic SNPs for traits \emph{per se} (\textbf{A, B}) and pHPH (\textbf{C, D}) under additive (\textbf{A, C}) and dominant (\textbf{B, D}) models. Accuaries from the real data were plotted on the left side of the bean (blue) and permutation results plotted on the right (grey). Horizotal bars on beans indicate mean accuracies. The grey dashed line indicates the overall average accuracy. Stars indicate significantly improved cross-validation accuracies.}
+\label{fig:genicsnp}
+\end{figure}
+%%%%%%%% ------------- %%%%%%%%%%%
 
 \end{document}

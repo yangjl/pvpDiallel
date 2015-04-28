@@ -32,3 +32,7 @@ main_res <- function(res = res){
 #####
 res <- main_res(res=res)
 write.table(res, "cache/gs_wholeset_h2.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+gs <- read.csv("cache/gs_wholeset_h2.csv")
+
+
