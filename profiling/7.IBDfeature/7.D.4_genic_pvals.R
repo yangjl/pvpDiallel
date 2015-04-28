@@ -39,8 +39,9 @@ pval <- rbind(res1, res2, res3, res4, res5, res6, res7)
 #pval <- subset(pval, mode %in% c("a2", "d2"))
 write.table(pval, "cache/pval_genic.csv", sep=",", row.names=FALSE, quote=FALSE)
 
+idx <- grep("MPH", pval$file)
+pval2 <- pval[-idx, ]
 
-
-
-
+pval2$FDR <- p.adjust(pval2$pval, method="fdr" )
+subset(pval2, FDR < 0.05)
 

@@ -30,13 +30,21 @@ bph_max <- subset(bph_max, trait != "asi")
 bph_min <- read.csv("cache/gerpall_BPHmin.csv")
 
 BPH <- rbind(bph_max, bph_min)
+mean(subset(BPH, cs == "real" & mode == "a2")$r) #[1] 0.49
+mean(subset(BPH, cs == "real" & mode == "d2")$r) #[1] 0.42
+
 
 pbph_max <- read.csv("cache/gerpall_pBPHmax.csv")
 pbph_max <- subset(pbph_max, trait != "asi")
 pbph_min <- read.csv("cache/gerpall_pBPHmin.csv")
+mean(subset(pBPH, cs == "real" & mode == "a2")$r) #[1] 0.29
+mean(subset(pBPH, cs == "real" & mode == "d2")$r) #[1] 0.24
 
 pBPH <- rbind(pbph_max, pbph_min)
 perse <- read.csv("cache/gerpall_perse.csv")
+mean(subset(perse, cs == "real" & mode == "a2")$r) #[1] 0.81
+mean(subset(perse, cs == "real" & mode == "d2")$r) #[1] 0.70
+
 ##################################################################################################################
 
 pdf("manuscript/Figure_Table/S_gerpall.pdf", width=8, height=10)
@@ -59,10 +67,15 @@ add_bean_plot(resdf = pHPH, mymode="d2",
 dev.off()
 
 
+#####
+pval <- read.csv("cache/pval_gerpall.csv")
+subset(pval, pval <= 0.05)
 
+idx <- grep("MPH", pval$file)
+pval2 <- pval[-idx, ]
 
-
-
+pval2$FDR <- p.adjust(pval2$pval, method="fdr" )
+subset(pval2, FDR < 0.05)
 
 
 

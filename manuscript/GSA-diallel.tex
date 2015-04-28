@@ -1,7 +1,7 @@
 \documentclass[9pt,twocolumn,twoside]{gsajnl}
 \newcommand{\sme}[1]{\textcolor{red}{\bf #1}}
 \newcommand{\yang}[1]{\textcolor{blue}{\bf #1}}
-\graphicspath{{../graphs/}} % Location of the graphics files
+\graphicspath{{Figure_Table/}} % Location of the graphics files
 \newcommand{\beginsupplement}{%
         \setcounter{table}{0}
         \renewcommand{\thetable}{S\arabic{table}}%
@@ -214,13 +214,13 @@ Although genomic sites with GERP >0 were conservationary constraint, they are no
 
 \yang{how many in genic and how many in non-genic}
 
-%%%%%%%% ------- GERPLOT------ %%%%%%%%%%%
+%%%%%%%% ------- GERP MAF------ %%%%%%%%%%%
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\linewidth]{gerp.pdf}
+\includegraphics[width=\linewidth]{Figure_gerpmaf.pdf}
 \caption{GERP distribution of SNPs and relationship between GERP and minor allele frequency. GERP scores were obtained for $\sim$1.2 million ($\sim$10\%) SNPs. The spikes of the MAF distribution. Of these, 506,898 (42\%) were under evolutionary constraint and considered as deleterious variants. 
 \textbf{(B)} Mean GERP scores were calculated for each bin (bin size = 0.01) of minor allele frequency (MAF). It shows that variants at conserved sites are maintained at low frequency. The red line and grey lines define the regression and its 95\% confidence interval.}
-\label{fig:gerp}
+\label{fig:gerpmaf}
 \end{figure}
 %%%%%%%% ------------- %%%%%%%%%%%
 
@@ -234,7 +234,7 @@ The phenotypic effects of the genetic load of these potentially deleterious alle
 
 Identity by descent was esimated with fasibd.
 Average size 44,980 bp (36 to 10,320,000 bp)
-Figure \ref{fig:gerp}.
+Figure \ref{fig:gerpmaf}.
 
 SNPs in IBD regions
 IBD: ranged from 1 to 370,152, with the mean of 10,167 and median 4162.
@@ -252,13 +252,20 @@ For IBD blocks > 1-kb and contains at least one deleterious alleles (SNP variati
 \subsection*{Evolutionary conservation information improved prediction accuracies}
 
 
+With a 5-fold cross-validation approach, the prediction accuracies of the real data and cicularly shuffled data were compared. 
+As shown in Figure \ref{fig:gerpall}, for traits \emph{per se}, prediction accuracies were significantly (FDR < 0.05) improved for ASI and PHT when incorporating GERP score information in the IBD blocks under the additive model; prediction accuracy was significantly improved for ASI under the dominant model. For heterosis transformation traits (measured by BPH and pBPH), incorporation of GERP scores improved BPH of GY under the additive model and improved BPH of DTP, DTS and TW under the dominant model; and the method improved predictions for pBPH of TW under the additive model and pBPH of GY under the dominant model (Figure \ref{fig:gerpall} C-F, Supplementary table N). In general, the average prediction accuracis are higher using the additive model (\emph{r} = 0.81, 0.49 and 0.29 for traits \emph{per se}, BPH and pBPH) than the dominant model (\emph{r} = 0.70, 0.42 and 0.24). And the prediction accuracies decreased for predicting heterosis transformations (BPH and pBPH) as compared to predictions for traits \emph{per se}.
+
+%%%%%%%% ----- BEAN PLOT using all GERP SNPs-------- %%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{Figure_gerpall.pdf}
+\caption{Beanplots of cross-validation accuracies using SNPs with positive GERP score. Cross-validation experiments were conducted using selected SNPs and circular shuffled data from the same set of SNPs for traits \emph{per se} (\textbf{A, B}), HPH (\textbf{C, D}) and pHPH (\textbf{E, F}) under additive (\textbf{A, C, E}) and dominant (\textbf{B, D, F}) models. Accuraries from the real data were plotted on the left side of the bean (blue) and permutation results plotted on the right (grey). Horizotal bars on beans indicate mean accuracies. The grey dashed lines indicate the overall average accuracies. Stars indicate significantly improved cross-validation accuracies with FDR < 0.05.}
+\label{fig:gerpall}
+\end{figure}
+%%%%%%%% ------------- %%%%%%%%%%%
 
 
-With a 5-fold cross-validation approach, the prediction accuracies of the real data and cicularly shuffled data were compared. To rule out the prossibility that genic SNPs are more conserved than intergenic ones. We elected the SNPs in genic regions and did the circular shuffling to random assign GERP scores the the same set of the selected SNPs.
-
-MAF by caterogies!
-
-As the results, for traits \emph{per se}, model prediction accuracies were significantly improved for ASI, DTS and PHT when incorporating GERP score information under the additive model. Prediction accuracies were significantly improved for ASI, DTP, GY and TW under the dominant model. In general, the average prediction rates are higher using the additive model (\emph{r} = 0.8) than the dominant model (\emph{r} = 0.7). For heterosis, incorporation of GERP scores only improved grain yield prediction and only under a dominant model (Figure \ref{fig:beanplot}).  
+Incorporation of GERP scores showed the potential to improve prediction accuarices. However, because SNPs in genic regions tend to evolutionarily consertive and therefore had a relative higher GERP scores. Our circular shuffling approach had a chance to shift the high GERP score to intergenic regions. To rule out the prossibility that the method is not weight higher on genic SNPs. We elected the SNPs in genic regions and did the circular shuffling to random assign GERP scores the the same set of the selected SNPs. By doing this,  but becasue they all from the genic regions, circular shuffling would not take positional advantages any more. Note that less conserved SNPs were selected (N=), for traits \emph{per se}, model prediction accuracies were significantly improved GY under the additive model (FDR < 0.001). Prediction accuracies were significantly improved for GY and PHT under the additive model.   
 
 A Bayesian-based approach (BayesC) (Habier et al., 2011) was employed for the genomic selection (GS) experiments. To estimate predict accuracies, the diallel population was randomly divided into training and validation sets for 10 times using a 5-fold cross-validation method. Circular permuta- tions were used both considering all SNPs or considering only genic SNPs to control for differences between genic and nongenic regions.
 
@@ -267,7 +274,7 @@ For traits per se, model prediction accuracies were significantly improved for A
 %%%%%%%% ----- BEANPLOT-------- %%%%%%%%%%%
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\linewidth]{cvres.pdf}
+\includegraphics[width=\linewidth]{Figure_cvres.pdf}
 \caption{Beanplots of cross-validation accuracies. Cross-validation experiments were conducted using genic SNPs and circular shuffled data from the same set of the genic SNPs for traits \emph{per se} (\textbf{A, B}) and pHPH (\textbf{C, D}) under additive (\textbf{A, C}) and dominant (\textbf{B, D}) models. Accuaries from the real data were plotted on the left side of the bean (blue) and permutation results plotted on the right (grey). Horizotal bars on beans indicate mean accuracies. The grey dashed line indicates the overall average accuracy. Stars indicate significantly improved cross-validation accuracies.}
 \label{fig:beanplot}
 \end{figure}
@@ -318,7 +325,7 @@ Cross-validation results suggested prediction accuracies for some traits could b
 
 %Figure
 \begin{center}\vspace{1cm}
-\includegraphics[width=0.8\linewidth]{pvp.pdf}
+\includegraphics[width=0.8\linewidth]{SFig_pvp.pdf}
 \captionof{figure}
 {\color{black} \textbf{Diallel experimental design and distribution of phenotypic data.}
 \textbf{(A)} Twelve maize inbred lines were selected and crossed in a half diallel. Ten of these (LH1, LH123HT, LH82, PH207, 4676A, PHG39, PHG47, PHG84, PHJ40, PHZ51) are proprietary inbreds that have expired from Plant Variety Protection (PVP) and represent the lineage of key heterotic germplasm pools used in present-day commercial corn hybrids. Two of them are important public inbreds, B73 and Mo17. \textbf{(B)} Phenotypic data were collected for anthesis-silking interval (ASI, in days), days to 50\% pollen shed (DTP), days to 50\% silking (DTS), ear height (EHT, in cm), grain yield adjusted to 15.5\% moisture (GY, in bu/A), plant height (PHT, in cm), and test weight (TW, in pounds). Analyses were carried out on the traits per se as well as percent high parent heterosis (pHPH).
@@ -330,7 +337,7 @@ Cross-validation results suggested prediction accuracies for some traits could b
 
 
 \begin{figure}[here]
-\includegraphics[width=0.9\textwidth]{gerpIBD.pdf}
+\includegraphics[width=0.9\textwidth]{SFig_gerpIBD.pdf}
 \caption{
 \textbf{Incoporation of conservation information into IBD blocks.}
 Regions of the genome that are identical by descent (IBD) among the 12 inbreds were identified using Beagle \citep{Browning2009}.  The GERP scores of SNPs in an IBD block were summed under both additive and dominant models. Under the additive model, 2 x GERP score was assigned to genotypes homozygous for the non-reference allele, 1 x GERP score was assigned to heterozygotes, and 0 was assigned to the homozygous reference genotype. Under the dominant model, 1 x GERP score was assigned to both genotypes with a nonreference allle and 0 to the homozygous reference genotype.}
