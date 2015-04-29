@@ -23,6 +23,10 @@ get_GCA_matrix <- function(trait=ca){
 }
 
 GCA <- get_GCA_matrix(trait=ca)
+SCA <- ca[, c("trait", "P1", "P2", "SCA.all")]
+
+
+
 
 
 
