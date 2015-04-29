@@ -77,8 +77,15 @@ pval2 <- pval[-idx, ]
 pval2$FDR <- p.adjust(pval2$pval, method="fdr" )
 subset(pval2, FDR < 0.05)
 
-
-
+###>>>
+pval3 <- pval2
+pval3$trait <- toupper(pval3$trait)
+pval3$mode <- gsub("a2", "additive", pval3$mode)
+pval3$mode <- gsub("d2", "dominant", pval3$mode)
+pval3$file <- gsub(".*_", "", pval3$file)
+pval3$file <- gsub("\\.csv", "", pval3$file)
+names(pval3) <- c("phenotype", "p-value", "mode", "trait","FDR")
+write.table(pval3, "manuscript/Figure_Table/Table_S3_allsnps_FDR.csv", sep=",", )
 
 
 
