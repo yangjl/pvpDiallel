@@ -39,9 +39,22 @@ pval <- rbind(res1, res2, res3, res4, res5, res6, res7)
 #pval <- subset(pval, mode %in% c("a2", "d2"))
 write.table(pval, "cache/pval_genic.csv", sep=",", row.names=FALSE, quote=FALSE)
 
+### format data
+pval <- read.csv("cache/pval_genic.csv")
 idx <- grep("MPH", pval$file)
 pval2 <- pval[-idx, ]
 
 pval2$FDR <- p.adjust(pval2$pval, method="fdr" )
 subset(pval2, FDR < 0.05)
+
+pval3 <- pval2
+pval3$trait <- toupper(pval3$trait)
+pval3$mode <- gsub("a2", "additive", pval3$mode)
+pval3$file <- gsub(".*_", "", pval3$file)
+pval3$file <- gsub("\\.csv", "", pval3$file)
+names(pval3) <- c("phenotype", "p-value", "mode", "trait", "FDR")
+
+write.table(pval3, "manuscript/Figure_Table/Table_S4_genicsnps_FDR.csv")
+
+
 

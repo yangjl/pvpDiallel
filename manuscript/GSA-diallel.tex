@@ -187,48 +187,21 @@ Although genomic sites with GERP score >0 showed evidence of under evolutionary 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{Figure_gerpmaf.pdf}
-\caption{Distribution of GERP scores and relationship between GERP scores and MAFs. \textbf{(A)} GERP scores were extracted for $\sim$1.2 million SNPs ($\sim$10\% of the total SNPs) of the diallel population. The spikes in the histogram were because only limited genomes (N < 10? \yang{ask about this number}) were used in GERP calculation. \textbf{(B)} Mean GERP scores were calculated for each bin (bin size = 0.01) of minor allele frequency (MAF). The red line and grey lines define the regression and its 95\% confidence interval.}
+\caption{Distribution of GERP scores and relationship between GERP scores and MAFs. \textbf{(A)} GERP scores were extracted for $\sim$1.2 million SNPs ($\sim$10\% of the total SNPs) of the diallel population. The spikes in the histogram were because only limited genomes (N < 10? \yang{ask for this number}) were used in GERP calculation. \textbf{(B)} Mean GERP scores were calculated for each bin (bin size = 0.01) of minor allele frequency (MAF). The red line and grey lines define the regression and its 95\% confidence interval.}
 \label{fig:gerpmaf}
 \end{figure}
 %%%%%%%% ------------- %%%%%%%%%%%
 
 
-\subsection*{IBD region size and general statistics}
-%In a 1-Mb bin windown, GERP were conserved near the telomeric regions; the GERP scores are smaller in centeromic regions (Figure S2).
-%Genic region and minor allele frequency issue.
+\subsection*{Incorporatipn of GERP information improved prediction accuracies}
+
 %where the haplotype was coded with the SNP conservation score as the explainatory variables. 
+Genomic variants occured at the evolutionary constraint sites were potentially deleterious. The phenotypic effects of these genetic loads and their contributions to heterosis become interesting. However, the population size in this study is relative small and SNPs detected at high GERP sites are generally in low frequcies. To alliviate the statistical limitations, we conceived a haplotype-based approach for genomic selection (GS). To conduct the analysis, first of all, 55,000 IBD blocks were identified, which had an average size of 44,980 bp (ranged from 36 to 10,320,000 bp). IBD blocks having > 1-kb in size and containing at least one deleterious alleles (SNPs at sites with GERP scores >0) were kept for further analysis. Secondly, the GERP scores of SNPs in an IBD block were summed under both additive and dominant models. Those summed GERP scores on IBD blocks were considered as the measurements of the conserveness of the haplotypes. More details of this procedure were illustrated in Figure \ref{fig:gerpibd}.   
 
-\yang{how many in genic and how many in non-genic}
+A Bayesian-based statistical method (BayesC) \citep{habier2011extension} was employed for model training. Using a 5-fold cross-validation approach, the prediction accuracies of the real data and cicularly shuffled data were compared. As shown in Figure \ref{fig:gerpall}, for traits \emph{per se}, prediction accuracies were significantly (FDR < 0.05) improved for ASI and PHT when incorporating GERP information in the IBD blocks under the additive model; prediction accuracy was significantly improved for ASI under the dominant model. For heterosis transformation traits (BPH and pBPH), incorporation of GERP scores improved BPH of GY under the additive model and improved BPH of DTP, DTS and TW under the dominant model; and the method improved predictions for pBPH of TW under the additive model and pBPH of GY under the dominant model (Figure \ref{fig:gerpall} C-F, Supplementary table 3). In general, the average prediction accuracis were higher using the additive model (mean \emph{r} = 0.81, 0.49 and 0.29 for traits \emph{per se}, BPH and pBPH) than the dominant model (mean \emph{r} = 0.70, 0.42 and 0.24). And the prediction accuracies decreased for predicting heterosis transformations (BPH and pBPH) as compared to the predictions for traits \emph{per se}.
 
-This fraction of genome  Genomic variants occured on them were potentially deleterious.
+It was argued that SNPs in genic regions might have higher GERP scores than those in non-genic regions. The circular shuffling permutations may shift the high GERP scores to non-genic regions. If that is the case, the approach tended to weigh more on genic SNPs.  To rule out this possibility, we elected SNPs with GERP scores >0 in genic regions only and did the circular shuffling to assign GERP scores to the same set of the selected SNPs. By doing this, the method will not take advantage of genomic positional information any more. Noted that in this study less number of SNPs was selected (N = 316, 983). Nevertheless, model prediction accuracies were significantly improved for traits \emph{per se} of GY under the additive model. For heterosis transformations, prediction accuracies were significantly improved for BPH of GY and PHT under the additive model and the prediction accuracy was significantly improved for pBPH of GY (Figure \ref{fig:genicsnp} and Table S4).   
 
-Supplementary Figure and a little bit story of the conserved regions.
-
-
-The phenotypic effects of the genetic load of these potentially deleterious alleles have not been explored. To estimate their phenotypic effects and their contributions to heterosis, we conceived a genomic selection approach to predict their joint effects in the population. However, because SNPs with high GERP score are negatively correlated with the MAF (Figure and citation), they become less useful due to statistical limitation (citation). To capture the information carried by these potentially deleterious sites, we conducted the genomic-enabled prediction with the SNP's GERP score. 
-
-Identity by descent was esimated with fasibd.
-Average size 44,980 bp (36 to 10,320,000 bp)
-Figure \ref{fig:gerpmaf}.
-
-SNPs in IBD regions
-IBD: ranged from 1 to 370,152, with the mean of 10,167 and median 4162.
-Number of SNPs in the IBD blocks: 1-1600, mean 22.83 and median 9.
-
-
-
-To estimate the phenotypic effects of the genetic loads, we conceived the Genomic selection approach to evaluate whether incorporaing the GERP score would potentially improve the prediction accucy. However, the population in this study is relative small with only 66 individuals. The 20k conserved SNPs are highly colinear with others. Simpe SNP based analysis would suffer a lot from so called big p small n problem. To alliviate this problem, we employed a haplotype-based approach for genomic selection, where IBD blocks were considered as a haplotype (\yang{citation}).
-
-With pairwise comparisons, IBD regions were chopped into 55,000 IBD blocks. These IBD blocks have the average size of 44,980 bp (ranged from 36 to 10,320,000 bp, Figure S3). 
-
-For IBD blocks > 1-kb and contains at least one deleterious alleles (SNP variation with GERP >0), they were used for the analysis. Two modes, additive and dominant, were used to code the IBD blocks as the measurement of the conserveness of haplotypes.  
-
-
-\subsection*{Evolutionary conservation information improved prediction accuracies}
-
-
-With a 5-fold cross-validation approach, the prediction accuracies of the real data and cicularly shuffled data were compared. 
-As shown in Figure \ref{fig:gerpall}, for traits \emph{per se}, prediction accuracies were significantly (FDR < 0.05) improved for ASI and PHT when incorporating GERP score information in the IBD blocks under the additive model; prediction accuracy was significantly improved for ASI under the dominant model. For heterosis transformation traits (measured by BPH and pBPH), incorporation of GERP scores improved BPH of GY under the additive model and improved BPH of DTP, DTS and TW under the dominant model; and the method improved predictions for pBPH of TW under the additive model and pBPH of GY under the dominant model (Figure \ref{fig:gerpall} C-F, Supplementary table N). In general, the average prediction accuracis are higher using the additive model (\emph{r} = 0.81, 0.49 and 0.29 for traits \emph{per se}, BPH and pBPH) than the dominant model (\emph{r} = 0.70, 0.42 and 0.24). And the prediction accuracies decreased for predicting heterosis transformations (BPH and pBPH) as compared to predictions for traits \emph{per se}.
 
 %%%%%%%% ----- BEAN PLOT using all GERP SNPs-------- %%%%%%%%%%%
 \begin{figure}[htbp]
@@ -240,16 +213,7 @@ As shown in Figure \ref{fig:gerpall}, for traits \emph{per se}, prediction accur
 %%%%%%%% ------------- %%%%%%%%%%%
 
 
-Incorporation of GERP scores showed the potential to improve prediction accuarices. However, because SNPs in genic regions tend to evolutionarily consertive and therefore had a relative higher GERP scores. Our circular shuffling approach had a chance to shift the high GERP score to intergenic regions. To rule out the prossibility that the method is not weight higher on genic SNPs. We elected the SNPs in genic regions and did the circular shuffling to random assign GERP scores the the same set of the selected SNPs. By doing this,  but becasue they all from the genic regions, circular shuffling would not take positional advantages any more. Note that less conserved SNPs were selected (N=), for traits \emph{per se}, model prediction accuracies were significantly improved GY under the additive model (FDR < 0.001). Prediction accuracies were significantly improved for GY and PHT under the additive model (Figure \ref{fig:genicsnp}).   
-
-A Bayesian-based approach (BayesC) (Habier et al., 2011) was employed for the genomic selection (GS) experiments. To estimate predict accuracies, the diallel population was randomly divided into training and validation sets for 10 times using a 5-fold cross-validation method. Circular permuta- tions were used both considering all SNPs or considering only genic SNPs to control for differences between genic and nongenic regions.
-
-For traits per se, model prediction accuracies were significantly improved for ASI, DTS and PHT when incorporating GERP score information under the additive model. Prediction accuracies were significantly improved for ASI, DTP, GY and TW under the dominant model. In general, the aver- age prediction rates are higher using the additive model (r = 0.8) than the dominant model (r = 0.7). For heterosis, incorporation of GERP scores only improved grain yield prediction and only under a dominant model.
-
-
-
 \subsection*{The top predictors are enriched in centeromeic regions}
-
 
 To learn why the prediction performace varied among traits and heterosis transformations. First of all, we derived the posterior variance explained by the IBD coded with GERP score and IBD coded with genic SNPs. As expected, higher posterior variance explained by genome-wide IBD blocks were observed using all the conserved SNPs as compared to the genic SNPs (Table SN). For most of the traits \emph{per se}, phenotypic variance could be largely explained (posterior variance explained by markers range from 0.9 to 0.8 with additive model; with dominant model). But, it became difficult to explain heterosis transformations. 
 
