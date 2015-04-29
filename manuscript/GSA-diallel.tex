@@ -1,6 +1,6 @@
 \documentclass[9pt,twocolumn,twoside]{gsajnl}
 \newcommand{\sme}[1]{\textcolor{red}{\bf #1}}
-\newcommand{\yang}[1]{\textcolor{blue}{\bf #1}}
+\newcommand{\yang}[1]{\textcolor{orange}{\emph{\scriptsize  #1}} }
 \graphicspath{{Figure_Table/}} % Location of the graphics files
 \newcommand{\beginsupplement}{%
         \setcounter{table}{0}
@@ -172,40 +172,38 @@ A half diallel population was created using 12 maize inbred lines (Figure \ref{f
 The best linear unbiased estimators (BLUEs) for genotypes of the seven traits were derived from mixed linear models (Table S1). In the models, all fixed effects were significant (Wald test \emph{P} value < 0.05) for all traits except ASI for which the effect of the replicates within environments were not significant. As shown in the Figure \ref{fig:pvp-pheno}b, the BLUE values were normally distributed (normality test \emph{P} values > 0.05). The broad sense heritability of the traits ranged from 0.65 for ASI to 0.95 for PHT. With the parental phenotypic data, we conducted heterosis transformations using better-parental heterosis (BPH) and percent better-parental heterosis (pBPH). Because the selected inbred lines are commercial relevant and fairly elite in performance, hybrids in this population exhibit relative low hybrid vigor (overall mean pBPH = 0.3\% $\pm$ 0.4\%) compared to their parents for most of the traits except GY (mean pBPH = 95\% $\pm$ 16\%, Figure \ref{fig:pBPH}). Finally, general and specific combining ability (GCA ans SCA) were estimated following \citep{Falconer1996}. The GCA and SCA varied according to the traits (Table S2). For the GY, B73, PHG47 and PHG39 are the top three inbred lines that combining better with others.
 
 
-
-
-
-\subsection*{Genomic sites under evolutionary constraint}
+\subsection*{Evolutionary constraint information for genomic variants}
 %%% SIFT, MAPP and general statistics
 %GERP statistics
 
 In this study, all twelve inbreds were sequenced to an average depth of $\sim$10X. Reads were mapped to the maize B73 reference genome (AGPv2) with bwa-mem. After filtering of depth, heterozygosity and missingness, 13.8 million SNPs were kept for further analysis, including 1.9 million SNPs in genic regions and 361,280 in protein coding regions. We estimated the allelic error rate by first comparing our genotype calls to those of 41,292 overlapping SNPs on the maize SNP50 bead chip \citep{Heerwaarden2012}; we then compared our SNP alleles for B73 and Mo17 with the 10,426,715 SNP previously identified in HapMap2 \citep{Chia2012}; finally, we compared our SNPs to 180,313 overlapping SNPs identified through genotyping by sequencing (GBS) \citep{Romay2013}. The comparisons showed 99.12\% allele similarity with shared SNPs previously identified.  
 
-Evolutionary constraint information for genomic sites was obtained by computing the rejected substitution rate relative to the neutral rate after multiple genome alignment, or genomic evolutionary rate profiling (GERP) \citep{Davydov2010}. This approach could estimate the GERP score at a base-pair level, extending the definition of deleterious variants to intergenic regions compared to previous approaches, such as SIFT (\yang{citation}) or MAPP (\yang{citation}). In B73 reference genome AGPv2, a total of 86,006,888 sites (4.2\% of the genome) \yang{how this compared to human}, were detected having GERP scores />0; and these sites were determined as evoulationary constraint sites. Genomic variants occured on them were potentially deleterious. From genome-wide of view, generally, genomic sequences are evolutionarily conserved near the telomeric regions and the conserveness dropped toward conteromic regions (Figure S2); there are some exceptions, such as the long arm of chr4, chr5 and chr1.  
+Evolutionary constraint information of GERP was obtained from \citep{rodgers2015recombination}, which was computed by using rejected substitution rate relative to the neutral rate after multiple genome squences alignment \citep{Davydov2010}. This approach could estimate the conservation information at the base-pair level, extending the definition of deleterious variants to non-genic regions compared to previous approaches of SIFT \citep{ng2003sift} or MAPP \citep{stone2005physicochemical}. In AGPv2, more than 86 million bases ($\sim$4.2\% of the genome) were detected as evolutionary constraint bases with GERP score >0. From genome-wide of view, genomic sequences are evolutionarily constraint near the telomeric regions and the mean GERP scores dropped, in general, toward centromeric regions (Figure \ref{fig:dis1m}) with some exceptions at long arm of chromosome 1 and 4.  
 
-Although genomic sites with GERP >0 were conservationary constraint, they are not immune to mutation. Indeed, in our diallel population, N SNPs were detected at sites with GERP score />0. Consistent with previous study (\citep{})\yang{eli}, the minor allele frequcy (MAF) was negatively correlated with the mean GERP scores (correlation P value =). This observation indicated the putative deleterious alleles tend to be purged and maintained in a low frequency in the population. 
+Although genomic sites with GERP score >0 showed evidence of under evolutionary constraint, they are not immune to mutate. Indeed, in our diallel population, 506,898 SNP variants were detected at sites where the GERP scores are bigger than zero (Figure \ref{fig:gerpmaf}A). Consistent with previous study \citep{rodgers2015recombination}, the minor allele frequencies (MAFs) of these SNPs were negatively correlated with their GERP scores (Pearson's correlation test \emph{P} value < 0.05, \emph{r} = $-$0.08), indicating that the putative deleterious alleles tend to be purged and maintained in a low frequency in the population. 
 
+
+%%%%%%%% ------- GERP MAF------ %%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{Figure_gerpmaf.pdf}
+\caption{Distribution of GERP scores and relationship between GERP scores and MAFs. \textbf{(A)} GERP scores were extracted for $\sim$1.2 million SNPs ($\sim$10\% of the total SNPs) of the diallel population. The spikes in the histogram were because only limited genomes (N < 10? \yang{ask about this number}) were used in GERP calculation. \textbf{(B)} Mean GERP scores were calculated for each bin (bin size = 0.01) of minor allele frequency (MAF). The red line and grey lines define the regression and its 95\% confidence interval.}
+\label{fig:gerpmaf}
+\end{figure}
+%%%%%%%% ------------- %%%%%%%%%%%
+
+
+\subsection*{IBD region size and general statistics}
 %In a 1-Mb bin windown, GERP were conserved near the telomeric regions; the GERP scores are smaller in centeromic regions (Figure S2).
 %Genic region and minor allele frequency issue.
 %where the haplotype was coded with the SNP conservation score as the explainatory variables. 
 
 \yang{how many in genic and how many in non-genic}
 
-%%%%%%%% ------- GERP MAF------ %%%%%%%%%%%
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\linewidth]{Figure_gerpmaf.pdf}
-\caption{GERP distribution of SNPs and relationship between GERP and minor allele frequency. GERP scores were obtained for $\sim$1.2 million ($\sim$10\%) SNPs. The spikes of the MAF distribution. Of these, 506,898 (42\%) were under evolutionary constraint and considered as deleterious variants. 
-\textbf{(B)} Mean GERP scores were calculated for each bin (bin size = 0.01) of minor allele frequency (MAF). It shows that variants at conserved sites are maintained at low frequency. The red line and grey lines define the regression and its 95\% confidence interval.}
-\label{fig:gerpmaf}
-\end{figure}
-%%%%%%%% ------------- %%%%%%%%%%%
-
+This fraction of genome  Genomic variants occured on them were potentially deleterious.
 
 Supplementary Figure and a little bit story of the conserved regions.
 
-
-\subsection*{IBD region size and general statistics}
 
 The phenotypic effects of the genetic load of these potentially deleterious alleles have not been explored. To estimate their phenotypic effects and their contributions to heterosis, we conceived a genomic selection approach to predict their joint effects in the population. However, because SNPs with high GERP score are negatively correlated with the MAF (Figure and citation), they become less useful due to statistical limitation (citation). To capture the information carried by these potentially deleterious sites, we conducted the genomic-enabled prediction with the SNP's GERP score. 
 
@@ -324,7 +322,16 @@ Cross-validation results suggested prediction accuracies for some traits could b
 \end{figure}
 %%%%%%%% ------------- %%%%%%%%%%%
 
+%%%%%%%% ----- GERP dis1m -------- %%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{SFig_gerp_dis1m.pdf}
+\caption{GERP score distribution across the genome. On the y-axis are the mean GERP scores in a 1-Mb bin region.}
+\label{fig:dis1m}
+\end{figure}
+%%%%%%%% ------------- %%%%%%%%%%%
 
+%%%%%%%% ----- GERP IBD diagram -------- %%%%%%%%%%%
 \begin{figure}[here]
 \includegraphics[width=0.9\textwidth]{SFig_gerpIBD.pdf}
 \caption{
@@ -332,6 +339,7 @@ Cross-validation results suggested prediction accuracies for some traits could b
 Regions of the genome that are identical by descent (IBD) among the 12 inbreds were identified using Beagle \citep{Browning2009}.  The GERP scores of SNPs in an IBD block were summed under both additive and dominant models. Under the additive model, 2 x GERP score was assigned to genotypes homozygous for the non-reference allele, 1 x GERP score was assigned to heterozygotes, and 0 was assigned to the homozygous reference genotype. Under the dominant model, 1 x GERP score was assigned to both genotypes with a nonreference allle and 0 to the homozygous reference genotype.}
 \label{fig:gerpibd}
 \end{figure}
+%%%%%%%% ------------- %%%%%%%%%%%
 
 
 %%%%%%%% ----- BEANPLOT-------- %%%%%%%%%%%
