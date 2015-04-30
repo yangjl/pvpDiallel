@@ -213,17 +213,41 @@ It was argued that SNPs in genic regions might have higher GERP scores than thos
 %%%%%%%% ------------- %%%%%%%%%%%
 
 
-\subsection*{The top predictors are enriched in centeromeic regions}
+\subsection*{Posterior phenotypic variance explained and model comparisons}
 
-To learn why the prediction performace varied among traits and heterosis transformations. First of all, we derived the posterior variance explained by the IBD coded with GERP score and IBD coded with genic SNPs. As expected, higher posterior variance explained by genome-wide IBD blocks were observed using all the conserved SNPs as compared to the genic SNPs (Table SN). For most of the traits \emph{per se}, phenotypic variance could be largely explained (posterior variance explained by markers range from 0.9 to 0.8 with additive model; with dominant model). But, it became difficult to explain heterosis transformations. 
+To learn why the prediction performace varied among traits \emph{per se} and heterosis transformations, we obtained the posterior variance explained by our models using the complete set of data. As expected, for most of the phenotypes, higher posterior variance could be explained for traits \emph{per se} than BPH and pBPH using genome-wide IBD blocks incorporated with GERP scores. 
+
+were observed using all the conserved SNPs as compared to the genic SNPs (Table SN). For most of the traits \emph{per se}, phenotypic variance could be largely explained (posterior variance explained by markers range from 0.9 to 0.8 with additive model; with dominant model). But, it became difficult to explain heterosis transformations. Figure \ref{fig:h2}
 
 GCA and SCA
 
 and the breeding values.
+Breeding values from the BeyesC models were extracted. The below four models were compared. 
 
 
-
-
+\begin{equation}
+Y_{ij} = \mu + GCA_{i} + GCA_{j} + \varepsilon
+\label{eq:refname1}
+\end{equation}
+\begin{equation}
+Y_{ij} = \mu + GCA_{i} + GCA_{j} +  G_{ij} + \varepsilon
+\label{eq:refname2}
+\end{equation}
+\begin{equation}
+Y_{ij} = \mu + GCA_{i} + GCA_{j} + SCA_{ij} + \varepsilon
+\label{eq:refname3}
+\end{equation}
+\begin{equation}
+Y_{ij} = \mu + GCA_{i} + GCA_{j} + SCA_{ij} + G_{ij} + \varepsilon
+\label{eq:refname4}
+\end{equation}
+where 
+$Y_{ij}$ is the BLUE value of the hybrid crossed between the $i^{th}$ inbred and $j^{th}$ inbred; 
+$\mu$, the overall mean; 
+$GCA_{i}$, the general combining ability of the $i^{th}$ inbred;
+$GCA_{j}$, the general combining ability of the $j^{th}$ inbred;
+$SCA_{ij}$, the specific combining ability of between the $i^{th}$ and $j^{th}$ inbreds;
+$\varepsilon$, the model residuals.
 
 
 1. It capture high order of interactions.  
@@ -236,6 +260,14 @@ TO DO:
 2. comparing MAF in different caterigories
 3. training all the data and get the idea of significant ones.
 
+%%%%%%%% ----- h2 plots-------- %%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{Figure_h2.pdf}
+\caption{Barplots of the phenotypic variance explained by IBD blocks incorporated with GERP scores.}
+\label{fig:h2}
+\end{figure}
+%%%%%%%% ------------- %%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%% DISCUSSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
