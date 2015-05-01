@@ -51,7 +51,6 @@ slurm4GenSel <- function(sh="largedata/GenSel/CL_test.sh",
 GenSel_inp <- function(inp="CL_test.inp", pi=0.995, findsale ="no",
                        geno="/Users/yangjl/Documents/GWAS2_KRN/SNP/merged/geno_chr", 
                        pheno="/Users/yangjl/Documents/Heterosis_GWAS/pheno2011/reports/cd_GenSel_fullset.txt",
-                       map="/Users/yangjl/Documents/linkage.map",
                        chainLength=1000, burnin=100, varGenotypic=1.4, varResidual=2){
   
     cat(paste("// gensel input file written", Sys.time(), sep=" "), 

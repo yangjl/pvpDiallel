@@ -5,14 +5,15 @@
 
 source("lib/setUpslurm.R")
 ###### read data
-setUpslurm(slurmsh="largedata/SNP/gerp_cs1.sh",
+setUpslurm(slurmsh="largedata/SNP/gerpibd.sh",
            oneline=TRUE,
            codesh="gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 \\
--g largedata/SNP/allsnps_11m_gerpv2_cs1.csv -o largedata/SNP/gerpIBD_output",
+-g largedata/SNP/allsnps_11m_gerpv2_tidy.csv -o largedata/SNP/gerpIBD_output",
            wd=NULL,
            sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
            sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
            sbathJ="gerpibd1")
+
 
 ################### and then generate map ###############################################
 

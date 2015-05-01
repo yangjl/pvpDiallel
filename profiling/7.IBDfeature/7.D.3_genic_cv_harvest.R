@@ -47,21 +47,47 @@ SplitName <- function(infile=rand1){
 }
 
 #### extract with real data
-main4 <- function(dir="slurm-scripts/genic/", outfile="cache/genic_cv_cs_BPHmax.csv"){
+main4 <- function(dir="slurm-scripts/genic/"){
   res1 <- harvestCV(dir=dir, fileptn="\\.ghatREL", remove=FALSE)
   res1 <- SplitName(infile=res1) #885
   print(table(res1$trait))
   
-  write.table(res1, outfile, sep=",", row.names=FALSE, quote=FALSE)
+  return(res1)
 }
 
-main4(dir="slurm-scripts/genic/", outfile="cache/genic_cv_cs_BPHmax.csv")
+###### BPHmax
+BPHmax <- main4(dir="slurm-scripts/genicbphmax/")
+write.table(BPHmax, "cache/genic_real_BPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
+bph_real <- read.csv("cache/genic_real_BPHmax.csv")
+bph_cs <- read.csv("cache/genic_cv_cs_BPHmax.csv")
+bph <- rbind(bph_real, bph_cs)
+write.table(bph, "cache/genic_BPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
-main4(dir="slurm-scripts/genicperse/", outfile="cache/genic_cv_real_perse.csv")
-main4(dir="slurm-scripts/genicphph/", outfile="cache/genic_cv_all_pHPH.csv")
+perse <- main4(dir="slurm-scripts/genicperse/")
+indx <- grep("ghatREL2", perse$cv)
+write.table(perse[-indx, ], "cache/genic_perse.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+pBPHmax <- main4(dir="slurm-scripts/pBPHmax/")
+write.table(pBPHmax, "cache/genic_pBPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+####### MPH
+MPH <- main4(dir="slurm-scripts/genicmph/")
+write.table(MPH, "cache/genic_MPH.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+####### pMPH
+pMPH <- main4(dir="slurm-scripts/genicpmph/")
+write.table(pMPH, "cache/genic_pMPH.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
+####### BPHmin
+BPHmin <- main4(dir="slurm-scripts/genicbphmin/")
+BPHmin <- subset(BPHmin, trait %in% "asi")
+write.table(BPHmin, "cache/genic_BPHmin.csv", sep=",", row.names=FALSE, quote=FALSE)
 
+####### pBPHmin
+pBPHmin <- main4(dir="slurm-scripts/genicpbphmin/")
+pBPHmin <- subset(pBPHmin, trait %in% "asi")
+write.table(pBPHmin, "cache/genic_pBPHmin.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 

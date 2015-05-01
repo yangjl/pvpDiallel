@@ -3,7 +3,7 @@
 
 #http://www.jstatsoft.org/v28/c01/paper
 
-res0 <- read.csv("cache/cv_results.csv")
+res0 <- read.csv("cache/gerpall_perse.csv")
 
 table(subset(res0, type=="real")$trait)
 table(subset(res0, type=="random")$trait)

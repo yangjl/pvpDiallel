@@ -17,9 +17,15 @@ Run7Trait_v2 <- function(inppwd="slurm-scripts/BPHmax/", phenopwd="/largedata/ph
       for(cv in 1:5){
         for(sp in 1:10){
           myinp <- paste0(inppwd, ti[i], "_real_", mode,"_cv",cv, "_sp",sp, ".inp")
+          
+          mygeno  <- paste0(wd, "/largedata/SNP/gerpIBD_output_", mode, ".gs.newbin")
+          if(!file.exists(mygeno)){
+            mygeno <- paste0(wd, "/largedata/SNP/gerpIBD_output_", mode, ".gs")
+          }
+          
           GS_cv_inp(
             inp= myinp, pi=0.999,
-            geno= paste0(wd, "/largedata/SNP/gerpIBD_output_", mode, ".gs.newbin"), 
+            geno= mygeno, 
             trainpheno= paste0(wd, phenopwd, ti[i], "_train", cv, "_sp", sp, ".txt"),
             testpheno= paste0(wd, phenopwd, ti[i], "_test", cv, "_sp", sp, ".txt"),
             chainLength=11000, burnin=1000, varGenotypic=gen[i], varResidual=res[i]
@@ -34,7 +40,7 @@ Run7Trait_v2 <- function(inppwd="slurm-scripts/BPHmax/", phenopwd="/largedata/ph
   return(shcommand)
 }
 
-####
+#### HPHmax
 wd <- getwd()
 mysh <- Run7Trait_v2(inppwd="slurm-scripts/BPHmax/", phenopwd="/largedata/pheno/CV5fold_BPHmax/")
 
@@ -49,7 +55,7 @@ slurm4GenSelCV(
 ###>>> note --ntask=x, 8GB of memory per CPU
 ###>>> RUN: sbatch -p bigmemh --ntasks=2 --mem 16000 slurm-scripts/BPHmax/cv_real_run1000.sh
 
-####
+#### pBPHmax
 wd <- getwd()
 mysh <- Run7Trait_v2(inppwd="slurm-scripts/pBPHmax/", phenopwd="/largedata/pheno/CV5fold_pBPHmax/")
 
@@ -62,7 +68,58 @@ slurm4GenSelCV(
 
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntask=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p bigmemm --ntasks=2 --mem 16000 slurm-scripts/pBPHmax/pBPH_real_run1000.sh
+###>>> RUN: sbatch -p bigmemh slurm-scripts/pBPHmax/pBPH_real_run1000.sh
+
+#### MPH
+wd <- getwd()
+mysh <- Run7Trait_v2(inppwd="slurm-scripts/gerpall_MPH/", phenopwd="/largedata/pheno/CV5fold_MPH/")
+
+slurm4GenSelCV(
+  shfile= "slurm-scripts/MPH_real_run1000.sh", shcommand = mysh,
+  sbathJ= "MPH-cv_realrun",  
+  sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+  sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+)
+###>>> RUN: sbatch -p serial --ntasks 2 --mem 4000 slurm-scripts/MPH_real_run1000.sh
+
+#### pMPH
+wd <- getwd()
+mysh <- Run7Trait_v2(inppwd="slurm-scripts/gerpall_pMPH/", phenopwd="/largedata/pheno/CV5fold_pMPH/")
+
+slurm4GenSelCV(
+  shfile= "slurm-scripts/pMPH_real_run1000.sh", shcommand = mysh,
+  sbathJ= "pMPH-cv_realrun",  
+  sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+  sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+)
+###>>> RUN: sbatch -p bigmemh slurm-scripts/pMPH_real_run1000.sh
+
+#### HPHmax
+wd <- getwd()
+mysh <- Run7Trait_v2(inppwd="slurm-scripts/gerpall_BPHmin/", phenopwd="/largedata/pheno/CV5fold_BPHmin/")
+
+slurm4GenSelCV(
+  shfile= "slurm-scripts/BPHmin_real_run1000.sh", shcommand = mysh,
+  sbathJ= "BPHmin_realrun",  
+  sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+  sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+)
+
+###>>> RUN: sbatch -p bigmemh slurm-scripts/BPHmin_real_run1000.sh
+
+#### pBPHmin
+wd <- getwd()
+mysh <- Run7Trait_v2(inppwd="slurm-scripts/gerpall_pBPHmin/", phenopwd="/largedata/pheno/CV5fold_pBPHmin/")
+
+slurm4GenSelCV(
+  shfile= "slurm-scripts/pBPHmin_real_run1000.sh", shcommand = mysh,
+  sbathJ= "pBPHmin_realrun",  
+  sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
+  sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
+)
+
+###>>> RUN: sbatch -p bigmemh slurm-scripts/pBPHmin_real_run1000.sh
+
 
 
 
