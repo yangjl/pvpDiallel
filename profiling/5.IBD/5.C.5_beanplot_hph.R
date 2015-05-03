@@ -47,22 +47,22 @@ mean(subset(perse, cs == "real" & mode == "d2")$r) #[1] 0.70
 
 ##################################################################################################################
 
-pdf("manuscript/Figure_Table/S_gerpall.pdf", width=8, height=10)
-par(mfrow=c(3,2))
+pdf("manuscript/Figure_Table/Figure_gerpall.pdf", width=10, height=8)
+par(mfrow=c(2,2))
 add_bean_plot(resdf = perse, mymode="a2", 
-              main = "Trait per se with additive model", ylab = "CV Accuracy (r)")
+              main = "Traits per se using additive model", ylab = "Accuracy (r)")
 add_bean_plot(resdf = perse, mymode="d2", 
-              main = "Trait per se with dominant model", ylab = "CV Accuracy (r)")
+              main = "Traits per se using dominant model", ylab = "Accuracy (r)")
 
 add_bean_plot(resdf = BPH, mymode="a2", 
-              main = "BPH with additive model", ylab = "CV Accuracy (r)")
+              main = "BPH using additive model", ylab = "Accuracy (r)")
 add_bean_plot(resdf = BPH, mymode="d2", 
-              main = "BPH with dominant model", ylab = "CV Accuracy (r)")
+              main = "BPH using dominant model", ylab = "Accuracy (r)")
 
-add_bean_plot(resdf = pHPH, mymode="a2", 
-              main = "pBPH with additive model", ylab = "CV Accuracy (r)")
-add_bean_plot(resdf = pHPH, mymode="d2", 
-              main = "pBPH with dominant model", ylab = "CV Accuracy (r)")
+#add_bean_plot(resdf = pHPH, mymode="a2", 
+#              main = "pBPH with additive model", ylab = "CV Accuracy (r)")
+#add_bean_plot(resdf = pHPH, mymode="d2", 
+#              main = "pBPH with dominant model", ylab = "CV Accuracy (r)")
 
 dev.off()
 
@@ -84,8 +84,11 @@ pval3$mode <- gsub("a2", "additive", pval3$mode)
 pval3$mode <- gsub("d2", "dominant", pval3$mode)
 pval3$file <- gsub(".*_", "", pval3$file)
 pval3$file <- gsub("\\.csv", "", pval3$file)
-names(pval3) <- c("phenotype", "p-value", "mode", "trait","FDR")
-write.table(pval3, "manuscript/Figure_Table/Table_S3_allsnps_FDR.csv", sep=",", )
+names(pval3) <- c("phenotype", "p-value", "mode", "r_real", "r_cs", "trait","FDR")
+
+###>>>
+pval4 <- subset(pval3, trait %in% c("perse", "BPHmax", "BPHmin"))
+write.table(pval4, "manuscript/Figure_Table/Table_S3_allsnps_FDR.csv", sep=",", )
 
 
 

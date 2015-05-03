@@ -17,7 +17,9 @@ runttest2 <- function(resfile="cache/genic_perse.csv"){
     for(modei in mode){
       test <- t.test(subset(resin, cs=="real" & trait== ti & mode == modei)$r, 
                      subset(resin, cs=="cs" & trait == ti & mode == modei)$r, alternative ="greater")
-      tem <- data.frame(trait= ti, pval=test$p.value, mode=modei)
+      tem <- data.frame(trait= ti, pval=test$p.value, mode=modei,
+                        r_real=mean(subset(resin, cs=="real" & trait== ti & mode == modei)$r),
+                        r_cs=mean(subset(resin, cs=="cs" & trait == ti & mode == modei)$r))
       res <- rbind(res, tem)
     }
     
@@ -50,11 +52,13 @@ subset(pval2, FDR < 0.05)
 pval3 <- pval2
 pval3$trait <- toupper(pval3$trait)
 pval3$mode <- gsub("a2", "additive", pval3$mode)
+pval3$mode <- gsub("d2", "dominant", pval3$mode)
 pval3$file <- gsub(".*_", "", pval3$file)
 pval3$file <- gsub("\\.csv", "", pval3$file)
-names(pval3) <- c("phenotype", "p-value", "mode", "trait", "FDR")
+names(pval3) <- c("phenotype", "p-value", "mode", "r_real", "r_cs", "trait", "FDR")
 
-write.table(pval3, "manuscript/Figure_Table/Table_S4_genicsnps_FDR.csv")
+pval4 <- subset(pval3, trait %in% c("perse", "BPHmax", "BPHmin"))
+write.table(pval4, "manuscript/Figure_Table/Table_S4_genicsnps_FDR.csv")
 
 
 

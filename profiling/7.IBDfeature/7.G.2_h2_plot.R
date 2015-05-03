@@ -4,18 +4,18 @@
 
 format_h2 <- function(){
   gs1 <- read.csv("cache/allsnp_wholeset_h2.csv")
+  gs1$type <- "allsnp"
   gs1$transf <- gsub("_..$", "", gs1$mode)
   gs1$transf <- gsub(".*_", "", gs1$transf)
   gs1$mode <- gsub(".*_", "", gs1$mode)
   
-  gs1$type <- "allsnp"
   gs2 <- read.csv("cache/gs_wholeset_h2.csv")
   gs2$type <- "genicsnp"
   
   h2 <- rbind(gs1, gs2)
   
-  idx <- grep("MPH", h2$transf)
-  h2 <- h2[-idx, ]
+  #idx <- grep("MPH", h2$transf)
+  #h2 <- h2[-idx, ]
   
   ###>>> ASI part
   asi <- subset(h2, trait == "asi" )
@@ -34,7 +34,7 @@ format_h2 <- function(){
     mytype <- subset(h2, type == typei)
     for(modei in c("a2", "d2")){
       mymode <- subset(mytype, mode == modei)
-      for(tsfi in c("perse", "BPHmax", "pBPHmax")){
+      for(tsfi in c("perse", "BPHmax")){
         mytsf <- subset(mymode, transf == tsfi)
         tem <- data.frame(type=typei, mode=modei, tsf=tsfi, 
                           ASI=mytsf[mytsf$trait=="asi", ]$h2,
@@ -55,20 +55,20 @@ format_h2 <- function(){
 h2 <- format_h2()
 counts <- table(mtcars$vs, mtcars$gear)
 
-pdf("manuscript/Figure_Table/Figure_h2.pdf", width=10, height=10)
-par(mfrow=c(2,2))
-h2mx_all_a2 <- as.matrix(subset(h2, type == "allsnp" & mode == "a2")[, 4:10])
-barplot(h2mx_all_a2, main="Additive model using SNPs with GERP > 0", ylim=c(0, 1), ylab="Phenotypic variance explained",
-        xlab="Phenotypic traits", beside=TRUE)
-h2mx_all_d2 <- as.matrix(subset(h2, type == "allsnp" & mode == "d2")[, 4:10])
-barplot(h2mx_all_d2, main="Dominant model using SNPs with GERP > 0", ylim=c(0, 1), ylab="Phenotypic variance explained",
-        xlab="Phenotypic traits", beside=TRUE)
+pdf("manuscript/Figure_Table/Figure_h2.pdf", width=10, height=5)
+par(mfrow=c(1,2))
+#h2mx_all_a2 <- as.matrix(subset(h2, type == "allsnp" & mode == "a2")[, 4:10])
+#barplot(h2mx_all_a2, main="Additive model using SNPs with GERP > 0", ylim=c(0, 1), ylab="Phenotypic variance explained",
+#        xlab="Phenotypic traits", beside=TRUE)
+#h2mx_all_d2 <- as.matrix(subset(h2, type == "allsnp" & mode == "d2")[, 4:10])
+#barplot(h2mx_all_d2, main="Dominant model using SNPs with GERP > 0", ylim=c(0, 1), ylab="Phenotypic variance explained",
+#        xlab="Phenotypic traits", beside=TRUE)
 
 h2mx_all_a2 <- as.matrix(subset(h2, type == "genicsnp" & mode == "a2")[, 4:10])
-barplot(h2mx_all_a2, main="Additive model using genic SNPs with GERP > 0", ylim=c(0, 1), ylab="Phenotypic variance explained",
+barplot(h2mx_all_a2, main="Additive model", ylim=c(0, 1), ylab="Phenotypic variance explained",
         xlab="Phenotypic traits", beside=TRUE)
 h2mx_all_d2 <- as.matrix(subset(h2, type == "genicsnp" & mode == "d2")[, 4:10])
-barplot(h2mx_all_d2, main="Dominant model using genic SNPs with GERP > 0", ylim=c(0, 1), ylab="Phenotypic variance explained",
+barplot(h2mx_all_d2, main="Dominant model", ylim=c(0, 1), ylab="Phenotypic variance explained",
         xlab="Phenotypic traits", beside=TRUE)
 dev.off()
 

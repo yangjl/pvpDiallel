@@ -18,7 +18,7 @@ setUpslurm(slurmsh="slurm-scripts/wholeset_testrun.sh",
 
 
 source("~/Documents/Github/zmSNPtools/Rcodes/collect_gsout.R")
-res <- collect_gsout(dir = "slurm-scripts/wholeset", fileptn ="out")
+res <- collect_gsout(dir = "slurm-scripts/genic_wholeset/", fileptn ="out")
 
 main_res <- function(res = res){
   res$trait <- gsub("_.*", "", res$file)
