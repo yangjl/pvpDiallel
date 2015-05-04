@@ -19,7 +19,9 @@ runttest <- function(resfile="cache/gerpall_perse.csv"){
     for(modei in mode){
       test <- t.test(subset(resin, cs=="real" & trait== ti & mode == modei)$r, 
                      subset(resin, cs=="cs" & trait == ti & mode == modei)$r, alternative ="greater")
-      tem <- data.frame(trait= ti, pval=test$p.value, mode=modei)
+      tem <- data.frame(trait= ti, pval=test$p.value, mode=modei,
+                        r_real=mean(subset(resin, cs=="real" & trait== ti & mode == modei)$r),
+                        r_cs=mean(subset(resin, cs=="cs" & trait == ti & mode == modei)$r))
       res <- rbind(res, tem)
     }
     

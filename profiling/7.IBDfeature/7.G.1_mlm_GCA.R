@@ -35,7 +35,8 @@ run_model_comp <- function(ghatfile="cache/ghat_wholeset.csv", modes=c("1a2", "1
       fit3 <- lm(valHyb ~ GCA1.all + GCA2.all + SCA.all, data=df)
       fit4 <- lm(valHyb ~ GCA1.all + GCA2.all + SCA.all +ghat, data=df)
       
-      out <- data.frame(trait = ti, mode = mi, p21=anova(fit2, fit1)[2, 6], p43=anova(fit4, fit3)[2, 6] )
+      out <- data.frame(trait = ti, mode = mi, p21=anova(fit2, fit1)[2, 6], p43=anova(fit4, fit3)[2, 6],
+                        p42=anova(fit4, fit2)[2,6], p31=anova(fit3, fit1)[2,6], p23=anova(fit2, fit3)[2,6])
       outres <- rbind(outres, out)
     } 
   }
@@ -45,4 +46,6 @@ run_model_comp <- function(ghatfile="cache/ghat_wholeset.csv", modes=c("1a2", "1
 
 mc1 <- run_model_comp(ghatfile="cache/ghat_wholeset.csv", modes=c("1a2", "1d2"))
 mc2 <- run_model_comp(ghatfile="cache/gerpall_ghat.csv", modes=c("a2", "d2"))
-
+mc2$mode <- gsub("a2", "additive", mc2$mode)
+mc2$mode <- gsub("d2", "dominant", mc2$mode)
+write.table(mc2[, 1:4], "manuscript/Figure_Table/Table_S5_model_comp.csv", sep=",", row.names=FALSE)

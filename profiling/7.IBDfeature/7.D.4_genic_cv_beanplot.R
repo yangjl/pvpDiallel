@@ -50,23 +50,17 @@ mean(subset(perse, cs == "cs0" & mode == "d2")$r) #[1] 0.72
 
 ##################################################################################################################
 
-pdf("manuscript/Figure_Table/S_genicsnp.pdf", width=8, height=10)
-par(mfrow=c(3,2))
+pdf("manuscript/Figure_Table/SFig_genicsnp.pdf", width=10, height=8)
+par(mfrow=c(2,2))
 add_bean_plot(resdf = perse, mymode="a2", 
-              main = "Trait per se with additive model", ylab = "CV Accuracy (r)")
+              main = "Traits per se using additive model", ylab = "Accuracy (r)")
 add_bean_plot(resdf = perse, mymode="d2", 
-              main = "Trait per se with dominant model", ylab = "CV Accuracy (r)")
+              main = "Traits per se using dominant model", ylab = "Accuracy (r)")
 
 add_bean_plot(resdf = BPH, mymode="a2", 
-              main = "BPH with additive model", ylab = "CV Accuracy (r)")
+              main = "BPH using additive model", ylab = "Accuracy (r)")
 add_bean_plot(resdf = BPH, mymode="d2", 
-              main = "BPH with dominant model", ylab = "CV Accuracy (r)")
-
-add_bean_plot(resdf = pHPH, mymode="a2", 
-              main = "pBPH with additive model", ylab = "CV Accuracy (r)")
-add_bean_plot(resdf = pHPH, mymode="d2", 
-              main = "pBPH with dominant model", ylab = "CV Accuracy (r)")
-
+              main = "BPH using dominant model", ylab = "Accuracy (r)")
 dev.off()
 
 

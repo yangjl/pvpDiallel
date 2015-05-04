@@ -28,9 +28,9 @@ res <- collect_gsout(dir = "slurm-scripts/gerpall_wholeset", fileptn ="out")
 
 main_res <- function(res = res){
   res$trait <- gsub("_.*", "", res$file)
-  res$transf <- gsub("_1.*", "", res$file)
+  res$transf <- gsub("_..\\.out1", "", res$file)
   res$transf <- gsub(".*_", "", res$transf)
-  res$mode <- gsub(".*_1", "", res$file)
+  res$mode <- gsub(".*_", "", res$file)
   res$mode <- gsub("\\.out1", "", res$mode)
   return(res)
 }
