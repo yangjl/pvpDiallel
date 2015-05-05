@@ -16,13 +16,17 @@
 % {gos} Genetics of Sex 
 % {mp} Multiparental Populations
 
+\newcommand{\X}{\textcolor{red}{\bf X\,}}
+\newcommand{\jri}[1]{\textcolor{blue}{ \emph{ #1}} }
+
+
 \title{Utilizing evolutionary conservation information to improve prediction accuracy in genomic selection}
 
-\author[$\ast$, 2]{Jinliang Yang}
-\author[$\ast$, $\S$, 2, 3]{Sofiane Mezmouk}
+\author[$\ast$, 1]{Jinliang Yang}
+\author[$\ast$, 1, 2]{Sofiane Mezmouk}
 \author[$\dagger$]{Andy Baumgarten}
 \author[$\ddagger$]{Rita H. Mumm}
-\author[$\ast$, $\S$, 1]{Jeffrey Ross-Ibarra}
+\author[$\ast$, $\S$, 3]{Jeffrey Ross-Ibarra}
 
 \affil[$\ast$]{Department of Plant Sciences, University of California, Davis, CA 95616, USA}
 \affil[$\S$]{Center for Population Biology and Genome Center, University of California, Davis, CA 95616, USA}
@@ -36,7 +40,7 @@
 \correspondingauthor{Jeffrey Ross-Ibarra}
 
 \begin{abstract}
-Genomic selection (GS) has gained popularity recently as the availability of genome-wide markers has increased. Current methods for GS weigh all the available SNPs equally in model training, without considering their functional differences. Genetic variations detected at evolutionary conserved sites tend to be deleterious and, thus, may be more informative for GS. To utilize this kind of information as a prior into the GS model, we proposed a method to put more weight on evolutionarily constrained sites. As a proof-of-concept, a half diallel population based on 12 diverse inbred lines was used, from which seven phenotypic traits were collected. Some of these traits show high levels of heterosis. After sequencing the 12 founder lines, about 14 million SNPs were discovered and the SNPs were used to identify 502,913 haplotype blocks shared through identity by descent (IBD). A five fold cross-validation experiment was conducted using the summary statistics of the SNP conservation scores, which were computed by evaluating sequences similarity of multiple divergent species, in the IBD blocks as explanatory variables. The results show that the prediction accuracies for some traits \emph{per se} and heterosis transformations are significantly better than shuffled data with randomly assigned conservation scores. This study demonstrates the importance of incorporating evolutionary information in GS and its potential usage in plant breeding.
+\jri{rewrite in the frame of heterosis or deleterious alleles?} Genomic selection (GS) has gained popularity recently as the availability of genome-wide markers has increased. Most current methods for GS weigh all available SNPs equally in model training without considering potential functional differences. Here we take advantage of evolutionary measures of sequence conservation to ask whether sites with prior evidence of functionality can inform GS models. We tested this idea using a partial diallel cross of 12 maize inbred lines.  We sequenced the genomes of the parents and phenotyped both parents and hybrids for seven phenotypic traits across \X environments in \X years. We made use of an identity-by-decent analysis of the parents to identify haplotype blocks, and scored blocks in hybrids using a weighted sum of the GERP conservation score.  We find that incorporating sequence conservation improves prediction accuracies in a five-fold cross-validation experiment for several traits \emph{per se} as well as heterosis for those traits. Because most variation at conserved sites is deleterious, we interpret these results as consistent with the simple complementation model for heterosis. Overall, this work demonstrates the importance of incorporating evolutionary information in GS and its potential usage in plant breeding.
 \end{abstract}
 
 \setboolean{displaycopyright}{true}
@@ -66,7 +70,7 @@ Genomic selection (GS) has gained popularity recently as the availability of gen
 %  \item using GS to test whether they improve prediction
 %\end{itemize}
 
-
+\jri{abstract talks GS and prediction, intro talks deleterious alleles and heterosis. i like the intro spin better. should we go with that (and re-write the abstract accordingly)?}
 %\textbf{Heterosis was observed long time ago. many theories were proposed to explain it.}
 \lettrine[lines=2]{\color{color2}T}{}he phenomenon of heterosis has been observed across many species, from yeast \citep{Shapira2014} to vertebrates \citep{Gama2013}. Recent studies indicated that the complementation of the deleterious alleles, which fit classic dominant model, may play an important role in determining heterosis \citep{Charlesworth2009}. Deleterious alleles were arisen from new mutations during meiosis. In maize, about 90 new mutations were generated per meiosis \citep{Clark2005}, majority of which were deleterious according to empirical estimates \citep{Joseph2004}. In a natural outcross population, the negative effects on fitness of these deleterious alleles make them subject to be selection against, which lead the deleterious alleles to be maintained in a low frequency \citep{Eyre-Walker2007}. But the deleterious alleles could not be completerly purged. 
 
@@ -79,9 +83,9 @@ Despite the importance of deleterious alleles in contributing to heterosis, they
 
 \subsection*{Plant material and phenotypic data}
 %-------------------
-Twelve maize inbred lines were selected and crossed in a half diallel fashion without considering reciprocal effects. Using this half diallel population, a field experiment was conducted in an incomplete block design with three replications. In the experiment, in addition to the 66 F1 hybrids, the 12 inbred parents and two current commercial check hybrids were planted; and  hybrids and inbreds were grouped separately. The plants were grown at Urbana, IL in 2009, 2010 and 2011. Plots consisted of four rows, with all observations taken from the inside two rows to minimize effects of shading and maturity differences from adjacent plots. Both inbred lines and the 66 resulting hybrids were field evaluated. Phenotypic data was collected for plant height (PHT, in cm), ear height (EHT, in cm), days to 50\% silking (DTS), days to 50\% pollen shed (DTP), anthesis-silking interval (ASI, in days), grain yield adjusted to 15.5\% moisture (adj GY, in bu/A), and test weight (TW, in pounds).% Question for RHM: Should we cite a paper for the phenotypic data? 
+We selected twelve maize inbred lines, broadly representative of corn belt maize germplasm, as parents of a partial diallel population of 66 hybrids (each pair of parents crossed once) \jri{i think figure S1 needs to show who was dad and mom for every hybrid. maybe just a table? needs to be cited here}. We evaluated the F1 hybrids, inbred parents and two current commercial check hybrids in the field in Urbana, IL over three years (2009-2011) in an incomplete block design. \jri{were there 3 replicats each year? I was a bit confused}  Plots consisted of four rows, with all observations taken from the inside two rows to minimize effects of shading and maturity differences from adjacent plots.  We measured plant height (PHT, in cm), ear height (EHT, in cm), days to 50\% silking (DTS), days to 50\% pollen shed (DTP), anthesis-silking interval (ASI, in days), grain yield adjusted to 15.5\% moisture (adj GY, in bu/A), and test weight (TW, in pounds). \jri{find out from Rita how to cite, distribute, phenotype data?}
 
-Best Linear Unbiased Estimation (BLUE) of the genetic effects were calculated with ASReml-R \citep{gilmour2009asreml} following the linear model: 
+We estimated Best Linear Unbiased Estimates (BLUEs) of the genetic effects in ASReml-R \citep{gilmour2009asreml} with the following linear model: 
 %
 \[Y_{ijkl} = \mu + \varsigma_{i} + \delta_{ij} + \beta_{jk} + \alpha_{l} +  \varsigma_{i} \cdot \alpha_{l} + \varepsilon\]
 %
@@ -93,42 +97,34 @@ $\delta_{ij}$, the fixed effect of the $j^{th}$ replicate nested in the $i^{th}$
 $\beta_{jk}$, the random effect of the $k^{th}$ block nested in the $j^{th}$ block; 
 $\alpha_{l}$, the the fixed genetic effect  of the $l^{th}$ individual; 
 $\varsigma_{i} \cdot \alpha_{l}$, the interaction effect of the $l^{th}$ individual with the $i^{th}$ environment; 
-$\varepsilon$, the model residuals.
+$\varepsilon$, the model residuals. \jri{perhaps clarify "year" instead of "environment"?}
 
-
-Heterosis for each hybrid was then estimated by better-parental heterosis (BPH):
+We estimated best-parent heterosis (BPH) as:
 %
 %\[ MPH_{ij}=\hat{G_{ij}}-\frac{1}{2}(\hat{G_{i}}+\hat{G_{j}}) \]
 \[ BPH_{min,ij}=\hat{G_{ij}}-min(\hat{G_{i}} ,\hat{G_{j}}) \] 
 \[ BPH_{max,ij}=\hat{G_{ij}}-max(\hat{G_{i}} ,\hat{G_{j}}) \]
 %
-where $\hat{G_{ij}}$, $\hat{G_{i}}$ and $\hat{G_{j}}$ are the genetic values of the hybrid and its two parents $i$ and $j$. $BPH_{min}$ was used instead of $BPH_{max}$ for days to anthesis.
+where $\hat{G_{ij}}$, $\hat{G_{i}}$ and $\hat{G_{j}}$ are the genetic values of the hybrid and its two parents $i$ and $j$. $BPH_{min}$ was used instead of $BPH_{max}$ for days to anthesis. \jri{what about ear height and DTS?}
 
-\subsection*{Sequencing and SNP calling}
+\subsection*{Sequencing and Genotyping}
 
 % wet lab
-DNA from the twelve inbred lines was CTAB extracted \citep{Doyle1987} and Covaris sheared for Illumina library preparation. The DNA libraries were then sequenced to an average coverage of 10X. % \sme{(say where the sequencing was done?)}.
+We extracted DNA from the twelve inbred lines following \citet{Doyle1987} and sheared the DNA on a Covaris \jri{company, headquarters?} for library preparation. Libraries were then sequenced \jri{where? what length reads? insert size?}. 
 
 %Read mapping
-Raw paired reads (reverse and forward for each sequence), were trimmed for adapter contamination with Scythe package (\url{https://github.com/vsbuffalo/scythe}) which calculate the probability of having a contamination given the adapter sequence, the number of mismatches and sequence quality. The reads were then trimmed for quality and sequence length ($\geq 20$ nucleotides) with Sickle package (\url{https://github.com/najoshi/sickle}) .
-
-Read pairs, kept after filtering,  were mapped to the maize B73 reference genome (AGPv2) with bwa-mem \citep{Li2009B}. Reads, with mapping quality (MAPQ) higher than 10 and with a best alignment score higher than the second best one, were kept for further analyses.
-
+We trimmed the raw sequenced data for adapter contamination with Scythe  (\url{https://github.com/vsbuffalo/scythe}) and for quality and sequence length ($\geq 20$ nucleotides) with Sickle (\url{https://github.com/najoshi/sickle}). We mapped filtered reads to the maize B73 reference genome (AGPv2) with bwa-mem \citep{Li2009B}, keeping reads with mapping quality (MAPQ) higher than 10 and with a best alignment score higher than the second best one for further analyses.
 %SNP calling
-Single nucleotide polymorphisms (SNPs) were called with $mpileup$ function from samtools utilities \citep{Li2009}. To deal with paralogy, which is a major problem in maize sequence mapping \citep{Chia2012}, all SNPs were filtered to a) be heterozygote in less than 3 inbred lines, b) have a mean minor allele depth over all genomes of at least 4, c) have a mean depth over all individuals lower than 30 and d) have missing/heterozygote alleles in less than 6 inbred lines (allelic information for at least 15 hybrids in the partial diallel design). 
-
-
-
-\subsection*{Haplotype identification and SNP annotation}
+We called single nucleotide polymorphisms (SNPs) using the $mpileup$ function from samtools utilities \citep{Li2009}. To deal with paralogy, which is a major problem in maize \citep{Chia2012}, all SNPs were filtered to a) be heterozygote in less than 3 inbred lines, b) have a mean minor allele depth over all genomes of at least 4, c) have a mean depth over all individuals lower than 30 and d) have missing/heterozygote alleles in less than 6 inbred lines (allelic information for at least 15 hybrids in the partial diallel design). 
 
 %IBD
-All missing alleles were then imputed with BEAGLE package \citep{Browning2009} and identity by descent (IBD) regions between the 12 inbred lines were identified with BEAGLE's fastIBD method \citep{Browning2011}. The pairwise IBD region starts and ends were used to delimit haplotipic blocks where several inbred lines shared a homogenous haplotypes.%I need to clarify this last sentence.
+We used the fastIBD method implemented in BEAGLE \citep{Browning2009,Browning2011} to impute missing data and identify regions of identity by descent (IBD) between the 12 inbred lines. We then defined haplotype blocks as contiguous regions within which there were no IBD break points across all pairwise comparisons of the parental lines. \jri{a supplemental figure here would help}
+
 
 %SIFT and MAPP \yang{hide}
 %The SNPs were annotated as synonymous and non-synonymous with the software polydNdS from the analysis package of libsequence  \citep{Thornton2003} using the first transcript of each gene in B73 5b filtered gene set. Deleterious effects of amino acid changes were then predicted with both SIFT \citep{Ng2003, Ng2006} and MAPP \citep{Stone2005} software packages as described by \citep{Mezmouk2014}.
 
-%GERP
-Genomic evolutionary rate profiling (GERP) \citep{Davydov2010}, which estimates the evolutionary constraint by quantifying substitution deficits after multiple genome alignments, was obtained from \citep{rodgers2015recombination} for AGPv2. 
+
 
 %\subsection*{Association mapping} \yang{hide}
 %SNP association with heterosis (BPH and MPH) was tested assuming dominance/recessivity of the reference allele or assuming overdominance where only the heterozygote alleles are expected to be significant. For each SNP, root mean square error were used to select the best fitting model. 
@@ -136,6 +132,9 @@ Genomic evolutionary rate profiling (GERP) \citep{Davydov2010}, which estimates 
 
 
 \subsection*{Genomic selection using IBD blocks incorporated with GERP scores}
+
+%GERP
+Genomic evolutionary rate profiling (GERP) \citep{Davydov2010}, which estimates the evolutionary constraint by quantifying substitution deficits after multiple genome alignments, was obtained from \citep{rodgers2015recombination} for AGPv2. 
 
 A haplotype based genomic selection (GS) strategy was conceived by using the IBD blocks as the explanatory variables, where the IBD blocks were coded with evolutionary conservation information. The reference genome sites with GERP score >0 were considered as conserved sites and genomic variants detected at these sites were determined as candidate deleterious alleles. To incorporate the conservation information into IBD blocks, SNPs falling into a given IBD block were added up using their estimated GERP scores. The sum of the score for a given IBD block were used as the conservation estimates of the IBD block. This estimation was calculated using a python script gerpIBD (\url{https://github.com/RILAB/pvpDiallel}) with both additive and dominant modes of inheritance. Under the additive model, 2 x GERP score was assigned to the homozygous loci with non-reference SNP calls; 1 x GERP score was assigned to the heterozygous loci; and 0 was assigned to the homozygous loci with reference SNP calls. Under the dominant model, 1 x GERP score was assigned to both the homozygous loci with non-reference SNP calls and heterozygous loci; 0 was assigned to homozygous loci with reference SNP calls.
 
@@ -164,7 +163,7 @@ To conduct prediction, a 5-fold cross-validation method was used, where the dial
 
 A half diallel population was created using 12 maize inbred lines (Figure \ref{fig:pvp-pheno}a). Two of them are important public inbreds, B73 and Mo17. And the other ten of them are proprietary inbreds (LH1, LH123HT, LH82, PH207, 4676A, PHG39, PHG47, PHG84, PHJ40, PHZ51) that have expired from Plant Variety Protection (PVP) and represent the lineage of key heterotic germplasm pools used in present-day commercial corn hybrids. The set is diverse enough to facilitate a broad sweep of the heterotic sub-groups that comprise U.S. commercial germplasm. From this population, phenotypic data were collected for seven traits of interest during 2009-2011. The phenotypic traits are anthesis-silking interval (ASI, in days), days to 50\% pollen shed (DTP), days to 50\% silking (DTS), ear height (EHT, in cm), grain yield adjusted to 15.5\% moisture (GY, in bu/A), plant height (PHT, in cm), and test weight (TW, in pounds).
 
-The best linear unbiased estimators (BLUEs) for genotypes of the seven traits were derived from mixed linear models (Table S1). In the models, all fixed effects were significant (Wald test \emph{P} value < 0.05) for all traits except ASI for which the effect of the replicates within environments were not significant. As shown in the Figure \ref{fig:pvp-pheno}b, the BLUE values were normally distributed (normality test \emph{P} values > 0.05). The broad sense heritability of the traits ranged from 0.65 for ASI to 0.95 for PHT. With the parental phenotypic data, we conducted heterosis transformations using better-parental heterosis (BPH). Because the selected inbred lines are commercial relevant and fairly elite in performance, hybrids in this population exhibit relative low hybrid vigor (overall mean percent BPH = 0.3\% $\pm$ 0.4\%) normalized by their better parental data for most of the traits except GY (mean percent BPH = 95\% $\pm$ 16\%, Figure \ref{fig:pBPH}). Finally, general and specific combining ability (GCA ans SCA) were estimated following \citep{Falconer1996}. The GCA and SCA varied according to the traits (Table S2). For the GY, B73, PHG47 and PHG39 are the top three inbred lines that combining better with others.
+The best linear unbiased estimators (BLUEs) for genotypes of the seven traits were derived from mixed linear models (Table S1). In the models, all fixed effects were significant (Wald test \emph{P} value < 0.05) for all traits except ASI for which the effect of the replicates within environments were not significant. As shown in the Figure \ref{fig:pvp-pheno}b, the BLUE values were normally distributed (normality test \emph{P} values > 0.05). The broad sense heritability of the traits ranged from 0.65 for ASI to 0.95 for PHT. With the parental phenotypic data, we conducted heterosis transformations using best-parent heterosis (BPH). Because the selected inbred lines are commercial relevant and fairly elite in performance, hybrids in this population exhibit relative low hybrid vigor (overall mean percent BPH = 0.3\% $\pm$ 0.4\%) normalized by their better parental data for most of the traits except GY (mean percent BPH = 95\% $\pm$ 16\%, Figure \ref{fig:pBPH}). Finally, general and specific combining ability (GCA ans SCA) were estimated following \citep{Falconer1996}. The GCA and SCA varied according to the traits (Table S2). For the GY, B73, PHG47 and PHG39 are the top three inbred lines that combining better with others.
 
 
 \subsection*{Evolutionary constraint information for genomic variants}
@@ -276,7 +275,7 @@ The variation of the prediction accuacies were relative large in this study. Fir
 \beginsupplement
 \section*{Supporting Information}
 
-
+\onecolumn
 %Figure
 \begin{center}\vspace{1cm}
 \includegraphics[width=0.8\linewidth]{SFig_pvp.pdf}
@@ -314,7 +313,6 @@ Regions of the genome that are identical by descent (IBD) among the 12 inbreds w
 \label{fig:gerpibd}
 \end{figure}
 %%%%%%%% ------------- %%%%%%%%%%%
-
 
 %%%%%%%% ----- BEANPLOT-------- %%%%%%%%%%%
 \begin{figure}[htbp]
