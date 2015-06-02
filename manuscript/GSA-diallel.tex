@@ -84,21 +84,21 @@ Despite the importance of deleterious alleles in contributing to heterosis, they
 
 \subsection*{Plant material and phenotypic data}
 %-------------------
-We selected twelve maize inbred lines, broadly representative of corn belt maize germplasm, as parents of a partial diallel population of 66 hybrids (each pair of parents crossed once) \jri{i think figure S1 needs to show who was dad and mom for every hybrid. maybe just a table? needs to be cited here}. We evaluated the F1 hybrids, inbred parents and two current commercial check hybrids in the field in Urbana, IL over three years (2009-2011) in an incomplete block design. \jri{were there 3 replicats each year? I was a bit confused}  Plots consisted of four rows, with all observations taken from the inside two rows to minimize effects of shading and maturity differences from adjacent plots.  We measured plant height (PHT, in cm), ear height (EHT, in cm), days to 50\% silking (DTS), days to 50\% pollen shed (DTP), anthesis-silking interval (ASI, in days), grain yield adjusted to 15.5\% moisture (adj GY, in bu/A), and test weight (TW, in pounds). \jri{find out from Rita how to cite, distribute, phenotype data?}
+We selected twelve maize inbred lines, broadly representative of corn belt maize germplasm, as parents of a partial diallel population of 66 hybrids (each pair of parents crossed once) \jri{i think figure S1 needs to show who was dad and mom for every hybrid. maybe just a table? needs to be cited here}. \yang{I do not have this information, Sofiane, do you?} We evaluated the F1 hybrids, inbred parents and two current commercial check hybrids in the field in Urbana, IL over three years (2009-2011) in an incomplete block design. \jri{were there 3 replicats each year? I was a bit confused}  Plots consisted of four rows, with all observations taken from the inside two rows to minimize effects of shading and maturity differences from adjacent plots.  We measured plant height (PHT, in cm), ear height (EHT, in cm), days to 50\% silking (DTS), days to 50\% pollen shed (DTP), anthesis-silking interval (ASI, in days), grain yield adjusted to 15.5\% moisture (adj GY, in bu/A), and test weight (TW, in pounds). \jri{find out from Rita how to cite, distribute, phenotype data?}
 
 We estimated Best Linear Unbiased Estimates (BLUEs) of the genetic effects in ASReml-R \citep{gilmour2009asreml} with the following linear model: 
 %
 \[Y_{ijkl} = \mu + \varsigma_{i} + \delta_{ij} + \beta_{jk} + \alpha_{l} +  \varsigma_{i} \cdot \alpha_{l} + \varepsilon\]
 %
 where 
-$Y_{ijkl}$ is the phenotypic value of the $l^{th}$ genotype evaluated in the $k^{th}$ block of the $j^{th}$ replicate within the $i^{th}$ environment; 
+$Y_{ijkl}$ is the phenotypic value of the $l^{th}$ genotype evaluated in the $k^{th}$ block of the $j^{th}$ replicate within the $i^{th}$ year; 
 $\mu$, the overall mean; 
-$\varsigma_{i}$, the fixed effect of the $i^{th}$ environment;
-$\delta_{ij}$, the fixed effect of the $j^{th}$ replicate nested in the $i^{th}$ environment; 
+$\varsigma_{i}$, the fixed effect of the $i^{th}$ year;
+$\delta_{ij}$, the fixed effect of the $j^{th}$ replicate nested in the $i^{th}$ year; 
 $\beta_{jk}$, the random effect of the $k^{th}$ block nested in the $j^{th}$ block; 
 $\alpha_{l}$, the the fixed genetic effect  of the $l^{th}$ individual; 
-$\varsigma_{i} \cdot \alpha_{l}$, the interaction effect of the $l^{th}$ individual with the $i^{th}$ environment; 
-$\varepsilon$, the model residuals. \jri{perhaps clarify "year" instead of "environment"?}
+$\varsigma_{i} \cdot \alpha_{l}$, the interaction effect of the $l^{th}$ individual with the $i^{th}$ year; 
+$\varepsilon$, the model residuals. \jri{perhaps clarify "year" instead of "environment"?} \yang{agreed and changed!}
 
 We estimated best-parent heterosis (BPH) as:
 %
@@ -119,7 +119,7 @@ We trimmed the raw sequenced data for adapter contamination with Scythe  (\url{h
 We called single nucleotide polymorphisms (SNPs) using the $mpileup$ function from samtools utilities \citep{Li2009}. To deal with paralogy, which is a major problem in maize \citep{Chia2012}, all SNPs were filtered to a) be heterozygote in less than 3 inbred lines, b) have a mean minor allele depth over all genomes of at least 4, c) have a mean depth over all individuals lower than 30 and d) have missing/heterozygote alleles in less than 6 inbred lines (allelic information for at least 15 hybrids in the partial diallel design). 
 
 %IBD
-We used the fastIBD method implemented in BEAGLE \citep{Browning2009,Browning2011} to impute missing data and identify regions of identity by descent (IBD) between the 12 inbred lines. We then defined haplotype blocks as contiguous regions within which there were no IBD break points across all pairwise comparisons of the parental lines. \jri{a supplemental figure here would help}
+We used the fastIBD method implemented in BEAGLE \citep{Browning2009,Browning2011} to impute missing data and identify regions of identity by descent (IBD) between the 12 inbred lines. We then defined haplotype blocks as contiguous regions within which there were no IBD break points across all pairwise comparisons of the parental lines (Figure \ref{fig:defineibd}). \jri{a supplemental figure here would help} \yang{see Figure S2}
 
 
 %SIFT and MAPP \yang{hide}
@@ -139,7 +139,7 @@ Genomic evolutionary rate profiling (GERP) \citep{Davydov2010}, which estimates 
 
 A haplotype based genomic selection (GS) strategy was conceived by using the IBD blocks as the explanatory variables, where the IBD blocks were coded with evolutionary conservation information. The reference genome sites with GERP score >0 were considered as conserved sites and genomic variants detected at these sites were determined as candidate deleterious alleles. To incorporate the conservation information into IBD blocks, SNPs falling into a given IBD block were added up using their estimated GERP scores. The sum of the score for a given IBD block were used as the conservation estimates of the IBD block. This estimation was calculated using a python script gerpIBD (\url{https://github.com/RILAB/pvpDiallel}) with both additive and dominant modes of inheritance. Under the additive model, 2 x GERP score was assigned to the homozygous loci with non-reference SNP calls; 1 x GERP score was assigned to the heterozygous loci; and 0 was assigned to the homozygous loci with reference SNP calls. Under the dominant model, 1 x GERP score was assigned to both the homozygous loci with non-reference SNP calls and heterozygous loci; 0 was assigned to homozygous loci with reference SNP calls.
 
-To conduct prediction, a 5-fold cross-validation method was used, where the diallel population was randomly divided into training (80\%) and validation sets (20\%) for 10 times. The BayesC option in the GS software package of GenSel4 \citep{habier2011extension} was used for the model training, where 41,000 chains of iteration were used and the first 1000 chains were removed as a burn-in. After model training of the seven phenotypic traits \emph{per se} and their heterosis transformations, the prediction accuracies were obtained by comparing the predicted breeding values with the observed phenotypes in the corresponding validation sets. In addition, the GERP scores were circularly shuffled using 10-Mb window for 100 times as the null conservation estimates of the IBD blocks. Note that the cross-validation experiments using the circularly shuffled data were conducted on the same training and validation sets.  
+To conduct prediction, a 5-fold cross-validation method was used, where the diallel population was randomly divided into training (80\%) and validation sets (20\%) for 10 times. The BayesC option in the GS software package of GenSel4 \citep{habier2011extension} was used for the model training, where 41,000 chains of iteration were used and the first 1000 chains were removed as a burn-in. After model training of the seven phenotypic traits \emph{per se} and their heterosis transformations, the prediction accuracies were obtained by comparing the predicted breeding values with the observed phenotypes in the corresponding validation sets. In addition, the GERP scores were circularly shuffled using 50k SNP window (> 100Mb) for 10 times as the null conservation estimates of the IBD blocks. Note that the cross-validation experiments using the circularly shuffled data were conducted on the same training and validation sets.  
 
 
 %\subsection*{Data Access}
@@ -286,6 +286,17 @@ The variation of the prediction accuacies were relative large in this study. Fir
 }
 \label{fig:pvp-pheno}
 \end{center}\vspace{1cm}
+
+%%%%%%%% ----- pBPH-------- %%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{SFig_define_IBD.pdf}
+\caption{Haplotype blocks identification using IBD approach. In the upper panel, regions in red color are IBD blocks identified by pairwise comparison of the two founder lines. The vertical dashed lines were used to define the haplotype blocks. In the lower panel, coding system for the identified haplotype blocks.}
+\label{fig:defineibd}
+\end{figure}
+%%%%%%%% ------------- %%%%%%%%%%%
+
+
 
 %%%%%%%% ----- pBPH-------- %%%%%%%%%%%
 \begin{figure}[htbp]
