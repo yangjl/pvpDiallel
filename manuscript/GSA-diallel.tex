@@ -144,15 +144,15 @@ We used the fastIBD method implemented in BEAGLE \citep{Browning2009,Browning201
 \subsection*{Genomic selection using IBD blocks incorporated with GERP scores}
 
 %GERP
-We used genome-wide estimates of evolutionary constraint, as measured by GERP \citep{Davydov2010}, from \citep{rodgers2015recombination}. 
-Haplotype blocks were weighted by the summed GERP scores of  SNPs within the block, with SNPs occurring at sites with scores >0 considered as deleterious. 
-This estimation was calculated using a python script gerpIBD (\url{https://github.com/yangjl/zmSNPtools}) under both additive and dominant modes of inheritance. 
+We used genome-wide estimates of evolutionary constraint \citep[GERP][]{Davydov2010} estimated by \citet{rodgers2015recombination}. 
+Haplotype blocks were weighted by the summed GERP scores of all deleterious (GERP score $>0$) SNPs. 
+This estimation was calculated under both additive and dominant modes of inheritance using a custom python script available at (\url{https://github.com/yangjl/zmSNPtools}). 
 For a particular SNP with a GERP score $g$, the non-reference homozygote was assigned a value of $2g$, the heterozygote a value of $g$, and the reference homozygote a value of 0.  
 Under the dominant model, both the heterozygote and the non-reference homozygote were assigned a value of $g$, with the reference homozygote again assigned a value of 0.
 To conduct prediction, a 5-fold cross-validation method was used, dividing the diallel population  randomly  into training (80\%) and validation sets (20\%)  10 times. 
-The BayesC option in the GS software package of GenSel4 \citep{habier2011extension} was used for  model training, using 41,000 iterations and removing the first 1,000 as gurn-in. \jri{this said chains but I think you mean iterations?}
+The BayesC option from GenSel4 \citep{habier2011extension} was used for model training, using 41,000 iterations and removing the first 1,000 as burn-in. \jri{this said chains but I think you mean iterations?}
 After model training, prediction accuracies were obtained by comparing the predicted breeding values with the observed phenotypes in the corresponding validation sets. 
-For comparison, GERP scores were circularly shuffled by 50k SNPs windows (> 100Mb) 10 times to estimate a null conservation score for each IBD blocks. 
+For comparison, GERP scores were circularly shuffled by 50k SNPs windows ($> 100$Mb) 10 times to estimate a null conservation score for each IBD blocks. 
 Cross-validation experiments using the circularly shuffled data were conducted on the same training and validation sets.  
 
 
@@ -178,34 +178,33 @@ Cross-validation experiments using the circularly shuffled data were conducted o
 
 A partial diallel population was created using 12 maize inbred lines (Figure \ref{fig:pvp-pheno}a). 
 Two of them are important public inbreds, B73 and Mo17. And the other ten of proprietary inbreds (LH1, LH123HT, LH82, PH207, 4676A, PHG39, PHG47, PHG84, PHJ40, PHZ51) that have expired from Plant Variety Protection (PVP) and represent much of the lineage of key heterotic germplasm pools used in present-day commercial corn hybrids. 
-From this population, phenotypic data were collected for seven traits of interest during 2009-2011:  e anthesis-silking interval (ASI, in days), days to 50\% pollen shed (DTP), days to 50\% silking (DTS), ear height (EHT, in cm), grain yield adjusted to 15.5\% moisture (GY, in bu/A), plant height (PHT, in cm), and test weight (TW, in pounds).
+From this population, phenotypic data were collected for seven traits of interest during 2009-2011: anthesis-silking interval (ASI, in days), days to 50\% pollen shed (DTP), days to 50\% silking (DTS), ear height (EHT, in cm), grain yield adjusted to 15.5\% moisture (GY, in bu/A), plant height (PHT, in cm), and test weight (TW, in pounds).
 
-The best linear unbiased estimators (BLUEs) for genotypes of the seven traits were derived from mixed linear models (Table S1). 
-In the models, all fixed effects were significant (Wald test \emph{P} value < 0.05) for all traits except ASI for which the effect of replicates within environments were not significant. 
-As shown in Figure \ref{fig:pvp-pheno}b, BLUE values were normally distributed (normality test \emph{P} values > 0.05). 
+Best linear unbiased estimators (BLUEs) for genotypes of the seven traits were derived from mixed linear models (Table S1). 
+In the models, all fixed effects were significant (Wald test \emph{P} value $<0.05$) for all traits except ASI, for which the effect of replicates within environments were not significant. 
+As shown in Figure \ref{fig:pvp-pheno}b, BLUE values were normally distributed (normality test \emph{P} values $>0.05$). 
 Broad sense heritability for these traits ranged from 0.65 for ASI to 0.95 for PHT. 
 Using the parental phenotypic data, we then estimated best-parent heterosis (BPH) for each trait.  
-Because the selected inbred lines are commercially relevant and fairly elite in performance, hybrids in this population exhibit relative low hybrid vigor (overall mean percent BPH = 0.3\% $\pm$ 0.4\%) for most of  traits except GY (mean percent BPH = 95\% $\pm$ 16\%, Figure \ref{fig:pBPH}). 
+Because the selected inbred lines are commercially relevant and fairly elite in performance, hybrids in this population exhibit relatively low hybrid vigor (overall mean percent BPH = 0.3\% $\pm$ 0.4\%) for most traits except GY (mean percent BPH = 95\% $\pm$ 16\%, Figure \ref{fig:pBPH}). 
 Finally, general and specific combining ability (GCA and SCA) were estimated following \citep{Falconer1996}. 
-GCA and SCA varied among traits (Table S2) \jri{please add ref to actual table}, but B73, PHG47 and PHG39 showed the greatest GCA \jri{or/also SCA?} for grain yield.
+GCA and SCA varied among traits (Table S2) \jri{please add ref to actual table}, but B73, PHG47 and PHG39 showed the greatest GCA \jri{or should this say SCA?} for grain yield.
 
 \subsection*{Evolutionary constraint information for genomic variants}
 %%% SIFT, MAPP and general statistics
 %GERP statistics
 
 All twelve inbreds were sequenced to an average depth of $\sim$10X, resulting in a filtered set of 13.8 million SNPs. 
-We estimated the allelic error rate using three independent data sets: for all individuals using 41,292 overlapping SNPs on the maize SNP50 bead chip \citep{Heerwaarden2012}; for all individuals using 180,313 overlapping SNPs identified through genotyping by sequencing (GBS) \citep{Romay2013}; and for B73 and Mo17 using the 10,426,715 SNP from the HapMap2 project \citep{Chia2012}.
+We estimated the allelic error rate using three independent data sets: for all individuals using 41,292 overlapping SNPs on the maize SNP50 bead chip \citep{Heerwaarden2012}; for all individuals using 180,313 overlapping SNPs identified through genotyping by sequencing (GBS) \citep{Romay2013}; and for B73 and Mo17 using the 10,426,715 SNP from the HapMap2 project \citep{Chia2012}. \jri{add a sentence or two describing the error rates!}
 
-Evolutionary constraint information of GERP was obtained from \citep{rodgers2015recombination}, which was computed by using rejected substitution rate relative to the neutral rate after multiple genome squences alignment \citep{Davydov2010}. This approach could estimate the conservation information at the base-pair level, extending the definition of deleterious variants to non-genic regions compared to previous approaches of SIFT \citep{ng2003sift} or MAPP \citep{stone2005physicochemical}. In AGPv2, more than 86 million bases ($\sim$4.2\% of the maize genome) were detected as evolutionary constraint bases with GERP score >0. From genome-wide of view, genomic sequences are evolutionarily constraint near the telomeric regions and the mean GERP scores dropped, in general, toward centromeric regions (Figure \ref{fig:dis1m}) with some exceptions at long arm of chromosome 1 and 4.  
-
-Although genomic sites with GERP score >0 showed evidence of under evolutionary constraint, they are not immune to mutate. Indeed, in our diallel population, 506,898 SNP variants were detected at sites where the GERP scores are bigger than zero (Figure \ref{fig:gerpmaf}A). Consistent with previous study \citep{rodgers2015recombination}, the minor allele frequencies (MAFs) of these SNPs were negatively correlated with their GERP scores (Pearson's correlation test \emph{P} value < 0.05, \emph{r} = $-0.8$), indicating that the putative deleterious alleles tend to be purged and maintained in a low frequency in the population. 
-
+More than 86 million bp of the genome were annotated as conserved, with GERP scores $>0$ (Figure \ref{fig:gerpmaf}A and \ref{fig:dis1m}).
+Nonetheless, 506,898 of these sites were found to segregate among the 12 inbred parents of our diallel.
+The minor allele frequency of SNPs at conserved sites was negatively correlated with GERP score (Figure \ref{fig:gerpmaf}B; \emph{P} value < 0.05, \emph{r} = $-0.8$), consistent with the idea that variants at sites with more positive GERP scores are more deleterious and more strongly impacted by purifying selection.
 
 %%%%%%%% ------- GERP MAF------ %%%%%%%%%%%
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{Figure_gerpmaf.pdf}
-\caption{Distribution of GERP scores and relationship between GERP scores and MAFs. \textbf{(A)} GERP scores were extracted for $\sim$1.2 million SNPs ($\sim$10\% of the total SNPs) of the diallel population. The spikes in the histogram were because only limited genomes (N < 10? \yang{ask for this number}) were used in GERP calculation. \textbf{(B)} Mean GERP scores were calculated for each bin (bin size = 0.01) of minor allele frequency (MAF). The red line and grey lines define the regression and its 95\% confidence interval.}
+\caption{Distribution of GERP scores and relationship between GERP scores and MAFs. \textbf{(A)} GERP scores extracted from $\sim$1.2 million SNPs of the diallel population. \jri{1.2M is just the sites where GERP scores were available, correct?} \textbf{(B)} Mean GERP scores were calculated for each bin (bin size = 0.01) of minor allele frequency (MAF). The red  and grey lines define the regression and its 95\% confidence interval.}
 \label{fig:gerpmaf}
 \end{figure}
 %%%%%%%% ------------- %%%%%%%%%%%
@@ -280,7 +279,7 @@ $\varepsilon$, the model residuals.
 \end{itemize}
 
 
-In this study, more than 500,000 deleterious SNPs were identified in elite maize lines including in non-coding regions of the genome. Majority of them were maintained in a low frequency, which consistent with the previous observation \yang{Eli PNAS, 2015} and indicated the deleteriousness of the variants in the conserved sites. To estimate the joint effects of the potentical deleterious alleles for the phenotype, a genomic selection pipeline was developed, which utilized evolutionary conservation information in the IBD blocks as explainatroy variables. After model training, cross-validation results suggested prediction accuracies for some traits \emph{per se} and heterosis transformations could be significantly improved by incorporating GERP scores. 
+In this study, more than 500,000 deleterious SNPs were identified in elite maize lines including in non-coding regions of the genome. Majority of them were maintained in a low frequency, which consistent with the previous observation \citep{rodgers2015recombination} and indicated the deleteriousness of the variants in the conserved sites. To estimate the joint effects of the potentical deleterious alleles for the phenotype, a genomic selection pipeline was developed, which utilized evolutionary conservation information in the IBD blocks as explainatroy variables. After model training, cross-validation results suggested prediction accuracies for some traits \emph{per se} and heterosis transformations could be significantly improved by incorporating GERP scores. 
 
 Paritcally, with dominant model, up to 20\% of the phenotypic variance could be explained for the heterosis traits. Theoritically, BPH transformation subtracts the joint effects of the additive and dominant alleles in the best parents as residule, the substantiall variance of these redidules explained by the additive or dominant models in our studies indicated that genetic components controlling for heterosis might in linked state. Note that the current model simply assume the traits were simply determined by complete additive or complete dominant. In the real case, the phenotype most likely be controlled by some degree of mixture of additive and dominant complenents. 
 
@@ -334,13 +333,13 @@ The variation of the prediction accuacies were relative large in this study. Fir
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{SFig_gerp_dis1m.pdf}
-\caption{GERP score distribution across the genome. On the y-axis are the mean GERP scores in a 1-Mb bin region.}
+\caption{GERP score distribution across the genome. Shown are mean GERP scores in a 1-Mb bin region.}
 \label{fig:dis1m}
 \end{figure}
 %%%%%%%% ------------- %%%%%%%%%%%
 
 %%%%%%%% ----- GERP IBD diagram -------- %%%%%%%%%%%
-\begin{figure}[here]
+\begin{figure}[h]
 \includegraphics[width=0.9\textwidth]{SFig_gerpIBD.pdf}
 \caption{
 \textbf{Incoporation of conservation information into IBD blocks.}
