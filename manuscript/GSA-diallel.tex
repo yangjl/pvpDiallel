@@ -232,17 +232,22 @@ Though this resulted in fewer SNPs (N = 316, 983) \jri{what are these numbers?},
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{Figure_gerpall.pdf}
-\caption{Beanplots of cross-validation accuracies using SNPs with positive GERP score. Cross-validation experiments were conducted using selected SNPs and circular shuffled data from the same set of SNPs for traits \emph{per se} (\textbf{A, B}), BPH (\textbf{C, D}) and pBPH (\textbf{E, F}) under additive (\textbf{A, C, E}) and dominant (\textbf{B, D, F}) models. Accuraries from the real data were plotted on the left side of the bean (blue) and permutation results plotted on the right (grey). Horizotal bars on beans indicate mean accuracies. The grey dashed lines indicate the overall average accuracies. Stars indicate significantly improved cross-validation accuracies with FDR < 0.05.}
+\caption{Beanplots of cross-validation accuracies using SNPs with positive GERP scores. Cross-validation experiments were conducted using selected SNPs and permuted data for traits \emph{per se} (\textbf{A, B}), BPH (\textbf{C, D}) and pBPH (\textbf{E, F}) under additive (\textbf{A, C, E}) and dominant (\textbf{B, D, F}) models. Accuraries from the real data were plotted on the left (blue) and permutation results on the right (grey). Horizotal bars on indicate mean accuracies and the grey dashed lines indicate the overall mean accuracy. Stars indicate significantly (FDR < 0.05) higher GERP cross-validation accuracies. \jri{we can remove reference to E and F and pBPH right?}}
 \label{fig:gerpall}
 \end{figure}
 %%%%%%%% ------------- %%%%%%%%%%%
 
-
 \subsection*{Posterior phenotypic variance explained and model comparisons}
 
-To learn why the prediction performace varied among traits \emph{per se} and heterosis transformations, we obtained the posterior variance explained by our models using the complete set of data. As shown in Figure \ref{fig:h2}, additive models explained more phenotypic variance for traits \emph{per se} of DTP, DTS, EHT and PHT; but explained less phenotypic variance for heterosis transformations (BPH) of ASI, GY and TW. On the contrary, lager proportions of the phenotypic variance could be explained by the dominant models for heterosis transformations (BPH) of ASI, GY and TW. For the GY in particular, 50\% of the heterosis could be explained by dominant model.   
+To learn why the prediction performace varied among traits \emph{per se} and heterosis, we obtained the posterior variance explained by our models using the complete set of data. 
+As shown in Figure \ref{fig:h2}, additive models explained more phenotypic variance for traits \emph{per se} of DTP, DTS, EHT and PHT; but explained less phenotypic variance for heterosis (BPH) of ASI, GY and TW. 
+In contrast, a larger proportion of the phenotypic variance could be explained by the dominant models for heterosis (BPH) of ASI, GY and TW. 
+This difference was particularly striking for grain yield, where only \X \% of the variance in heterosis could be explained under an additive model but 50\% of the variance was explained by the dominant model. 
 
-Heterosis transformations were largely determined by the accuracies of the parental phenotypes. To take the uncertainty of the parental phenotypes into consideration, we estimated the combining abilities from the hybrid population itself to investigate which modes of inheritance perform better than the null models. We extracted the breeding values estimated with both additive and dominant models using the genome-wide IBD blocks incorporated with the GERP scores. Consistent with above analysis, IBD blocks coded with dominant mode of inheritance significantly (equation \ref{eq:refname1} vs. equation \ref{eq:refname2}, ANOVA \emph{P} value < 0.05 ) improved model fitting for ASI and GY. We also compared model \ref{eq:refname3} and model \ref{eq:refname4}, ANOVA results indicated that \ref{eq:refname4} performed almost as good as \ref{eq:refname3}, indicating that specific combining ability captured most of the parental interactions and the current method could not detect higher order of interactions. 
+Heterosis transformations were largely determined by the accuracies of the parental phenotypes. 
+To take the uncertainty of the parental phenotypes into consideration, we estimated  combining ability from the hybrid population itself to investigate which modes of inheritance perform better than the null models. 
+We extracted the breeding values estimated under both additive and dominant models using the our haplotype blocks and incorporating GERP scores. 
+We then applied the following models:
 
 \begin{equation}
 Y_{ij} = \mu + GCA_{i} + GCA_{j} + \varepsilon
@@ -260,6 +265,7 @@ Y_{ij} = \mu + GCA_{i} + GCA_{j} + SCA_{ij} + \varepsilon
 Y_{ij} = \mu + GCA_{i} + GCA_{j} + SCA_{ij} + G_{ij} + \varepsilon
 \label{eq:refname4}
 \end{equation}
+
 where 
 $Y_{ij}$ is the BLUE value of the hybrid crossed between the $i^{th}$ inbred and $j^{th}$ inbred; 
 $\mu$, the overall mean; 
@@ -267,6 +273,11 @@ $GCA_{i}$, the general combining ability of the $i^{th}$ inbred;
 $GCA_{j}$, the general combining ability of the $j^{th}$ inbred;
 $SCA_{ij}$, the specific combining ability of between the $i^{th}$ and $j^{th}$ inbreds;
 $\varepsilon$, the model residuals.
+
+Consistent with the above analysis, haplotype blocks coded with the dominant mode of inheritance significantly  improved model fitting for ASI and GY (equation \ref{eq:refname1} vs. equation \ref{eq:refname2}, ANOVA \emph{P} value $<0.05$ ). 
+Comparison of model \ref{eq:refname3} and model \ref{eq:refname4} indicated that model \ref{eq:refname4} performed almost as well as \ref{eq:refname3} (ANOVA \emph{P} value = \X), indicating that specific combining ability captured most of the parental interactions and the current method could not detect higher order of interactions. 
+
+%%%JRI bookmark
 
 %%%%%%%% ----- h2 plots-------- %%%%%%%%%%%
 \begin{figure}[htbp]
