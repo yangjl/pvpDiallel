@@ -1,6 +1,7 @@
 TSW*
 *.DS_Store
 *.aux
+*.out
 *.bbl
 *.blg
 *.synctex.gz
