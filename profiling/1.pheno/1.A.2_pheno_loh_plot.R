@@ -16,7 +16,7 @@ plot_loh <- function(trait=trait, ...){
   
   bymed2 <- with(trait, reorder(trait, pBPHmax, median))
   boxplot(pBPHmax ~ bymed2, data=trait,
-          xlab = "Phenotypic Traits", ylab= "pBPHmax", col="lightgray", 
+          xlab = "Phenotypic Traits", ylab= "percent BPH", col="lightgray", 
           main="Percentage of Better Parental Heterosis")
   return(trait)
 }
