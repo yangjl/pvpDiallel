@@ -8,20 +8,13 @@
         \setcounter{figure}{0}
         \renewcommand{\thefigure}{S\arabic{figure}}%
      }
-% \usepackage{hyperref}
 \articletype{inv} % article type
-% {inv} Investigation 
-% {gs} Genomic Selection
-% {goi} Genetics of Immunity 
-% {gos} Genetics of Sex 
-% {mp} Multiparental Populations
 
 \newcommand{\X}{\textcolor{red}{\bf X\,}}
 \newcommand{\citex}{\textcolor{red}{\bf (CITE)\,}}
-
 \newcommand{\jri}[1]{\textcolor{red}{ \emph{ #1}} }
 
-\title{Deleterious genetic loads and their contributions to heterosis in genomic selection}
+\title{Incorporation of evolutionary constraint improves genomic prediction of inbred and hybrid phenotype}
 
 \author[$\ast$, 1]{Jinliang Yang}
 \author[$\ast$, 1, 2]{Sofiane Mezmouk}
@@ -41,8 +34,13 @@
 \correspondingauthor{Jeffrey Ross-Ibarra}
 
 \begin{abstract}
-Complementation of the deleterious alleles carried by the inbred parents may contribute to the vigorous performance, or heterosis, of the hybrid progenies. The detection of deleterious alleles was previous limited to the protein-coding regions. With the genomic evolutionary rate profiling (GERP), we extended the definition of deleterious alleles to the genome-wide. In total, about 86 million base-pairs, which make up 4.2\% of the maize genome, were detected as evolutionary conserved sequences in both genic and non-genic regions. Here we take advantage of evolutionary measures of sequence conservation to ask whether sites with prior evidence of functionality can inform genomic selection (GS) models. We tested this idea using a partial diallel cross of 12 maize inbred lines. We sequenced the genomes of the parents and phenotyped both parents and hybrids for seven phenotypic traits across one environment in three years. We made use of an identity-by-decent analysis of the parents to identify haplotype blocks, and scored blocks in hybrids using a weighted sum of the GERP conservation score. We find that incorporating sequence conservation improves prediction accuracies in a five-fold cross-validation experiment for several traits \emph{per se} as well as heterosis for those traits. Because most variation at conserved sites is deleterious, we interpret these results as consistent with the simple complementation model for heterosis. Overall, this work demonstrates the importance of incorporating evolutionary information in GS and its potential usage in plant breeding.
-
+Complementation of  deleterious alleles has long been proposed as a major contributor to the hybrid vigor observed in offspring of inbred parents. 
+We test this hypothesis using evolutionary measures of sequence conservation to ask whether incorporating information about putatively deleterious alleles can inform genomic selection (GS) models and improve phenotypic prediction.
+We measured a number of agronomic traits in both the inbred parents and hybrids of an elite maize partial diallel population. 
+We resequenced the parents of the population, using genomic evolutionary rate profiling (GERP) to identify constrained sites across more than 86 Mb of the genome.  
+We identifed haplotype blocks using an identity-by-decent analysis and scored these blocks on the basis of segregating putatively deleterious variants. 
+Incorporating sequence conservation improves prediction accuracies in a five-fold cross-validation experiment for several traits \emph{per se} as well as heterosis for those traits. 
+These results provide strong empirical support for the simple complementation model of heterosis, and demonstrates the utility of incorporatin functional annotation and its potential usage in phenotypic prediction and plant breeding. 
 \end{abstract}
 
 \setboolean{displaycopyright}{true}
@@ -61,10 +59,6 @@ Complementation of the deleterious alleles carried by the inbred parents may con
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\section*{Introduction}
-
-%\textbf{Prediction approach for deleterious alleles} 
-
 %\textbf{Why we care about deleterious variants. Discuss results of Mezmouk 2014. We are extending this in three ways}  
 %\begin{itemize}
 %  \item all deleterious SNPs not just coding
@@ -72,10 +66,14 @@ Complementation of the deleterious alleles carried by the inbred parents may con
 %  \item using GS to test whether they improve prediction
 %\end{itemize}
 
-
-%\textbf{Heterosis was observed long time ago. many theories were proposed to explain it.}
 \lettrine[lines=2]{\color{color2}T}{}he phenomenon of heterosis or hybrid vigor has been observed across many species, from yeast \citep{Shapira2014} to plants \citep{shull1908composition} and vertebrates \citep{Gama2013}. 
-A number of hypotheses have been put forth to explain the phenomenon, including gene dosage \citep{birchler2003search}, overdominance \citep{east1936heterosis, schwartz1973single, krieger2010flowering} or pseudo-overdomiance \citep{graham1997characterization, McMullen2009}, and epistasis \citep{minvielle1987dominance, schnell1992multiplicative}. Complementation of recessive deleterious alleles, however, remains the simplest genetic explanation \citep{Charlesworth2009}, and is supported by considerable empirical evidences \citep{xiao1995dominance, frascaroli2007classical, huang2015genomic}.
+A number of hypotheses have been put forth to explain the phenomenon, including gene dosage \citep{birchler2003search}, overdominance \citep{east1936heterosis, schwartz1973single, krieger2010flowering}, pseudo-overdomiance \citep{graham1997characterization, McMullen2009}, and epistasis \citep{minvielle1987dominance, schnell1992multiplicative}. 
+Complementation of recessive deleterious alleles, however, remains the simplest genetic explanation \citep{Charlesworth2009}, and one that is supported by considerable empirical evidences \citep{xiao1995dominance, frascaroli2007classical, huang2015genomic}.
+
+One of the best studied examples of hybrid vigor is that of maize. 
+Although the benefits of cross-fertilization or hybridization had been observed frequently in the past, it was not until the work of Shull, East, and others that it's significance for agriculture was well appreciated \citex.
+Now, hybrid seed makes up the vast majority 
+
 
 Deleterious alleles were arisen from new mutations during meiosis. In maize, about 90 new mutations were generated per meiosis \citep{Clark2005}, majority of which were deleterious according to empirical estimates \citep{Joseph2004}. In a natural outcross population, the negative effects on fitness of these deleterious alleles make them subject to be selection against, which lead the deleterious alleles to be maintained in a low frequency \citep{Eyre-Walker2007}. But the deleterious alleles could not be completely purged. 
 
