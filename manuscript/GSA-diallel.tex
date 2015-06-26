@@ -21,16 +21,17 @@
 \author[$\S$]{Andy Baumgarten}
 \author[$\dagger$]{Edward S. Buckler}
 \author[$\ddagger$]{Katherine E. Guill}
-\author[$\ddagger$]{Michael D. McMullen}
-\author[$\ast\ast$]{Rita H. Mumm}
-\author[$\ast$, $\S\S$, 1]{Jeffrey Ross-Ibarra}
+\author[$\ddagger$, $\ast\ast$]{Michael D. McMullen}
+\author[$\S\S$]{Rita H. Mumm}
+\author[$\ast$, $\dagger\dagger$, 1]{Jeffrey Ross-Ibarra}
 
 \affil[$\ast$]{Department of Plant Sciences, University of California, Davis, CA 95616, USA}
 \affil[$\S$]{DuPont Pioneer, Johnston, IA 50131, USA}
 \affil[$\dagger$]{US Department of Agriculture, Agricultural Research Service, Ithaca, NY 14853, USA}
 \affil[$\ddagger$]{US Department of Agriculture, Agricultural Research Service, Columbia, MO 65211, USA}
-\affil[$\ast\ast$]{Department of Crop Sciences, University of Illinois at Urbana-Champaign, Urbana, IL 61801, USA}
-\affil[$\S\S$]{Center for Population Biology and Genome Center, University of California, Davis, CA 95616, USA}
+\affil[$\ast\ast$]{Division of Plant Sciences, University of Missouri, Columbia, MO 65211, USA}
+\affil[$\S\S$]{Department of Crop Sciences, University of Illinois at Urbana-Champaign, Urbana, IL 61801, USA}
+\affil[$\dagger\dagger$]{Center for Population Biology and Genome Center, University of California, Davis, CA 95616, USA}
 
 \keywords{heterosis; deleterious; genomic selection; diallel; GERP; maize}
 
@@ -123,8 +124,7 @@ where $\hat{G_{ij}}$, $\hat{G_{i}}$ and $\hat{G_{j}}$ are the genetic values of 
 \subsection*{Sequencing and Genotyping}
 
 % wet lab
-We extracted DNA from the 12 inbred lines following \citet{Doyle1987} and sheared the DNA on a Covaris (Woburn, Massachusetts) for library preparation. \jri{do we need details on library prep? at least a citation?}
-Libraries were then sequenced \jri{where? what length reads? insert size?}. \yang{who did the wet lab? Do we need to add him/her as co-author?} \jri{Kate Guill. I'll ask.}
+We extracted DNA from the 12 inbred lines following \citet{Doyle1987} and sheared the DNA on a Covaris (Woburn, Massachusetts) for library preparation. Libraries were prepared using an Illumina paired end libaray protocol with 180 bp fragments. Libraries were then sequenced at Cornell. \jri{Kate Guill. I'll ask.} \yang{text changed.}
 
 %Read mapping
 We trimmed raw sequence reads for adapter contamination with Scythe  (\url{https://github.com/vsbuffalo/scythe}) and for quality \jri{what qual score?} and sequence length ($\geq 20$ nucleotides) with Sickle (\url{https://github.com/najoshi/sickle}). \yang{Sofiane, please edit this.}
