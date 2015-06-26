@@ -49,3 +49,6 @@ mc2 <- run_model_comp(ghatfile="cache/gerpall_ghat.csv", modes=c("a2", "d2"))
 mc2$mode <- gsub("a2", "additive", mc2$mode)
 mc2$mode <- gsub("d2", "dominant", mc2$mode)
 write.table(mc2[, 1:4], "manuscript/Figure_Table/Table_S5_model_comp.csv", sep=",", row.names=FALSE)
+
+
+mc2 <- read.csv("manuscript/Figure_Table/Table_S5_model_comp.csv")
