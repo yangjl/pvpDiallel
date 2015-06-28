@@ -74,7 +74,7 @@ These results provide strong empirical support for the simple complementation mo
 
 \lettrine[lines=2]{\color{color2}T}{}he phenomenon of heterosis or hybrid vigor has been observed across many species, from yeast \citep{Shapira2014} to plants \citep{shull1908composition} and vertebrates \citep{Gama2013}. 
 A number of hypotheses have been put forth to explain the phenomenon, including gene dosage \citep{birchler2003search}, overdominance \citep{east1936heterosis, schwartz1973single, krieger2010flowering}, pseudo-overdomiance \citep{graham1997characterization, McMullen2009}, and epistasis \citep{minvielle1987dominance, schnell1992multiplicative}. 
-Complementation of recessive deleterious alleles, however, remains the simplest genetic explanation \citep{Charlesworth2009}, and one that is supported by considerable empirical evidences \citep{xiao1995dominance, frascaroli2007classical, huang2015genomic}.
+Complementation of recessive deleterious alleles, however, remains the simplest genetic explanation \citep{Charlesworth2009}, and one that is supported by considerable empirical evidence \citep{xiao1995dominance, frascaroli2007classical, huang2015genomic}.
 
 One of the best studied examples of hybrid vigor is that of maize. 
 Although the benefits of cross-fertilization or hybridization had been observed frequently in the past, it was not until the work of Shull, East, and others that it's significance for agriculture was well appreciated \citex.
@@ -287,9 +287,8 @@ $SCA_{ij}$, the specific combining ability of between the $i^{th}$ and $j^{th}$ 
 $G_{ij}$, breeding values estimated by our GS model for hybrid crossed between the $i^{th}$ inbred and $j^{th}$ inbred; 
 $\varepsilon$, the model residuals.
 
-Consistent with the previous analysis, haplotype blocks coded with the dominant mode of inheritance significantly  improved model fitting for ASI and GY (equation \ref{eq:refname1} vs. equation \ref{eq:refname2}, ANOVA \emph{P} value $<0.05$, Table \ref{table:table_s5}). 
-Comparison of model \ref{eq:refname3} and model \ref{eq:refname4} indicated that model \ref{eq:refname4} performed almost as well as \ref{eq:refname3} (ANOVA \emph{P} value = \X), indicating that specific combining ability captured most of the parental interactions and the current method could not detect higher order of interactions. \jri{does model 2 outperform model 1? does 3 outperform 2? 4 should outperform 3 because it has extra parameters, but the text says ``almost as well''?}
-\yang{We are comparing [1 and 2], [3 and 4] only by adding breeding value estimated from our GERP GS model. I do not think this result add anything to our story. maybe we will ditch it?}
+Consistent with the previous analysis, haplotype blocks coded with the dominant mode of inheritance significantly improved the fit of models for heterosis for ASI and GY (equation \ref{eq:refname1} vs. equation \ref{eq:refname2}, ANOVA \emph{P} value $<0.05$, Table \ref{table:table_s5}). 
+Comparison of models \ref{eq:refname3} and \ref{eq:refname4}, however, show no real difference (ANOVA \emph{P} value = \X), indicating that   specific combining ability captures most of the parental interactions and the our haplotype blocks are unable to detect higher order interactions.   \jri{do these edits look OK?}
 
 %%%JRI bookmark
 
@@ -306,32 +305,34 @@ Comparison of model \ref{eq:refname3} and model \ref{eq:refname4} indicated that
 %%%%%%%%%%%%%%%%%%%% DISCUSSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Discussion}
 
-\begin{itemize}
-  \item do we support deleterious model of Mezmouk et al.? \yang{yes}
-  \item how do results match with heritability and heterosis? \yang{and mode of inheritance}
-  \item Indication for breeding? genomic selection using GERP and other annotation information. 
-\end{itemize}
+%\begin{itemize}
+%  \item do we support deleterious model of Mezmouk et al.? \yang{yes}
+%  \item how do results match with heritability and heterosis? \yang{and mode of inheritance}
+%  \item Indication for breeding? genomic selection using GERP and other annotation information. 
+%\end{itemize}
 
-
-In this study we have identified more than 500,000 deleterious SNPs in panel of elite maize lines.
-On average, each elite inbred line carries about 100,000 deleterious SNPs (GERP > 0). \jri{cool, this should be mentioned here but also in the results. is there any big variation?  some lines more than others? is mo17 worse than the pvps? given the comment below i added about linkage, can we calculate mean deleterious variants per cM?  that would be sweet to know and to point out that there are tons around the centromere}
+In this study we have identified more than 500,000 deleterious SNPs in a panel of elite maize lines.
+On average, each elite inbred line carries about 100,000 deleterious SNPs (GERP > 0). \jri{cool, this should be mentioned here but also in the results. is there any big variation?  some lines more than others? is mo17 worse than the pvps? given the comment below i added about linkage, can we calculate mean deleterious variants per cM?  that would be sweet to know and to point out that there are tons around the centromere. i think a bit more detail on distribution worthwhile since even Eli's paper is only using GBS.}
 Across lines, however, the majority of these deleterious mutations were maintained at low frequency, consistent with previous observations \citep{rodgers2015recombination}. 
-The large number of linked deleterious alleles present would likely make it hard to completely purge all such alleles through breeding efforts. Instead, breeders have devised a strategy --- hybrid breeding --- that may circumvent much of this problem via complementation.
-Indeed, results in this study show that prediction accuracies were higher for yield heterosis when information about deleterious SNPs was incorporated into the prediction model.  
-Because there are likely  thousands of deleterious alleles involved in complementation, many with relatively small effects, traditional GWAS approaches with genome-wide thresholds of multiple testing are likely unable to detect such effects.
+The large number of linked deleterious alleles present would likely make it hard to completely purge all such alleles through breeding efforts. Instead, breeders have devised a strategy --- hybrid breeding --- that circumvents much of this problem via complementation.
+Consistent with this claim, results in this study show that prediction accuracies were higher for yield heterosis when information about deleterious SNPs was incorporated into the prediction model.  
+Because there are likely thousands of deleterious alleles involved in complementation, many with relatively small effects, traditional GWAS approaches with genome-wide thresholds of multiple testing are likely unable to detect such effects.
 Using a liberal significance threshold, however, our previous efforts nonetheless showed an enrichment for deleterious genic SNPs among associated markers for a number of traits \citep{Mezmouk2014}.
 
 Our models did not increase the prediction accuracies equally well for traits \emph{per se} and their heterosis transformations. 
 This is not surprising, however, given that the variation in genetic architectures of different phenotypic traits --- flowering time, for example, appears primarily determined by many loci of small additive effect \citep{buckler2009genetic}, while \X \jri{better to use another maize example if we can rather than rice...}. 
-Consistent with this, we observed that the additive model increased prediction accuracies for ASI as a trait \emph{per se} and \jri{ideally above use a phenotype we can compare in this way... dominant model increased the prediction accuacies for trait \emph{per se} of GY.} 
+Consistent with this, we observed that the additive model increased prediction accuracies for ASI as a trait \emph{per se} and \jri{ideally above use a phenotype we can compare in this way... dominant model increased the prediction accuracy for trait \emph{per se} of GY.} 
 One limitation of our current models is that we assume phenotypic traits are determined by complete additive or complete dominant effects. 
 Traits with a mixture of additive and dominant casual loci may thus fail to be predicted. 
-Another limitaiton is likely the population size used; we may simply not have enough power to predict traits with low heritability. 
+Another limitation is likely the population size used; we may simply not have enough power to predict traits with low heritability. 
 
 %%JRI stopped here
 
-To test the simple complementation hypothesis, we developed a GS pipeline, which incorporated evolutionary conservation information in the GS model. As the genotyping cost keeps declining, GS gains its popularity in plant breeding \citep{desta2014genomic}. Previous studies mainly focused on developing statistical approaches to improve the efficiency of GS model, however, none of the existing studies have taken prior biological information into consideration. It is known that SNP variations would have varied impacts depending on their genomic position (e.g. ) \citex{}, biological function (e.g. transcription binding sites) and evolutionary conservation. The incorporation of GERP information under the Bayesian framework developed in this study is the first step towarding more meaningful models for further GS.     
-
+As genotyping costs continue to decline, genomic prediction models are increasing in popularity \citep{desta2014genomic}. 
+Most previous work on genomic prediction, however, focuses exclusively on statistical properties of the models, ignoring potentially useful biological information (but see \citex for a recent example). 
+In addition to providing evidence in favor of the simple complementation model for heterosis, our work here shows the utility of incorporating functional information about the variants used in genomic prediction models.  
+As our functional annotations of genomes improve, we predict that including such information in genomic prediction will be vital to the development of more powerful predictive models for plant breeding.
+    
 % Paritcally, with dominant model, up to 20\% of the phenotypic variance could be explained for the heterosis traits. Theoritically, BPH transformation subtracts the joint effects of the additive and dominant alleles in the best parents as residule, the substantial variance of these redidules explained by the additive or dominant models in our studies indicated that genetic components controlling for heterosis might in linked state.  
 
 % How to explain the prediction difference?  
