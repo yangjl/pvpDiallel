@@ -14,23 +14,24 @@
 \newcommand{\citex}{\textcolor{red}{\bf (CITE)\,}}
 \newcommand{\jri}[1]{\textcolor{red}{ \emph{ #1}} }
 
-\title{Incorporation of evolutionary constraint improves genomic prediction of inbred and hybrid phenotype}
+\title{Incorporation of evolutionary constraint improves genomic prediction of hybrid phenotype}
 
 \author[$\ast$, 1, 2]{Jinliang Yang}
 \author[$\ast$, 2, 3]{Sofiane Mezmouk}
 \author[$\S$]{Andy Baumgarten}
 \author[$\dagger$]{Edward S. Buckler}
 \author[$\ddagger$]{Katherine E. Guill}
-\author[$\ddagger$]{Michael D. McMullen}
-\author[$\ast\ast$]{Rita H. Mumm}
-\author[$\ast$, $\S\S$, 1]{Jeffrey Ross-Ibarra}
+\author[$\ddagger$, $\ast\ast$]{Michael D. McMullen}
+\author[$\S\S$]{Rita H. Mumm}
+\author[$\ast$, $\dagger\dagger$, 1]{Jeffrey Ross-Ibarra}
 
 \affil[$\ast$]{Department of Plant Sciences, University of California, Davis, CA 95616, USA}
 \affil[$\S$]{DuPont Pioneer, Johnston, IA 50131, USA}
 \affil[$\dagger$]{US Department of Agriculture, Agricultural Research Service, Ithaca, NY 14853, USA}
 \affil[$\ddagger$]{US Department of Agriculture, Agricultural Research Service, Columbia, MO 65211, USA}
-\affil[$\ast\ast$]{Department of Crop Sciences, University of Illinois at Urbana-Champaign, Urbana, IL 61801, USA}
-\affil[$\S\S$]{Center for Population Biology and Genome Center, University of California, Davis, CA 95616, USA}
+\affil[$\ast\ast$]{Division of Plant Sciences, University of Missouri, Columbia, MO 65211, USA}
+\affil[$\S\S$]{Department of Crop Sciences, University of Illinois at Urbana-Champaign, Urbana, IL 61801, USA}
+\affil[$\dagger\dagger$]{Center for Population Biology and Genome Center, University of California, Davis, CA 95616, USA}
 
 \keywords{heterosis; deleterious; genomic selection; diallel; GERP; maize}
 
@@ -123,8 +124,7 @@ where $\hat{G_{ij}}$, $\hat{G_{i}}$ and $\hat{G_{j}}$ are the genetic values of 
 \subsection*{Sequencing and Genotyping}
 
 % wet lab
-We extracted DNA from the 12 inbred lines following \citet{Doyle1987} and sheared the DNA on a Covaris (Woburn, Massachusetts) for library preparation. \jri{do we need details on library prep? at least a citation?}
-Libraries were then sequenced \jri{where? what length reads? insert size?}. \yang{who did the wet lab? Do we need to add him/her as co-author?} \jri{Kate Guill. I'll ask.}
+We extracted DNA from the 12 inbred lines following \citet{Doyle1987} and sheared the DNA on a Covaris (Woburn, Massachusetts) for library preparation. Libraries were prepared using an Illumina paired end libaray protocol with 180 bp fragments. Libraries were then sequenced at Cornell.
 
 %Read mapping
 We trimmed raw sequence reads for adapter contamination with Scythe  (\url{https://github.com/vsbuffalo/scythe}) and for quality \jri{Sofiane: what qual score? do we need to say anything about overlapping reads?} and sequence length ($\geq 20$ nucleotides) with Sickle (\url{https://github.com/najoshi/sickle}). 
@@ -233,9 +233,8 @@ The small sample size of our diallel and the general low frequency of deleteriou
 To alleviate this limitation, we conceived a haplotype-based genomic selection approach in which we use estimates of evolutionary constraint across the genome \citep{rodgers2015recombination} to sum the individual effects of deleterious alleles within IBD blocks under both an additive and dominant model (see Methods and Figure \ref{fig:gerpibd}). 
 
 A Bayesian-based statistical method (BayesC) \citep{habier2011extension} using a 5-fold cross-validation approachwas was employed for model training. 
-In general, average prediction accuracies were higher using the additive model (mean \emph{r} = 0.81 and 0.49 for traits \emph{per se} and BPH) than the dominant model (mean \emph{r} = 0.70 and 0.42), and accuracies for heterosis traits were lower than for traits \emph{per se} (Table \ref{table:table_s3}). \jri{is there a table we can cite that has all these?} \yang{see edits}
-Incorporating evolutionary constraint information improved prediction accuracy for ASI and PHT \emph{per se} under an additive model and for ASI under a dominant model (FDR < 0.05, Figure \ref{fig:gerpall} A and B).
-GERP scores also improved prediction accuracies of heterosis (BPH) for GY under the additive model and DTP, DTS and TW under the dominant model (FDR < 0.05, Figure \ref{fig:gerpall} C and D). \jri{ref/link to supp table 3 please. also, do we need to include FDR here? what are the multiple tests the FDR is correcting for here?} \yang{move table S3 to above. added FDR. FDR is for correcting multiple traits and multiple transformations.}
+In general, average prediction accuracies were higher using the additive model (mean \emph{r} = 0.81 and 0.49 for traits \emph{per se} and BPH) than the dominant model (mean \emph{r} = 0.70 and 0.42), and accuracies for heterosis traits were lower than for traits \emph{per se} (Table \ref{table:table_s3}). \jri{is there a table we can cite that has all these?} \yang{see edits} A student-t test was employed to compare the mean prediction accuracies between data with real GERP information and data with permutated GERP. To account for multiple traits and multiple transformations, the FDR approach was used to correct the obtained P-values. As a result, incorporating evolutionary constraint information improved prediction accuracy for ASI and PHT \emph{per se} under an additive model and for ASI under a dominant model (FDR < 0.05, Figure \ref{fig:gerpall} A and B).
+GERP scores also improved prediction accuracies of heterosis (BPH) for GY under the additive model and DTP, DTS and TW under the dominant model (FDR < 0.05, Figure \ref{fig:gerpall} C and D). \jri{ref/link to supp table 3 please. also, do we need to include FDR here? what are the multiple tests the FDR is correcting for here?} \yang{move table S3 to above. added FDR. FDR is for correcting multiple traits and multiple transformations. see text.}
 To rule out the possible confounding of high GERP scores and genic annotations, we re-permuted the data using only deleterious (GERP $> 0$) genic SNPs.  
 Though this resulted in fewer SNPs (316, 983), the model prediction accuracies remained significantly improved for GY \emph{per se} under the additive model and for BPH of GY and PHT under the additive model (Figure \ref{fig:genicsnp} and Table \ref{table:table_s4}).   
 
@@ -313,6 +312,7 @@ Comparison of models \ref{eq:refname3} and \ref{eq:refname4}, however, show no r
 
 In this study we have identified more than 500,000 deleterious SNPs in a panel of elite maize lines.
 On average, each elite inbred line carries about 100,000 deleterious SNPs (GERP > 0). \jri{cool, this should be mentioned here but also in the results. is there any big variation?  some lines more than others? is mo17 worse than the pvps? given the comment below i added about linkage, can we calculate mean deleterious variants per cM?  that would be sweet to know and to point out that there are tons around the centromere. i think a bit more detail on distribution worthwhile since even Eli's paper is only using GBS.}
+
 Across lines, however, the majority of these deleterious mutations were maintained at low frequency, consistent with previous observations \citep{rodgers2015recombination}. 
 The large number of linked deleterious alleles present would likely make it hard to completely purge all such alleles through breeding efforts. Instead, breeders have devised a strategy --- hybrid breeding --- that circumvents much of this problem via complementation.
 Consistent with this claim, results in this study show that prediction accuracies were higher for yield heterosis when information about deleterious SNPs was incorporated into the prediction model.  
