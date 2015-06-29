@@ -119,7 +119,7 @@ We estimated best-parent heterosis (BPH) as:
 \[ BPH_{min,ij}=\hat{G_{ij}}-min(\hat{G_{i}} ,\hat{G_{j}}) \] 
 \[ BPH_{max,ij}=\hat{G_{ij}}-max(\hat{G_{i}} ,\hat{G_{j}}) \]
 %
-where $\hat{G_{ij}}$, $\hat{G_{i}}$ and $\hat{G_{j}}$ are the genetic values of the hybrid and its two parents $i$ and $j$. $BPH_{min}$ was used instead of $BPH_{max}$ for ASI. \jri{what about ear height and DTS?} \yang{Did you mean plant height? We need to discuss about this.} \jri{no plant height should be max, ear height maybe should be min? though it is correlated with plant height... happy to discuss}
+where $\hat{G_{ij}}$, $\hat{G_{i}}$ and $\hat{G_{j}}$ are the genetic values of the hybrid and its two parents $i$ and $j$. $BPH_{min}$ was used instead of $BPH_{max}$ for ASI. 
 
 \subsection*{Sequencing and Genotyping}
 
@@ -233,8 +233,8 @@ The small sample size of our diallel and the general low frequency of deleteriou
 To alleviate this limitation, we conceived a haplotype-based genomic selection approach in which we use estimates of evolutionary constraint across the genome \citep{rodgers2015recombination} to sum the individual effects of deleterious alleles within IBD blocks under both an additive and dominant model (see Methods and Figure \ref{fig:gerpibd}). 
 
 A Bayesian-based statistical method (BayesC) \citep{habier2011extension} using a 5-fold cross-validation approachwas was employed for model training. 
-In general, average prediction accuracies were higher using the additive model (mean \emph{r} = 0.81 and 0.49 for traits \emph{per se} and BPH) than the dominant model (mean \emph{r} = 0.70 and 0.42), and accuracies for heterosis traits were lower than for traits \emph{per se} (Table \ref{table:table_s3}). \jri{is there a table we can cite that has all these?} \yang{see edits} A student-t test was employed to compare the mean prediction accuracies between data with real GERP information and data with permutated GERP. To account for multiple traits and multiple transformations, the FDR approach was used to correct the obtained P-values. As a result, incorporating evolutionary constraint information improved prediction accuracy for ASI and PHT \emph{per se} under an additive model and for ASI under a dominant model (FDR < 0.05, Figure \ref{fig:gerpall} A and B).
-GERP scores also improved prediction accuracies of heterosis (BPH) for GY under the additive model and DTP, DTS and TW under the dominant model (FDR < 0.05, Figure \ref{fig:gerpall} C and D). \jri{ref/link to supp table 3 please. also, do we need to include FDR here? what are the multiple tests the FDR is correcting for here?} \yang{move table S3 to above. added FDR. FDR is for correcting multiple traits and multiple transformations. see text.}
+In general, average prediction accuracies were higher using the additive model (mean \emph{r} = 0.81 and 0.49 for traits \emph{per se} and BPH) than the dominant model (mean \emph{r} = 0.70 and 0.42), and accuracies for heterosis traits were lower than for traits \emph{per se} (Table \ref{table:table_s3}).  A student-t test was employed to compare the mean prediction accuracies between data with real GERP information and data with permutated GERP. To account for multiple traits and multiple transformations, the FDR approach was used to correct the obtained P-values. As a result, incorporating evolutionary constraint information improved prediction accuracy for ASI and PHT \emph{per se} under an additive model and for ASI under a dominant model (FDR < 0.05, Figure \ref{fig:gerpall} A and B).
+GERP scores also improved prediction accuracies of heterosis (BPH) for GY under the additive model and DTP, DTS and TW under the dominant model (FDR < 0.05, Figure \ref{fig:gerpall} C and D). 
 To rule out the possible confounding of high GERP scores and genic annotations, we re-permuted the data using only deleterious (GERP $> 0$) genic SNPs.  
 Though this resulted in fewer SNPs (316, 983), the model prediction accuracies remained significantly improved for GY \emph{per se} under the additive model and for BPH of GY and PHT under the additive model (Figure \ref{fig:genicsnp} and Table \ref{table:table_s4}).   
 
@@ -287,9 +287,8 @@ $G_{ij}$, breeding values estimated by our GS model for hybrid crossed between t
 $\varepsilon$, the model residuals.
 
 Consistent with the previous analysis, haplotype blocks coded with the dominant mode of inheritance significantly improved the fit of models for heterosis for ASI and GY (equation \ref{eq:refname1} vs. equation \ref{eq:refname2}, ANOVA \emph{P} value $<0.05$, Table \ref{table:table_s5}). 
-Comparison of models \ref{eq:refname3} and \ref{eq:refname4}, however, show no real difference (ANOVA \emph{P} value = \X), indicating that   specific combining ability captures most of the parental interactions and the our haplotype blocks are unable to detect higher order interactions.   \jri{do these edits look OK?}
+Comparison of models \ref{eq:refname3} and \ref{eq:refname4}, however, show no real difference (ANOVA \emph{P} value = \X), indicating that specific combining ability captures most of the parental interactions and the our haplotype blocks are unable to detect higher order interactions.  
 
-%%%JRI bookmark
 
 %%%%%%%% ----- h2 plots-------- %%%%%%%%%%%
 \begin{figure}[htbp]
@@ -326,8 +325,6 @@ One limitation of our current models is that we assume phenotypic traits are det
 Traits with a mixture of additive and dominant casual loci may thus fail to be predicted. 
 Another limitation is likely the population size used; we may simply not have enough power to predict traits with low heritability. 
 
-%%JRI stopped here
-
 As genotyping costs continue to decline, genomic prediction models are increasing in popularity \citep{desta2014genomic}. 
 Most previous work on genomic prediction, however, focuses exclusively on statistical properties of the models, ignoring potentially useful biological information (but see \citex for a recent example). 
 In addition to providing evidence in favor of the simple complementation model for heterosis, our work here shows the utility of incorporating functional information about the variants used in genomic prediction models.  
@@ -359,27 +356,27 @@ Financial support for this work came from NSF (grants IOS-0820619 and IOS-123801
 \section*{Supporting Information}
 
 % \section*{Supporting Table}:
-\begin{table}[htbp]
+\begin{table}[]
 \caption{BLUE values of the seven phenotypic traits. (\url{https://github.com/RILAB/pvpDiallel/blob/master/manuscript/Figure_Table/Table_S1.trait_matrix.csv})}
 \label{table:table_s1}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[]
 \caption{General combining ability and specific combining ability of the seven phenotypic traits. (\url{https://github.com/RILAB/pvpDiallel/blob/master/manuscript/Figure_Table/Table_S2.CA.csv})}
 \label{table:table_s2}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[]
 \caption{Cross-validation results using all genome-wide deleterious SNPs. (\url{https://github.com/RILAB/pvpDiallel/blob/master/manuscript/Figure_Table/Table_S3_allsnps_FDR.csv})}
 \label{table:table_s3}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[]
 \caption{Cross-validation results using deleterious genic SNPs. (\url{https://github.com/RILAB/pvpDiallel/blob/master/manuscript/Figure_Table/Table_S4_genicsnps_FDR.csv})}
 \label{table:table_s4}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[]
 \caption{ANOVA P values of model comparisons. (\url{https://github.com/RILAB/pvpDiallel/blob/master/manuscript/Figure_Table/Table_S5_model_comp.csv})}
 \label{table:table_s5}
 \end{table}
@@ -388,7 +385,7 @@ Financial support for this work came from NSF (grants IOS-0820619 and IOS-123801
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{SFig_diallel.pdf}
-\caption{Twelve maize inbred lines were selected and crossed in a partial diallel fashion. Each inbred lines was used as both male and female and the resulting F1s were bulked. \jri{do we need to modify this diagram now that we now reciprocal crosses were pooled?} \yang{any other idea to re-design the figure? or ditch it?} \jri{this isn't bad, but what deleting the bottom triangle completely rather than leave the cells blank?} }
+\caption{Twelve maize inbred lines were selected and crossed in a partial diallel fashion. Each inbred lines was used as both male and female and the resulting F1s were bulked. 
 \label{fig:diallel}
 \end{figure}
 
