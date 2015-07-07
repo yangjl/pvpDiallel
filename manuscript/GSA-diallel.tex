@@ -73,19 +73,25 @@ These results provide strong empirical support for the simple complementation mo
 %\end{itemize}
 
 \lettrine[lines=2]{\color{color2}T}{}he phenomenon of heterosis or hybrid vigor has been observed across many species, from yeast \citep{Shapira2014} to plants \citep{shull1908composition} and vertebrates \citep{Gama2013}. 
-A number of hypotheses have been put forth to explain the phenomenon, including gene dosage \citep{birchler2003search}, overdominance \citep{east1936heterosis, schwartz1973single, krieger2010flowering}, pseudo-overdomiance \citep{graham1997characterization, McMullen2009}, and epistasis \citep{minvielle1987dominance, schnell1992multiplicative}. 
-Complementation of recessive deleterious alleles, however, remains the simplest genetic explanation \citep{Charlesworth2009}, and one that is supported by considerable empirical evidence \citep{xiao1995dominance, frascaroli2007classical, huang2015genomic}.
+Hybrid vigor is particularly important in agriculture, where hybrid breeding is fundamental to the production of a number of crops including both rice \citex and maize \citex .
+A number of hypotheses have been put forth to explain the phenomenon, including gene dosage \citep{birchler2003search}, overdominance \citep{east1936heterosis, schwartz1973single, krieger2010flowering}, 
+%pseudo-overdomiance \citep{graham1997characterization, McMullen2009}, 
+and epistasis \citep{minvielle1987dominance, schnell1992multiplicative}. 
+Complementation of recessive deleterious alleles, however, remains the simplest genetic explanation \citep{Charlesworth2009}, and one that is supported by considerable empirical evidence \citep{xiao1995dominance, frascaroli2007classical}.
+\jri{i'm not sure these are all appropriate. huang2015genomic for example i think doesn't actually measure heterosis, they just do GWAS on hybrids. and frascaroli if I read it right says that heterosis for grain yield is mostly overdominance (dominance $>1$).}
 
-One of the best studied examples of hybrid vigor is that of maize. 
-Although the benefits of cross-fertilization or hybridization had been observed frequently in the past, it was not until the work of Shull, East, and others that it's significance for agriculture was well appreciated \citex.
-Now, hybrid seed makes up the vast majority \jri{in progress, still reading}
+%One of the best studied examples of hybrid vigor is that of maize. 
+%Hybrid maize has formed the basis of modern maize agriculture since the early 20th century \citep{crow1998}. 
+
+%Cr the benefits of cross-fertilization or hybridization were not unknown, it was not until the early 20th century that East, Shull, and others demonstrated the utility of hybrid breeding for  in the past, it was not until the early 20th century that hybridwork of Shull, East, and others that it's significance for agriculture was well appreciated \citex.
+%Now, hybrid seed makes up the vast majority \jri{in progress, still reading}
 
 
 %Deleterious alleles were arisen from new mutations during meiosis. In maize, about 90 new mutations were generated per meiosis \citep{Clark2005}, majority of which were deleterious according to empirical estimates \citep{Joseph2004}. In a natural outcross population, the negative effects on fitness of these deleterious alleles make them subject to be selection against, which lead the deleterious alleles to be maintained in a low frequency \citep{Eyre-Walker2007}. But the deleterious alleles could not be completely purged. 
 
 %In maize, the total number of mildly deleterious mutations is substantial because of the exponential growth of population size after domestication. The modern breeding probably aims to remove these deleterious mutations and pyramiding beneficial alleles for agronomical purposes. In practice, the relatively homogeneous maize germplasm pool was artificially divided into different heterotic groups \citep{Heerwaarden2012}. It enabled the improvement of germplasm pools to be conducted in a parallel fashion, and therefore, facilitated the breeding efficiency. Using this hybrid breeding approach, the maize yield has been steadily improved since the early 20th century \citep{duvick2001biotechnology}. However, removing deleterious mutations in low recombination regions or in tightly linked regions become less effective. Studies indicated that residual heterozygosity correlates negatively with recombination \citep{Gore2009, McMullen2009} and the low recombination is effective over long period of time \citep{Haddrill2007}. As a consequence, the deleterious alleles would be accumulated in the low recombination regions, such as the pericentromeric regions in maize, and the vigorous performance could be realized by combining two sets of non-deleterious or beneficial alleles in repulsion state, thus lead to pesudo-overdominance. A recent QTL study identified loci controlling for heterosis are enriched in centromeric regions \citep{Lariepe2012}, which partly support this pesudo-overdominance hypothesis.
 
-Despite the importance of deleterious alleles in contributing to heterosis, they have not been systematically investigated probably because of their low frequencies in the population and mostly exhibiting minor effects. Here, we employed a genomic selection (GS) approach to simultaneously estimate genome-wide deleterious variants in a half diallel population. The diallel population was composed of a set of hybrids, which enabled us to explore different modes of inheritance of the deleterious variants. And the study can be conducted with millions of variants but using relative little sequencing efforts. In our previous study, deleterious SNPs were found to be enriched in a SNP set identified by GWAS \citep{Mezmouk2014}. The deleterious variants in the study were defined as non-synonymous mutations in the coding regions. Clearly, deleterious variants are not limited to coding regions. Here, we expanded the characterization of deleterious variants to genome-wide using genomic evolutionary rate profiling (GERP) \citep{Cooper2005}. By incorporating GERP information in GS models, we demonstrated the prediction accuracies were significantly improved not only for some traits \emph{per se}, but aslo for some heterosis transformations (especially for traits exhibiting high levels of hereosis). Further studies indicated that joint effects of deleterious alleles with additive and dominant modes of inheritance may contribute to heterosis.
+%Despite the importance of deleterious alleles in contributing to heterosis, they have not been systematically investigated probably because of their low frequencies in the population and mostly exhibiting minor effects. Here, we employed a genomic selection (GS) approach to simultaneously estimate genome-wide deleterious variants in a half diallel population. The diallel population was composed of a set of hybrids, which enabled us to explore different modes of inheritance of the deleterious variants. And the study can be conducted with millions of variants but using relative little sequencing efforts. In our previous study, deleterious SNPs were found to be enriched in a SNP set identified by GWAS \citep{Mezmouk2014}. The deleterious variants in the study were defined as non-synonymous mutations in the coding regions. Clearly, deleterious variants are not limited to coding regions. Here, we expanded the characterization of deleterious variants to genome-wide using genomic evolutionary rate profiling (GERP) \citep{Cooper2005}. By incorporating GERP information in GS models, we demonstrated the prediction accuracies were significantly improved not only for some traits \emph{per se}, but aslo for some heterosis transformations (especially for traits exhibiting high levels of hereosis). Further studies indicated that joint effects of deleterious alleles with additive and dominant modes of inheritance may contribute to heterosis.
 
 
 \section*{Materials and Methods} 
@@ -119,7 +125,7 @@ We estimated best-parent heterosis (BPH) as:
 \[ BPH_{min,ij}=\hat{G_{ij}}-min(\hat{G_{i}} ,\hat{G_{j}}) \] 
 \[ BPH_{max,ij}=\hat{G_{ij}}-max(\hat{G_{i}} ,\hat{G_{j}}) \]
 %
-where $\hat{G_{ij}}$, $\hat{G_{i}}$ and $\hat{G_{j}}$ are the genetic values of the hybrid and its two parents $i$ and $j$. $BPH_{min}$ was used instead of $BPH_{max}$ for ASI. \jri{what about ear height and DTS?} \yang{Did you mean plant height? We need to discuss about this.} \jri{no plant height should be max, ear height maybe should be min? though it is correlated with plant height... happy to discuss}
+where $\hat{G_{ij}}$, $\hat{G_{i}}$ and $\hat{G_{j}}$ are the genetic values of the hybrid and its two parents $i$ and $j$. $BPH_{min}$ was used instead of $BPH_{max}$ for ASI. 
 
 \subsection*{Sequencing and Genotyping}
 
@@ -187,20 +193,29 @@ From this population, phenotypic data were collected for seven traits of interes
 Best linear unbiased estimators (BLUEs) for genotypes of the seven traits were derived from mixed linear models (Table \ref{table:table_s1}).
 In the models, all fixed effects were significant (Wald test \emph{P} value $<0.05$) for all traits except ASI, for which the effect of replicates within environments were not significant. 
 As shown in Figure \ref{fig:pheno}, BLUE values were normally distributed (normality test \emph{P} values $>0.05$). 
-Broad sense heritability for these traits ranged from 0.65 for ASI to 0.95 for PHT. 
+Broad sense heritability for these traits ranged from 0.65 for ASI to 0.95 for PHT. \jri{can we add these as a supp. table for all traits, or list them all here?}
 Using the parental phenotypic data, we then estimated best-parent heterosis (BPH) for each trait.  
-Because the selected inbred lines are commercially relevant and fairly elite in performance, hybrids in this population exhibit relatively low hybrid vigor (overall mean percent BPH = 0.3\% $\pm$ 0.4\%) for most traits except GY (mean percent BPH = 95\% $\pm$ 16\%, Figure \ref{fig:pBPH}). 
+Because the selected inbred lines are commercially relevant and fairly elite in performance, hybrids in this population exhibit relatively low hybrid vigor (overall mean percent BPH = 0.3\% $\pm$ 0.4\%) for most traits except GY (mean percent BPH = 95\% $\pm$ 16\%, Figure \ref{fig:pheno}). 
 Finally, general and specific combining ability (GCA and SCA) were estimated following \citep{Falconer1996}. 
-GCA and SCA varied among traits (Table \ref{table:table_s2}), but B73, PHG47 and PHG39 showed the greatest GCA for grain yield.
+GCA and SCA varied among traits (Table \ref{table:table_s2}), but B73, PHG47 and PHG39 showed the greatest GCA for grain yield. 
 
 %%%%%%%% ------- GERP MAF------ %%%%%%%%%%%
-\begin{figure}[htbp]
+\begin{figure*}[htbp]
 \centering
-\includegraphics[width=\linewidth]{Figure_pheno.pdf}
-\caption{Density plots of the BLUE values for the seven phenotypic traits. On the x-axis, the phenotypic values were normalized.}
+\includegraphics[width=0.4\linewidth]{Figure_pheno.pdf} \,
+\includegraphics[width=0.4\linewidth]{SFig_pBPH.pdf}
+
+\caption{Phenotypic variability in an elite maize partial diallel. (Left) Density plots of the BLUE values for the seven phenotypic traits. On the x-axis, the phenotypic values were normalized. \jri{does this include hybrids or just parents?} (Right) Boxplot of percent best parent heterosis (pBPH). In the plot, ASI was calculated using pBPHmin and the other six traits were calculated using pBPHmax. \jri{i sort of messed up the formatting of this figure. maybe include as two separate figures? do as a panel? the boxplot should be in the main text though. }}
 \label{fig:pheno}
-\end{figure}
+\end{figure*}
 %%%%%%%% ------------- %%%%%%%%%%%
+
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=\linewidth]{SFig_pBPH.pdf}
+%\caption{Boxplot of percent best parent heterosis (pBPH). In the plot, ASI was calculated using pBPHmin and the other six traits were calculated using pBPHmax.}
+%\label{fig:pBPH}
+%\end{figure}
 
 
 
@@ -232,9 +247,9 @@ The minor allele frequency of SNPs at conserved sites was negatively correlated 
 The small sample size of our diallel and the general low frequency of deleterious SNPs precludes association-based approaches to evaluate the impact of variants on phenotypic variation.
 To alleviate this limitation, we conceived a haplotype-based genomic selection approach in which we use estimates of evolutionary constraint across the genome \citep{rodgers2015recombination} to sum the individual effects of deleterious alleles within IBD blocks under both an additive and dominant model (see Methods and Figure \ref{fig:gerpibd}). 
 
-A Bayesian-based statistical method (BayesC) \citep{habier2011extension} using a 5-fold cross-validation approachwas was employed for model training. 
-In general, average prediction accuracies were higher using the additive model (mean \emph{r} = 0.81 and 0.49 for traits \emph{per se} and BPH) than the dominant model (mean \emph{r} = 0.70 and 0.42), and accuracies for heterosis traits were lower than for traits \emph{per se} (Table \ref{table:table_s3}). \jri{is there a table we can cite that has all these?} \yang{see edits} A student-t test was employed to compare the mean prediction accuracies between data with real GERP information and data with permutated GERP. To account for multiple traits and multiple transformations, the FDR approach was used to correct the obtained P-values. As a result, incorporating evolutionary constraint information improved prediction accuracy for ASI and PHT \emph{per se} under an additive model and for ASI under a dominant model (FDR < 0.05, Figure \ref{fig:gerpall} A and B).
-GERP scores also improved prediction accuracies of heterosis (BPH) for GY under the additive model and DTP, DTS and TW under the dominant model (FDR < 0.05, Figure \ref{fig:gerpall} C and D). \jri{ref/link to supp table 3 please. also, do we need to include FDR here? what are the multiple tests the FDR is correcting for here?} \yang{move table S3 to above. added FDR. FDR is for correcting multiple traits and multiple transformations. see text.}
+A Bayesian-based statistical method (BayesC) \citep{habier2011extension} using a 5-fold cross-validation approach was was employed for model training. 
+In general, average prediction accuracies were higher using the additive model (mean \emph{r} = 0.81 and 0.49 for traits \emph{per se} and BPH) than the dominant model (mean \emph{r} = 0.70 and 0.42), and accuracies for heterosis traits were lower than for traits \emph{per se} (Table \ref{table:table_s3}).  A student-t test was employed to compare the mean prediction accuracies between data with real GERP information and data with permutated GERP. To account for multiple traits and multiple transformations, the FDR approach was used to correct the obtained P-values. As a result, incorporating evolutionary constraint information improved prediction accuracy for ASI and PHT \emph{per se} under an additive model and for ASI under a dominant model (FDR < 0.05, Figure \ref{fig:gerpall} A and B).
+GERP scores also improved prediction accuracies of heterosis (BPH) for GY under the additive model and DTP, DTS and TW under the dominant model (FDR < 0.05, Figure \ref{fig:gerpall} C and D). 
 To rule out the possible confounding of high GERP scores and genic annotations, we re-permuted the data using only deleterious (GERP $> 0$) genic SNPs.  
 Though this resulted in fewer SNPs (316, 983), the model prediction accuracies remained significantly improved for GY \emph{per se} under the additive model and for BPH of GY and PHT under the additive model (Figure \ref{fig:genicsnp} and Table \ref{table:table_s4}).   
 
@@ -245,7 +260,7 @@ Though this resulted in fewer SNPs (316, 983), the model prediction accuracies r
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{Figure_gerpall_m.pdf}
-\caption{Beanplots of cross-validation accuracies using SNPs with positive GERP scores. Cross-validation experiments were conducted using selected SNPs and permuted data for traits \emph{per se} (\textbf{A, B}) and BPH (\textbf{C, D}) under additive (\textbf{A and C}) and dominant (\textbf{B and D}) models. Accuraries from the real data were plotted on the left (blue) and permutation results on the right (grey). Horizotal bars indicate mean accuracies for each trait and the grey dashed lines indicate the overall mean accuracy. Stars indicate significantly (FDR < 0.05) higher cross-validation accuracies.  }
+\caption{Beanplots of cross-validation accuracies using SNPs with positive GERP scores. Cross-validation experiments were conducted using selected SNPs and permuted data for traits \emph{per se} (\textbf{A, B}) and BPH (\textbf{C, D}) under additive (\textbf{A and C}) and dominant (\textbf{B and D}) models. Accuraries from the real data were plotted on the left (blue) and permutation results on the right (grey). Horizotal bars indicate mean accuracies for each trait and the grey dashed lines indicate the overall mean accuracy. Stars indicate significantly (FDR < 0.05) higher cross-validation accuracies.  \jri{need to explain red and black points}}
 \label{fig:gerpall}
 \end{figure}
 %%%%%%%% ------------- %%%%%%%%%%%
@@ -254,11 +269,11 @@ Though this resulted in fewer SNPs (316, 983), the model prediction accuracies r
 
 To learn why the prediction performace varied among traits \emph{per se} and heterosis, we obtained the posterior variance explained by our models using the complete set of data. 
 As shown in Figure \ref{fig:h2}, additive models explained more phenotypic variance for traits \emph{per se} of DTP, DTS, EHT and PHT; but explained less phenotypic variance for heterosis (BPH) of ASI, GY and TW. 
-In contrast, a larger proportion of the phenotypic variance could be explained by the dominant models for heterosis (BPH) of ASI, GY and TW. 
-This difference was particularly striking for grain yield under the dominant model, where only 3\% of the variance in trait \emph{per se} could be explained but 61\% of the variance in BPH was explained. 
+In contrast, a larger proportion of the phenotypic variance could be explained by the dominant models for heterosis (BPH) of ASI, GY and TW. \jri{is this correct? the figure looks to me to disagree with this statement.}
+This difference was particularly striking for grain yield under the dominant model, where only 3\% of the variance in trait \emph{per se} could be explained but 61\% of the variance in BPH was explained. \jri{I think a sentence or two here connecting variance explained with prediction accuracy would be helpful}
 
-Heterosis transformations were largely determined by the accuracies of the parental phenotypes. 
-To take the uncertainty of the parental phenotypes into consideration, we estimated  combining ability from the hybrid population itself to investigate which modes of inheritance perform better than the null models. 
+Heterosis transformations are largely determined by the accuracies of the parental phenotypes. 
+To control for uncertainty of parental phenotypes, we estimated combining ability \jri{do we need to explain what this is and the difference between SCA and GCA?} directly from the hybrid population itself.
 We extracted the breeding values estimated under both additive and dominant models using our haplotype blocks and incorporating GERP scores. 
 We then applied the following models:
 \begin{equation}
@@ -286,10 +301,9 @@ $SCA_{ij}$, the specific combining ability of between the $i^{th}$ and $j^{th}$ 
 $G_{ij}$, breeding values estimated by our GS model for hybrid crossed between the $i^{th}$ inbred and $j^{th}$ inbred; 
 $\varepsilon$, the model residuals.
 
-Consistent with the previous analysis, haplotype blocks coded with the dominant mode of inheritance significantly improved the fit of models for heterosis for ASI and GY (equation \ref{eq:refname1} vs. equation \ref{eq:refname2}, ANOVA \emph{P} value $<0.05$, Table \ref{table:table_s5}). 
-Comparison of models \ref{eq:refname3} and \ref{eq:refname4}, however, show no real difference (ANOVA \emph{P} value = \X), indicating that   specific combining ability captures most of the parental interactions and the our haplotype blocks are unable to detect higher order interactions.   \jri{do these edits look OK?}
+Consistent with the previous analysis, haplotype blocks coded with the dominant mode of inheritance significantly improved the fit of models for heterosis for ASI and GY (equation \ref{eq:refname1} vs. equation \ref{eq:refname2}, ANOVA \emph{P} value $<0.05$, Table \ref{table:table_s5}). \jri{i'm having trouble following here.  GY gives a p of 0.04 which is not significant after bonferonni (maybe after FDR?) under the dominant model, but DOES give a significant p<4E-16 under the additive model. why not mention/discuss that? }
+Comparison of models \ref{eq:refname3} and \ref{eq:refname4}, however, show no real difference (ANOVA \emph{P} value = \X), indicating that specific combining ability captures most of the parental interactions and the our haplotype blocks are unable to detect higher order interactions. \jri{ there are also at least three tests that are significant after multiple correction for 4 vs 3. is that not meaningful?} 
 
-%%%JRI bookmark
 
 %%%%%%%% ----- h2 plots-------- %%%%%%%%%%%
 \begin{figure}[htbp]
@@ -304,39 +318,44 @@ Comparison of models \ref{eq:refname3} and \ref{eq:refname4}, however, show no r
 %%%%%%%%%%%%%%%%%%%% DISCUSSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Discussion}
 
-%\begin{itemize}
-%  \item do we support deleterious model of Mezmouk et al.? \yang{yes}
-%  \item how do results match with heritability and heterosis? \yang{and mode of inheritance}
-%  \item Indication for breeding? genomic selection using GERP and other annotation information. 
-%\end{itemize}
+In this study we have identified more than 500,000 conserved (GERP >0) sites in the genome segregating for putatively deleterious alleles in a panel of elite maize lines. 
+The non-reference alleles at these SNPs are found at low frequency, consistent with previous observations \citep{Mezmouk2014, rodgers2015recombination} and the role of selection preventing such alleles from reaching high frequency. 
+Nonetheless, each inbred line carries a large number of deleterious variants, averaging $\sim 100,000$ per line. 
+\jri{this should be mentioned here but also in the results. is there any big variation?  some lines more than others? is mo17 worse than the pvps? given the comment below i added about linkage, can we calculate mean deleterious variants per cM?  that would be sweet to know and to point out that there are tons around the centromere. i think a bit more detail on distribution worthwhile since even Eli's paper is only using GBS. then add here a few sentences comparing to Eli's result and McMullen 2009.}
+
 
 In this study we have identified more than 500,000 deleterious SNPs in a panel of elite maize lines.
 On average, each elite inbred line carries about 100,000 deleterious SNPs (GERP > 0). \jri{cool, this should be mentioned here but also in the results. is there any big variation?  some lines more than others? is mo17 worse than the pvps? given the comment below i added about linkage, can we calculate mean deleterious variants per cM?  that would be sweet to know and to point out that there are tons around the centromere. i think a bit more detail on distribution worthwhile since even Eli's paper is only using GBS.} \yang{will do}
 
 Across lines, however, the majority of these deleterious mutations were maintained at low frequency, consistent with previous observations \citep{rodgers2015recombination}. 
-The large number of linked deleterious alleles present would likely make it hard to completely purge all such alleles through breeding efforts. Instead, breeders have devised a strategy --- hybrid breeding --- that circumvents much of this problem via complementation.
-Consistent with this claim, results in this study show that prediction accuracies were higher for yield heterosis when information about deleterious SNPs was incorporated into the prediction model.  
-Because there are likely thousands of deleterious alleles involved in complementation, many with relatively small effects, traditional GWAS approaches with genome-wide thresholds of multiple testing are likely unable to detect such effects.
-Using a liberal significance threshold, however, our previous efforts nonetheless showed an enrichment for deleterious genic SNPs among associated markers for a number of traits \citep{Mezmouk2014}.
+
+The large number of linked deleterious alleles present means that there is likely insufficient recombination in standard breeding programs to completely purge all such alleles. 
+Instead, breeders have devised a strategy --- hybrid breeding --- that circumvents much of this problem via complementation.
+Consistent with this idea, our results show that prediction accuracies for both traits \emph{per se} as well as heterosis increased when SNPs were weighted by their likelihood of being deleterious.
+Because there are likely thousands of deleterious alleles involved in complementation, many with relatively small effects, traditional GWAS approaches with genome-wide thresholds of multiple testing may not have the power to detect such effects.
+Using a liberal significance threshold, however, even GWAS methods have identified an enrichment for deleterious genic SNPs among associated markers for a number of traits \citep{Mezmouk2014}.
+
 
 Our models did not increase the prediction accuracies equally well for traits \emph{per se} and their heterosis transformations. 
-This is not surprising, however, given that the variation in genetic architectures of different phenotypic traits --- flowering time, for example, appears primarily determined by many loci of small additive effect \citep{buckler2009genetic}, while \X \jri{better to use another maize example if we can rather than rice...}. 
-Consistent with this, we observed that the additive model increased prediction accuracies for ASI as a trait \emph{per se} and \jri{ideally above use a phenotype we can compare in this way... dominant model increased the prediction accuracy for trait \emph{per se} of GY.} 
-One limitation of our current models is that we assume phenotypic traits are determined by complete additive or complete dominant effects. 
-Traits with a mixture of additive and dominant casual loci may thus fail to be predicted. 
-Another limitation is likely the population size used; we may simply not have enough power to predict traits with low heritability. 
+This is not surprising, given the variation in genetic architecture of different phenotypic traits --- flowering time, for example, appears primarily determined by many loci of small additive effect \citep{buckler2009genetic}, and prediction accuracy is highest and the vast majority of phenotypic variance can be explained under simple additive models.  \jri{add other example from our data and maize lit. add sentence or two of correlation between prediction accuracies and BPH seen in boxplots -- traits with higher BPH have lower heritability and thus harder to predict normally. also add back text on how difference in prediction accuracies can be explained by heritability. why use broad sense? }
 
-%%JRI stopped here
+% Paritcally, with dominant model, up to 20\% of the phenotypic variance could be explained for the heterosis traits. Theoritically, BPH transformation subtracts the joint effects of the additive and dominant alleles in the best parents as residule, the substantial variance of these redidules explained by the additive or dominant models in our studies indicated that genetic components controlling for heterosis might in linked state.  
+
+% How to explain the prediction difference?  
+% The variation of the prediction accuacies were relative large in this study. First of all, broad sense heritability of the traits are different. Second, from the simulation we learned that different traits may controlled by different proportion of additive, dominant and even recessive gene actions. Our naive model only built the pure additive and pure dominant effects in. For the more complicated cases, the models may not work very well.
+\jri{Here a paragraph about how additive often beat recessive and that this is consistent with a role for partial dominance. we cite Birchler arguing how complete dominance is unlikely and doesn't jive with much data. we cite Huang showing partial dominance for phenotypes per se among hybrids. can cite \citep{halligan2009spontaneous} reviewing several studies finding evidence of partial dominance. while we don't have enough power to estimate dominance, the fact that an additive model works well suggests high-ish values of h. this would be consistent with, for example, alleles affecting plant height  being predominantly additive (cite \citep{peiffer2014genetic}), but plant height is correlated with yield, so alleles affecting height will have a weak, but additive, effect on yield.  }
+
+\jri{Discuss limitations of size of population, missing GERP data b/c of alignment with Tripsacum, missing information on non-SNP variants, etc.}
+%limitation of our current models is that we assume phenotypic traits are determined by complete additive or complete dominant effects. 
+%Traits with a mixture of additive and dominant casual loci may thus fail to be predicted. 
+%Another limitation is likely the population size used; we may simply not have enough power to predict traits with low heritability. 
 
 As genotyping costs continue to decline, genomic prediction models are increasing in popularity \citep{desta2014genomic}. 
 Most previous work on genomic prediction, however, focuses exclusively on statistical properties of the models, ignoring potentially useful biological information (but see \citex for a recent example). 
 In addition to providing evidence in favor of the simple complementation model for heterosis, our work here shows the utility of incorporating functional information about the variants used in genomic prediction models.  
 As our functional annotations of genomes improve, we predict that including such information in genomic prediction will be vital to the development of more powerful predictive models for plant breeding.
     
-% Paritcally, with dominant model, up to 20\% of the phenotypic variance could be explained for the heterosis traits. Theoritically, BPH transformation subtracts the joint effects of the additive and dominant alleles in the best parents as residule, the substantial variance of these redidules explained by the additive or dominant models in our studies indicated that genetic components controlling for heterosis might in linked state.  
 
-% How to explain the prediction difference?  
-% The variation of the prediction accuacies were relative large in this study. First of all, broad sense heritability of the traits are different. Second, from the simulation we learned that different traits may controlled by different proportion of additive, dominant and even recessive gene actions. Our naive model only built the pure additive and pure dominant effects in. For the more complicated cases, the models may not work very well.
 
 \section*{Acknowledgements}
 Financial support for this work came from NSF (grants IOS-0820619 and IOS-1238014), USDA (grants 2009-65300-05668 and \X), DuPont Pioneer, and N2 Genetics. We'd like to thank Graham Coop, James Holland, \X, and \X reviewers for helpful discussion. 
@@ -359,27 +378,27 @@ Financial support for this work came from NSF (grants IOS-0820619 and IOS-123801
 \section*{Supporting Information}
 
 % \section*{Supporting Table}:
-\begin{table}[htbp]
+\begin{table}[]
 \caption{BLUE values of the seven phenotypic traits. (\url{https://github.com/RILAB/pvpDiallel/blob/master/manuscript/Figure_Table/Table_S1.trait_matrix.csv})}
 \label{table:table_s1}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[]
 \caption{General combining ability and specific combining ability of the seven phenotypic traits. (\url{https://github.com/RILAB/pvpDiallel/blob/master/manuscript/Figure_Table/Table_S2.CA.csv})}
 \label{table:table_s2}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[]
 \caption{Cross-validation results using all genome-wide deleterious SNPs. (\url{https://github.com/RILAB/pvpDiallel/blob/master/manuscript/Figure_Table/Table_S3_allsnps_FDR.csv})}
 \label{table:table_s3}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[]
 \caption{Cross-validation results using deleterious genic SNPs. (\url{https://github.com/RILAB/pvpDiallel/blob/master/manuscript/Figure_Table/Table_S4_genicsnps_FDR.csv})}
 \label{table:table_s4}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[]
 \caption{ANOVA P values of model comparisons. (\url{https://github.com/RILAB/pvpDiallel/blob/master/manuscript/Figure_Table/Table_S5_model_comp.csv})}
 \label{table:table_s5}
 \end{table}
@@ -388,7 +407,7 @@ Financial support for this work came from NSF (grants IOS-0820619 and IOS-123801
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{SFig_diallel.pdf}
-\caption{Twelve maize inbred lines were selected and crossed in a partial diallel fashion. Each inbred lines was used as both male and female and the resulting F1s were bulked. \jri{do we need to modify this diagram now that we now reciprocal crosses were pooled?} \yang{any other idea to re-design the figure? or ditch it?} \jri{this isn't bad, but what deleting the bottom triangle completely rather than leave the cells blank?} }
+\caption{Twelve maize inbred lines were selected and crossed in a partial diallel fashion. Each inbred lines was used as both male and female and the resulting F1s were bulked. }
 \label{fig:diallel}
 \end{figure}
 
@@ -397,21 +416,13 @@ Financial support for this work came from NSF (grants IOS-0820619 and IOS-123801
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{SFig_define_IBD.pdf}
-\caption{Haplotype block identification using an IBD approach. In the upper panel, regions in red are IBD blocks identified by pairwise comparison of the two parental lines of a hybrid. The vertical dashed lines define haplotype blocks. In the lower panel, hybrid genotypes at each block are coded as heterozygotes (0) or homozygotes (1).}
+\caption{Haplotype block identification using an IBD approach. In the upper panel, regions in red are IBD blocks identified by pairwise comparison of the two parental lines of a hybrid. The vertical dashed lines define haplotype blocks. In the lower panel, hybrid genotypes in each block are coded as heterozygotes (0) or homozygotes (1).}
 \label{fig:defineibd}
 \end{figure}
 %%%%%%%% ------------- %%%%%%%%%%%
 
 
 
-%%%%%%%% ----- pBPH-------- %%%%%%%%%%%
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\linewidth]{SFig_pBPH.pdf}
-\caption{Boxplot of percent best parent heterosis (pBPH). In the plot, ASI was calculated using pBPHmin and the other six traits were calculated using pBPHmax.}
-\label{fig:pBPH}
-\end{figure}
-%%%%%%%% ------------- %%%%%%%%%%%
 
 %%%%%%%% ----- GERP dis1m -------- %%%%%%%%%%%
 \begin{figure}[htbp]
@@ -436,7 +447,7 @@ Regions of the genome that are identical by descent (IBD) among the 12 inbreds w
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{SFig_genicsnp_m.pdf}
-\caption{Cross-validation accuracies using genic SNPs. Cross-validation experiments were conducted using genic SNPs and compared to circular-shuffled data for traits \emph{per se} (\textbf{A, B}) and pBPH (\textbf{C, D}) under additive (\textbf{A, C}) and dominant (\textbf{B, D}) models. Distirbutions show accuracty of prediction from real data (blue) and permutations (grey), with horizontal bars to indicate mean accuracy.  Stars indicate significantly higher cross-validation accuracy for the real data.  The average accuracy across all traits is shown with the grey dotted line. }
+\caption{Cross-validation accuracies using genic SNPs. Cross-validation experiments were conducted using genic SNPs and compared to circular-shuffled data for traits \emph{per se} (\textbf{A, B}) and pBPH (\textbf{C, D}) under additive (\textbf{A, C}) and dominant (\textbf{B, D}) models. Distirbutions show accuracty of prediction from real data (blue) and permutations (grey), with horizontal bars to indicate mean accuracy.  Stars indicate significantly higher cross-validation accuracy for the real data.  The average accuracy across all traits is shown with the grey dotted line. \jri{need to explain red points here too.}}
 \label{fig:genicsnp}
 \end{figure}
 %%%%%%%% ------------- %%%%%%%%%%%
