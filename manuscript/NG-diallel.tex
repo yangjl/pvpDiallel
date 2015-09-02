@@ -1,26 +1,18 @@
 %\documentclass[twocolumn,twoside]{article}
 \documentclass[twoside,twocolumn, letterpaper]{article}
-
 \usepackage{graphics}
 \usepackage{color}
-
 \usepackage{NatGenArtT}
 %\usepackage{NatureLetT}
-
 \usepackage{times}
-
 \DeclareMathAlphabet{\msfsl}{OT1}{cmss}{m}{sl}
 \DeclareMathAlphabet{\msfrg}{OT1}{cmss}{n}{sl}
-
 \renewcommand{\baselinestretch}{1}
-
 \addtolength{\oddsidemargin}{-.2cm}
 \addtolength{\evensidemargin}{-1.2cm}
-
 \addtolength{\textwidth}{1.5cm}
 \addtolength{\topmargin}{-1.75cm}
 \addtolength{\textheight}{3.5cm}
-
 \renewcommand{\textfraction}{0.01}
 \renewcommand{\topfraction}{0.99}
 \renewcommand{\bottomfraction}{0.65}
@@ -28,6 +20,12 @@
 \renewcommand{\dbltopfraction}{0.95}
 \renewcommand{\dblfloatpagefraction}{0.80}
 \renewcommand{\sfdefault}{phv}
+
+%added commands YANG
+\newcommand{\sme}[1]{\textcolor{red}{\bf #1}}
+\newcommand{\yang}[1]{\textcolor{cyan}{\emph{\bf  #1}}}
+\newcommand{\jri}[1]{\textcolor{red}{\emph{ #1}}}
+\graphicspath{{Figure_Table/}} % Location of the graphics files
 
 \makeatletter
 \renewcommand{\footnotesep}{-2pt}
@@ -56,16 +54,19 @@
 }
 \setcounter{footnote}{0}%
 
-\title{Evolutionary Advantages of Homologous Recombination in a Bacterial Population}
+\title{Incorporation of Evolutionary Constraint Improves Genomic Prediction of Hybrid Phenotypes}
+
 
 \author{
-Shohei Takuno
-\thanks{Graduate University for Advanced Studies, Hayama, Kanagawa 240-0193, Japan } $^,$\thanks{These authors contributed equally to this work.}
- \hspace{0.5mm}, Tomoyuki Kado$^{1,2}$, Ryuichi P Sugino$^{1}$, Luay Nakhleh\thanks{ 
-Department of Computer Science, Rice University, Houston, TX 77005, USA} \hspace{0.5mm}, 
-and Hideki Innan$^{1,}$\thanks{PRESTO, Japan Science and Technology Agency (JST), Saitama 332-0012, Japan} $^,$\thanks{Correspondence should be addressed to H.I. (innan\_hideki@soken.ac.jp).}\hspace{0.6mm}
+Jinliang Yang\thanks{Department of Plant Sciences, University of California, Davis, CA 95616, USA} $^,$\thanks{These authors contributed equally to this work} \hspace{0.5mm}, 
+Sofiane Mezmouk$^{1,2,}$\thanks{Current address: KWS SAAT AG, Grimsehlstr. 31, 37555 Einbeck, Germany} \hspace{0.5mm}, 
+Andy Baumgarten\thanks{DuPont Pioneer, Johnston, IA 50131, USA} \hspace{0.5mm}, 
+Edward S. Buckler\thanks{US Department of Agriculture, Agricultural Research Service, Ithaca, NY 14853, USA} \hspace{0.5mm}, 
+Katherine E. Guill\thanks{US Department of Agriculture, Agricultural Research Service, Columbia, MO 65211, USA} \hspace{0.5mm},
+Michael D. McMullen$^{6,}$\thanks{Division of Plant Sciences, University of Missouri, Columbia, MO 65211, USA} \hspace{0.5mm},
+Rita H. Mumm\thanks{Department of Crop Sciences, University of Illinois at Urbana-Champaign, Urbana, IL 61801, USA} \hspace{0.5mm},
+and Jeffrey Ross-Ibarra$^{1,}$\thanks{Center for Population Biology and Genome Center, University of California, Davis, CA 95616, USA} $^,$\thanks{Correspondence should be addressed to J.R-I. (rossibarra@ucdavis.edu).}\hspace{0.5mm}
 }
-
 \date{\small Manuscript intended for \emph{Nature Genetics}, \today}
 
 
@@ -81,13 +82,15 @@ and Hideki Innan$^{1,}$\thanks{PRESTO, Japan Science and Technology Agency (JST)
 
 \begin{abstract}
 \noindent \bf
-\noindent While homologous recombination in bacteria has been well recognized, its rate and evolutionary roles in natural populations are poorly understood. A wide range of homologous recombination rates have been reported for various bacterial species, but we report 
- here found those rates may be underestimated when the species has a strong clonal structure. We demonstrate this by applying a population genetic analysis to genome-wide SNP data in \emph{Staphylococcus aureus}, a species that has been thought to have a very low recombination rate. Our simulations show that homologous recombination allows bacterial species to accelerate fixation of 
- adaptive mutations and efficiently purge deleterious ones. Thus, we hypothesize that homologous recombination in bacteria plays 
- a much more important role than previously thought. 
+\noindent
+Complementation of deleterious alleles has long been proposed as a major contributor to the hybrid vigor observed in offspring of inbred parents. 
+We test this hypothesis using evolutionary measures of sequence conservation to ask whether incorporating information about putatively deleterious alleles can inform genomic selection (GS) models and improve phenotypic prediction.
+We measured a number of agronomic traits in both the inbred parents and hybrids of an elite maize partial diallel population. 
+We resequenced the parents of the population, using genomic evolutionary rate profiling (GERP) to identify constrained sites across more than 86 Mb sites across the genome.  
+We identifed haplotype blocks using an identity-by-decent (IBD) analysis and scored these blocks on the basis of segregating putatively deleterious variants. 
+As a result, incorporating sequence conservation improves prediction accuracies in a five-fold cross-validation experiment for several traits \emph{per se} as well as heterosis for those traits. 
+These results provide strong empirical support for the simple complementation model of heterosis, and demonstrates the utility of incorporatin functional annotation and its potential usage in phenotypic prediction and plant breeding. 
 
-%It is widely accepted that recombination in sexual eukaryotes is evolutionarily advantageous because it can break down linkage between loci and subsequently create new combinations of alleles---an argument that is frequently used to explain the existence of two sexes. In asexual species such as bacteria, however, the evolutionary role of homologous recombination (bacteria's recombination mechanism) has been long neglected, and the assumption of clonal inheritance, {\em i.e.}, the whole genome is completely linked, has been central to almost all evolutionary theories of asexual species. Accordingly, a number of new findings have been reported in the literature based on the assumption of clonal inheritance when analyzing data derived from experimental evolutionary studies. However, through rigorous population genetic analysis of genome-wide single nucleotide polymorphism (SNP) data in the bacteria {\em Staphylococcus aureus}, we report here a massive extent of homologous recombination in this population. We found that linkage disequilibrium (LD) between SNPs quickly decays, and there is almost no LD between SNPs that are more than 10 kb apart---a scenario similar to that in sexual eukaryotes.Then, through simulations, we demonstrate that the observed level of recombination is sufficiently high for bacteria to gain evolutionary advantages, through homologous recombination, in facilitating the fixation of beneficial mutations in different individuals and avoiding the hitchhiking of deleterious mutations. We further verify that our conclusion should hold for other bacterial species. Our findings call into question the validity of the application of the clonal inheritance model to bacteria as well as the accuracy of results and inferences obtained from bacterial populations under this model.
- 
 \end{abstract}
 
 \vspace{6mm}
@@ -96,14 +99,35 @@ and Hideki Innan$^{1,}$\thanks{PRESTO, Japan Science and Technology Agency (JST)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\noindent Until quite recently, it was believed that bacterial populations consist of a series of independently evolving clones \cite[]{Selander_1980_56,Orskov_1983,Hartl_1984_47,Smith_1993_8506277}, though the presence of homologous recombination in bacteria was discovered more than six decades ago \cite[]{LEDERBERG_1946_63,Lederberg_1947_17247259}. However, accumulating nucleotide sequence data indicate that homologous recombination plays an important role in the genome evolution of bacteria \cite[]{Feil_2001_11544367,Falush_2009_19855823}. While recombination (crossing-over) in eukaryotes occurs during meiosis, homologous recombination in bacteria occurs by an uptake of a foreign DNA segment through various mechanisms such as natural transformation (uptake of naked DNA segments from the environment), conjugation (physical contact between donor and recipient cells) and transduction (bacteriophase-mediated transfer) \cite[]{Whittan93,Ochman_2000_10830951,Errington_2001_11433368}. Then, homology-dependent allelic (and possibly non-allelic) exchange occurs between the foreign DNA segment and the recipient genomic sequence \cite[]{Levin88,Rayssiguier_1989_55,Whittan93}. While the occurrence of these evolutionary events has long been acknowledged, our knowledge of the rate of homologous recombination and its evolutionary roles in natural populations is still limited \cite[]{Vos_2009_19464181}.
+\noindent %\textbf{Why we care about deleterious variants. Discuss results of Mezmouk 2014. We are extending this in three ways}  
+%\begin{itemize}
+%  \item all deleterious SNPs not just coding
+%  \item genome-wide not just reduced representation
+%  \item using GS to test whether they improve prediction
+%\end{itemize}
+
+The phenomenon of heterosis or hybrid vigor has been observed across many species, from yeast \cite[]{Shapira2014} to plants \cite[]{shull1908composition} and vertebrates \cite[]{Gama2013}. 
+Hybrid vigor is particularly important in agriculture, where hybrid breeding is fundamental to the production of a number of crops including both rice \citex and maize \citex .
+A number of hypotheses have been put forth to explain the phenomenon, including gene dosage \cite[]{birchler2003search}, overdominance \cite[]{east1936heterosis, schwartz1973single, krieger2010flowering}, 
+%pseudo-overdomiance \cite[]{graham1997characterization, McMullen2009}, 
+and epistasis \cite[]{minvielle1987dominance, schnell1992multiplicative}. 
+Complementation of recessive deleterious alleles, however, remains the simplest genetic explanation \cite[]{Charlesworth2009}, and one that is supported by considerable empirical evidence \citex \cite[]{xiao1995dominance, frascaroli2007classical}.
+\jri{i'm not sure these are all appropriate. huang2015genomic for example i think doesn't actually measure heterosis, they just do GWAS on hybrids. and frascaroli if I read it right says that heterosis for grain yield is mostly overdominance (dominance $>1$).}
+
+%One of the best studied examples of hybrid vigor is that of maize. 
+%Hybrid maize has formed the basis of modern maize agriculture since the early 20th century \cite[]{crow1998}. 
+
+%Cr the benefits of cross-fertilization or hybridization were not unknown, it was not until the early 20th century that East, Shull, and others demonstrated the utility of hybrid breeding for  in the past, it was not until the early 20th century that hybridwork of Shull, East, and others that it's significance for agriculture was well appreciated \citex.
+%Now, hybrid seed makes up the vast majority \jri{in progress, still reading}
 
 
- We hypothesize that the evolutionary role of bacterial homologous recombination may have been underappreciated for two main 
- reasons. First, as bacterial individuals can exchange only small segments of the genomes through homologous recombination, its evolutionary effect is thought to be limited \cite[]{MaynardSmith_1991_1985260}. Second, the rate of homologous recombination in natural populations has not been fully understood due to their clonal population structure (see below). As a consequence, most evolutionary models for bacterial evolution still ignore the effect of homologous recombination. 
+%Deleterious alleles were arisen from new mutations during meiosis. In maize, about 90 new mutations were generated per meiosis \cite[]{Clark2005}, majority of which were deleterious according to empirical estimates \cite[]{Joseph2004}. In a natural outcross population, the negative effects on fitness of these deleterious alleles make them subject to be selection against, which lead the deleterious alleles to be maintained in a low frequency \cite[]{Eyre-Walker2007}. But the deleterious alleles could not be completely purged. 
 
-The goal of this study is to re-evaluate the rate of homologous recombination and assess its evolutionary advantages in a natural population.
- Nucleotide polymorphism data, including SNPs (\underline{S}ingle \underline{N}ucleotide \underline{P}olymorphisms), have substantial information for estimating the recombination rate. The inference of the recombination rate from SNPs usually involves population genetic theories on linkage disequilibrium (LD: non-random association of alleles) between SNPs \cite[]{Stumpf_2003_14631356}. Because the behavior of LD is very sensitive to demography \cite[]{Ohta_1982_17246079,Slatkin_1994_8056320,Kruglyak_1999_10369254,McVean_2002_12399406,Stumpf_2003_14631356,Slatkin_2008_18427557}, the recombination rate should be estimated assuming a realistic demography. 
+%In maize, the total number of mildly deleterious mutations is substantial because of the exponential growth of population size after domestication. The modern breeding probably aims to remove these deleterious mutations and pyramiding beneficial alleles for agronomical purposes. In practice, the relatively homogeneous maize germplasm pool was artificially divided into different heterotic groups \cite[]{Heerwaarden2012}. It enabled the improvement of germplasm pools to be conducted in a parallel fashion, and therefore, facilitated the breeding efficiency. Using this hybrid breeding approach, the maize yield has been steadily improved since the early 20th century \cite[]{duvick2001biotechnology}. However, removing deleterious mutations in low recombination regions or in tightly linked regions become less effective. Studies indicated that residual heterozygosity correlates negatively with recombination \cite[]{Gore2009, McMullen2009} and the low recombination is effective over long period of time \cite[]{Haddrill2007}. As a consequence, the deleterious alleles would be accumulated in the low recombination regions, such as the pericentromeric regions in maize, and the vigorous performance could be realized by combining two sets of non-deleterious or beneficial alleles in repulsion state, thus lead to pesudo-overdominance. A recent QTL study identified loci controlling for heterosis are enriched in centromeric regions \cite[]{Lariepe2012}, which partly support this pesudo-overdominance hypothesis.
+
+%Despite the importance of deleterious alleles in contributing to heterosis, they have not been systematically investigated probably because of their low frequencies in the population and mostly exhibiting minor effects. Here, we employed a genomic selection (GS) approach to simultaneously estimate genome-wide deleterious variants in a half diallel population. The diallel population was composed of a set of hybrids, which enabled us to explore different modes of inheritance of the deleterious variants. And the study can be conducted with millions of variants but using relative little sequencing efforts. In our previous study, deleterious SNPs were found to be enriched in a SNP set identified by GWAS \cite[]{Mezmouk2014}. The deleterious variants in the study were defined as non-synonymous mutations in the coding regions. Clearly, deleterious variants are not limited to coding regions. Here, we expanded the characterization of deleterious variants to genome-wide using genomic evolutionary rate profiling (GERP) \cite[]{Cooper2005}. By incorporating GERP information in GS models, we demonstrated the prediction accuracies were significantly improved not only for some traits \emph{per se}, but aslo for some heterosis transformations (especially for traits exhibiting high levels of hereosis). Further studies indicated that joint effects of deleterious alleles with additive and dominant modes of inheritance may contribute to heterosis.
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIGURE
 \begin{figure*}[tb]   
@@ -306,7 +330,7 @@ The authors declare no competing financial interests.
 
 {\scriptsize \sf
 \renewcommand{\baselinestretch}{2.0}
-\bibliography{Sau,Sau2}
+\bibliography{Diallel}
 \bibliographystyle{NatureSeriesT}
 }
 
