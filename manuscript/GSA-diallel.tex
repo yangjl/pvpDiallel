@@ -433,8 +433,10 @@ Financial support for this work came from NSF (grants IOS-0820619 and IOS-123801
 \begin{figure}[htbp]
 \includegraphics[width=0.9\textwidth]{SFig_gerpIBD.pdf}
 \caption{
-\textbf{Incoporation of conservation information into IBD blocks.}
-Regions of the genome that are identical by descent (IBD) among the 12 inbreds were identified using Beagle \citep{Browning2009}.  The GERP scores of SNPs in an IBD block were summed under both additive and dominant models. For a particular SNP with GERP score $g$, the homozygous non-reference genotype was assigned a value of $2g$, the heterozygote assigned a value of $g$, and the reference homozygote a value of 0.  Under the dominant model, both the heterozygote and the non-reference homozygote were assigned a value of $g$, with the reference homozygote again assigned a value of 0.}
+\textbf{Incorporation of conservation information into IBD blocks.}
+Regions of the genome that are identical by descent (IBD) among the 12 inbreds were identified using Beagle \citep{Browning2009}.  The GERP scores of SNPs in an IBD block were summed up under pure additive and pure dominant assumptions, as well as incomplete dominant assumptions, including under-dominance and over-dominance. For $n$ SNPs in a IBD block,
+
+with GERP score $g$, the homozygous non-reference genotype was assigned a value of $2g$, the heterozygote assigned a value of $g$, and the reference homozygote a value of 0.  Under the dominant model, both the heterozygote and the non-reference homozygote were assigned a value of $g$, with the reference homozygote again assigned a value of 0.}
 \label{fig:gerpibd}
 \end{figure}
 %%%%%%%% ------------- %%%%%%%%%%%
