@@ -16,8 +16,8 @@ plot_loh <- function(trait=trait, ...){
   
   bymed2 <- with(trait, reorder(trait, pBPHmax, median))
   boxplot(pBPHmax ~ bymed2, data=trait,
-          xlab = "Phenotypic Traits", ylab= "percent BPH", col="lightgray", 
-          main="Percentage of Better Parental Heterosis")
+          xlab = "", ylab= "percent BPH", col="antiquewhite3", 
+          main="")
   return(trait)
 }
 ##### note: change to abs value
@@ -25,7 +25,7 @@ trait <- read.csv("data/trait_matrix.csv")
 trait[trait$trait == "ASI", ]$pBPHmax <- trait[trait$trait == "ASI", ]$pBPHmin
 trait[trait$trait == "ASI", ]$BPHmax <- trait[trait$trait == "ASI", ]$BPHmin
 
-pdf("manuscript/Figure_Table/Sfig_pBPH.pdf", width=5, height=5)
+pdf("graphs/Fig1b.pdf", width=5, height=5)
 trait <- plot_loh(trait=trait)
 dev.off()
 
