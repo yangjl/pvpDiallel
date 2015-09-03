@@ -14,7 +14,7 @@ CirShuffling <- function(gerp=gerp, SN=1000000, times=10, outfile="allsnps_11m_g
 #########
 library(data.table)
 gerp <- fread("largedata/SNP/allsnps_11m_gerpv2_tidy.csv", sep=",")
-CirShuffling(gerp=gerp, SN=1000000, times=10, outfile="largedata/SNP/allsnps_11m_gerpv2")
+CirShuffling(gerp=gerp, SN=50000000, times=10, outfile="largedata/SNP/allsnps_11m_gerpv2_50m")
 
 
 

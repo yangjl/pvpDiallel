@@ -22,11 +22,33 @@ get_GCA_matrix <- function(trait=ca){
   return(out[, -1:-2])
 }
 
+
+get_SCA_matrix <- function(trait=ca, pheno="GY"){
+  
+  sub <- subset(trait, trait == pheno)
+  sub$P1 <- as.character(sub$P1)
+  sub$P2 <- as.character(sub$P2)
+  line <- sort(unique(c(sub$P1, sub$P2) ))
+  
+  mx <- as.data.frame(matrix(data=NA, nrow=12, ncol=12))
+  names(mx) <- line
+  row.names(mx) <- line
+  for(i in 1:nrow(sub)){
+    mx[sub$P1[i], sub$P2[i]] <- sub$SCA.all[i]
+  }
+
+  return(mx[-12, -1])
+}
+
+#######
 GCA <- get_GCA_matrix(trait=ca)
 SCA <- ca[, c("trait", "P1", "P2", "SCA.all")]
 
+SCA_mx <- get_SCA_matrix(trait=ca, pheno="GY")
 
+pdf("graphs/Fig1d.pdf", width=5, height=5)
+heatmap(as.matrix(SCA_mx), Rowv = NA, Colv=NA, revC=TRUE)
+dev.off()
 
-
-
-
+image(as.matrix(SCA_mx))
+barplot(GCA$GY, names.arg=row.names(GCA))

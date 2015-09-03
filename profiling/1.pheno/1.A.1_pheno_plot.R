@@ -14,12 +14,15 @@ plot_trait_per_se <- function(trait=trait, ...){
     myp <- subset(trait, trait==ti[i])
     myp$norv <- scale(myp$valHyb)
     d <- density(myp$norv)
-    plot(d, main=ti[i], xlab="", cex.axis=2, bty="n", ...)
+    plot(d, main=ti[i], xlab="", cex.axis=1, bty="n", ...)
     polygon(d, col="antiquewhite3", border="antiquewhite3", lwd=3)
   }
 }
 #####
+pdf("graphs/Fig1a.pdf", width=8, height=4)
 plot_trait_per_se(trait=trait)
+dev.off()
+
 
 normality_test <- function(trait=trait){
   ti <- c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW")

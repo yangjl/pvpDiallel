@@ -6,9 +6,15 @@
 source("lib/RunWhoeSet_gerpall.R")
 source("~/Documents/Github/zmSNPtools/Rcodes/setUpslurm.R")
 
-####
+#### just change the priors put in the model
+gs1 <- read.csv("cache/allsnp_wholeset_h2.csv")
+gs1 <- read.csv("cache/allsnp_wholeset_h2.csv")
+gs1$transf <- gsub("_..$", "", gs1$mode)
+gs1$transf <- gsub(".*_", "", gs1$transf)
+gs1$mode <- gsub(".*_", "", gs1$mode)
 
-mysh <- RunWholeSet_gerpall(inppwd="slurm-scripts/gerpall_wholeset/")
+
+mysh <- RunWholeSet_gerpall(inppwd="slurm-scripts/gerpall_wholeset/", priors=gs1)
 
 for(i in 1:10){
   setUpslurm(slurmsh= paste0("slurm-scripts/gerpall_wholeset_run", i, ".sh"),
@@ -28,9 +34,9 @@ res <- collect_gsout(dir = "slurm-scripts/gerpall_wholeset", fileptn ="out")
 
 main_res <- function(res = res){
   res$trait <- gsub("_.*", "", res$file)
-  res$transf <- gsub("_..\\.out1", "", res$file)
+  res$transf <- gsub("_1.*", "", res$file)
   res$transf <- gsub(".*_", "", res$transf)
-  res$mode <- gsub(".*_", "", res$file)
+  res$mode <- gsub(".*_1", "", res$file)
   res$mode <- gsub("\\.out1", "", res$mode)
   return(res)
 }

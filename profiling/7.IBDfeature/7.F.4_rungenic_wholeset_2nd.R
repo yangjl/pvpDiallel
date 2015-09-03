@@ -4,21 +4,26 @@
 
 source("lib/RunWhoeSet_genic.R")
 ####
+source("~/Documents/Github/zmSNPtools/Rcodes/setUpslurm.R")
 
-mysh <- RunWholeSet_genic(inppwd="slurm-scripts/wholeset/")
-setUpslurm(slurmsh="slurm-scripts/wholeset_testrun.sh",
-           codesh=mysh,
-           wd=NULL, jobid="testrun", email=TRUE)
+gs2 <- read.csv("cache/gs_wholeset_h2.csv")
+mysh <- RunWholeSet_genic(inppwd="slurm-scripts/genic_wholeset/", priors=gs2)
+
+for(i in 1:10){
+  setUpslurm(slurmsh= paste0("slurm-scripts/genic_wholeset_run", i, ".sh"),
+             codesh= mysh[(7*(i-1)+1) : (7*i)],
+             wd=NULL, jobid= paste0("genic_run", i), email="yangjl0930@gmail.com")
   
+}
+
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> [ note: --ntasks=INT, number of cup ]
 ###>>> [ note: --mem=16000, 16G memory ]
-###>>> RUN: sbatch -p bigmemh --ntasks 2 slurm-scripts/wholeset_testrun.sh
-
+###>>> RUN: sbatch -p bigmemh --ntasks=1 slurm-scripts/genic_wholeset_run1.sh
 
 
 source("~/Documents/Github/zmSNPtools/Rcodes/collect_gsout.R")
-res <- collect_gsout(dir = "slurm-scripts/genic_wholeset/", fileptn ="out")
+res <- collect_gsout(dir = "slurm-scripts/wholeset", fileptn ="out")
 
 main_res <- function(res = res){
   res$trait <- gsub("_.*", "", res$file)

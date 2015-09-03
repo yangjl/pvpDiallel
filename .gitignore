@@ -1,8 +1,8 @@
 TSW*
 *.DS_Store
 *.aux
+*.out
 *.bbl
-*.bib
 *.blg
 *.synctex.gz
 *.ps
