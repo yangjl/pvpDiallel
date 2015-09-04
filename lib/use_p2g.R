@@ -25,8 +25,6 @@ use_p2g <- function(df){
   
   predict <- df
   out <- p2g(predict, train)
-  res <- merge(train, out, by.x="Marker", by.y="marker")
-  
-  message(sprintf("###>>> p2g testing results: correlation R2 = [ %s ]", cor(res$Genetic, res$genetic)))
+  return(out)
 }
 

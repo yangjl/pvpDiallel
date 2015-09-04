@@ -6,54 +6,35 @@ library("plyr")
 library("data.table", lib="~/bin/Rlib/")
 #load data in the local machine for plotting
 ob <- load("largedata/lcache/snpnzRS.RData")
+#snpnz
 
 ### genotyping information
 snp11m <- fread("largedata/SNP/allsnps_11m.dsf5")
 snp11m <- as.data.table(snp11m)
 
 ##############################################################
+source("lib/use_p2g.R")
+
+get_map <- function(){
+  gerp_b0 <- as.data.frame(subset(snpnz, RS >0)) #506898
+  gerp_b0 <- merge(gerp_b0[, 1:2], snp11m, by="snpid")[, c("snpid", "chr", "pos")]
+  names(gerp_b0)[3] <- "Physical"
+  
+  ####
+  test_p2g(chr=9)
+  map <- use_p2g(df=gerp_b0)
+  message(sprintf("###>>> Got the genetic position [ %s ] SNP using GAM function", nrow(map)))
+  
+  return(map)
+}
+
+map <- get_map()
+
 
 gerp_b0 <- as.data.frame(subset(snpnz, RS >0)) #506898
-gerp_b0 <- merge(gerp_b0[, 1:2], snp11m, by="snpid")[, c("snpid", "chr", "pos")]
-names(gerp_b0)[3] <- "Physical"
-
-####
-test_p2g(chr=9)
-
-
-
-
-
-
 gerpsnp <- merge(gerp_b0[, 1:2], snp11m, by="snpid")
+gerpsnp <- merge(map[, c(1,4)], gerpsnp, by.x="marker", by.y="snpid")
+gerpsnp <- gerpsnp[order(gerpsnp$chr, gerpsnp$pos), ]
 
-gerpsnp <- subset(gerpsnp, B73 != "N")
-
-
-out <- data.frame()
-for(i in 10:ncol(gerpsnp)){
-  tem <- subset(gerpsnp, B73 != gerpsnp[, i] & gerpsnp[, i]!= "N")
-  temout <- data.frame(line=names(gerpsnp)[i], no=nrow(tem), score=mean(tem$RS))
-  out <- rbind(out, temout)
-}
-
-write.table(out, "data/", sep=",", row.names=FALSE, quote=FALSE)
-
-
-message(sprintf("###>>> calculating # of complementation!"))
-SCA <- read.csv("")
-out2 <- subset(SCA, trait=="GY" & P1 != "B73")
-out2$P1 <- as.character(out2$P1)
-out2$P2 <- as.character(out2$P2)
-out2$compno <- 0
-for(i in 1:nrow(out2)){
-  #### non-deleterious of the two parents
-  tem1 <- subset(gerpsnp, B73 == gerpsnp[, out2$P1[i]] )
-  tem2 <- subset(gerpsnp, B73 == gerpsnp[, out2$P2[i]] )
-  
-  out2$compno[i] <- length(unique(c(tem1$snpid, tem2$snpid)))
-}
-
-
-
-sum(gerpsnp$major != gerpsnp$B73)
+write.table(gerpsnp, "largedata/GERPv2/gerpsnp_506898.csv", sep=",", row.names=FALSE, quote=FALSE)
+#note gerpsnp <- subset(gerpsnp, B73 != "N")
