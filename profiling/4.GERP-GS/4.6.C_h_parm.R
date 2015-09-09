@@ -1,0 +1,57 @@
+### Jinliang Yang
+### Sept 4th, 2015
+### get degree of dominance
+
+
+set_gblup <- function(out_pwd, out_gpar="gparameter.dat", out_snpe="output_snpeff_ce.snpe",
+                      geno_path_pattern=c("largedata/SNP/", "genotype_h_chr"),
+                      phenofile, trait_col, mapfile){
+  
+  library("data.table", lib="~/bin/Rlib/")
+  genofiles <- list.files(path=geno_path_pattern[1], pattern=geno_path_pattern[2], full.names=TRUE)
+  pheno <- read.table(phenofile, header=TRUE)
+  
+  out_gpar <- paste0(out_pwd, out_gpar)
+  cat(
+    "1000 #numer of iterations",
+    "1.0 2.0 7.0 #starting values of Va, Vd and Ve",
+    "1.0e-08 #tolerance level",
+    paste(phenofile, "#phenotype file"),
+    paste(trait_col, "#trait position in phenotype file"),
+    "0 #number of fixed factors",
+    "0 #positions of fixed factors in phenotype file",
+    "0 #number of covariables",
+    "0 #positions of covariables in phenotype file",
+    paste(nrow(pheno), "#number of individuals genotyped"),
+    "10 #number of chromosomes",
+    file=out_gpar, append=FALSE, sep="\n")
+  ### 10 chromosome stuff
+  for(i in 1:length(genofiles)){
+    geno <- fread(genofiles[i], header=TRUE)
+    geno <- as.data.frame(geno)
+    cat(paste(ncol(geno)-1, genofiles[i], "#genotype file for each chromosome"),
+        file=out_gpar, append=TRUE, sep="\n"
+    )
+  }
+  
+  cat( 
+    paste0(out_pwd, "output_greml_ce #output file for GREML"),
+    paste0(out_pwd, "output_gblup_ce #output file for GBLUP"),
+    paste("#def_Q", 1),
+    paste("#use_ai_reml", 1),
+    paste("#iter_ai_reml_start", 3),
+    paste("#missing_phen_val", -999),
+    paste("#map_file",  mapfile), #snpid chr position
+    paste0("output_mrk_effect ", out_pwd, out_snpe),
+    file=out_gpar, append=TRUE, sep="\n")
+  message(sprintf("###>>> run this [ greml_ce %s/%s ]", out_pwd, out_gpar))
+}
+
+set_gblup(out_pwd="largedata/snpeff/",
+          out_gpar="gparameter.dat", 
+          out_snpe="output_snpeff_ce.snpe",
+          geno_path_pattern=c("largedata/SNP/", "genotype_h_chr"),
+          phenofile="largedata/pheno/wholeset/trait_mx.dat", trait_col=35, 
+          mapfile="largedata/SNP/genotype_h.map")
+
+#greml_ce 

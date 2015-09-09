@@ -3,13 +3,11 @@
 ### get degree of dominance
 
 
+### get the parental genotype info
 geno <- read.csv("largedata/GERPv2/gerpsnp_506898.csv")
 
-
-
-
+### get the pedigree info
 ped <- read.table("largedata/pheno/wholeset/asi_perse.txt", header=TRUE)
-
 ped$P1 <- gsub("x.*", "", ped$Genotype)
 ped$P2 <- gsub(".*x", "", ped$Genotype)
 
@@ -33,6 +31,7 @@ for(i in 1:nrow(ped)){
   message(sprintf("###>>> impute genotype for [ %sth ] hybrid [ %s ]", i, ped$Genotype[i]))
 }
 
+#### output chr by chr
 for(chri in 1:10){
   chr <- subset(res, chr==chri)
   chrmx <- chr[, -1:-5]
@@ -40,17 +39,10 @@ for(chri in 1:10){
   tchr <- as.data.frame(t(chrmx))
   names(tchr) <- chr$marker
   outchr <- cbind(data.frame(Sample_ID=ped$Genotype), tchr)
-  write.table(outchr, "", sep="\t", row.names=FALSE, quote=FALSE)
+  write.table(outchr, paste0("largedata/SNP/genotype_h_chr", chri, ".txt"), sep="\t", row.names=FALSE, quote=FALSE)
 }
 
-chr <- res
-chrmx <- chr[, -1:-5]
-chrmx[chrmx>3] <- 3
-tchr <- as.data.frame(t(chrmx))
-names(tchr) <- chr$marker
-outchr <- cbind(data.frame(Sample_ID=ped$Genotype), tchr)
-write.table(outchr, "largedata/SNP/genotype_500k_h.txt", sep="\t", row.names=FALSE, quote=FALSE)
-
-
-
-
+### output map file
+map <- geno[, c("marker", "chr", "pos")]
+map <- map[order(map$chr, map$pos), ]
+write.table(map, "largedata/SNP/genotype_h.map", sep="\t", row.names=FALSE, quote=FALSE)
