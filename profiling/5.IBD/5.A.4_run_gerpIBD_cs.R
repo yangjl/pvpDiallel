@@ -5,10 +5,11 @@ source("lib/setUpslurm.R")
 
 ###### random shuffled data 
 for(i in 1:10){
-  input1 <- paste("largedata/SNP/gerp_cs", i, ".sh", sep="")
-  input2 <- paste("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 \\
-                  -g largedata/SNP/allsnps_11m_gerpv2_cs", i, ".csv -o largedata/SNP/gerpIBD_cs", i, sep="")
-  input3 <- paste("gerpibd", i, sep="")
+  input1 <- paste("slurm-scripts/run_gerp_cs", i, ".sh", sep="")
+  input2 <- paste0("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 ",
+                 "-g largedata/SNP/gerpv2_b0_cs", i, ".csv -f largedata/snpeff/gy_h.txt ",
+                 "-o largedata/SNP/gerpIBD_h_cs", i)
+  input3 <- paste("gerp_h_cs", i, sep="")
   
   setUpslurm(slurmsh=input1,
              oneline=TRUE,
