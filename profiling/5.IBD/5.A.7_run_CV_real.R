@@ -14,17 +14,18 @@ Run7Trait <- function(){
   gen <- c(0.18, 5.1, 6.0, 123, 65, 377, 0.82)
   
   
-  for(i in 1:7){
-    for(mode in c("a1", "a2", "d1", "d2")){
+  for(i in 5){
+  #for(i in 1:7){
+    for(mode in c("a2", "d2", "h2")){
       for(cv in 1:5){
         for(sp in 1:10){
           myinp <- paste0("slurm-scripts/", ti[i], "_real_", mode,"_cv",cv, "_sp",sp, ".inp")
           GS_cv_inp(
             inp= myinp, pi=0.999,
-            geno= paste0(wd, "/largedata/SNP/gerpIBD_output_", mode, ".gs.newbin"), 
+            geno= paste0(wd, "/largedata/SNP/gerpIBD_h_", mode, ".gs"), 
             trainpheno= paste0(wd, "/largedata/pheno/CV5fold/", ti[i], "_train", cv, "_sp", sp, ".txt"),
             testpheno= paste0(wd, "/largedata/pheno/CV5fold/", ti[i], "_test", cv, "_sp", sp, ".txt"),
-            chainLength=11000, burnin=1000, varGenotypic=gen[i], varResidual=res[i]
+            chainLength=41000, burnin=1000, varGenotypic=gen[i], varResidual=res[i]
           )
           shcommand <- c(shcommand, paste("GenSel4R", myinp))
         }
