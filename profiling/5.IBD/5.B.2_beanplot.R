@@ -3,7 +3,9 @@
 
 #http://www.jstatsoft.org/v28/c01/paper
 
-res0 <- read.csv("cache/gerpall_perse.csv")
+res0 <- read.csv("cache/gerpall_h_perse_gy.csv")
+
+#res0 <- subset(res1, type == "random" & cv != "cv1")
 
 table(subset(res0, type=="real")$trait)
 table(subset(res0, type=="random")$trait)
@@ -12,15 +14,7 @@ table(subset(res0, type=="random")$trait)
 library("beanplot")
 
 
-res1 <- subset(res0, mode == "a1")
-par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
-res1$type <- factor(res1$type, levels = c("real", "random"))
-res1$trait <- factor(res1$trait, levels = c("tw", "dtp", "dts", "pht", "eht", "asi", "gy"))
-beanplot(R2 ~ type + trait, data = res1, ll = 0.04, cex=1.5,
-        main = "Additive GERP Number", ylab = "cross-validation accuracy", side = "both",
-        border = NA, col = list(c("blue", "red"), c("grey", "black")))
-#legend("bottomleft", fill = c("black", "grey"),
-#       legend = c("Group 2", "Group 1"))
+
 res1 <- subset(res0, mode == "a2")
 par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
 res1$type <- factor(res1$type, levels = c("real", "random"))
@@ -31,15 +25,7 @@ beanplot(R2 ~ type + trait, data = res1, ll = 0.04, cex=1.5,
 #legend("bottomleft", fill = c("black", "grey"),
 #       legend = c("Group 2", "Group 1"))
 
-res1 <- subset(res0, mode == "d1")
-par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
-res1$type <- factor(res1$type, levels = c("real", "random"))
-res1$trait <- factor(res1$trait, levels = c("tw", "dtp", "dts", "pht", "eht", "asi", "gy"))
-beanplot(R2 ~ type + trait, data = res1, ll = 0.04, cex=1.5,
-         main = "Dominant GERP Number", ylab = "cross-validation accuracy", side = "both",
-         border = NA, col = list(c("blue", "red"), c("grey", "black")))
-#legend("bottomleft", fill = c("black", "grey"),
-#       legend = c("Group 2", "Group 1"))
+
 res1 <- subset(res0, mode == "d2")
 par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
 res1$type <- factor(res1$type, levels = c("real", "random"))
@@ -50,7 +36,13 @@ beanplot(R2 ~ type + trait, data = res1, ll = 0.04, cex=1.5,
 #legend("bottomleft", fill = c("black", "grey"),
 #       legend = c("Group 2", "Group 1"))
 
-
+res1 <- subset(res0, mode == "h2")
+par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
+res1$type <- factor(res1$type, levels = c("real", "random"))
+res1$trait <- factor(res1$trait, levels = c("tw", "dtp", "dts", "pht", "eht", "asi", "gy"))
+beanplot(R2 ~ type + trait, data = res1, ll = 0.04, cex=1.5,
+         main = "h GERP Score", ylab = "cross-validation accuracy", side = "both",
+         border = NA, col = list(c("blue", "red"), c("grey", "black")))
 
 
 
@@ -60,12 +52,13 @@ beanplot(R2 ~ type + trait, data = res1, ll = 0.04, cex=1.5,
 
 
 myt <- c("tw", "dtp", "dts", "pht", "eht", "asi", "gy")
+myt <- "gy"
 runttest <- function(mymode="d2", mytrait=myt[1]){
   test <- t.test(subset(res0, type=="real" & trait== mytrait & mode == mymode)$r, 
                  subset(res0, type=="random" & trait == mytrait & mode == mymode)$r, alternative ="greater")
   print(test)
 }
-runttest(mymode="d2", mytrait=myt[7])
+runttest(mymode="h2", mytrait=myt)
 for(i in 1:7){
   runttest(mymode="d1", mytrait=myt[i])
 }

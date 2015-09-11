@@ -16,8 +16,18 @@ library(data.table, lib="~/bin/Rlib/")
 gerp <- fread("largedata/SNP/allsnps_11m_gerpv2_tidy.csv", sep=",")
 gerp <- subset(gerp, RS>0)
 write.table(gerp, "largedata/SNP/gerpv2_b0_real.csv", sep=",", row.names=FALSE, quote=FALSE)
-
 CirShuffling(gerp=gerp, SN=50000, times=10, outfile="largedata/SNP/gerpv2_b0")
+
+gerp1 <- subset(gerp, RS > 1) #167455      5
+write.table(gerp1, "largedata/SNP/gerpv2_b1_real.csv", sep=",", row.names=FALSE, quote=FALSE)
+CirShuffling(gerp=gerp, SN=50000, times=10, outfile="largedata/SNP/gerpv2_b1")
+
+
+gerp2 <- subset(gerp, RS > 2) #28977     5
+write.table(gerp2, "largedata/SNP/gerpv2_b2_real.csv", sep=",", row.names=FALSE, quote=FALSE)
+CirShuffling(gerp=gerp, SN=5000, times=10, outfile="largedata/SNP/gerpv2_b2")
+
+
 
 
 
