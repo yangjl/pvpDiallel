@@ -20,7 +20,7 @@ RunByTrait <- function(i=1, csi){
         myinp <- paste0("slurm-scripts/", ti[i], "_cs", csi, "_", mode,"_cv",cv, "_sp",sp, ".inp")
         GS_cv_inp(
           inp= myinp, pi=0.999,
-          geno= paste0(wd, "/largedata/SNP/gerpIBD_h_cs", csi, "_", mode, ".gs"), 
+          geno= paste0(wd, "/largedata/SNP/gerpIBD_h_b2_cs", csi, "_", mode, ".gs"), 
           trainpheno= paste0(wd, "/largedata/pheno/CV5fold/", ti[i], "_train", cv, "_sp", sp, ".txt"),
           testpheno= paste0(wd, "/largedata/pheno/CV5fold/", ti[i], "_test", cv, "_sp", sp, ".txt"),
           chainLength=11000, burnin=1000, varGenotypic=gen[i], varResidual=res[i]
@@ -41,8 +41,8 @@ for(csi in 1:10){
     sh1 <- RunByTrait(i=myi, csi)
     ### slurm input
     slurm4GenSelCV(
-      shfile= paste0("slurm-scripts/allgerp_perse/runcv_", ti[myi], "_cs", csi, ".sh"), shcommand = sh1,
-      sbathJ= paste0("runcv_", ti[myi], "_cs", csi),  
+      shfile= paste0("slurm-scripts/g2/runcv_", ti[myi], "_cs", csi, ".sh"), shcommand = sh1,
+      sbathJ= paste0("g2_", ti[myi], "_cs", csi),  
       sbatho= paste0(wd, "/slurm-log/testout-%j.txt"),
       sbathe= paste0(wd, "/slurm-log/error-%j.txt")                     
     )
@@ -51,7 +51,7 @@ for(csi in 1:10){
   
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> note --ntask=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p bigmemh slurm-scripts/allgerp_perse/runcv_gy_cs10.sh
+###>>> RUN: sbatch -p bigmemh slurm-scripts/g2/runcv_gy_cs10.sh
 
 
 
