@@ -17,7 +17,7 @@ RunByTrait <- function(i=1, csi){
   for(mode in c("a2", "d2", "h2")){
     for(cv in 1:5){
       for(sp in 1:10){
-        myinp <- paste0("slurm-scripts/", ti[i], "_cs", csi, "_", mode,"_cv",cv, "_sp",sp, ".inp")
+        myinp <- paste0("slurm-scripts/g2/", ti[i], "_cs", csi, "_", mode,"_cv",cv, "_sp",sp, ".inp")
         GS_cv_inp(
           inp= myinp, pi=0.999,
           geno= paste0(wd, "/largedata/SNP/gerpIBD_h_b2_cs", csi, "_", mode, ".gs"), 
