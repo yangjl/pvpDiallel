@@ -5,15 +5,38 @@
 
 source("lib/setUpslurm.R")
 ###### read data
-setUpslurm(slurmsh="largedata/SNP/gerpibd.sh",
+codes <- paste("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5",
+               "-g largedata/SNP/gerpv2_b0_real.csv -f largedata/snpeff/gy_h.txt",
+               "-o largedata/SNP/gerpIBD_h")
+setUpslurm(slurmsh="slurm-scripts/run_gerpibd_h.sh",
            oneline=TRUE,
-           codesh="gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 \\
--g largedata/SNP/allsnps_11m_gerpv2_tidy.csv -o largedata/SNP/gerpIBD_output",
+           codesh=codes,
            wd=NULL,
            sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
            sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
-           sbathJ="gerpibd1")
+           sbathJ="gerp_h")
 
+codes <- paste("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5",
+               "-g largedata/SNP/gerpv2_b1_real.csv -f largedata/snpeff/gy_h.txt",
+               "-o largedata/SNP/gerpIBD_h_g1")
+setUpslurm(slurmsh="slurm-scripts/run_gerpibd_h_g1.sh",
+           oneline=TRUE,
+           codesh=codes,
+           wd=NULL,
+           sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
+           sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
+           sbathJ="g1_h")
+
+codes <- paste("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5",
+               "-g largedata/SNP/gerpv2_b2_real.csv -f largedata/snpeff/gy_h.txt",
+               "-o largedata/SNP/gerpIBD_h_g2")
+setUpslurm(slurmsh="slurm-scripts/run_gerpibd_h_g2.sh",
+           oneline=TRUE,
+           codesh=codes,
+           wd=NULL,
+           sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
+           sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
+           sbathJ="g2_h")
 
 ################### and then generate map ###############################################
 

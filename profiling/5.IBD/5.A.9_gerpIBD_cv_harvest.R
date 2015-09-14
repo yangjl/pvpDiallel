@@ -3,7 +3,7 @@
 # harvest the results of model training with gerp and random SNPs
 
 
-harvestCV <- function(dir="slurm-scripts/", fileptn="\\.ghatREL", remove=FALSE){
+harvestCV <- function(dir="slurm-scripts/", fileptn="\\.ghatREL", remove){
   
   files <- list.files(path = dir, pattern=fileptn)
   ## file line of the shell file:
@@ -64,7 +64,7 @@ main <- function(){
   rand1$type <- "random"
   allfile <- rbind(res1, rand1)
   
-  write.table(allfile, "cache/gerpall_perse.csv", sep=",", row.names=FALSE, quote=FALSE)
+  write.table(allfile, "cache/gerpall_h_perse_gy.csv", sep=",", row.names=FALSE, quote=FALSE)
 }
 
 main()

@@ -3,9 +3,6 @@
 
 #http://www.jstatsoft.org/v28/c01/paper
 
-
-
-
 runttest <- function(resfile="cache/gerpall_perse.csv"){
   resin <- read.csv(resfile)
   print(table(resin$trait))
@@ -31,7 +28,7 @@ runttest <- function(resfile="cache/gerpall_perse.csv"){
 }
 
 #####
-res1 <- runttest(resfile="cache/gerpall_perse.csv")
+res1 <- runttest(resfile="cache/gerpall_h_perse_gy.csv")
 res2 <- runttest(resfile="cache/gerpall_BPHmax.csv")
 res3 <- runttest(resfile="cache/gerpall_pBPHmax.csv")
 res4 <- runttest(resfile="cache/gerpall_BPHmin.csv")

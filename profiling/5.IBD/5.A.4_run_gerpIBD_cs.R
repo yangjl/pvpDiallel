@@ -5,10 +5,11 @@ source("lib/setUpslurm.R")
 
 ###### random shuffled data 
 for(i in 1:10){
-  input1 <- paste("largedata/SNP/gerp_cs", i, ".sh", sep="")
-  input2 <- paste("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 \\
-                  -g largedata/SNP/allsnps_11m_gerpv2_cs", i, ".csv -o largedata/SNP/gerpIBD_cs", i, sep="")
-  input3 <- paste("gerpibd", i, sep="")
+  input1 <- paste("slurm-scripts/run_m2_gerp1_cs", i, ".sh", sep="")
+  input2 <- paste0("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 ",
+                 "-g largedata/SNP/gerpm2v2_b1_cs", i, ".csv -f largedata/snpeff/gy_h.txt -n F ",
+                 "-o largedata/SNP/gerpIBDm2_h_b1_cs", i)
+  input3 <- paste("gerpm2_b1_h_cs", i, sep="")
   
   setUpslurm(slurmsh=input1,
              oneline=TRUE,
@@ -18,7 +19,7 @@ for(i in 1:10){
              sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
              sbathJ=input3) 
 }
-#RUN: sbatch -p serial --mem 16000 largedata/SNP/gerp_cs1.sh
+#RUN:  sbatch -p bigmemh slurm-scripts/run_m2_gerp1_cs10.sh
 
 
 
