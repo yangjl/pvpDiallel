@@ -5,54 +5,9 @@
 gerpsnp <- read.csv("largedata/GERPv2/gerpsnp_506898.csv")
 gerpsnp <- subset(gerpsnp, B73 != "N")
 
-#### compute deleterious snps carried per line
-del_perline <- function(gerpsnp, cutoff=0){
-  
-  gerpsnp <- subset(gerpsnp, RS > cutoff)
-  message(sprintf("###>>> gerp > %s, total [ %s ]", cutoff, nrow(gerpsnp)))
-  out <- data.frame()
-  for(i in 11:ncol(gerpsnp)){
-    tem <- subset(gerpsnp, B73 != gerpsnp[, i] & gerpsnp[, i]!= "N")
-    temout <- data.frame(line=names(gerpsnp)[i], no=nrow(tem), score=mean(tem$RS))
-    out <- rbind(out, temout)
-  }
-  return(out[order(out$no, decreasing=TRUE),])
-}
-
-out <- del_perline(gerpsnp, cutoff=0)
-write.table(out, "data/deleterious_perline.csv", sep=",", row.names=FALSE, quote=FALSE)
-
-out1 <- del_perline(gerpsnp, cutoff=1)
-#write.table(out, "data/deleterious_perline.csv", sep=",", row.names=FALSE, quote=FALSE)
-
-out2 <- del_perline(gerpsnp, cutoff=2)
-#write.table(out, "data/deleterious_perline.csv", sep=",", row.names=FALSE, quote=FALSE)
-
-
-
-
-
-
-#### compute complementary snps of two lines
-message(sprintf("###>>> calculating # of complementation!"))
-SCA <- read.csv("")
-out2 <- subset(SCA, trait=="GY" & P1 != "B73")
-out2$P1 <- as.character(out2$P1)
-out2$P2 <- as.character(out2$P2)
-out2$compno <- 0
-for(i in 1:nrow(out2)){
-  #### non-deleterious of the two parents
-  tem1 <- subset(gerpsnp, B73 == gerpsnp[, out2$P1[i]] )
-  tem2 <- subset(gerpsnp, B73 == gerpsnp[, out2$P2[i]] )
-  
-  out2$compno[i] <- length(unique(c(tem1$snpid, tem2$snpid)))
-}
-
-#### compute R^2 of complementary & SCA 
-sum(gerpsnp$major != gerpsnp$B73)
 
 #### compute variation of GERP per cM
-gerp_var <- function(gerpsnp){
+gerp_var <- function(gerpsnp, binsize=1){
   df <- gerpsnp
   df$B73 <- as.character(df$B73)
   for(i in 11:ncol(df)){
@@ -62,30 +17,83 @@ gerp_var <- function(gerpsnp){
   }
   
   ### compute the sum of GERP in genetic bins
-  df$bin <- paste(df$chr, round(df$genetic, 0), sep="_")
-  library("plyr")
-  
+  df$bin <- paste(df$chr, round(df$genetic/binsize, 0), sep="_")
   mydf <- df[, 11:ncol(df)]
   mydf[, 1:11] <- apply(mydf[, 1:11], 2, as.numeric)
   
-  binsum <- data.frame()
+  binsum1 <- binsum2 <- data.frame()
   for(bini in unique(mydf$bin)){
     tem <- subset(mydf, bin==bini)
-    out <- tem[1, ]
-    out[, -12] <- apply(tem[, -12], 2, sum)
-    binsum <- rbind(binsum, out)
+    out2 <- out1 <- tem[1, ]
+    out1[, -12] <- apply(tem[, -12], 2, sum)
+    out2[, -12] <- apply(tem[, -12], 2, function(x) sum(x != 0))
+    binsum1 <- rbind(binsum1, out1)
+    binsum2 <- rbind(binsum2, out2)
   }
   
-  binsum$var <- apply(as.matrix(binsum[, 1:11]), 1, var)
-  binsum$mean <- apply(as.matrix(binsum[, 1:11]), 1, mean)
-  
-  binsum$chr <- as.numeric(as.character(gsub("_.*", "", binsum$bin)))
-  binsum$pos <- as.numeric(as.character(gsub(".*_", "", binsum$bin)))
-  
-  chr1 <- subset(binsum, chr==10)
-  plot(chr1$pos, chr1$var)
+  #binsum1$var <- apply(as.matrix(binsum[, 1:11]), 1, var)
+  binsum1$mean <- apply(as.matrix(binsum1[, 1:11]), 1, mean)
+  binsum2$mean <- apply(as.matrix(binsum2[, 1:11]), 1, mean)
+  return(list(binsum1, binsum2))
 }
 
+####
+library("plyr", lib="~/bin/Rlib/")
+out <- gerp_var(gerpsnp, binsize=1)
+
+gerpmean <- out[[1]]
+write.table(gerpmean, "data/gerpmean_cm.csv", sep=",", row.names=FALSE, quote=FALSE )
+
+gerpcount <- out[[2]]
+write.table(gerpcount, "data/gerpcount_cm.csv", sep=",", row.names=FALSE, quote=FALSE )
+
+
+###############################################################################################
+
+
+gerp_mc_plot <- function(tab=gerpmean){
+  
+  source("~/Documents/Github/zmSNPtools/Rcodes/rescale.R")
+  
+  tab <- tab[order(tab$chr, tab$pos), ]
+  plot(c(0, max(tab$pos)), c(10,110), type="n", 
+       xlab="Genetic Distance (cM)", ylab="", yaxt="n", bty="n")
+  
+  axis(side=2, tick =FALSE, las=1, at=c(100, 90, 80, 70, 60, 50, 40, 30, 20, 10), 
+       labels=paste("Chr", 1:10, sep=""), line=-1.5)
+  #### chromosome
+  for (i in 1:10){
+    lines(c(0, max(subset(tab, chr==i)$pos)), c(100-10*(i-1), 100-10*(i-1)), lwd=2, col="grey")
+    #lines (c(centromere[i,]$Start,centromere[i,]$End),
+    #       c(105-10*i, 105-10*i),lwd=5, col="tomato") 
+  }
+  ### core plot
+  cols <- rep(c("slateblue", "cyan4"), 5)
+  for (chri in 1:10){
+    mytab <- subset(tab, chr == chri & pos > 0)
+    mytab$mean <- rescale(mytab$mean, c(0, 9))
+    points(mytab$pos, 100 - 10*(chri-1) + mytab$mean, pch=19, cex=0.5, col=cols[chri])
+  } 
+}
+
+#######################
+gerpmean <- read.csv("data/gerpmean_cm.csv")
+gerpmean$chr <- as.numeric(as.character(gsub("_.*", "", gerpmean$bin)))
+gerpmean$pos <- as.numeric(as.character(gsub(".*_", "", gerpmean$bin)))
+
+
+#tab <- rbind(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10)
+pdf("graphs/Figure2_d.pdf", width=10, height=5)
+gerp_mc_plot(tab=gerpmean)
+dev.off()
+
+gerPlot(binsize=100000, tab=tab100k, main="100-kb bin")
+
+pdf("manuscript/SI/Figure_Sn.gerp10k.pdf", width=7, height=7)
+gerPlot(binsize=10000, tab=tab10k, main="10-kb bin")
+dev.off()
+
+gerPlot(binsize=1000, tab=tab1k, main="1-kb bin")
 
 
 

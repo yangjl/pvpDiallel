@@ -90,8 +90,8 @@ for(i in 4:7){
 
 ###############################################################
 
-tmx <- read.csv("data/tmx_comp")
-pdf("graphs/Fig2_complementation.pdf", width=8, height=8)
+tmx <- read.csv("data/tmx_complemenation.csv")
+pdf("graphs/Fig2_complementation.pdf", width=6, height=6)
 ## add extra space to right margin of plot within frame
 par(mar=c(5, 4, 4, 5) + 0.1)
 
@@ -106,11 +106,11 @@ mtext("No. of Complementations",side=2,line=2.5, col="red")
 par(new=TRUE)
 
 ## Plot the second plot and put axis scale on right
-plot(tmx$GY, tmx$delscore, pch=15,  xlab="", ylab="",
+plot(tmx$GY, tmx$delscore, pch=16,  xlab="", ylab="",
      axes=FALSE, type="p", col="blue")
 abline(lm(delscore ~ GY, data=tmx), col="blue", lwd=3)
 ## a little farther out (line=4) to make room for labels
-mtext("Accumulative GERP Scores",col="blue", side=4,line=3) 
+mtext("Accumulative GERP Scores",col="blue", side=4,line=2.5) 
 axis(4, ylim= range(tmx$delscore), col.axis="blue",las=0)
 dev.off()
 

@@ -3,6 +3,7 @@
 ### purpose: find the relationship of RS with SNP frq
 
 library("plyr")
+library("ggplot2", lib="~/bin/Rlib/")
 #load data in the local machine for plotting
 ob <- load("largedata/lcache/snpnzRS.RData")
 snpnz$MAF2 <- as.factor(round(snpnz$MAF, 2))
@@ -11,13 +12,17 @@ snptab <- ddply(snpnz, .(MAF2), summarise,
                 rsmean= mean(RS),
                 rssd = sd(RS))
 
-plot(snptab$MAF2, snptab$rsmean, type="o")
-cor.test(as.numeric(as.character(snptab$MAF2)), snptab$rsmean)
+plotReg <- function(x, y, ...){
+  lm1 <- lm(y~x)
+  p_conf1 <- predict(lm1,interval="confidence")
+  #p_pred1 <- predict(lm1,interval="prediction")
+  plot(x, y, ...)
+  abline(lm1, lwd=2, col="red") ## fit
+  matlines(x,p_conf1[,c("lwr","upr")], col="grey", lty=2, lwd=2, type="b", pch="+")
+}
+
 ##############################################################
-
-plot(snpnz$MAF, snpnz$RS, type="o")
-?ddply()
-
+pdf("graphs/Fig2_ab.pdf", width=10, height=5)
 
 par(mfrow=c(1,2))
 hist(snpnz$RS, breaks=50, main="Distribution of GERP (N=1.2M)", xlab="GERP score", 
@@ -28,17 +33,9 @@ nrow(subset(snpnz, RS<0))
 plotReg(x=as.numeric(as.character(snptab$MAF2)), y=snptab$rsmean,
         pch=16, col="cornflowerblue", xlab="MAF", ylab="Avg. GERP", main="GERP vs. MAF")
 
+dev.off()
 
 
-
-plotReg <- function(x, y, ...){
-  lm1 <- lm(y~x)
-  p_conf1 <- predict(lm1,interval="confidence")
-  #p_pred1 <- predict(lm1,interval="prediction")
-  plot(x, y, ...)
-  abline(lm1, lwd=2, col="red") ## fit
-  matlines(x,p_conf1[,c("lwr","upr")], col="grey", lty=2, lwd=2, type="b", pch="+")
-}
 
 
 #matlines(d$x,p_pred1[,c("lwr","upr")],col=2,lty=2,type="b",pch=1)
