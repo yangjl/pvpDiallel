@@ -5,9 +5,8 @@
 
 set_gblup <- function(out_pwd, out_gpar="gparameter.dat", out_snpe="output_snpeff_ce.snpe",
                       geno_path_pattern=c("largedata/SNP/", "genotype_h_chr"),
-                      phenofile, trait_col, mapfile){
+                      phenofile, trait_col, mapfile){ 
   
-  library("data.table", lib="~/bin/Rlib/")
   genofiles <- list.files(path=geno_path_pattern[1], pattern=geno_path_pattern[2], full.names=TRUE)
   pheno <- read.table(phenofile, header=TRUE)
   
@@ -44,14 +43,40 @@ set_gblup <- function(out_pwd, out_gpar="gparameter.dat", out_snpe="output_snpef
     paste("#map_file",  mapfile), #snpid chr position
     paste0("output_mrk_effect ", out_pwd, out_snpe),
     file=out_gpar, append=TRUE, sep="\n")
-  message(sprintf("###>>> run this [ greml_ce %s/%s ]", out_pwd, out_gpar))
+  message(sprintf("###>>> run this [ greml_ce %s > %s/%s ]", out_gpar, out_pwd, gsub("snpe", "log", out_snpe)))
 }
 
-set_gblup(out_pwd="largedata/snpeff/",
-          out_gpar="gparameter.dat", 
-          out_snpe="output_snpeff_ce.snpe",
-          geno_path_pattern=c("largedata/SNP/", "genotype_h_chr"),
-          phenofile="largedata/pheno/wholeset/trait_mx.dat", trait_col=35, 
-          mapfile="largedata/SNP/genotype_h.map")
+##########
+library("data.table", lib="~/bin/Rlib/")
 
-#greml_ce 
+trait <- read.table("largedata/pheno/wholeset/trait_mx.dat", header=TRUE)
+perse_idx <- grep("perse", names(trait))
+pmph_idx <- grep("pBPHmax", names(trait))
+pmph_idx[1] <- grep("asi_pBPHmin", names(trait))
+names(trait[pmph_idx])
+#[1] "asi_pBPHmin" "dtp_pBPHmax" "dts_pBPHmax" "eht_pBPHmax" "gy_pBPHmax" 
+#[6] "pht_pBPHmax" "tw_pBPHmax" 
+for(i in pmph_idx){
+  set_gblup(out_pwd="largedata/snpeff/",
+            out_gpar= paste0("gp_", names(trait)[i], ".dat"), 
+            out_snpe= paste0(names(trait)[i], "_snpeff_ce.snpe"),
+            geno_path_pattern=c("largedata/SNP/", "genotype_h_chr"),
+            phenofile="largedata/pheno/wholeset/trait_mx.dat", trait_col=35, 
+            mapfile="largedata/SNP/genotype_h.map")
+}
+
+###>>> run this [ greml_ce largedata/snpeff/gp_asi_perse.dat > largedata/snpeff//asi_perse_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_dtp_perse.dat > largedata/snpeff//dtp_perse_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_dts_perse.dat > largedata/snpeff//dts_perse_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_eht_perse.dat > largedata/snpeff//eht_perse_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_gy_perse.dat > largedata/snpeff//gy_perse_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_pht_perse.dat > largedata/snpeff//pht_perse_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_tw_perse.dat > largedata/snpeff//tw_perse_logff_ce.log ]
+
+###>>> run this [ greml_ce largedata/snpeff/gp_asi_pBPHmin.dat > largedata/snpeff//asi_pBPHmin_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_dtp_pBPHmax.dat > largedata/snpeff//dtp_pBPHmax_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_dts_pBPHmax.dat > largedata/snpeff//dts_pBPHmax_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_eht_pBPHmax.dat > largedata/snpeff//eht_pBPHmax_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_gy_pBPHmax.dat > largedata/snpeff//gy_pBPHmax_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_pht_pBPHmax.dat > largedata/snpeff//pht_pBPHmax_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_tw_pBPHmax.dat > largedata/snpeff//tw_pBPHmax_logff_ce.log ]
