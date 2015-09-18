@@ -29,7 +29,7 @@ out2 <- del_perline(gerpsnp, cutoff=2)
 #write.table(out, "data/deleterious_perline.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
-
+line <- read.csv("data/deleterious_perline.csv")
 ###############################################################
 
 cal_complementation <- function(gerpsnp, cutoff=0){

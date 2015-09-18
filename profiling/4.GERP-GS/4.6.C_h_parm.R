@@ -61,7 +61,7 @@ for(i in pmph_idx){
             out_gpar= paste0("gp_", names(trait)[i], ".dat"), 
             out_snpe= paste0(names(trait)[i], "_snpeff_ce.snpe"),
             geno_path_pattern=c("largedata/SNP/", "genotype_h_chr"),
-            phenofile="largedata/pheno/wholeset/trait_mx.dat", trait_col=35, 
+            phenofile="largedata/pheno/wholeset/trait_mx.dat", trait_col=i, 
             mapfile="largedata/SNP/genotype_h.map")
 }
 

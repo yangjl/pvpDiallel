@@ -5,9 +5,9 @@
 
 #######
 plot_loh <- function(trait=trait, ...){
-  trait$pMPH <- abs(trait$pMPH)
-  trait$pBPHmax <- abs(trait$pBPHmax)
-  trait$pBPHmin <- abs(trait$pBPHmin)
+  trait$pMPH <- trait$pMPH
+  trait$pBPHmax <- trait$pBPHmax
+  #trait$pBPHmin <- abs(trait$pBPHmin)
   #par(mfrow=c(1,2))
   #bymed <- with(trait, reorder(trait, pMPH, median))
   #boxplot(BPHmax ~ bymed, data=trait,
@@ -23,7 +23,7 @@ plot_loh <- function(trait=trait, ...){
 ##### note: change to abs value
 trait <- read.csv("data/trait_matrix.csv")
 trait[trait$trait == "ASI", ]$pBPHmax <- trait[trait$trait == "ASI", ]$pBPHmin
-trait[trait$trait == "ASI", ]$BPHmax <- trait[trait$trait == "ASI", ]$BPHmin
+#trait[trait$trait == "ASI", ]$BPHmax <- trait[trait$trait == "ASI", ]$BPHmin
 
 pdf("graphs/Fig1b.pdf", width=5, height=5)
 trait <- plot_loh(trait=trait)
