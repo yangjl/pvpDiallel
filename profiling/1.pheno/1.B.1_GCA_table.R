@@ -43,6 +43,7 @@ get_SCA_matrix <- function(trait=ca, pheno="GY"){
 #######
 GCA <- get_GCA_matrix(trait=ca)
 SCA <- ca[, c("trait", "P1", "P2", "SCA.all")]
+write.table(SCA, "data/SCA_all_traits.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 SCA_mx <- get_SCA_matrix(trait=ca, pheno="GY")
 

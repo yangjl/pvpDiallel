@@ -170,36 +170,50 @@ GCA and SCA varied among traits (Table \ref{table:table_s2}), but B73, PHG47 and
 %\label{fig:pBPH}
 %\end{figure}
 
+
+%%%%%%%%%%%%%%%%%%%%---phenotype------%%%%%%%%%%%%%%%%%%%%%% 
+\begin{figure*}[tbh]   
+  \begin{center}
+   \vspace{-2mm}
+   \includegraphics[width=0.8\linewidth]{Fig2_gerp.pdf}
+   \renewcommand{\baselinestretch}{0.9}
+   \vspace{-3mm}
+   \caption{({\bfseries a-b}) Distribution of GERP scores and relationship between GERP scores and MAFs. \textbf{(A)} Histogram of GERP scores at $\sim$1.3 million SNPs. \textbf{(B)} Plot of average GERP scores in bins (bin size = 0.01) of minor allele frequency (MAF). Red and grey lines define the regression and its 95\% confidence interval.} 
+\vspace{-4mm}
+    \label{fig:gerp}
+  \end{center}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIGURE
+
 \subsection*{Sequence variation and evolutionary constraint}
-%%% SIFT, MAPP and general statistics
-%GERP statistics
 
 All twelve inbreds were sequenced to an average depth of $\sim$10X, resulting in a filtered set of 13.8 million SNPs. 
 We estimated the allelic error rate using three independent data sets: for all individuals using 41,292 overlapping SNPs on the maize SNP50 bead chip \citep{Heerwaarden2012}; for all individuals using 180,313 overlapping SNPs identified through genotyping by sequencing (GBS) \citep{Romay2013}; and for B73 and Mo17 using the 10,426,715 SNP from the HapMap2 project \citep{Chia2012}.  Compared to corresponding SNPs identified by previous studies, a concordance rate of 99.1\% was observed. \jri{Sofiane: can we separate those numbers out by study? or just report for one study and mention that similar rates were seen in other studies? either way it would be nice to know what rate went with what data. also is concordance mean identical genotype? do we have minor allele rate (which is a bit more informative)? if not, skip it.} 
 
-More than 86 million bp of the maize reference genome were annotated as conserved\citep{rodgers2015recombination}, with GERP scores $>0$. Nonetheless, 506,898 (or 0.6\%) of these sites were found to segregate among the 12 inbred parents of our diallel (\textbf{Figure \ref{fig:gerpmaf}A} and \textbf{Supplementary Figure 1}).
-On average, each inbred parent carried 215,809 putative deleterious variants, ranged from 186,708 of PHG35 to 227,681 of LH123HT. Mo17 carried 225,830 putative deleterious variants, ranking as the second most inbred. \yang{deleterious with GCA} \yang{to do: no pairwise complementation} 
-\yang{to do 2:, cm variation} \yang{draft: correlation of the number of deleterious complementation and SCA, MPH and trait per se}
+The minor allele frequency of SNPs at conserved sites was negatively correlated with GERP score (\textbf{Figure \ref{fig:gerp}a}; \emph{P} value $<$ 0.05, \emph{r} = $-0.8$), consistent with the idea that variants at sites with more positive GERP scores are more deleterious and more strongly impacted by purifying selection.
+
+More than 86 million bp of the maize reference genome were annotated as conserved\citep{rodgers2015recombination}, with GERP scores $>0$. Nonetheless, 506,898 (or 0.6\%) of these sites were found to segregate among the 12 inbred parents of our diallel (\textbf{Figure \ref{fig:gerp}A} and \textbf{Supplementary Figure 1}).
+On average, each inbred parent carried 179,144 putative deleterious variants, ranged from 156,386 (PHG35) to 195,959 (PHG84). Mo17 carried 189,241 putative deleterious variants, ranked as the third place. 
+
+We calculated the number of complementation of these putative deleterious variants among F1 hybrids, except ones that have B73 as one of their parents. The best combination (Mo17 and PHG35) complemented each other at 412,042 sites, however, it still carried 94,856 homozygous putative deleterious alleles. The correlation of the complmentation significantly (Pearson correlation test, P-value = 0.02) correlated with the SCA of the GY trait and negative correlated with the cumulative deleterious scores (\textbf{Figure 2a}), which indicate hybrid combining ability might be determined by the complementation of deleterious alleles. \yang{correlation of the number of deleterious complementation and SCA, MPH and trait per se? Or just because of the genetic distance?}    
+
 \yang{mean and variation of the deleterious variants per cM}
-The minor allele frequency of SNPs at conserved sites was negatively correlated with GERP score (\textbf{Figure \ref{fig:gerpmaf}B}; \emph{P} value $<$ 0.05, \emph{r} = $-0.8$), consistent with the idea that variants at sites with more positive GERP scores are more deleterious and more strongly impacted by purifying selection.
+We also calculated mean deleterious variants per cM. As shown in (\textbf{Figure 2d}), large amount of deleterious variants were accumulated around the centromeric regions. 
 
 \jri{this should be mentioned here but also in the results. is there any big variation?  some lines more than others? is mo17 worse than the pvps? given the comment below i added about linkage, can we calculate mean deleterious variants per cM?  that would be sweet to know and to point out that there are tons around the centromere. i think a bit more detail on distribution worthwhile since even Eli's paper is only using GBS. then add here a few sentences comparing to Eli's result and McMullen 2009.}
-%%%%%%%% ------- GERP MAF------ %%%%%%%%%%%
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\linewidth]{Figure_gerpmaf.pdf}
-\caption{Distribution of GERP scores and relationship between GERP scores and MAFs. \textbf{(A)} Histogram of GERP scores at $\sim$1.3 million SNPs. \textbf{(B)} Plot of average GERP scores in bins (bin size = 0.01) of minor allele frequency (MAF). Red and grey lines define the regression and its 95\% confidence interval.}
-\label{fig:gerpmaf}
-\end{figure}
-%%%%%%%% ------------- %%%%%%%%%%%
+
+\subsection*{Partition of the phenotypic variance}
+We used GBLUP (\citex) fit with \X kinship matrix. It enabled us to estimate the additive and dominant effect of each SNPs. We defined the degree of dominance (dd) by using the dominant effect divided by the additive effect.
+
 
 
 \subsection*{Phenotypic prediction}
 
-%where the haplotype was coded with the SNP conservation score as the explainatory variables. 
-%Genomic variants occurred at the evolutionary constraint sites were potentially deleterious. The phenotypic effects of these genetic loads and their contributions to heterosis become an interesting area to explore. However, the population size in this study is relative small and SNPs detected at sites containing high GERP scores are generally in low frequencies. The statistical power to detect the separate effects of these putative deleterious alleles becomes very low. 
+ 
 The small sample size of our diallel and the general low frequency of deleterious SNPs precludes association-based approaches to evaluate the impact of variants on phenotypic variation.
-To alleviate this limitation, we conceived a haplotype-based genomic selection approach in which we use estimates of evolutionary constraint across the genome to sum the individual effects of deleterious alleles within IBD blocks under additive, dominant and incomplete dominant models (see \textbf{Methods and Supplementary Figure 2}). %\ref{fig:gerpibd}). 
+To alleviate this limitation, we conceived a haplotype-based genomic selection approach in which we use estimates of evolutionary constraint across the genome to sum the individual effects of deleterious alleles within IBD blocks.
+
+under additive, dominant and incomplete dominant models (see \textbf{Methods and Supplementary Figure 2}). %\ref{fig:gerpibd}). 
 
 A Bayesian-based statistical method (BayesC) \citep{habier2011extension} using a 5-fold cross-validation approach was was employed for model training. 
 In general, average prediction accuracies were higher using the additive model (mean \emph{r} = 0.81 and 0.49 for traits \emph{per se} and BPH) than the dominant model (mean \emph{r} = 0.70 and 0.42), and accuracies for heterosis traits were lower than for traits \emph{per se} (Table \ref{table:table_s3}).  A student-t test was employed to compare the mean prediction accuracies between data with real GERP information and data with permutated GERP. To account for multiple traits and multiple transformations, the FDR approach was used to correct the obtained P-values. As a result, incorporating evolutionary constraint information improved prediction accuracy for ASI and PHT \emph{per se} under an additive model and for ASI under a dominant model (FDR $<$ 0.05, Figure \ref{fig:gerpall} A and B).
@@ -219,9 +233,6 @@ Though this resulted in fewer SNPs (316, 983), the model prediction accuracies r
 \end{figure}
 %%%%%%%% ------------- %%%%%%%%%%%
 
-\subsection*{Incomplete dominant explained dosage effects for heterosis}
-
-We used GBLUP (\citex) fit with \X kinship matrix. It enabled us to estimate the additive and dominant effect of each SNPs. We defined the degree of dominance (dd) by using the dominant effect divided by the additive effect 
 
 
 \subsection*{Posterior phenotypic variance explained and model comparisons}
@@ -304,6 +315,8 @@ This is not surprising, given the variation in genetic architecture of different
 %limitation of our current models is that we assume phenotypic traits are determined by complete additive or complete dominant effects. 
 %Traits with a mixture of additive and dominant casual loci may thus fail to be predicted. 
 %Another limitation is likely the population size used; we may simply not have enough power to predict traits with low heritability. 
+%where the haplotype was coded with the SNP conservation score as the explainatory variables. 
+%Genomic variants occurred at the evolutionary constraint sites were potentially deleterious. The phenotypic effects of these genetic loads and their contributions to heterosis become an interesting area to explore. However, the population size in this study is relative small and SNPs detected at sites containing high GERP scores are generally in low frequencies. The statistical power to detect the separate effects of these putative deleterious alleles becomes very low.
 
 As genotyping costs continue to decline, genomic prediction models are increasing in popularity \citep{desta2014genomic}. 
 Most previous work on genomic prediction, however, focuses exclusively on statistical properties of the models, ignoring potentially useful biological information (but see \citex for a recent example). 

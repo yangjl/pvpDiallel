@@ -49,7 +49,7 @@ SplitName <- function(infile=rand1){
 
 #### extract with real data
 main <- function(){
-  res1 <- harvestCV(dir="slurm-scripts/", fileptn="*_real_.*\\.ghatREL", remove=FALSE)
+  res1 <- harvestCV(dir="slurm-scripts/g2/", fileptn="*_real_.*\\.ghatREL", remove=FALSE)
   res1 <- SplitName(infile=res1) #885
   print(table(res1$trait))
   
@@ -64,7 +64,7 @@ main <- function(){
   rand1$type <- "random"
   allfile <- rbind(res1, rand1)
   
-  write.table(allfile, "cache/gerpall_h_perse_gy.csv", sep=",", row.names=FALSE, quote=FALSE)
+  write.table(allfile, "cache/gerpall_h_g2_perse_gy.csv", sep=",", row.names=FALSE, quote=FALSE)
 }
 
 main()
