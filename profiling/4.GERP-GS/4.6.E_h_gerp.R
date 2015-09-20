@@ -68,9 +68,7 @@ do_rescale = FALSE
 for(i in 1:length(k)){
   ### remove non-informative sites
   k[[i]] <- subset(k[[i]], Effect_A !=0)
-  if(i >3 & i < 7){
-    k[[i]]$Effect_A <- k[[i]]$Effect_A + 0.02
-  }
+  k[[i]]$Effect_A <- k[[i]]$Effect_A + 0.02
   if(sum(k[[i]]$k > 1) > 0){
     k[[i]][k[[i]]$k > 1, ]$k <- rescale(k[[i]][k[[i]]$k > 1, ]$k, c(1, 2))
   }
@@ -98,48 +96,69 @@ med2 <- data.frame(trait=c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW"),
                    phph=c(-0.24725, -0.08345, -0.10605,  0.29005,  1.24175,  0.25460, -0.00955 ))
 med2 <- med2[order(med2$phph),]
 
-p1 <- ggplot(dat, aes(x=RS, y=Effect_A, fill=factor(trait, levels=med2$trait))) +
-  labs(fill="Traits") +
+cols <- wes_palette(7, name = "Zissou", type = "continuous")
+theme_set(theme_grey(base_size = 18)) 
+
+p1 <- ggplot(dat, aes(x=RS, y=Effect_A, colour=factor(trait, levels=med2$trait))) +
+  labs(colour="Traits") +
+  theme_bw() +
+  xlab("GERP Score") +
+  ylab("Additive Effect") +
   #  (by default includes 95% confidence region)
   #scale_fill_manual(values=c("#008080", "#003366", "#40e0d0", "#ffa500", "#f6546a", "#ff00ff", "#800000")) +
   #http://www.sthda.com/english/wiki/ggplot2-colors-how-to-change-colors-automatically-and-manually
-  scale_fill_manual(values=wes_palette(7, name = "Zissou", type = "continuous")) +
-  geom_smooth(method=lm)   # Add linear regression line 
+  geom_smooth(method=lm, size=1.3) +
+  scale_color_manual(values=cols)
+ 
 
+p2 <- ggplot(dat, aes(x=RS, y=Effect_D, colour=factor(trait, levels=med2$trait))) +
+  labs(colour="Traits") +
+  theme_bw() +
+  xlab("GERP Score") +
+  ylab("Dominant Effect") +
+  scale_colour_manual(values=cols) +
+  geom_smooth(method=lm, size=1.3)   # Add linear regression line 
 
-p2 <- ggplot(dat, aes(x=RS, y=Effect_D, fill=factor(trait, levels=med2$trait))) +
-  labs(fill="Traits") +
-  scale_fill_manual(values=wes_palette(7, name = "Zissou", type = "continuous")) +
-  geom_smooth(method=lm)   # Add linear regression line 
-
-p3 <- ggplot(dat, aes(x=RS, y=k, fill=factor(trait, levels=med2$trait))) +
+p3 <- ggplot(dat, aes(x=RS, y=k, colour=factor(trait, levels=med2$trait))) +
   #geom_point(shape=1) +    # Use hollow circles
-  labs(fill="Traits") +
-  scale_fill_manual(values=wes_palette(7, name = "Zissou", type = "continuous")) +
-  geom_smooth(method=lm)   # Add linear regression line 
+  labs(colour="Traits") +
+  theme_bw() +
+  xlab("GERP Score") +
+  ylab("Degree of Domiance (k)") +
+  scale_colour_manual(values=cols) +
+  geom_smooth(method=lm, size=1.3)   # Add linear regression line 
 
-p4 <- ggplot(dat, aes(x=RS, y=h2_mrk_A, fill=factor(trait, levels=med2$trait))) +
+p4 <- ggplot(dat, aes(x=RS, y=h2_mrk_A, colour=factor(trait, levels=med2$trait))) +
   #geom_point(shape=1) +    # Use hollow circles
-  labs(fill="Traits") +
-  scale_fill_manual(values=wes_palette(7, name = "Zissou", type = "continuous")) +
-  geom_smooth(method=lm) 
+  labs(colour="Traits") +
+  theme_bw() +
+  xlab("GERP Score") +
+  ylab("Additive Variance") +
+  scale_colour_manual(values=cols) +
+  geom_smooth(method=lm, size=1.3) 
 
-p5 <- ggplot(dat, aes(x=RS, y=h2_mrk_D, fill=factor(trait, levels=med2$trait))) +
+p5 <- ggplot(dat, aes(x=RS, y=h2_mrk_D, colour=factor(trait, levels=med2$trait))) +
   #geom_point(shape=1) +    # Use hollow circles
-  labs(fill="Traits") +
-  scale_fill_manual(values=wes_palette(7, name = "Zissou", type = "continuous")) +
-  geom_smooth(method=lm) 
-p6 <- ggplot(dat, aes(x=RS, y=H2_mrk, fill=factor(trait, levels=med2$trait))) +
+  labs(colour="Traits") +
+  theme_bw() +
+  xlab("GERP Score") +
+  ylab("Dominant Variance") +
+  scale_colour_manual(values=cols) +
+  geom_smooth(method=lm, size=1.3) 
+p6 <- ggplot(dat, aes(x=RS, y=H2_mrk, colour=factor(trait, levels=med2$trait))) +
   #geom_point(shape=1) +    # Use hollow circles
-  labs(fill="Traits") +
-  scale_fill_manual(values=wes_palette(7, name = "Zissou", type = "continuous")) +
-  geom_smooth(method=lm) 
+  labs(colour="Traits") +
+  theme_bw() +
+  xlab("GERP Score") +
+  ylab("Total Variance") +
+  scale_colour_manual(values=cols) +
+  geom_smooth(method=lm, size=1.3) 
 
 multiplot(p1, p4, p2, p5, p3, p6, cols=3)
 
 
 
-pdf("graphs/Fig4_k_others.pdf", width=17, height=10)
+pdf("graphs/Fig4_k_others.pdf", width=17, height=8)
 multiplot(p1, p4, p2, p5, p3, p6, cols=3)
 dev.off()
 

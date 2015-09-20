@@ -209,7 +209,7 @@ We also calculated mean deleterious variants per cM. As shown in (\textbf{Figure
    \includegraphics[width=0.8\linewidth]{Fig3_eff_var.pdf}
    \renewcommand{\baselinestretch}{0.9}
    \vspace{-3mm}
-   \caption{({\bfseries a-b}) Distribution of GERP scores and relationship between GERP scores and MAFs. } 
+   \caption{({\bfseries a-b}) Modes of inheritance of GERP SNPs and genetic variance partitioned into additive and dominant variance. } 
 \vspace{-4mm}
     \label{fig:effvar}
   \end{center}
@@ -222,9 +222,22 @@ A mixed linear model approach that partitions genetic values into additive (or a
 
 Note the reasons that a large number of recessive loci were detected at GERP sites were: 1) the GERP may no the causal SNPs, the effects they accounted for might be the variants in LD with them; and 2) we did not apply any cutoff on effect detection, by chance a small negative dominant effects will be assigned;     
 
+SNPs with high GERP scores tend to have larger additive effects, especially for traits showing high levels of heterosis (Figure 4a, supplementary Table \X). While, dominant effects stay constant across the range of GERP score (Figure 4b). The average dominant effects are larger than for traits (GY, EHT, PHT) showing high level of heterosis, but the average dominant effects are almost =0 for traits showing mediate or no heterosis (ASI, DTS, DTP, TW).  The degree of dominance significantly (P value < 0.01) increased as the GERP score increase (Figure 4c). 
 
 
-
+%%%%%%%%%%%%%%%%%%%%---phenotype------%%%%%%%%%%%%%%%%%%%%%% 
+\begin{figure*}[tbh]   
+  \begin{center}
+   \vspace{-2mm}
+   \includegraphics[width=0.8\linewidth]{Fig4_k_others.pdf}
+   \renewcommand{\baselinestretch}{0.9}
+   \vspace{-3mm}
+   \caption{({\bfseries a-f}) Relationship of GERP score with different modes of inheritance and variance. GERP score of the putative deleterious SNPs were fitted using a linear model with their additive effects (a), dominant effects (b), degree of dominace (c), additive variance (d), dominant variance (e) and total variance (f) for seven phenotypic traits, respectively. Grey color indicates the 95\% confidence interval. } 
+\vspace{-4mm}
+    \label{fig:effk}
+  \end{center}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIGURE
 
 \subsection*{Phenotypic prediction}
 

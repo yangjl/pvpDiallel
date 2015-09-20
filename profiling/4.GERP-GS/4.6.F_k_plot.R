@@ -35,7 +35,7 @@ library("plyr")
 
 
 ########
-theme_set(theme_grey(base_size = 18)) 
+theme_set(theme_grey(base_size = 18), theme_bw()) 
 p1 <- ggplot(out, aes(x=factor(file, levels=unique(toupper(med2[order(med2$phph),]$trait))), y=num, 
                       fill=factor(k, labels=c("k > 1","0 < k <= 1", "-1 <= k <= 0", "k <- 1")) )) + 
   geom_bar(position=position_dodge(), stat="identity") +
