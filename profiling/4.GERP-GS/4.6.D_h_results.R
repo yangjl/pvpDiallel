@@ -1,9 +1,6 @@
 ### Jinliang Yang
 ### 09/08/2015
 
-
-
-
 num_eff <- function(files){
   
   output <- data.frame()
@@ -25,16 +22,10 @@ num_eff <- function(files){
                       h2_D=sum(h1$h2_mrk_D))
     
     output <- rbind(output, out)
+    
     message(sprintf("###>>> processing file: [ %s ]", files[i]))
   }
   return(output)
 }
-
-####
-files <- list.files(path="largedata/snpeff", pattern="snpe$", full.names=TRUE)
-k <- num_eff(files)
-
-write.table(k, "data/num_effect.csv", sep=",", row.names=FALSE, quote=FALSE)
-
 
 
