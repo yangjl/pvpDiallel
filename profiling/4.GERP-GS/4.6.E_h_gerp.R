@@ -91,6 +91,15 @@ for(i in 1:length(k)){
 dat$trait <- toupper(dat$trait)
 
 
+
+
+
+
+
+
+
+
+##############################################
 library(wesanderson)
 med2 <- data.frame(trait=c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW"), 
                    phph=c(-0.24725, -0.08345, -0.10605,  0.29005,  1.24175,  0.25460, -0.00955 ))
