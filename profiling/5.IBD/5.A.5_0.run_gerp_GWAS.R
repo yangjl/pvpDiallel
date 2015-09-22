@@ -43,14 +43,16 @@ Run7Trait <- function(inppwd="slurm-scripts/gwas_b2/", genobase="largedata/SNP/g
 
 cmd <- Run7Trait(inppwd="slurm-scripts/gwas_b2/", genobase="largedata/SNP/gerpIBD_k_b2_", mypi=0.995)
 
+cmd <- Run7Trait(inppwd="slurm-scripts/gwas_b1/", genobase="largedata/SNP/gerpIBD_k_b1_", mypi=0.995)
 
+cmd <- Run7Trait(inppwd="slurm-scripts/gwas_b0/", genobase="largedata/SNP/gerpIBD_k_", mypi=0.995)
 
 ####
 source("~/Documents/Github/zmSNPtools/Rcodes/setUpslurm.R")
 
 setUpslurm(
-  slurmsh="slurm-scripts/gwas_b2/gwas_b2.sh",
+  slurmsh="slurm-scripts/gwas_b0/gwas_b0.sh",
   codesh=cmd,
-  wd=NULL, jobid="gwas-b2", 
+  wd=NULL, jobid="gwas-b0", 
   email="yangjl0930@gmail.com"
 )
