@@ -2,41 +2,54 @@
 ### 1.5.2014
 ### purpose: run the gerpIBD program
 
-
 source("lib/setUpslurm.R")
-###### read data
-codes <- paste("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5",
-               "-g largedata/SNP/gerpv2_b0_real.csv -f largedata/snpeff/gy_h.txt",
-               "-o largedata/SNP/gerpIBD_h")
-setUpslurm(slurmsh="slurm-scripts/run_gerpibd_h.sh",
-           oneline=TRUE,
-           codesh=codes,
-           wd=NULL,
-           sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
-           sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
-           sbathJ="gerp_h")
 
-codes <- paste("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5",
-               "-g largedata/SNP/gerpv2_b1_real.csv -f largedata/snpeff/gy_h.txt",
-               "-o largedata/SNP/gerpIBD_h_g1")
-setUpslurm(slurmsh="slurm-scripts/run_gerpibd_h_g1.sh",
-           oneline=TRUE,
-           codesh=codes,
-           wd=NULL,
-           sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
-           sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
-           sbathJ="g1_h")
+traits <- c("asi", "dtp", "dts", "eht", "gy", "pht", "tw")
 
-codes <- paste("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5",
-               "-g largedata/SNP/gerpv2_b2_real.csv -f largedata/snpeff/gy_h.txt",
-               "-o largedata/SNP/gerpIBD_h_g2")
-setUpslurm(slurmsh="slurm-scripts/run_gerpibd_h_g2.sh",
-           oneline=TRUE,
-           codesh=codes,
-           wd=NULL,
-           sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
-           sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
-           sbathJ="g2_h")
+###### read data, GERP>0, seven traits
+for(i in 1:length(traits)){
+  codes <- paste0("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 ",
+                 "-g largedata/SNP/gerpv2_b0_real.csv -f largedata/snpeff/", traits[i], "_k.txt ",
+                 "-o largedata/SNP/gerpIBD_k_", traits[i])
+  setUpslurm(slurmsh=paste0("slurm-scripts/run_k_", traits[i], ".sh"),
+             oneline=TRUE,
+             codesh=codes,
+             wd=NULL,
+             sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
+             sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
+             sbathJ=traits[i],
+             mtype=c("short", "sbatch -p bigmemh"))
+}
+
+###### read data, GERP>1, seven traits
+for(i in 1:length(traits)){
+  codes <- paste0("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 ",
+                  "-g largedata/SNP/gerpv2_b1_real.csv -f largedata/snpeff/", traits[i], "_k.txt ",
+                  "-o largedata/SNP/gerpIBD_k_b1_", traits[i])
+  setUpslurm(slurmsh=paste0("slurm-scripts/run_k_b1_", traits[i], ".sh"),
+             oneline=TRUE,
+             codesh=codes,
+             wd=NULL,
+             sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
+             sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
+             sbathJ= paste0("b1_", traits[i]),
+             mtype=c("short", "sbatch -p bigmemh"))
+}
+
+###### read data, GERP>2, seven traits
+for(i in 1:length(traits)){
+  codes <- paste0("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 ",
+                  "-g largedata/SNP/gerpv2_b2_real.csv -f largedata/snpeff/", traits[i], "_k.txt ",
+                  "-o largedata/SNP/gerpIBD_k_b2_", traits[i])
+  setUpslurm(slurmsh=paste0("slurm-scripts/run_k_b2_", traits[i], ".sh"),
+             oneline=TRUE,
+             codesh=codes,
+             wd=NULL,
+             sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
+             sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
+             sbathJ= paste0("b2_", traits[i]),
+             mtype=c("short", "sbatch -p bigmemh"))
+}
 
 ################### and then generate map ###############################################
 

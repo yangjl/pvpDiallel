@@ -202,10 +202,42 @@ We also calculated mean deleterious variants per cM. As shown in (\textbf{Figure
 
 \jri{this should be mentioned here but also in the results. is there any big variation?  some lines more than others? is mo17 worse than the pvps? given the comment below i added about linkage, can we calculate mean deleterious variants per cM?  that would be sweet to know and to point out that there are tons around the centromere. i think a bit more detail on distribution worthwhile since even Eli's paper is only using GBS. then add here a few sentences comparing to Eli's result and McMullen 2009.}
 
+%%%%%%%%%%%%%%%%%%%%---phenotype------%%%%%%%%%%%%%%%%%%%%%% 
+\begin{figure*}[tbh]   
+  \begin{center}
+   \vspace{-2mm}
+   \includegraphics[width=0.8\linewidth]{Fig3_eff_var.pdf}
+   \renewcommand{\baselinestretch}{0.9}
+   \vspace{-3mm}
+   \caption{({\bfseries a-b}) Modes of inheritance of GERP SNPs and genetic variance partitioned into additive and dominant variance. } 
+\vspace{-4mm}
+    \label{fig:effvar}
+  \end{center}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIGURE
+
 \subsection*{Partition of the phenotypic variance}
-We used GBLUP (\citex) fit with \X kinship matrix. It enabled us to estimate the additive and dominant effect of each SNPs. We defined the degree of dominance (dd) by using the dominant effect divided by the additive effect.
+
+A mixed linear model approach that partitions genetic values into additive (or allele subsitition effects) and dominant deviations were employed (\X Guo Hu et al.) to estimate the effects of GERP SNPs. According to Linch (\X), a degree of dominance (k) was defined as estimated dominant effect divided by estimated additive effect for a given GERP SNP. The value of $k > 1$ indicates the GERP SNP shows an overdominant effect; $0 < k < 1$ indicates a partial dominant effect; $-1 < k < 0$ indicates a partial recessive effect; and $k < -1$ indicates a underdominant effect. Note reference alleles at GERP sites were considered as beneficial alleles and the alternative alleles were deemed as deleterious alleles. Importantly, phenotypic traits with high level of heterosis have an excess of alleles showing dominant and overdominant effects. A correlation test showed that the number of constrast between dominance and overdominance loci and recessive and underdominance loci were singificated correlated with their levels of heterosis (\emph{P} value $<$ 0.01, \textbf{Figure 3a} ). Consistent with this, the accumulative variance explained by dominant effects were positively correlated with the levels of heterosis (\texttt{P} value $<$ 0.01,  \textbf{Figure 3b} )
+
+Note the reasons that a large number of recessive loci were detected at GERP sites were: 1) the GERP may no the causal SNPs, the effects they accounted for might be the variants in LD with them; and 2) we did not apply any cutoff on effect detection, by chance a small negative dominant effects will be assigned;     
+
+SNPs with high GERP scores tend to have larger additive effects, especially for traits showing high levels of heterosis (Figure 4a, supplementary Table \X). While, dominant effects stay constant across the range of GERP score (Figure 4b). The average dominant effects are larger than for traits (GY, EHT, PHT) showing high level of heterosis, but the average dominant effects are almost =0 for traits showing mediate or no heterosis (ASI, DTS, DTP, TW).  The degree of dominance significantly (P value < 0.01) increased as the GERP score increase (Figure 4c). 
 
 
+%%%%%%%%%%%%%%%%%%%%---phenotype------%%%%%%%%%%%%%%%%%%%%%% 
+\begin{figure*}[tbh]   
+  \begin{center}
+   \vspace{-2mm}
+   \includegraphics[width=0.8\linewidth]{Fig4_k_others.pdf}
+   \renewcommand{\baselinestretch}{0.9}
+   \vspace{-3mm}
+   \caption{({\bfseries a-f}) Relationship of GERP score with different modes of inheritance and variance. GERP score of the putative deleterious SNPs were fitted using a linear model with their additive effects (a), dominant effects (b), degree of dominace (c), additive variance (d), dominant variance (e) and total variance (f) for seven phenotypic traits, respectively. Grey color indicates the 95\% confidence interval. } 
+\vspace{-4mm}
+    \label{fig:effk}
+  \end{center}
+\end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIGURE
 
 \subsection*{Phenotypic prediction}
 

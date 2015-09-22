@@ -7,7 +7,8 @@ setUpslurm <- function(slurmsh="largedata/GenSel/CL_test.sh",
                        wd=NULL,
                        sbatho="/home/jolyang/Documents/pvpDiallel/slurm-log/testout-%j.txt",
                        sbathe="/home/jolyang/Documents/pvpDiallel/slurm-log/error-%j.txt",
-                       sbathJ="jobid"){
+                       sbathJ="jobid",
+                       mtype=c("long", "sbatch")){
     
     
     ##### setup working directory
@@ -43,10 +44,15 @@ setUpslurm <- function(slurmsh="largedata/GenSel/CL_test.sh",
         paste("python /home/jolyang/bin/send_email.py -s", slurmsh),
         file=slurmsh, sep="\n", append=TRUE);
     
-    message(paste("###>>> In this path: cd ", wd, sep=""), "\n",
-            paste("###>>> note --ntask=x, 8GB of memory per CPU"),"\n",
-            paste("###>>> RUN: sbatch -p bigmemh --mem 24000", slurmsh),
-            "")
+    if(mtype[1] == "long"){
+      message(paste("###>>> In this path: cd ", wd, sep=""), "\n",
+              paste("###>>> note --ntask=x, 8GB of memory per CPU"),"\n",
+              paste("###>>> RUN: sbatch -p bigmemh --mem 24000", slurmsh),
+              "")
+    }
+    if(mtype[1] == "short"){
+      message(paste(mtype[2], slurmsh))
+    }
     
 }
 

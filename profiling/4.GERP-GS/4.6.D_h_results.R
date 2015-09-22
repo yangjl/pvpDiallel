@@ -1,9 +1,6 @@
 ### Jinliang Yang
 ### 09/08/2015
 
-
-
-
 num_eff <- function(files){
   
   output <- data.frame()
@@ -25,16 +22,41 @@ num_eff <- function(files){
                       h2_D=sum(h1$h2_mrk_D))
     
     output <- rbind(output, out)
+    
     message(sprintf("###>>> processing file: [ %s ]", files[i]))
   }
   return(output)
 }
 
-####
+
 files <- list.files(path="largedata/snpeff", pattern="snpe$", full.names=TRUE)
-k <- num_eff(files)
+num_eff(files)
 
-write.table(k, "data/num_effect.csv", sep=",", row.names=FALSE, quote=FALSE)
-
-
+##########################################
+getk <- function(files, outpwd="largedata/snpeff"){
+  output <- data.frame()
+  for(i in 1:length(files)){
+    h1 <- read.table(files[i], header=TRUE)
+    names(h1) <- c("snpid","chr","pos","Effect_A","Effect_D","Effect_A2","Effect_D2","h2_mrk_A", 
+                   "h2_mrk_D","H2_mrk","h2_mrk_A_p","h2_mrk_D_p","H2_mrk_p","log10_h2_mrk_A","log10_h2_mrk_D","log10_H2_mrk")
+    h1 <- subset(h1, Effect_A !=0)
+    trait <- gsub(".*/|_.*", "", files[i])
+    h1$k <- h1$Effect_D/h1$Effect_A
+    
+    out <- h1[, c("snpid", "k")]
+    if(sum(out$k > 1) > 0){
+      out[out$k > 1, ]$k <- rescale(out[out$k > 1, ]$k, c(1, 2))
+    }
+    if(sum(out$k < -1) > 0){
+      out[out$k < -1, ]$k <- rescale(out[out$k < -1, ]$k, c(-2, -1))
+    }
+    names(out)[2] <- "h"
+    message(sprintf("###>>> trait [ %s ], snp # [ %s ], k ranged [ %s - %s ]", trait, nrow(out), max(out$h), min(out$h)))
+    write.table(out, paste0(outpwd, "/", trait, "_k.txt"), sep="\t", row.names=FALSE, quote=FALSE)
+  }
+}
+##############
+source("~/Documents/Github/zmSNPtools/Rcodes/rescale.R")
+files <- list.files(path="largedata/snpeff", pattern="snpe$", full.names=TRUE)
+getk(files, outpwd="largedata/snpeff")
 
