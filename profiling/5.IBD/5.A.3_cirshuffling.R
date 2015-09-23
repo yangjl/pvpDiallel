@@ -20,12 +20,12 @@ CirShuffling(gerp=gerp, SN=30000, times=100, outfile="largedata/SNP/geno_b0_cs/g
 
 gerp1 <- subset(gerp, RS > 1) #167455      5
 write.table(gerp1, "largedata/SNP/gerpv2_b1_real.csv", sep=",", row.names=FALSE, quote=FALSE)
-CirShuffling(gerp=gerp1, SN=50000, times=100, outfile="largedata/SNP/gerpv2_b1")
+CirShuffling(gerp=gerp1, SN=30000, times=100, outfile="largedata/SNP/geno_b1_cs/gerpv2_b1")
 
 
 gerp2 <- subset(gerp, RS > 2) #28977     5
 write.table(gerp2, "largedata/SNP/gerpv2_b2_real.csv", sep=",", row.names=FALSE, quote=FALSE)
-CirShuffling(gerp=gerp2, SN=5000, times=100, outfile="largedata/SNP/gerpv2_b2")
+CirShuffling(gerp=gerp2, SN=3000, times=100, outfile="largedata/SNP/geno_b2_cs/gerpv2_b2")
 
 #################### circular shuffling
 CirShuffling_method2 <- function(allgerp, mygerp, SN=1000000, times=10, outfile="allsnps_11m_gerpv2"){

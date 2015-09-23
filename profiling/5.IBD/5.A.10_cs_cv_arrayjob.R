@@ -4,7 +4,7 @@
 source("~/Documents/Github/zmSNPtools/Rcodes/set_arrayjob.R")
 source("lib/slurm4gerpIBDCV.R")
 
-
+############
 cv150_mode_cv_sp <- function(inp_path="slurm-scripts/g2", genobase, myti, csi){
   ## myi: i of the trait
   
@@ -50,7 +50,8 @@ cv150_mode_cv_sp <- function(inp_path="slurm-scripts/g2", genobase, myti, csi){
   return(shcommand)
 }
 
-cv_array <- function(outdir="slurm-scripts/cv_b0/", jobbase="run_cv_job", totcs=100){
+cv_array <- function(outdir="slurm-scripts/cv_b0/", jobbase="run_cv_job",
+                     genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs", totcs=100){
   jobs <- 0
   traits <- tolower(c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW"))
   dir.create(outdir, showWarnings = FALSE)
@@ -62,30 +63,33 @@ cv_array <- function(outdir="slurm-scripts/cv_b0/", jobbase="run_cv_job", totcs=
       shid <- paste0(outdir, "/", jobbase, jobs, ".sh")
       ### gerpIBD command goes into the sh
       sh1 <- paste0("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 ",
-                    "-g largedata/SNP/geno_b0_cs/gerpv2_b0_cs", i, ".csv -f largedata/snpeff/", traits[j], "_k.txt ",
-                    "-o largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", i, "_", traits[j],
+                    "-g ", genobase, i, ".csv -f largedata/snpeff/", traits[j], "_k.txt ",
+                    "-o ", genobase, i, "_", traits[j],
                     " -t k")
       #rm2 <- c("rm largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", i, "_*b*")
       ### farm job id
-      sh2 <- cv150_mode_cv_sp(inp_path=outdir, genobase="largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", myti=j, csi=i)
+      sh2 <- cv150_mode_cv_sp(inp_path=outdir, genobase=genobase, myti=j, csi=i)
       #message(sprintf("###>>> "))
-      sh3 <- c(paste0("#rm largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", i, "_", traits[j],"*gs"),
-               paste0("#rm largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", i, "_", traits[j],"*gs.newbin"))
+      sh3 <- c(paste0("rm ", genobase, i, "_", traits[j], "*gs"),
+               paste0("#rm ", genobase, i, "_", traits[j], "*gs.newbin"))
       
       sh4 <- c(paste0("rm ", outdir, "/", traits[j], "_cs", i, "*.mcmcSamples*"),
                paste0("rm ", outdir, "/", traits[j], "_cs", i, "*.mrkRes*"))
       
       cat(c(sh1, sh2[1], sh3[1], sh2), file=shid, sep="\n", append=FALSE)
     }
+    message(sprintf("###>>> trait [ %s ]; total jobs [ %s ]; total inp [ %s ]", traits[j], jobs, jobs*150))
   }
   message("###>>> codes preparation done! Need to setup slurm arrayjob using [set_arryjob.R]")
 }
 
 ### setup codes
-cv_array(outdir="slurm-scripts/cv_b0/", jobbase="run_cv_job", totcs=2)
+cv_array(outdir="slurm-scripts/cv_b2/", jobbase="run_cv_job", 
+         genobase="largedata/SNP/geno_b2_cs/gerpv2_b2_cs", totcs=100)
+
 ###submit an array job
-set_arrayjob(shid="slurm-scripts/cv_b0/run_arrayjob_test.sh",
-             shcode="sh slurm-scripts/cv_b0/run_cv_job$SLURM_ARRAY_TASK_ID.sh",
-             arrayjobs="1-2",
-             wd=NULL, jobid="test", email=NULL)
+set_arrayjob(shid="slurm-scripts/cv_b2/run_arrayjob_test.sh",
+             shcode="sh slurm-scripts/cv_b2/run_cv_job$SLURM_ARRAY_TASK_ID.sh",
+             arrayjobs="1-700",
+             wd=NULL, jobid="cvb2", email="yangjl0930@gmail.com")
 
