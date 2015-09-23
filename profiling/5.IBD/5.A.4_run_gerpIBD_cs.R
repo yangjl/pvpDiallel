@@ -4,22 +4,60 @@
 source("lib/setUpslurm.R")
 
 ###### random shuffled data 
-for(i in 1:10){
-  input1 <- paste("slurm-scripts/run_m2_gerp1_cs", i, ".sh", sep="")
-  input2 <- paste0("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 ",
-                 "-g largedata/SNP/gerpm2v2_b1_cs", i, ".csv -f largedata/snpeff/gy_h.txt -n F ",
-                 "-o largedata/SNP/gerpIBDm2_h_b1_cs", i)
-  input3 <- paste("gerpm2_b1_h_cs", i, sep="")
-  
-  setUpslurm(slurmsh=input1,
+traits <- c("asi", "dtp", "dts", "eht", "gy", "pht", "tw")
+for(j in 1:7){
+  ### the number of cs
+  for(i in 1:10){
+    ### sh file let farm to run
+    input1 <- paste("slurm-scripts/gerpibd_b0/run_cs", i, "_", traits[j], ".sh", sep="")
+    ### gerpIBD command goes into the sh
+    input2 <- paste0("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 ",
+                     "-g largedata/SNP/geno_b0_cs/gerpv2_b0_cs", i, ".csv -f largedata/snpeff/", traits[j], "_k.txt ",
+                     "-o largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", i, "_", traits[j])
+    #rm2 <- c("rm largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", i, "_*b*")
+    ### farm job id
+    input3 <- paste("gerpm2_b1_h_cs", i, sep="")
+    
+    setUpslurm(slurmsh=paste0("slurm-scripts/run_k_", traits[j], ".sh"),
+               oneline=TRUE,
+               codesh=codes,
+               wd=NULL,
+               sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
+               sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
+               sbathJ= traits[j],
+               mtype=c("short", "sbatch -p serail"))
+  }
+}
+
+#RUN:  sbatch -p bigmemh slurm-scripts/run_m2_gerp1_cs10.sh
+
+# loop over all FASTA files in the directory, print the filename
+# (so we have some visual progress indicator), then submit the
+# gzip jobs to SLURM
+#
+for FILE in *.fasta; do
+echo ${FILE}
+sbatch -p serial_requeue -t 10 --mem=200 --wrap="gzip ${FILE}"
+sleep 1 # pause to be kind to the scheduler
+done
+source("lib/setUpslurm.R")
+
+
+
+###### read data, GERP>0, seven traits
+for(i in 1:length(traits)){
+  codes <- paste0("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 ",
+                  "-g largedata/SNP/gerpv2_b0_real.csv -f largedata/snpeff/", traits[i], "_k.txt ",
+                  "-o largedata/SNP/gerpIBD_k_", traits[i])
+  setUpslurm(slurmsh=paste0("slurm-scripts/run_k_", traits[i], ".sh"),
              oneline=TRUE,
-             codesh=input2,
+             codesh=codes,
              wd=NULL,
              sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
              sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
-             sbathJ=input3) 
+             sbathJ=traits[i],
+             mtype=c("short", "sbatch -p bigmemh"))
 }
-#RUN:  sbatch -p bigmemh slurm-scripts/run_m2_gerp1_cs10.sh
 
 
 

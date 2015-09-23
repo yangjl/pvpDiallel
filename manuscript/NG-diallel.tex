@@ -261,6 +261,16 @@ GERP scores also improved prediction accuracies of heterosis (BPH) for GY under 
 To rule out the possible confounding of high GERP scores and genic annotations, we re-permuted the data using only deleterious (GERP $> 0$) genic SNPs.  
 Though this resulted in fewer SNPs (316, 983), the model prediction accuracies remained significantly improved for GY \emph{per se} under the additive model and for BPH of GY and PHT under the additive model (Figure \iffalse\ref{fig:genicsnp}\fi and \emph{Supplementary Table}). %\ref{table:table_s4}).   
 
+%%%%%%%% ----- BEAN PLOT using all GERP SNPs-------- %%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{Fig5_triploid.pdf}
+\caption{Beanplots of cross-validation accuracies using SNPs with positive GERP scores. Cross-validation experiments were conducted using selected SNPs and permuted data for traits \emph{per se} (\textbf{A, B}) and BPH (\textbf{C, D}) under additive (\textbf{A and C}) and dominant (\textbf{B and D}) models. Accuraries from the real data were plotted on the left (blue) and permutation results on the right (grey). Horizotal bars indicate mean accuracies for each trait and the grey dashed lines indicate the overall mean accuracy. Stars indicate significantly (FDR < 0.05) higher cross-validation accuracies.  \jri{need to explain red and black points}}
+\label{fig:gerpall}
+\end{figure}
+%%%%%%%% ------------- %%%%%%%%%%%
+
+
 %It was argued that SNPs in genic regions might have higher GERP scores than those in non-genic regions. The circular shuffling permutations may shift the high GERP scores to non-genic regions. If that is the case, the approach tended to weigh more on genic SNPs. To rule out this possibility, we elected SNPs with GERP scores >0 in genic regions only and did the circular shuffling to assign GERP scores to the same set of the selected SNPs. By doing this, the method will not take advantage of genomic positional information any more. Noted that in this study less number of SNPs was selected (N = 316, 983). Nevertheless, model prediction accuracies were significantly improved for traits \emph{per se} of GY under the additive model. For heterosis transformations, prediction accuracies were significantly improved for BPH of GY and PHT under the additive model and the prediction accuracy was significantly improved for pBPH of GY (Figure \ref{fig:genicsnp} and Table S4).   
 
 
