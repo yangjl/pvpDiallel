@@ -50,50 +50,55 @@ cv150_mode_cv_sp <- function(inp_path="slurm-scripts/g2", genobase, myti, csi){
   return(shcommand)
 }
 
-cv_array <- function(outdir="slurm-scripts/cv_b0/", jobbase="run_cv_job",
-                     genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs", totcs=100){
+real_array <- function(outdir="slurm-scripts/cv_b0/", jobbase="run_cv_job",
+                     genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs", totcs=0){
   jobs <- 0
-  traits <- tolower(c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW"))
+  traits <- tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW"))
   dir.create(outdir, showWarnings = FALSE)
+  i <- totcs ### cs0: is the definition of real data
   for(j in 1:7){
     ### the number of cs
-    for(i in 1:totcs){
-      ### array job ID
-      jobs <- jobs+1
-      shid <- paste0(outdir, "/", jobbase, jobs, ".sh")
-      ### gerpIBD command goes into the sh
-      sh1 <- paste0("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 ",
-                    "-g ", genobase, i, ".csv -f largedata/snpeff/", traits[j], "_k.txt ",
-                    "-o ", genobase, i, "_", traits[j],
-                    " -t k")
-      #rm2 <- c("rm largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", i, "_*b*")
-      ### farm job id
-      sh2 <- cv150_mode_cv_sp(inp_path=outdir, genobase=genobase, myti=j, csi=i)
-      #message(sprintf("###>>> "))
-      sh3 <- c(paste0("rm ", genobase, i, "_", traits[j], "*gs"),
-               paste0("rm ", genobase, i, "_", traits[j], "*gs.newbin"))
+    ### array job ID
+    jobs <- jobs+1
+    shid <- paste0(outdir, "/", jobbase, jobs, ".sh")
+    ### gerpIBD command goes into the sh
+    sh1 <- paste0("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 ",
+                  "-g ", genobase, i, ".csv -f largedata/snpeff/", traits[j], "_k.txt ",
+                  "-o ", genobase, i, "_", traits[j],
+                  " -t k")
+    #rm2 <- c("rm largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", i, "_*b*")
+    ### farm job id
+    sh2 <- cv150_mode_cv_sp(inp_path=outdir, genobase=genobase, myti=j, csi=i)
+    #message(sprintf("###>>> "))
+    sh3 <- c(paste0("rm ", genobase, i, "_", traits[j], "*gs"),
+             paste0("rm ", genobase, i, "_", traits[j], "*gs.newbin"))
+    
+    sh4 <- c(paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.mcmcSamples1"),
+             paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.mrkRes1"),
+             paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.inp"),
+             paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.out1"),
+             paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.cgrRes1"))
+    
+    cat(c(sh1, sh2, sh4, sh3[2]), file=shid, sep="\n", append=FALSE)
       
-      sh4 <- c(paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.mcmcSamples1"),
-               paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.mrkRes1"),
-               paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.inp"),
-               paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.out1"),
-               paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.cgrRes1"))
-      
-      cat(c(sh1, sh2, sh4, sh3[2]), file=shid, sep="\n", append=FALSE)
-    }
+    
     message(sprintf("###>>> trait [ %s ]; total jobs [ %s ]; total inp [ %s ]", traits[j], jobs, jobs*150))
   }
   message("###>>> codes preparation done! Need to setup slurm arrayjob using [set_arryjob.R]")
 }
 
+############# for real data #############
 ### setup codes
-cv_array(outdir="slurm-scripts/cv_b2/", jobbase="run_cv_job", 
-         genobase="largedata/SNP/geno_b2_cs/gerpv2_b2_cs", totcs=100)
+real_array(outdir="slurm-scripts/cv_b2/", jobbase="run_job", 
+         genobase="largedata/SNP/geno_b2_cs/gerpv2_b2_cs", totcs=0)
 
 ###submit an array job
-set_arrayjob(shid="slurm-scripts/cv_b2/run_arrayjob_test.sh",
-             shcode="sh slurm-scripts/cv_b2/run_cv_job$SLURM_ARRAY_TASK_ID.sh",
-             arrayjobs="1-700",
+set_arrayjob(shid="slurm-scripts/cv_b2/run_arrayjob.sh",
+             shcode="sh slurm-scripts/cv_b2/run_job$SLURM_ARRAY_TASK_ID.sh",
+             arrayjobs="1-7",
              wd=NULL, jobid="cvb2", email="yangjl0930@gmail.com")
+
+
+
 
 # serial --mem 8000 --ntasks=4
