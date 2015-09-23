@@ -25,7 +25,7 @@ cv150_mode_cv_sp <- function(inp_path="slurm-scripts/g2", genobase, myti, csi){
       GS_cv_inp(
         inp= myinp, pi=0.995,
         # largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", i, "_", traits[j]
-        geno= paste0(wd, "/", genobase, csi, "_", mode, ".gs"), 
+        geno= paste0(wd, "/", genobase, csi, "_", ti[myti], "_", mode, ".gs"), 
         trainpheno= paste0(wd, "/largedata/pheno/CV5fold/", ti[myti], "_train", cv, "_sp", sp, ".txt"),
         testpheno= paste0(wd, "/largedata/pheno/CV5fold/", ti[myti], "_test", cv, "_sp", sp, ".txt"),
         chainLength=11000, burnin=1000, varGenotypic=gen[myti], varResidual=res[myti]
@@ -38,7 +38,7 @@ cv150_mode_cv_sp <- function(inp_path="slurm-scripts/g2", genobase, myti, csi){
         GS_cv_inp(
           inp= myinp, pi=0.995,
           # largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", i, "_", traits[j]
-          geno= paste0(wd, "/", genobase, csi, "_", mode, ".gs.newbin"), 
+          geno= paste0(wd, "/", genobase, csi, "_", ti[myti], "_", mode, ".gs.newbin"), 
           trainpheno= paste0(wd, "/largedata/pheno/CV5fold/", ti[myti], "_train", cv, "_sp", sp, ".txt"),
           testpheno= paste0(wd, "/largedata/pheno/CV5fold/", ti[myti], "_test", cv, "_sp", sp, ".txt"),
           chainLength=11000, burnin=1000, varGenotypic=gen[myti], varResidual=res[myti]
@@ -71,12 +71,15 @@ cv_array <- function(outdir="slurm-scripts/cv_b0/", jobbase="run_cv_job",
       sh2 <- cv150_mode_cv_sp(inp_path=outdir, genobase=genobase, myti=j, csi=i)
       #message(sprintf("###>>> "))
       sh3 <- c(paste0("rm ", genobase, i, "_", traits[j], "*gs"),
-               paste0("#rm ", genobase, i, "_", traits[j], "*gs.newbin"))
+               paste0("rm ", genobase, i, "_", traits[j], "*gs.newbin"))
       
-      sh4 <- c(paste0("rm ", outdir, "/", traits[j], "_cs", i, "*.mcmcSamples*"),
-               paste0("rm ", outdir, "/", traits[j], "_cs", i, "*.mrkRes*"))
+      sh4 <- c(paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.mcmcSamples1"),
+               paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.mrkRes1"),
+               paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.inp"),
+               paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.out1"),
+               paste0("rm ", outdir, "/", traits[j], "_cs", i, "_*.cgrRes1"))
       
-      cat(c(sh1, sh2[1], sh3[1], sh2), file=shid, sep="\n", append=FALSE)
+      cat(c(sh1, sh2, sh4, sh3[2]), file=shid, sep="\n", append=FALSE)
     }
     message(sprintf("###>>> trait [ %s ]; total jobs [ %s ]; total inp [ %s ]", traits[j], jobs, jobs*150))
   }
@@ -93,3 +96,4 @@ set_arrayjob(shid="slurm-scripts/cv_b2/run_arrayjob_test.sh",
              arrayjobs="1-700",
              wd=NULL, jobid="cvb2", email="yangjl0930@gmail.com")
 
+# serial --mem 8000 --ntasks=4
