@@ -87,7 +87,7 @@ real_array <- function(outdir="slurm-scripts/cv_b0/", jobbase="run_cv_job",
   message("###>>> codes preparation done! Need to setup slurm arrayjob using [set_arryjob.R]")
 }
 
-############# for real data #############
+############# GERP > 2, per se #############
 ### setup codes
 real_array(outdir="slurm-scripts/cv_b2/", jobbase="run_job", 
          genobase="largedata/SNP/geno_b2_cs/gerpv2_b2_cs", totcs=0)
@@ -97,6 +97,17 @@ set_arrayjob(shid="slurm-scripts/cv_b2/run_arrayjob.sh",
              shcode="sh slurm-scripts/cv_b2/run_job$SLURM_ARRAY_TASK_ID.sh",
              arrayjobs="1-7",
              wd=NULL, jobid="cvb2", email="yangjl0930@gmail.com")
+
+############# GERP > 1, per se #############
+### setup codes
+real_array(outdir="slurm-scripts/cv_b1/", jobbase="run_job", 
+           genobase="largedata/SNP/geno_b1_cs/gerpv2_b1_cs", totcs=0)
+
+###submit an array job
+set_arrayjob(shid="slurm-scripts/cv_b1/run_arrayjob.sh",
+             shcode="sh slurm-scripts/cv_b1/run_job$SLURM_ARRAY_TASK_ID.sh",
+             arrayjobs="1-7",
+             wd=NULL, jobid="real_b1", email="yangjl0930@gmail.com")
 
 
 

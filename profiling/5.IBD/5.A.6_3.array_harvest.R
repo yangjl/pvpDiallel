@@ -5,11 +5,21 @@
 
 harvestCV <- function(dir="slurm-scripts/", fileptn="\\.ghatREL1", remove){
   
-  files <- list.files(path = dir, pattern=fileptn)
+  files <- list.files(path = dir, pattern=fileptn, full.names=TRUE)
   ## file line of the shell file:
   message(sprintf("[ %s ] files detected!", length(files)))
   
   resout <- data.frame()
+  
+  res <- unlist(lapply(1:length(files), function(i){
+    #genotype gHat DTP Fix  meanBias PEV=Var(g/y)   R^2 
+    ghat <- read.table(files[i], skip=1, header=FALSE)
+    return(cor(ghat$V2, ghat$V3))
+  }))
+  
+  
+  
+  
   for(i in 1:length(files)){
     myfile <- paste(dir, files[i], sep="")
     #genotype gHat DTP Fix  meanBias PEV=Var(g/y)   R^2 
