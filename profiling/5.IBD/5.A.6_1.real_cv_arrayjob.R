@@ -109,6 +109,17 @@ set_arrayjob(shid="slurm-scripts/cv_b1/run_arrayjob.sh",
              arrayjobs="1-7",
              wd=NULL, jobid="real_b1", email="yangjl0930@gmail.com")
 
+############# GERP > 0, per se #############
+### setup codes
+real_array(outdir="slurm-scripts/cv_b0/", jobbase="run_job", 
+           genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs", totcs=0)
+
+###submit an array job
+set_arrayjob(shid="slurm-scripts/cv_b0/run_arrayjob.sh",
+             shcode="sh slurm-scripts/cv_b0/run_job$SLURM_ARRAY_TASK_ID.sh",
+             arrayjobs="1-7",
+             wd=NULL, jobid="real_b0", email="yangjl0930@gmail.com")
+
 
 
 

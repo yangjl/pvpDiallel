@@ -86,18 +86,3 @@ gerpmean$pos <- as.numeric(as.character(gsub(".*_", "", gerpmean$bin)))
 pdf("graphs/Figure2_d.pdf", width=10, height=5)
 gerp_mc_plot(tab=gerpmean)
 dev.off()
-
-gerPlot(binsize=100000, tab=tab100k, main="100-kb bin")
-
-pdf("manuscript/SI/Figure_Sn.gerp10k.pdf", width=7, height=7)
-gerPlot(binsize=10000, tab=tab10k, main="10-kb bin")
-dev.off()
-
-gerPlot(binsize=1000, tab=tab1k, main="1-kb bin")
-
-
-
-
-
-
-

@@ -86,7 +86,7 @@ cv_array <- function(outdir="slurm-scripts/cv_b0/", jobbase="run_cv_job",
   message("###>>> codes preparation done! Need to setup slurm arrayjob using [set_arryjob.R]")
 }
 
-############# for 1000 cross-validation #############
+############# GERP > 2 #############
 ### setup codes
 cv_array(outdir="slurm-scripts/cv_b2/", jobbase="run_cv_job", 
          genobase="largedata/SNP/geno_b2_cs/gerpv2_b2_cs", totcs=100)
@@ -97,18 +97,18 @@ set_arrayjob(shid="slurm-scripts/cv_b2/run_arrayjob_test.sh",
              arrayjobs="1-700",
              wd=NULL, jobid="cvb2", email="yangjl0930@gmail.com")
 
-############# for real data #############
+############# GERP >0  #############
 ### setup codes
-cv_array(outdir="slurm-scripts/cv_b2/", jobbase="run_job", 
-         genobase="largedata/SNP/geno_b2_cs/gerpv2_b2_cs", totcs=100)
+cv_array(outdir="slurm-scripts/cv_b0/", jobbase="run_job", 
+         genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs", totcs=100)
 
 ###submit an array job
-set_arrayjob(shid="slurm-scripts/cv_b2/run_arrayjob.sh",
-             shcode="sh slurm-scripts/cv_b2/run_job$SLURM_ARRAY_TASK_ID.sh",
+set_arrayjob(shid="slurm-scripts/cv_b0/run_arrayjob.sh",
+             shcode="sh slurm-scripts/cv_b0/run_job$SLURM_ARRAY_TASK_ID.sh",
              arrayjobs="1-700",
-             wd=NULL, jobid="cvb2", email="yangjl0930@gmail.com")
+             wd=NULL, jobid="cvb0", email="yangjl0930@gmail.com")
 
-
+###>>> RUN: sbatch -p bigmemm slurm-scripts/cv_b0/run_arrayjob.sh
 
 
 
