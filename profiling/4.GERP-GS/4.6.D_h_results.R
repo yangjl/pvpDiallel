@@ -45,9 +45,15 @@ getk <- function(files, outpwd="largedata/snpeff"){
     
     out <- h1[, c("snpid", "k")]
     if(sum(out$k > 1) > 0){
+      if(sum(out$k > 10) > 0){
+        out[out$k > 10, ]$k <- 2
+      }
       out[out$k > 1, ]$k <- rescale(out[out$k > 1, ]$k, c(1, 2))
     }
     if(sum(out$k < -1) > 0){
+      if(sum(out$k < -10) > 0){
+        out[out$k < -10, ]$k <- -2
+      }
       out[out$k < -1, ]$k <- rescale(out[out$k < -1, ]$k, c(-2, -1))
     }
     names(out)[2] <- "h"
