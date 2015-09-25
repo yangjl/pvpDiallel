@@ -51,5 +51,14 @@ pdf("graphs/Fig1d.pdf", width=5, height=5)
 heatmap(as.matrix(SCA_mx), Rowv = NA, Colv=NA, revC=TRUE)
 dev.off()
 
-image(as.matrix(SCA_mx))
-barplot(GCA$GY, names.arg=row.names(GCA))
+pdf("graphs/Fig1d.pdf", width=5, height=5)
+ggplot(data = subset(SCA, trait=="GY"), aes(P2, P1, fill = SCA.all))+
+  geom_tile(color = "white") +
+  scale_fill_gradient2(low = "blue", high = "red", mid = "yellow", name="") +
+  theme_minimal()+ 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, size = 12, hjust = 1),
+        axis.text.y = element_text(size = 12, hjust = 1)) +
+  xlab("") +
+  ylab("") +
+  coord_fixed()
+dev.off()

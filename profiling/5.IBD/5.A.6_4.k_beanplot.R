@@ -31,9 +31,9 @@ test <- ddply(res0, .(mode, type, trait, sp), summarise,
               R2 = mean(R2))
 
 par(mfrow=c(1,3))
-mybean(test, mode = "a2")
-mybean(test, mode = "d2")
-mybean(test, mode = "h2")
+mybean(res0, mode = "a2")
+mybean(res0, mode = "d2")
+mybean(res0, mode = "h2")
 
 
 
@@ -68,7 +68,6 @@ runttest <- function(res0, mymode="h2", mytrait=myt[7]){
   
   res0$R2 <- res0$r^2
   real <- subset(res0, cs == "cs0" & trait== mytrait & mode == mymode)
-  real <- subset(real, r > 0.3)
   rand <- subset(res0, cs != "cs0" & trait == mytrait & mode == mymode)
   
   real$sp <- as.character(real$sp)
