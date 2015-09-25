@@ -43,19 +43,22 @@ SplitName <- function(infile=resout){
 }
 
 #### extract with real data
-main <- function(){
-  res1 <- harvestCV(dir="slurm-scripts/cv_b2/", fileptn="\\.ghatREL", remove=FALSE)
+collect_res <- function(dir="slurm-scripts/cv_b2/"){
+  res1 <- harvestCV(dir=dir, fileptn="\\.ghatREL")
   res1 <- SplitName(infile=res1) #885
   print(table(res1$trait))
   
-  rand1 <- subset(rand1, trait != "asi")
-  rand1$trait <- tolower(rand1$trait)
+  #rand1 <- subset(rand1, trait != "asi")
+  #rand1$trait <- tolower(rand1$trait)
   
-  res1$type <- "real"
-  rand1$type <- "random"
-  allfile <- rbind(res1, rand1)
   
-  write.table(allfile, "cache/gerpall_h_g2_perse_gy.csv", sep=",", row.names=FALSE, quote=FALSE)
 }
 
-main()
+g2 <- (dir="slurm-scripts/cv_b2/")
+write.table(g2, "cache/g2_k_perse.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+
+
+
+
+
