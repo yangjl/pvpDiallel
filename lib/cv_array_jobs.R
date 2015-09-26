@@ -34,7 +34,8 @@ source("lib/slurm4gerpIBDCV.R")
 setup_newbin_array <- function(
   ### note: it is for 7 traits with 3 modes for one random shuffling or real data
   genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0", 
-  jobdir="slurm-scripts/get_newbin", jobbase="run_newbin_job", jobid =1){
+  jobdir="slurm-scripts/get_newbin", inpbase= "cs0",
+  jobbase="run_newbin_job", jobid =1){
   
   ### prior information
   wd <- getwd()
@@ -50,7 +51,7 @@ setup_newbin_array <- function(
       ### the first one use gs
       cv <- 1
       sp <- 1
-      myinp <- paste0(jobdir, "/", ti[myti], "_", mode,"_cv",cv, "_sp",sp, ".inp")
+      myinp <- paste0(jobdir, "/", inpbase, "_", ti[myti], "_", mode,"_cv",cv, "_sp",sp, ".inp")
       GS_cv_inp(
         inp= myinp, pi=0.995,
         # largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", i, "_", traits[j]
@@ -99,10 +100,10 @@ setup_gensel_array <- function(outdir="slurm-scripts/cv_b2", jobbase="run_gs_job
     }
     
     sh2 <- c(paste0("rm ", inpbase, "_", "*sp", sp, ".mcmcSamples1"),
-             paste0("rm ", inpbase, "_", "*sp", sp, "_*.mrkRes1"),
-             paste0("rm ", inpbase, "_", "*sp", sp, "_*.inp"),
-             paste0("rm ", inpbase, "_", "*sp", sp, "_*.out1"),
-             paste0("rm ", inpbase, "_", "*sp", sp, "_*.cgrRes1"))
+             paste0("rm ", inpbase, "_", "*sp", sp, ".mrkRes1"),
+             paste0("rm ", inpbase, "_", "*sp", sp, ".inp"),
+             paste0("rm ", inpbase, "_", "*sp", sp, ".out1"),
+             paste0("rm ", inpbase, "_", "*sp", sp, ".cgrRes1"))
     
     shid <- paste0(outdir, "/", jobbase, jobid, ".sh")
     cat(c(sh1, sh2), file=shid, sep="\n", append=FALSE)

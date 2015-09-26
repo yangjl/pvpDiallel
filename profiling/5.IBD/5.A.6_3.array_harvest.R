@@ -30,13 +30,20 @@ SplitName <- function(infile=resout){
   infile$file <- as.character(infile$file)
   infile$file <- gsub(".*/", "", infile$file)
   
-  infile$trait <- gsub("_.*", "", infile$file)
-  infile$cs <- paste0("cs", gsub(".*_cs|_.*", "", infile$file))
+  infile$cs <- gsub("_.*", "", infile$file)
+  infile$trait <- gsub("_cv.*", "", infile$file)
+  infile$trait <- gsub("_.2", "", infile$trait)
+  infile$trait <- gsub(".*_", "", infile$trait)
+  
   infile$mode <- gsub("_cv.*", "", infile$file) 
   infile$mode <- gsub(".*_", "", infile$mode)
   infile$cv <- paste0("cv", gsub(".*_cv|_.*", "", infile$file))
   infile$sp <- paste0("sp", gsub(".*_sp|\\..*", "", infile$file))
   infile$rel <- gsub(".*\\.", "", infile$file)
+  
+  infile$type <- infile$cs
+  infile$type <- gsub("cs0", "real", infile$type)
+  infile$type <- gsub("cs.*", "random", infile$type)
   
   print(table(infile$trait))
   return(infile)
@@ -53,6 +60,12 @@ collect_res <- function(dir="slurm-scripts/cv_b2/"){
   return(res1)
   
 }
+
+library(plyr)
+test <- ddply(res1, .(mode, trait, type), summarise,
+              r = mean(r))
+
+
 
 g2 <- collect_res(dir="slurm-scripts/cv_b2/")
 write.table(g2, "cache/g2_k_perse.csv", sep=",", row.names=FALSE, quote=FALSE)

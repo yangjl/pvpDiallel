@@ -102,7 +102,7 @@ runttest <- function(res0, mymode="h2", mytrait=myt[7]){
 
 
 for(i in 1:7){
-  runttest(res0, mymode="h2", mytrait=myt[i])
+  runttest(res1, mymode="h2", mytrait=myt[i])
 }
 
 
