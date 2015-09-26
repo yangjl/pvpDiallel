@@ -50,12 +50,15 @@ collect_res <- function(dir="slurm-scripts/cv_b2/"){
   
   #rand1 <- subset(rand1, trait != "asi")
   #rand1$trait <- tolower(rand1$trait)
-  
+  return(res1)
   
 }
 
-g2 <- (dir="slurm-scripts/cv_b2/")
+g2 <- collect_res(dir="slurm-scripts/cv_b2/")
 write.table(g2, "cache/g2_k_perse.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+g0 <- collect_res(dir="slurm-scripts/cv_b0/")
+write.table(g0, "cache/g0_k_perse.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
 

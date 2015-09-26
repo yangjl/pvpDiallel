@@ -6,34 +6,37 @@ library("beanplot")
 
 #http://www.jstatsoft.org/v28/c01/paper
 
-res0 <- read.csv("cache/g2_k_perse.csv")
-res0$type <- res0$cs
-res0$type <- gsub("cs0", "real", res0$type)
-res0$type <- gsub("cs.*", "random", res0$type)
 
 mybean <- function(res0, mode){
+
   res1 <- subset(res0, mode == mode)
   par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
   res1$type <- factor(res1$type, levels = c("real", "random"))
   res1$trait <- factor(res1$trait, levels = c("tw", "dtp", "dts", "pht", "eht", "asi", "gy"))
-  beanplot(R2 ~ type + trait, data = res1, ll = 0.04, cex=1.5,
+  beanplot(r ~ type + trait, data = res1, ll = 0.04, cex=1.5,
            main = "Additive GERP Score", ylab = "cross-validation accuracy", side = "both",
            border = NA, col = list(c("blue", "red"), c("grey", "black")))
   #legend("bottomleft", fill = c("black", "grey"),
   #       legend = c("Group 2", "Group 1"))
+  #return(res0)
   
 }
+
+res0 <- read.csv("cache/g0_k_perse.csv")
+res0$type <- res0$cs
+res0$type <- gsub("cs0", "real", res0$type)
+res0$type <- gsub("cs.*", "random", res0$type)
+
 
 library(ggplot2, lib="~/bin/Rlib/")
 library(plyr)
 test <- ddply(res0, .(mode, type, trait, sp), summarise,
-              r = mean(r),
-              R2 = mean(R2))
+              r = mean(r))
 
 par(mfrow=c(1,3))
-mybean(res0, mode = "a2")
-mybean(res0, mode = "d2")
-mybean(res0, mode = "h2")
+mybean(test, mode = "a2")
+mybean(test, mode = "d2")
+mybean(test, mode = "h2")
 
 
 
