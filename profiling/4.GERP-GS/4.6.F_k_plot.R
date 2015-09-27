@@ -19,11 +19,11 @@ get_variance <- function(){
 
 
 ############
-get_dense <- function(){
+get_dense <- function(pwd="largedata/snpeff/"){
   traits <- tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW"))
   out <- data.frame()
   for(i in 1:7){
-    kval <- read.table(paste0("largedata/snpeff/", traits[i], "_k.txt"), header=TRUE)
+    kval <- read.table(paste0(pwd, traits[i], "_k.txt"), header=TRUE)
     kval$trait <- traits[i]
     out <- rbind(out, kval)
   }
@@ -42,7 +42,7 @@ med2$traitlw <- tolower(med2$trait)
 #bymed2 <- with(trait, reorder(trait, pBPHmax, median))
 bymed2 <- med2[order(med2$phph),]
 out1 <- get_variance()
-out2 <- get_dense()
+out2 <- get_dense(pwd="largedata/snpeff/BPH/")
 
 
 #########################################

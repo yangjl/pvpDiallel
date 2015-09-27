@@ -64,5 +64,6 @@ getk <- function(files, outpwd="largedata/snpeff"){
 ##############
 source("~/Documents/Github/zmSNPtools/Rcodes/rescale.R")
 files <- list.files(path="largedata/snpeff", pattern="snpe$", full.names=TRUE)
-getk(files, outpwd="largedata/snpeff")
+files <- files[grep("BPH", files)]
+getk(files, outpwd="largedata/snpeff/BPH")
 
