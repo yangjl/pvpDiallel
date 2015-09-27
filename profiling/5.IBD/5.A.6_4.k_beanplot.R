@@ -7,9 +7,10 @@ library("beanplot")
 #http://www.jstatsoft.org/v28/c01/paper
 
 
-mybean <- function(res0, mode){
-
-  res1 <- subset(res0, mode == mode)
+mybean <- function(res0, mymode="a2"){
+  res0$mode <- as.character(res0$mode)
+  res1 <- subset(res0, mode == mymode)
+  #print(nrow(res1))
   par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
   res1$type <- factor(res1$type, levels = c("real", "random"))
   res1$trait <- factor(res1$trait, levels = c("tw", "dtp", "dts", "pht", "eht", "asi", "gy"))
@@ -23,6 +24,8 @@ mybean <- function(res0, mode){
 }
 
 res0 <- read.csv("cache/g0_k_perse.csv")
+
+res0 <- read.csv("~/Desktop/g2_k_perse.csv")
 res0$type <- res0$cs
 res0$type <- gsub("cs0", "real", res0$type)
 res0$type <- gsub("cs.*", "random", res0$type)
@@ -30,13 +33,20 @@ res0$type <- gsub("cs.*", "random", res0$type)
 
 library(ggplot2, lib="~/bin/Rlib/")
 library(plyr)
-test <- ddply(res0, .(mode, type, trait, sp), summarise,
-              r = mean(r))
+
+res1 <- subset(res0, sp %in% c("sp1", "sp4", "sp5", "sp6", "sp8"))
+res2 <- ddply(res0, .(type, trait, mode), summarise,
+              r = mean(r),
+              m = median(r))
+res2$type <- res2$cs
+res2$type <- gsub("cs0", "real", res2$type)
+res2$type <- gsub("cs.*", "random", res2$type)
+
 
 par(mfrow=c(1,3))
-mybean(test, mode = "a2")
-mybean(test, mode = "d2")
-mybean(test, mode = "h2")
+mybean(res2, mymode = "a2")
+mybean(res2, mymode = "d2")
+mybean(res2, mymode = "h2")
 
 
 
@@ -60,6 +70,31 @@ out$type <- factor(out$type, levels = c("real", "random"))
 beanplot(R2 ~ type + trait, data = out, ll = 0.04, cex=1.5,
          main = "h GERP Score", ylab = "cross-validation accuracy", side = "both",
          border = NA, col = list(c("blue", "red"), c("grey", "black")))
+
+
+
+
+
+
+
+
+
+# A basic box with the conditions colored
+library(ggplot2, lib="~/bin/Rlib/")
+
+res0 <- read.csv("cache/g2_k_perse.csv")
+res0 <- subset(res0, type=="real")
+out2 <- ddply(res0, .(sp, trait, mode), summarise,
+              r = mean(r),
+              m = median(r))
+p2 <- ggplot(data=out2) +
+  geom_boxplot(aes(x= mode, y=r, fill= as.factor(mode)) ) +
+  #guides(fill=FALSE) +
+  labs(y=NULL, fill="Trait") + theme_bw() +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  xlab("Degree of Dominance (k)") + ylab("") + facet_grid(~ trait) 
+
+
 
 
 

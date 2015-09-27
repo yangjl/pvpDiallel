@@ -61,7 +61,8 @@ collect_res <- function(dir="slurm-scripts/cv_b2/"){
   
 }
 
-library(plyr)
+library(plyr, lib="~/bin/Rlib/")
+res1 <- collect_res(dir="slurm-scripts/cv_b2/")
 test <- ddply(res1, .(mode, trait, type), summarise,
               r = mean(r))
 
