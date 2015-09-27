@@ -87,20 +87,24 @@ res0 <- subset(res0, type=="real")
 out2 <- ddply(res0, .(sp, trait, mode), summarise,
               r = mean(r),
               m = median(r))
+out2$trait <- toupper(out2$trait)
+out2$trait <- factor(out2$trait, levels = toupper(c("asi", "dts", "dtp", "tw", "pht", "eht", "gy")))
+
 p2 <- ggplot(data=out2) +
-  geom_boxplot(aes(x= mode, y=r, fill= as.factor(mode)) ) +
+  geom_boxplot(aes(x= mode, y=r, fill= factor(mode, labels=c("A", "D", "k")) ) ) +
   #guides(fill=FALSE) +
-  labs(y=NULL, fill="Trait") + theme_bw() +
+  labs(y=NULL, fill="") + theme_bw() +
   theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
-  xlab("Degree of Dominance (k)") + ylab("") + facet_grid(~ trait) 
+  xlab("Trait per se") + ylab("Prediction Accuracy (r)") + facet_grid(~ trait) 
+
+pdf("graphs/Figure5_a.pdf", height=5, width=10)
+p2
+dev.off()
 
 
 
 
-
-
-
-
+###################################################################################
 myt <- c("tw", "dtp", "dts", "pht", "eht", "asi", "gy")
 runttest <- function(res0, mymode="h2", mytrait=myt[7]){
   

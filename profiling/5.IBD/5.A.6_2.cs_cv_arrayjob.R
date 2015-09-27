@@ -6,7 +6,7 @@ source("lib/cv_array_jobs.R")
 ############# GERP > 2, per se #############
 ### 700 (100cs x 7 traits) array jobs, =>gerpid x 3modes
 
-for(i in 1:100){
+for(i in 1:10){
   setup_gerpibd_array_7traits(
     outdir="slurm-scripts/cv_b2", jobbase="gerpid_cs_job", jobid = 7*(i-1)+1,
     genobase= paste0("largedata/SNP/geno_b2_cs/gerpv2_b2_cs", i))
@@ -37,13 +37,11 @@ for(i in 1:10){
 ############# GERP > 0, per se #############
 ### 700 (100cs x 7 traits) array jobs, =>gerpid x 3modes
 
-for(i in 1:100){
+for(i in 1:10){
   setup_gerpibd_array_7traits(
     outdir="slurm-scripts/cv_b0", jobbase="gerpid_cs_job", jobid = 7*(i-1)+1,
     genobase= paste0("largedata/SNP/geno_b0_cs/gerpv2_b0_cs", i))
 }
-
-
 
 
 
