@@ -91,7 +91,7 @@ setup_gensel_array <- function(outdir="slurm-scripts/cv_b2", jobbase="run_gs_job
   dir.create(outdir, showWarnings = FALSE)
   
   jobstart <- jobid
-  for(sp in 1:10){# 10 sub-sampling
+  for(sp in 1:100){# 10 sub-sampling
     
     sh1 <- c() #=> 105 shell commands
     for(i in 1:7){# 7 traits
