@@ -15,7 +15,7 @@ setup_newbin_array(
   genobase="largedata/SNP/bph_b0_cs/gerpv2_b0_cs0", jobid=1,
   jobdir="slurm-scripts/get_newbin", jobbase="run_newbin_job")
 
-check <- list.files(path="largedata/SNP/geno_b2_cs", pattern="newbin$")
+check <- list.files(path="largedata/SNP/geno_b0_cs", pattern="newbin$")
 # rm *gs
 
 ##### gensel: 10 sp x (7traits x 5 cv x 3 modes)
