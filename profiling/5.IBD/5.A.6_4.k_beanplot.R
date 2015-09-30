@@ -23,7 +23,7 @@ mybean <- function(res0, mymode="a2", ...){
 }
 
 ############################################################
-res0 <- read.csv("cache/g0_k_perse_part.csv")
+res0 <- read.csv("cache/g0_k_perse.csv")
 
 
 library(ggplot2, lib="~/bin/Rlib/")
@@ -33,10 +33,6 @@ library(plyr)
 res2 <- ddply(res0, .(type, trait, mode, sp), summarise,
               r = mean(r),
               m = median(r))
-res2$type <- res2$cs
-res2$type <- gsub("cs0", "real", res2$type)
-res2$type <- gsub("cs.*", "random", res2$type)
-
 
 par(mfrow=c(1,3))
 mybean(res2, mymode = "a2", ylim=c(0, 1), main="Additive", ylab="Cross-validation Accuracy")

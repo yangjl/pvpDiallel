@@ -75,7 +75,7 @@ g0 <- collect_res(dir="slurm-scripts/cv_b0/")
 test <- ddply(g0, .(mode, trait, type), summarise,
               r = mean(r))
 
-write.table(g0, "cache/g0_k_perse_part.csv", sep=",", row.names=FALSE, quote=FALSE)
+write.table(g0, "cache/g0_k_perse.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
 bph0 <- collect_res(dir="slurm-scripts/bph_cv_b0/")
