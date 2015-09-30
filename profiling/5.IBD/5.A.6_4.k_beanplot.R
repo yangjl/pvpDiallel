@@ -2,19 +2,16 @@
 ### beanplot
 
 library("beanplot")
-
-
 #http://www.jstatsoft.org/v28/c01/paper
-
-
 mybean <- function(res0, mymode="a2", ...){
   res0$mode <- as.character(res0$mode)
   res1 <- subset(res0, mode == mymode)
+  res1$trait <- toupper(res1$trait)
   #print(nrow(res1))
   par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
   res1$type <- factor(res1$type, levels = c("real", "random"))
-  res1$trait <- factor(res1$trait, levels = c("asi", "dts", "dtp", "tw", "pht", "eht", "gy"))
-  beanplot(r ~ type + trait, data = res1, ll = 0.04, cex=1.5, side = "both",
+  res1$trait <- factor(res1$trait, levels = toupper(c("asi", "dts", "dtp", "tw", "pht", "eht", "gy")))
+  beanplot(m ~ type + trait, data = res1, kernel="cosine", ll = 0.04, cex=1.5, side = "both", bw=0.02,
            border = NA, col = list(c("blue", "red"), c("grey", "black")), ...)
   #legend("bottomleft", fill = c("black", "grey"),
   #       legend = c("Group 2", "Group 1"))
@@ -23,21 +20,46 @@ mybean <- function(res0, mymode="a2", ...){
 }
 
 ############################################################
-res0 <- read.csv("cache/g0_k_perse.csv")
-
 
 library(ggplot2, lib="~/bin/Rlib/")
 library(plyr)
 
+res0 <- read.csv("cache/g0_k_perse.csv")
+
+res1 <- ddply(res0, .(type, trait, mode, sp), summarise,
+              r = mean(r),
+              m = median(r))
+
+res0 <- read.csv("cache/g0_k_bph.csv")
 
 res2 <- ddply(res0, .(type, trait, mode, sp), summarise,
               r = mean(r),
               m = median(r))
 
-par(mfrow=c(1,3))
+
+
+
+############
+pdf("graphs/Figure5_6plots.pdf", height=8, width=12)
+par(mfrow=c(2,3))
+mybean(res1, mymode = "a2", ylim=c(0, 1), main="Additive", ylab="Cross-validation Accuracy")
+mybean(res1, mymode = "d2", ylim=c(0, 1), main="Dominance", ylab="Cross-validation Accuracy")
+mybean(res1, mymode = "h2", ylim=c(0, 1), main="Incomplete Dominance", ylab="Cross-validation Accuracy")
+
 mybean(res2, mymode = "a2", ylim=c(0, 1), main="Additive", ylab="Cross-validation Accuracy")
 mybean(res2, mymode = "d2", ylim=c(0, 1), main="Dominance", ylab="Cross-validation Accuracy")
 mybean(res2, mymode = "h2", ylim=c(0, 1), main="Incomplete Dominance", ylab="Cross-validation Accuracy")
+
+dev.off()
+
+
+
+
+
+
+
+
+
 
 
 
