@@ -45,14 +45,14 @@ getk <- function(files, outpwd="largedata/snpeff"){
     
     out <- h1[, c("snpid", "k")]
     if(sum(out$k > 1) > 0){
-      if(sum(out$k > 10) > 0){
-        out[out$k > 10, ]$k <- 2
+      if(sum(out$k > 2) > 0){
+        out[out$k > 2, ]$k <- 2
       }
       out[out$k > 1, ]$k <- rescale(out[out$k > 1, ]$k, c(1, 2))
     }
     if(sum(out$k < -1) > 0){
-      if(sum(out$k < -10) > 0){
-        out[out$k < -10, ]$k <- -2
+      if(sum(out$k < -2) > 0){
+        out[out$k < -2, ]$k <- -2
       }
       out[out$k < -1, ]$k <- rescale(out[out$k < -1, ]$k, c(-2, -1))
     }
@@ -64,6 +64,11 @@ getk <- function(files, outpwd="largedata/snpeff"){
 ##############
 source("~/Documents/Github/zmSNPtools/Rcodes/rescale.R")
 files <- list.files(path="largedata/snpeff", pattern="snpe$", full.names=TRUE)
-files <- files[grep("BPH", files)]
-getk(files, outpwd="largedata/snpeff/BPH")
+
+file1 <- files[grep("perse", files)]
+getk(file1, outpwd="largedata/snpeff")
+
+
+file2 <- files[grep("BPH", files)]
+getk(file2, outpwd="largedata/snpeff/BPH")
 

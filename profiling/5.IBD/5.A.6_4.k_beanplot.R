@@ -12,7 +12,7 @@ mybean <- function(res0, mymode="a2", ...){
   res1$type <- factor(res1$type, levels = c("real", "random"))
   res1$trait <- factor(res1$trait, levels = toupper(c("asi", "dts", "dtp", "tw", "pht", "eht", "gy")))
   beanplot(m ~ type + trait, data = res1, kernel="cosine", ll = 0.04, cex=1.5, side = "both", bw=0.02,
-           border = NA, col = list(c("blue", "red"), c("grey", "black")), ...)
+           border = NA, col = list(c("#d41243", "#d41243"), c("#00aedb", "#00aedb")), ...)
   #legend("bottomleft", fill = c("black", "grey"),
   #       legend = c("Group 2", "Group 1"))
   #return(res0)
