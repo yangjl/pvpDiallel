@@ -13,6 +13,11 @@ $P(G|\theta)\propto \left( \prod\limits_{i=1}^{k}{P(G'_k|G)} \right) \times P(G'
 This function is to impute mom's genotype from a progeny array of k kids at a single locus.
 inferred_mom=1 -> 00, 2->01, 3->11
 
+# Defining degree of dominance
+\begin{align*}
+k = \dfrac{\text{Dominant\:Effect}\:(d)}{\text{Additive\:Effect}\:(a)}
+\end{align*}
+
 # A Bayesian-based Statistical model
 
 \begin{align*}
