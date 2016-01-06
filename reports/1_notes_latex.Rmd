@@ -1,0 +1,39 @@
+---
+title: "Notes"
+author: "Jinliang Yang"
+date: "July 23, 2015"
+output: pdf_document
+---
+
+# Infer mom's genotype by JRI
+
+We have obs. mom and obs. (selfed) kids.  We want to know $P(G|\theta)$, and $P(G|\theta) \propto P(\theta|G) \times P(G)$, 
+where $\theta$ is observed data.  This consists of observed genotypes ($G'$) of both mom and kids. So:
+$P(G|\theta)\propto \left( \prod\limits_{i=1}^{k}{P(G'_k|G)} \right) \times P(G'_{mom}|G) \times P(G)$
+This function is to impute mom's genotype from a progeny array of k kids at a single locus.
+inferred_mom=1 -> 00, 2->01, 3->11
+
+# Defining degree of dominance
+\begin{align*}
+k = \dfrac{\text{Dominant\:Effect}\:(d)}{\text{Additive\:Effect}\:(a)}
+\end{align*}
+
+# A Bayesian-based Statistical model
+
+\begin{align*}
+Y_i = u + \sum_{j=1}^{n} a_j X_{ij} + e_i
+\end{align*}
+
+# Spacing
+\begin{align*}
+f(x) =& x^2\! +3x\! +2 \\
+f(x) =& x^2+3x+2 \\
+f(x) =& x^2\, +3x\, +2 \\
+f(x) =& x^2\: +3x\: +2 \\
+f(x) =& x^2\; +3x\; +2 \\
+f(x) =& x^2\ +3x\ +2 \\
+f(x) =& x^2\quad +3x\quad +2 \\
+f(x) =& x^2\qquad +3x\qquad +2
+\end{align*}
+
+

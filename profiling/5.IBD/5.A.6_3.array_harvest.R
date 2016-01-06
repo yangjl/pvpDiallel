@@ -61,19 +61,32 @@ collect_res <- function(dir="slurm-scripts/cv_b2/"){
   
 }
 
-library(plyr)
+library(plyr, lib="~/bin/Rlib/")
+
+
+res1 <- collect_res(dir="slurm-scripts/cv_b2/")
 test <- ddply(res1, .(mode, trait, type), summarise,
               r = mean(r))
 
 
+################################################################
+#7*3*5*100*11 = [1] 115500
 
 g2 <- collect_res(dir="slurm-scripts/cv_b2/")
 write.table(g2, "cache/g2_k_perse.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 g0 <- collect_res(dir="slurm-scripts/cv_b0/")
+test <- ddply(g0, .(mode, trait, type), summarise,
+              r = mean(r))
+
 write.table(g0, "cache/g0_k_perse.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
+bph0 <- collect_res(dir="slurm-scripts/bph_cv_b0/")
+test <- ddply(bph0, .(mode, trait, type), summarise,
+              r = mean(r))
+
+write.table(bph0, "cache/g0_k_bph.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
 

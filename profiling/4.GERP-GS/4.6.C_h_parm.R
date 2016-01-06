@@ -65,18 +65,10 @@ for(i in pmph_idx){
             mapfile="largedata/SNP/genotype_h.map")
 }
 
-###>>> run this [ greml_ce largedata/snpeff/gp_asi_perse.dat > largedata/snpeff//asi_perse_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/gp_dtp_perse.dat > largedata/snpeff//dtp_perse_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/gp_dts_perse.dat > largedata/snpeff//dts_perse_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/gp_eht_perse.dat > largedata/snpeff//eht_perse_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/gp_gy_perse.dat > largedata/snpeff//gy_perse_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/gp_pht_perse.dat > largedata/snpeff//pht_perse_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/gp_tw_perse.dat > largedata/snpeff//tw_perse_logff_ce.log ]
-
-###>>> run this [ greml_ce largedata/snpeff/gp_asi_pBPHmin.dat > largedata/snpeff//asi_pBPHmin_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/gp_dtp_pBPHmax.dat > largedata/snpeff//dtp_pBPHmax_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/gp_dts_pBPHmax.dat > largedata/snpeff//dts_pBPHmax_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/gp_eht_pBPHmax.dat > largedata/snpeff//eht_pBPHmax_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/gp_gy_pBPHmax.dat > largedata/snpeff//gy_pBPHmax_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/gp_pht_pBPHmax.dat > largedata/snpeff//pht_pBPHmax_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/gp_tw_pBPHmax.dat > largedata/snpeff//tw_pBPHmax_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_CD.dat > largedata/snpeff//CD_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_KRN.dat > largedata/snpeff//KRN_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_AKW.dat > largedata/snpeff//AKW_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_CL.dat > largedata/snpeff//CL_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_CW.dat > largedata/snpeff//CW_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_KC.dat > largedata/snpeff//KC_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/gp_TKW.dat > largedata/snpeff//TKW_logff_ce.log ]

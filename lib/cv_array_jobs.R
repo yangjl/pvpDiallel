@@ -13,7 +13,7 @@ setup_gerpibd_array_7traits <- function(
     shid <- paste0(outdir, "/", jobbase, jobid, ".sh")
     ### gerpIBD command goes into the sh
     sh1 <- paste0("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 ",
-                  "-g ", genobase, ".csv -f largedata/snpeff/", traits[j], "_k.txt ",
+                  "-g ", genobase, ".csv -f largedata/snpeff/BPH/", traits[j], "_k.txt ",
                   "-o ", genobase, "_", traits[j],
                   " -t k")
     cat(sh1, file=shid, sep="\n", append=FALSE)
@@ -91,7 +91,7 @@ setup_gensel_array <- function(outdir="slurm-scripts/cv_b2", jobbase="run_gs_job
   dir.create(outdir, showWarnings = FALSE)
   
   jobstart <- jobid
-  for(sp in 1:10){# 10 sub-sampling
+  for(sp in 1:100){# 10 sub-sampling
     
     sh1 <- c() #=> 105 shell commands
     for(i in 1:7){# 7 traits
