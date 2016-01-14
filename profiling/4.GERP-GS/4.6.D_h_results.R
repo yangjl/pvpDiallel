@@ -69,7 +69,7 @@ source("~/Documents/Github/zmSNPtools/Rcodes/rescale.R")
 files <- list.files(path="largedata/snpeff", pattern="snpe$", full.names=TRUE)
 
 file1 <- files[grep("perse", files)]
-getk(file1, outpwd="largedata/snpeff")
+getk(file1, outpwd="largedata/snpeff/perse")
 
 
 file2 <- files[grep("BPH", files)]
