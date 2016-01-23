@@ -22,12 +22,18 @@ trait <- read.csv("data/trait_matrix.csv")
 
 
 ### get percentage of MPH
-myp3 <- get_pheno(trait=trait, pheno="pMPH")
+myp3 <- get_pheno(trait=trait, pheno="valHyb")
 pdf("graphs/Fig1c.pdf", width=5, height=5)
-pairs(myp3[, 2:8], text.panel = diag, upper.panel=panel.smooth, 
+pairs(myp3[, 2:8], text.panel = diag, upper.panel=panel.smooth,
       lower.panel=panel.cor, gap=0, main="", pch=19, col="grey", lwd=2)
 dev.off()
 
+cor.test(myp3$DTS, myp3$DTP, method = "spearman")
+
+cor.test(myp3$PHT, myp3$EHT, method = "spearman")
+
+cor.test(myp3$GY, myp3$DTP, method = "spearman")
+cor.test(myp3$GY, myp3$DTS, method = "spearman")
 
 #pdf("~/Documents/Heterosis_GWAS/HGWAS_proj/reports/S.F2_cor.pdf", height=8, width=8)
 #pairs(pheno[, 4:10], text.panel = diag, upper.panel=panel.smooth, 
