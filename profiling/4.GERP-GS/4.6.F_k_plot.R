@@ -33,7 +33,7 @@ get_dense <- function(pwd="largedata/snpeff/"){
 
 
 #############################################
-library(ggplot2, lib="~/bin/Rlib/")
+library(ggplot2)
 source("~/Documents/Github/zmSNPtools/Rcodes/multiplot.R")
 
 med2 <- data.frame(trait=c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW"), 
@@ -42,7 +42,7 @@ med2$traitlw <- tolower(med2$trait)
 #bymed2 <- with(trait, reorder(trait, pBPHmax, median))
 bymed2 <- med2[order(med2$phph),]
 out1 <- get_variance()
-out2 <- get_dense(pwd="largedata/snpeff/")
+out2 <- get_dense(pwd="largedata/snpeff/perse/")
 
 
 #########################################
