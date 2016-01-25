@@ -44,6 +44,32 @@ bymed2 <- med2[order(med2$phph),]
 out1 <- get_variance()
 out2 <- get_dense(pwd="largedata/snpeff/perse/")
 
+t1 <- merge(subset(out1, eff=="dom"), med2, by.x="file", by.y="trait")
+cor.test(t1$h2, t1$phph)
+
+###### calculate the porportion of positive
+excess_pos <- function(myt="TW"){
+  out2tw <- subset(out2, trait == myt)
+  a <- nrow(subset(out2tw, h >= 0))/nrow(out2tw) - nrow(subset(out2tw, h < 0))/nrow(out2tw)
+  print(a)
+}
+
+excess_pos(myt="TW") #0.2505068
+excess_pos(myt="PHT") #0.1352641
+excess_pos(myt="EHT") #0.17809
+excess_pos(myt="GY") #0.1656072
+
+###### calculate the porportion of positive
+per_overd <- function(myt="TW"){
+  out2tw <- subset(out2, trait == myt)
+  a <- nrow(subset(out2tw, h >= 1))/nrow(out2tw)
+  print(a)
+}
+
+per_overd(myt="TW") #0.1368988
+per_overd(myt="PHT") #0.05725433
+per_overd(myt="EHT") #0.04802514
+per_overd(myt="GY") #0.2914191
 
 #########################################
 theme_set(theme_grey(base_size = 18)) 
