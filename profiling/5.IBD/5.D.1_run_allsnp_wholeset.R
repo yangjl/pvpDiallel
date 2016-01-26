@@ -1,5 +1,5 @@
 # Jinliang Yang
-# April 21, 2015
+# updated: Jan 25th, 2016
 # run the wholeset with all GERP SNPs
 
 
