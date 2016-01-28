@@ -2,20 +2,69 @@
 # updated: Jan 25th, 2016
 # run the wholeset with all GERP SNPs
 
-
-source("lib/RunWhoeSet_gerpall.R")
-source("~/Documents/Github/zmSNPtools/Rcodes/setUpslurm.R")
-
-####
-
-mysh <- RunWholeSet_gerpall(inppwd="slurm-scripts/gerpall_wholeset/")
-
-for(i in 1:10){
-  setUpslurm(slurmsh= paste0("slurm-scripts/gerpall_wholeset_run", i, ".sh"),
-             codesh= mysh[(7*(i-1)+1) : (7*i)],
-             wd=NULL, jobid= paste0("gall_run", i), email="yangjl0930@gmail.com")
+source("lib/slurm4GenSel.R")
+source("~/Documents/Github/zmSNPtools/Rcodes/set_arrayjob.R")
+setup_newbin_array <- function(
+  ### note: it is for 7 traits with 3 modes for one random shuffling or real data
+  genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0", 
+  jobdir="slurm-scripts/get_newbin", inpbase= "cs0",
+  ptype="pBPHmax",
+  jobbase="run_newbin_job", jobid =1){
+  
+  ### prior information
+  wd <- getwd()
+  #test run of the 66 diallel of trait per se with additive model
+  ti <- tolower(c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW"))
+  res <- c(0.38, 0.46, 0.46, 15, 88, 41, 0.64)
+  gen <- c(0.18, 5.1, 6.0, 123, 65, 377, 0.82)
+  
+  dir.create(jobdir, showWarnings = FALSE)
+  shcommand <- c()
+  for(myti in 1:7){
+    for(mode in c("a2", "d2", "h2")){
+      ### the first one use gs
+      myinp <- paste0(jobdir, "/", inpbase, "_", ti[myti], "_", mode,"_ws", ".inp")
+      GenSel_inp(
+        inp= myinp, pi=0.999,
+        findsale ="no",
+        geno=paste0(wd, "/", genobase, "_", ti[myti], "_", mode, ".gs.newbin"), 
+        pheno=paste0(wd, "/largedata/pheno/wholeset/", tolower(ti[myti]), "_", ptype, ".txt"),
+        chainLength=41000, burnin=1000, 
+        varGenotypic = gen[myti], 
+        varResidual = res[myti]
+      )
+      shcommand <- c(shcommand, paste("GenSel4R", myinp))
+    }
+  }
+  #################
+  jobstart = jobid
+  for(i in 1:length(shcommand)){
+    cat(shcommand[i], file=paste0(jobdir, "/", jobbase, jobid, ".sh"), sep="\n", append=FALSE)
+    jobid <- jobid + 1
+  }
+  jobend <- jobid -1
+  message(sprintf("###>>> setup array jobs: [ %s - %s]", jobstart, jobend))
+  set_arrayjob(shid=paste0(jobdir, "/", jobbase, ".sh"),
+               shcode=paste0("sh ", jobdir, "/", jobbase, "$SLURM_ARRAY_TASK_ID.sh"),
+               arrayjobs= paste0("1-", jobend),
+               wd=NULL, jobid=jobbase, email="yangjl0930@gmail.com")
   
 }
+#newbin_array_7traits_3modes(genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0",
+setup_newbin_array(
+  ### note: it is for 7 traits with 3 modes for one random shuffling or real data
+  genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0", 
+  ptype="perse",
+  jobdir="slurm-scripts/gwas_b0", inpbase= "ws",
+  jobbase="run_ws", jobid =1)
+  
+#### pBPHmax
+setup_newbin_array(
+  genobase="largedata/SNP/bph_b0_cs/gerpv2_b0_cs0", 
+  ptype="pBPHmax",
+  jobdir="slurm-scripts/was_bph_b0", inpbase= "ws_bph",
+  jobbase="run_bph_ws", jobid =1)
+
 
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> [ note: --ntasks=INT, number of cup ]
