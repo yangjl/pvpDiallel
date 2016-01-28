@@ -11,7 +11,7 @@ RunWholeSet_gerpall <- function(inppwd="slurm-scripts/gerpfeature/", priors=gs1)
   traits <- c("perse", "BPHmax", "BPHmin", "pBPHmax", "pBPHmin")
   #### g=1, only gerp gene
   for(i in 1:7){
-    for(modei in c("a2", "d2")){
+    for(modei in c("a2", "d2", "h2")){
       for(j in 1:5){
         myinp <- paste0(inppwd, ti[i], "_", traits[j],  "_", modei, ".inp")
         

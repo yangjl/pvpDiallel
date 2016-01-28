@@ -8,7 +8,7 @@ setup_newbin_array <- function(
   ### note: it is for 7 traits with 3 modes for one random shuffling or real data
   genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0", 
   jobdir="slurm-scripts/get_newbin", inpbase= "cs0",
-  ptype="pBPHmax",
+  ptype="pBPHmax", priors,
   jobbase="run_newbin_job", jobid =1){
   
   ### prior information
@@ -21,17 +21,19 @@ setup_newbin_array <- function(
   dir.create(jobdir, showWarnings = FALSE)
   shcommand <- c()
   for(myti in 1:7){
-    for(mode in c("a2", "d2", "h2")){
+    for(modei in c("a2", "d2", "h2")){
       ### the first one use gs
-      myinp <- paste0(jobdir, "/", inpbase, "_", ti[myti], "_", mode,"_ws", ".inp")
+      myinp <- paste0(jobdir, "/", inpbase, "_", ti[myti], "_", modei,"_ws", ".inp")
       GenSel_inp(
         inp= myinp, pi=0.999,
         findsale ="no",
-        geno=paste0(wd, "/", genobase, "_", ti[myti], "_", mode, ".gs.newbin"), 
+        geno=paste0(wd, "/", genobase, "_", ti[myti], "_", modei, ".gs.newbin"), 
         pheno=paste0(wd, "/largedata/pheno/wholeset/", tolower(ti[myti]), "_", ptype, ".txt"),
         chainLength=41000, burnin=1000, 
-        varGenotypic = gen[myti], 
-        varResidual = res[myti]
+        #varGenotypic = gen[myti], 
+        #varResidual = res[myti]
+        varGenotypic = subset(priors, trait == ti[myti] & mode == modei)$genvar, 
+        varResidual = subset(priors, trait == ti[myti] & mode == modei)$resvar
       )
       shcommand <- c(shcommand, paste("GenSel4R", myinp))
     }
@@ -51,18 +53,20 @@ setup_newbin_array <- function(
   
 }
 #newbin_array_7traits_3modes(genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0",
+p1 <- read.csv("cache/gerpsnp_wholeset_perse.csv")
 setup_newbin_array(
   ### note: it is for 7 traits with 3 modes for one random shuffling or real data
   genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0", 
-  ptype="perse",
+  ptype="perse", prior=p1,
   jobdir="slurm-scripts/gwas_b0", inpbase= "ws",
   jobbase="run_ws", jobid =1)
-  
+
 #### BPHmax
+p2 <- read.csv("cache/gerpsnp_wholeset_bph.csv")
 setup_newbin_array(
   genobase="largedata/SNP/bph_b0_cs/gerpv2_b0_cs0", 
-  ptype="BPHmax",
-  jobdir="slurm-scripts/gwas_bph_b0", inpbase= "ws_bph",
+  ptype="BPHmax", prior=p2,
+  jobdir="slurm-scripts/gwas_bph_b0", inpbase= "ws",
   jobbase="run_bph_ws", jobid =1)
 
 ######################################################################################
@@ -90,5 +94,54 @@ res2 <- main_res(res=res2, ptype="bph")
 res2$file <- gsub("bph_", "", res2$file)
 res2$trait <- gsub("_.*", "", res2$file)
 write.table(res2, "cache/gerpsnp_wholeset_bph.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+
+
+
+
+
+source("lib/RunWhoeSet_gerpall.R")
+source("~/Documents/Github/zmSNPtools/Rcodes/setUpslurm.R")
+
+#### just change the priors put in the model
+gs1 <- read.csv("cache/allsnp_wholeset_h2.csv")
+
+gs1$transf <- gsub("_..$", "", gs1$mode)
+gs1$transf <- gsub(".*_", "", gs1$transf)
+gs1$mode <- gsub(".*_", "", gs1$mode)
+
+
+mysh <- RunWholeSet_gerpall(inppwd="slurm-scripts/gerpall_wholeset/", priors=gs1)
+
+for(i in 1:10){
+  setUpslurm(slurmsh= paste0("slurm-scripts/gerpall_wholeset_run", i, ".sh"),
+             codesh= mysh[(7*(i-1)+1) : (7*i)],
+             wd=NULL, jobid= paste0("gall_run", i), email="yangjl0930@gmail.com")
+  
+}
+
+###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
+###>>> [ note: --ntasks=INT, number of cup ]
+###>>> [ note: --mem=16000, 16G memory ]
+###>>> sbatch -p bigmemh --ntasks=1 slurm-scripts/gerpall_wholeset_run1.sh
+
+
+source("~/Documents/Github/zmSNPtools/Rcodes/collect_gsout.R")
+res <- collect_gsout(dir = "slurm-scripts/gerpall_wholeset", fileptn ="out")
+
+main_res <- function(res = res){
+  res$trait <- gsub("_.*", "", res$file)
+  res$transf <- gsub("_1.*", "", res$file)
+  res$transf <- gsub(".*_", "", res$transf)
+  res$mode <- gsub(".*_1", "", res$file)
+  res$mode <- gsub("\\.out1", "", res$mode)
+  return(res)
+}
+
+#####
+res <- main_res(res=res)
+write.table(res, "cache/allsnp_wholeset_h2.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+gs <- read.csv("cache/allsnp_wholeset_h2.csv")
 
 
