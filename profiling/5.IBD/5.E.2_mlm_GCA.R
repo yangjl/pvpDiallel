@@ -8,7 +8,7 @@ run_model_comp <- function(ghatfile="cache/ghat_wholeset.csv", modes=c("1a2", "1
   
   #### ghat
   ghat <- read.csv(ghatfile)
-  ghat <- subset(ghat, tsf =="perse")
+  #ghat <- subset(ghat, tsf =="perse")
   ghat$trait <- toupper(ghat$trait)
   
   #### combining ability
@@ -48,9 +48,9 @@ run_model_comp <- function(ghatfile="cache/ghat_wholeset.csv", modes=c("1a2", "1
 
 
 mc1 <- run_model_comp(ghatfile="cache/ghat_ws_gerpall_perse.csv", modes=c("a2", "d2", "h2"))
-write.table(mc2[, 1:6], "data/model_comparison_perse.csv", sep=",", row.names=FALSE)
+write.table(mc1[, 1:6], "cache/model_comparison_perse.csv", sep=",", row.names=FALSE)
 
-mc2 <- run_model_comp(ghatfile="cache/ghat_ws_gerpall_perse.csv", modes=c("a2", "d2", "h2"))
-write.table(mc2[, 1:6], "data/model_comparison_bph.csv", sep=",", row.names=FALSE)
+mc2 <- run_model_comp(ghatfile="cache/ghat_ws_gerpall_bph.csv", modes=c("a2", "d2", "h2"))
+write.table(mc2[, 1:6], "cache/model_comparison_bph.csv", sep=",", row.names=FALSE)
 
 
