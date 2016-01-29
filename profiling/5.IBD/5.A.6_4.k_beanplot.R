@@ -53,6 +53,12 @@ mybean(res2, mymode = "h2", ylim=c(0, 1), main="Incomplete Dominance", ylab="Cro
 dev.off()
 
 
+############
+pdf("graphs/Figure5_2plot2.pdf", height=5, width=10)
+par(mfrow=c(1,2))
+mybean(res1, mymode = "h2", ylim=c(0, 1), main="Trait per se", ylab="Cross-validation Accuracy")
+mybean(res2, mymode = "h2", ylim=c(0, 1), main="Heterosis", ylab="Cross-validation Accuracy")
+dev.off()
 
 
 
