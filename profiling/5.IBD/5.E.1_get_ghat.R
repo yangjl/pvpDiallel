@@ -39,11 +39,19 @@ getghat <- function(dir="slurm-scripts/wholeset/"){
 }
 
 ###### ghat ####################################
-ghat <- getghat(dir="slurm-scripts/wholeset/")
+ghat <- getghat(dir="slurm-scripts/gwas_b0/")
+ghat$file <- gsub("ws_|_ws", "", ghat$file)
 ghat$trait <- gsub("_.*", "", ghat$file)
 ghat$mode <- gsub(".*_", "", ghat$file)
-ghat$tsf <- gsub("_1.*", "", ghat$file)
-ghat$tsf <- gsub(".*_", "", ghat$tsf)
+ghat$tsf <- "perse"
 
-write.table(ghat, "cache/ghat_wholeset.csv", sep=",", row.names=FALSE, quote=FALSE)
+write.table(ghat, "cache/ghat_ws_gerpall_perse.csv", sep=",", row.names=FALSE, quote=FALSE)
 
+###### ghat ####################################
+ghat <- getghat(dir="slurm-scripts/gwas_bph_b0/")
+ghat$file <- gsub("ws_|_ws", "", ghat$file)
+ghat$trait <- gsub("_.*", "", ghat$file)
+ghat$mode <- gsub(".*_", "", ghat$file)
+ghat$tsf <- "bph"
+
+write.table(ghat, "cache/ghat_ws_gerpall_bph.csv", sep=",", row.names=FALSE, quote=FALSE)

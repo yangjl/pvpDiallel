@@ -5,6 +5,13 @@
 #setwd("~/Documents/Github/pvpDiallel/")
 trait <- read.csv("data/trait_matrix.csv")
 
+p1 <- mean(subset(trait, trait == "GY")$valP1)
+p2 <- mean(subset(trait, trait == "GY")$valP2)
+
+h1 <- mean(subset(trait, trait == "GY")$valHyb)
+h1/((p1+p2)/2)
+#2.6
+
 #######
 plot_trait_per_se <- function(trait=trait, ...){
   par(mar=c(3,3,4,1))
