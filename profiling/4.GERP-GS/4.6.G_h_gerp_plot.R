@@ -8,14 +8,29 @@ ob <- load("largedata/lcache/k_gerp.RData")
 geno <- read.csv("largedata/GERPv2/gerpsnp_506898.csv")
 geno <- geno[, 1:5]
 
-for(i in c(6,1:10)){
+for(i in c(1:10)){
   kval <- read.csv(paste0("largedata/lcache/kval_perse_", i, "x.csv"))
   dat <- merge(kval, geno, by.x="snpid", by.y="marker")
   dat$Effect_A <- -dat$Effect_A
   dat$Effect_D <- -dat$Effect_D
   plot_k_gerp(dat, outfile=paste0("largedata/lgraphs/gerp_k", i, "x_others.pdf"))
+  
+  med2 <- data.frame(trait=tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW")), 
+                     phph=c(-0.24725, -0.08345, -0.10605,  0.29005,  1.24175,  0.25460, -0.00955 ))
+  med2 <- med2[order(med2$phph),]
+  out <- data.frame()
+  for(j in 1:7){
+    sub <- subset(dat, trait == med2$trait[j])
+    t1 <- cor.test(sub$Effect_A, sub$RS)
+    t2 <- cor.test(sub$Effect_D, sub$RS)
+    t3 <- cor.test(sub$k, sub$RS)
+    t4 <- cor.test(sub$h2_mrk_A, sub$RS)
+    t5 <- cor.test(sub$h2_mrk_D, sub$RS)
+    t6 <- cor.test(sub$H2_mrk, sub$RS)
+    t$p.value
+    t$estimate
+  }
 }
-
 
 
 
