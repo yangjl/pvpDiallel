@@ -14,7 +14,7 @@ getk <- function(filepath="largedata/snpeff/pBPH/", H2_cutoff=2){
     tot <- sum(h1$H2_mrk)
     h2 <- subset(h1, H2_mrk > tot/nrow(h1)*H2_cutoff & Effect_A !=0)
     
-    h2$k <- h2$Effect_D/h2$Effect_A
+    h2$k <- -h2$Effect_D/abs(h2$Effect_A)
     out <- h2[, c("snpid", "k", "Effect_A", "Effect_D", "h2_mrk_A", "h2_mrk_D", "H2_mrk")]
     if(sum(out$k > 1) > 0){
       if(sum(out$k > 2) > 0){
@@ -38,6 +38,11 @@ getk <- function(filepath="largedata/snpeff/pBPH/", H2_cutoff=2){
 }
 
 for(i in 1:10){
+  res2 <- getk(filepath="largedata/snpeff/perse/", H2_cutoff=i)
+  write.table(res2, paste0("largedata/lcache/kval_perse_", i, "x.csv"), sep=",", row.names=FALSE, quote=FALSE)
+}
+
+for(i in 0:10){
   res2 <- getk(filepath="largedata/snpeff/perse/", H2_cutoff=i)
   write.table(res2, paste0("largedata/lcache/kval_perse_", i, "x.csv"), sep=",", row.names=FALSE, quote=FALSE)
 }
