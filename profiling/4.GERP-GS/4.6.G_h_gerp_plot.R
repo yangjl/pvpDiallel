@@ -1,18 +1,38 @@
 ### Jinliang Yang
 ### 9/24/2015
 
+
+pdf("largedata/lgraphs/tem.pdf")
+#gy <- merge(gy, geno, by.x="snpid", by.y="marker")
+plot(gy$RS, gy$Effect_A)
+dev.off()
+
 #####
 geno <- read.csv("largedata/GERPv2/gerpsnp_506898.csv")
 geno <- geno[, 1:5]
 
-for(i in c(1:10)){
+for(i in 0:10){
   kval <- read.csv(paste0("largedata/lcache/kval_perse_", i, "x.csv"))
   dat <- merge(kval, geno, by.x="snpid", by.y="marker")
-  dat$Effect_A <- -dat$Effect_A
-  dat$Effect_D <- -dat$Effect_D
+  #dat$Effect_A <- dat$Effect_A + mean(dat$Effect_A)
+  #dat$Effect_D <- -dat$Effect_D
   #dat$k <- -dat$Effect_D/abs(dat$Effect_A)
   #dat$Effect_D <- -dat$Effect_D
+  dat$k <- dat$Effect_D/abs(dat$Effect_A)
+  dat$Effect_A <- dat$Effect_A + mean(dat$Effect_A)
   
+  if(sum(dat$k > 1) > 0){
+    if(sum(dat$k > 2) > 0){
+      dat[dat$k > 2, ]$k <- 2
+    }
+    #out[out$k > 1, ]$k <- rescale(out[out$k > 1, ]$k, c(1, 2))
+  }
+  if(sum(dat$k < -1) > 0){
+    if(sum(dat$k < -2) > 0){
+      dat[dat$k < -2, ]$k <- -2
+    }
+    #out[out$k < -1, ]$k <- rescale(out[out$k < -1, ]$k, c(-2, -1))
+  }
   med2 <- data.frame(trait=tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW")), 
                      phph=c(-0.24725, -0.08345, -0.10605,  0.29005,  1.24175,  0.25460, -0.00955 ))
   med2 <- med2[order(med2$phph),]
@@ -40,6 +60,7 @@ for(i in c(1:10)){
   print(out)
   #### start to plot:
   plot_k_gerp(dat, med2, out, outfile=paste0("largedata/lgraphs/gerp_k", i, "x_others.pdf"))
+  #plot_k_gerp(dat, med2, out, outfile=paste0("largedata/lgraphs/gerp_k_q", i, ".pdf"))
   
 }
 

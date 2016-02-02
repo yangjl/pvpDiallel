@@ -2,7 +2,7 @@
 ### Sept 19th, 2015
 
 ##########################################
-getk <- function(filepath="largedata/snpeff/pBPH/", H2_cutoff=2){
+getk <- function(filepath="largedata/snpeff/pBPH/", q=0.9, method="q"){
   files <- list.files(path=filepath, pattern="snpe$", full.names=TRUE)
   output <- data.frame()
   for(i in 1:length(files)){
@@ -11,10 +11,23 @@ getk <- function(filepath="largedata/snpeff/pBPH/", H2_cutoff=2){
     names(h1) <- c("snpid","chr","pos","Effect_A","Effect_D","Effect_A2","Effect_D2","h2_mrk_A", 
                    "h2_mrk_D","H2_mrk","h2_mrk_A_p","h2_mrk_D_p","H2_mrk_p","log10_h2_mrk_A","log10_h2_mrk_D","log10_H2_mrk")
     #h1 <- subset(h1, Effect_A !=0)
-    tot <- sum(h1$H2_mrk)
-    h2 <- subset(h1, H2_mrk > tot/nrow(h1)*H2_cutoff & Effect_A !=0)
+    #tot <- sum(h1$H2_mrk)
     
-    h2$k <- -h2$Effect_D/abs(h2$Effect_A)
+    if(method == "q"){
+      qv <- quantile(h1$H2_mrk, probs=q)
+      message(sprintf("###>>> quantile: [ %s ]", names(qv)))
+      h2 <- subset(h1, H2_mrk > qv & Effect_A !=0)
+    }else if(method == "var"){
+      h1 <- subset(h1, Effect_A !=0 )
+      qv <- q*sum(h1$H2_mrk)/nrow(h1)
+      message(sprintf("###>>> var/#snp >: [ %s ], time [ %s ]", qv, q))
+      h2 <- subset(h1, H2_mrk > qv)
+    }else{
+      message(sprintf("###>>> No filteration (except Effect_A !=0 )"))
+      h2 <- subset(h1, Effect_A !=0 )
+    }
+
+    h2$k <- h2$Effect_D/h2$Effect_A
     out <- h2[, c("snpid", "k", "Effect_A", "Effect_D", "h2_mrk_A", "h2_mrk_D", "H2_mrk")]
     if(sum(out$k > 1) > 0){
       if(sum(out$k > 2) > 0){
@@ -37,15 +50,23 @@ getk <- function(filepath="largedata/snpeff/pBPH/", H2_cutoff=2){
   return(output)
 }
 
-for(i in 1:10){
-  res2 <- getk(filepath="largedata/snpeff/perse/", H2_cutoff=i)
+###############################
+### var/#snp filteration
+for(i in 0:10){
+  res2 <- getk(filepath="largedata/snpeff/perse/", q=i, method="var")
   write.table(res2, paste0("largedata/lcache/kval_perse_", i, "x.csv"), sep=",", row.names=FALSE, quote=FALSE)
 }
 
-for(i in 0:10){
-  res2 <- getk(filepath="largedata/snpeff/perse/", H2_cutoff=i)
-  write.table(res2, paste0("largedata/lcache/kval_perse_", i, "x.csv"), sep=",", row.names=FALSE, quote=FALSE)
+
+### quantile filtering
+for(i in c(1:10, 2.5, 7.5)){
+  res2 <- getk(filepath="largedata/snpeff/perse/", q=0.1*i)
+  write.table(res2, paste0("largedata/lcache/kval_perse_q", i, ".csv"), sep=",", row.names=FALSE, quote=FALSE)
 }
+
+i =7.5
+res2 <- getk(filepath="largedata/snpeff/perse/", q=0.1*i)
+write.table(res2, paste0("largedata/lcache/kval_perse_q", i, ".csv"), sep=",", row.names=FALSE, quote=FALSE)
 
 ############
 getvar <- function(res){
