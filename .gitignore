@@ -12,7 +12,7 @@ TSW*
 packrat/src/
 *_cache/
 *_files/
-*.RData
+#*.RData
 *.Rhistory
 largedata/
 slurm-log/
