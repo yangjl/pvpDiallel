@@ -11,8 +11,8 @@ GerpBin <- function(chr=chr10, BINSIZE=1000000){
   #### get the bin average RS
   chr$bin <- paste(chr$chr, round(chr$pos/BINSIZE, 0), sep="_")
   tab <- ddply(chr, .(bin), summarise,
-               binrs = sum(RS))
-  tab$binrs <- tab$binrs/BINSIZE
+               binrs = mean(RS))
+  #tab$binrs <- tab$binrs/BINSIZE
   
   tab$chr <- as.numeric(as.character(gsub("_.*", "", tab$bin)))
   tab$pos <- as.numeric(as.character(gsub(".*_", "", tab$bin)))
@@ -37,5 +37,14 @@ save(file="cache/4.1.B_gerpbins.RData", list=c("tab1k", "tab10k", "tab100k", "ta
 #plot(x=tab$pos, y=tab$binrs, pch=19, cex=0.3, main="Chr10", xlab="Chr", ylab="Avg RS")
 
 
-
+#############################
+chrbig <- subset(chrall, RS > 0)
+dim(chrbig)
+#[1] 86006888        4
+### binsize = 1000bp
+tab1k <- GerpBin(chr=chrbig, BINSIZE=1000)
+tab10k <- GerpBin(chr=chrbig, BINSIZE=10000)
+tab100k <- GerpBin(chr=chrbig, BINSIZE=100000)
+tab1m  <- GerpBin(chr=chrbig, BINSIZE=1000000)
+save(file="cache/4.1.B_gerpbins_big0.RData", list=c("tab1k", "tab10k", "tab100k", "tab1m"))
 

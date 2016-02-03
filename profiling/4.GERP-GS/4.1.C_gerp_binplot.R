@@ -34,6 +34,7 @@ gerPlot <- function(binsize=1000000, tab=tab1m, ...){
 ob <- load(file="cache/4.1.B_gerpbins.RData")
 
 
+ob <- load(file="cache/4.1.B_gerpbins_big0.RData")
 
 #tab <- rbind(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10)
 pdf("manuscript/SI/Figure_Sn.gerp1m.pdf", width=7, height=7)
