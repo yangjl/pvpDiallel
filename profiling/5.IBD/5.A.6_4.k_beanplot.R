@@ -10,7 +10,7 @@ mybean <- function(res0, mymode="a2", ...){
   #print(nrow(res1))
   par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
   res1$type <- factor(res1$type, levels = c("real", "random"))
-  res1$trait <- factor(res1$trait, levels = toupper(c("asi", "dts", "dtp", "tw", "pht", "eht", "gy")))
+  res1$trait <- factor(res1$trait, levels = toupper(c("dts", "dtp", "tw", "asi","pht", "eht", "gy")))
   beanplot(m ~ type + trait, data = res1, kernel="cosine", ll = 0.04, cex=1.5, side = "both", bw=0.02,
            border = NA, col = list(c("#d41243", "#d41243"), c("#00aedb", "#00aedb")), ...)
   #legend("bottomleft", fill = c("black", "grey"),
@@ -24,15 +24,12 @@ mybean <- function(res0, mymode="a2", ...){
 library(ggplot2, lib="~/bin/Rlib/")
 library(plyr)
 
-res0 <- read.csv("cache/g0_k_perse.csv")
-
-res1 <- ddply(res0, .(type, trait, mode, sp), summarise,
+res01 <- read.csv("cache/g0_k_perse.csv")
+res1 <- ddply(res01, .(type, trait, mode, sp), summarise,
               r = mean(r),
               m = median(r))
-
-res0 <- read.csv("cache/g0_k_bph.csv")
-
-res2 <- ddply(res0, .(type, trait, mode, sp), summarise,
+res02 <- read.csv("cache/g0_k_bph.csv")
+res2 <- ddply(res02, .(type, trait, mode, sp), summarise,
               r = mean(r),
               m = median(r))
 
@@ -40,16 +37,22 @@ res2 <- ddply(res0, .(type, trait, mode, sp), summarise,
 
 
 ############
-pdf("graphs/Figure5_6plots.pdf", height=8, width=12)
-par(mfrow=c(2,3))
-mybean(res1, mymode = "a2", ylim=c(0, 1), main="Additive", ylab="Cross-validation Accuracy")
-mybean(res1, mymode = "d2", ylim=c(0, 1), main="Dominance", ylab="Cross-validation Accuracy")
-mybean(res1, mymode = "h2", ylim=c(0, 1), main="Incomplete Dominance", ylab="Cross-validation Accuracy")
+pdf("graphs/Fig3_BPH_3plots.pdf", height=4, width=12)
+par(mfrow=c(1,3))
 
 mybean(res2, mymode = "a2", ylim=c(0, 1), main="Additive", ylab="Cross-validation Accuracy")
 mybean(res2, mymode = "d2", ylim=c(0, 1), main="Dominance", ylab="Cross-validation Accuracy")
 mybean(res2, mymode = "h2", ylim=c(0, 1), main="Incomplete Dominance", ylab="Cross-validation Accuracy")
 
+dev.off()
+
+#######
+pdf("graphs/Sfig_perse_3plots.pdf", height=4, width=12)
+par(mfrow=c(1,3))
+
+mybean(res1, mymode = "a2", ylim=c(0, 1), main="Additive", ylab="Cross-validation Accuracy")
+mybean(res1, mymode = "d2", ylim=c(0, 1), main="Dominance", ylab="Cross-validation Accuracy")
+mybean(res1, mymode = "h2", ylim=c(0, 1), main="Incomplete Dominance", ylab="Cross-validation Accuracy")
 dev.off()
 
 
@@ -134,13 +137,13 @@ runttest <- function(res0, mymode="h2", mytrait=myt[7]){
   message(sprintf("###>>> real [ %s ] and random [ %s ]", nrow(real), nrow(rand)))
   test <- t.test(real$r, rand$r, alternative ="greater")
   print(sprintf("### Trait [ %s ]", mytrait))
-  print(test)
+  print(test$p.value)
   #return(rbind(out1, out2[, -1]))
 }
 
 
 for(i in 1:7){
-  runttest(res2, mymode="d2", mytrait=myt[i])
+  runttest(res0=res2, mymode="h2", mytrait=myt[i])
 }
 
 

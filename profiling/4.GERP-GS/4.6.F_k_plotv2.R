@@ -43,7 +43,9 @@ bymed <- med[order(med$h),]
 
 #######
 theme_set(theme_grey(base_size = 18)) 
-p1 <- ggplot(res1, aes(x=factor(trait, levels=bymed$trait), y=value, 
+
+out1 <- melt(res1, id.var="trait")
+p1 <- ggplot(out1, aes(x=factor(trait, levels=bymed$trait), y=value, 
                        fill=factor(variable, levels =c("A", "D"), labels=c("A", "D")))) + 
   geom_bar(position=position_dodge(), stat="identity") +
   xlab("") +
@@ -61,6 +63,12 @@ p2 <- ggplot(data=res2) +
   theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
   coord_flip() + xlab("Degree of Dominance (k)") + ylab("") + facet_grid(~ trait) 
 
+########
+pdf("graphs/Fig2_eff_var.pdf", width=13, height=5)
+multiplot(p1, p2, cols=2)
+dev.off()
+
+########################
 
 for(i in 1:10){
   res2 <- getk(filepath="largedata/snpeff/perse/", H2_cutoff=i )
@@ -80,10 +88,7 @@ for(i in 1:10){
   
 }
 
-########
-pdf("graphs/Fig2_eff_var.pdf", width=13, height=5)
-multiplot(p1, p2, cols=2)
-dev.off()
+
 
 
 
@@ -123,7 +128,6 @@ per_overd(myt="GY") #0.2914191
 
 
 #########################################
-out1 <- melt(res1, id.var="trait")
 
 
 

@@ -47,7 +47,7 @@ mean(subset(perse, cs == "real" & mode == "d2")$r) #[1] 0.70
 
 ##################################################################################################################
 
-pdf("manuscript/Figure_Table/Figure_gerpall.pdf", width=10, height=8)
+pdf("graph/Figure_gerpall.pdf", width=10, height=8)
 par(mfrow=c(2,2))
 add_bean_plot(resdf = perse, mymode="a2", 
               main = "Traits per se using additive model", ylab = "Accuracy (r)")
