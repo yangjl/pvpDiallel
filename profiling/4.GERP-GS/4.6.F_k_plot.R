@@ -88,11 +88,9 @@ library(ggplot2)
 library(reshape2)
 source("~/Documents/Github/zmSNPtools/Rcodes/multiplot.R")
 
-med2 <- data.frame(trait=c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW"), 
-                   phph=c(-0.24725, -0.08345, -0.10605,  0.29005,  1.24175,  0.25460, -0.00955 ))
-med2$traitlw <- tolower(med2$trait)
+med <- read.csv("cache/loh_pBPHmax_median.csv")
 #bymed2 <- with(trait, reorder(trait, pBPHmax, median))
-bymed2 <- med2[order(med2$phph),]
+bymed <- med[order(med$h),]
 
 ###### calculate the porportion of positive
 excess_pos <- function(myt="TW"){
