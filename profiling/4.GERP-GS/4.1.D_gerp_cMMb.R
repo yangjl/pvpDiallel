@@ -11,6 +11,7 @@ write.table(gerp, "cache/gerpsnp_506898_gp.csv", sep=",", row.names=FALSE, quote
 gerp <- read.csv("cache/gerpsnp_506898_gp.csv")
 
 
+library(plyr)
 BINSIZE = 5000000
 gerp$bin <- paste(gerp$chr, round(gerp$pos/BINSIZE, 0), sep="_")
 res <- ddply(gerp, .(bin), summarise,
