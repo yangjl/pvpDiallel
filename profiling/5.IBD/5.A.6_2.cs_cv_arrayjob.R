@@ -2,16 +2,16 @@
 ### Jan. 9th, 2014
 
 source("lib/cv_array_jobs.R")
-
-
 ############# GERP > 0, per se #############
-### 700 (100cs x 7 traits) array jobs, =>gerpid x 3modes
+### 70 (11cs x 7 traits) array jobs, =>gerpid x 3modes
 
-for(i in 1:10){
+for(i in 1:11){
   setup_gerpibd_array_7traits(
     outdir="slurm-scripts/cv_b0", jobbase="gerpid_cs_job", jobid = 7*(i-1)+1,
-    genobase= paste0("largedata/SNP/geno_b0_cs/gerpv2_b0_cs", i))
+    genobase= paste0("largedata/SNP/geno_b0_cs/gerpv2_b0_cs", i-1))
 }
+
+
 
 ## note: it is for 7 traits with 3 modes for one random shuffling or real data
 for(i in 1:10){
