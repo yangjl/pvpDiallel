@@ -1,60 +1,56 @@
 ### Jinliang Yang
 ### Feb 22nd, 2015
 
-source("lib/setUpslurm.R")
-###### read data
-### Note: install the new version of gerpIBD
-setUpslurm(slurmsh="largedata/SNP/gerp_cs1.sh",
-           oneline=TRUE,
-           codesh="gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 \\
--g largedata/SNP/gerp11m_in_gene_b0.csv -n no  -o largedata/SNP/gerp_gene_b0",
-           wd=NULL,
-           sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
-           sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
-           sbathJ="gerpibd1")
+source("lib/cv_array_jobs.R")
 
-##################
-codes <- c("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 \\
-            -g largedata/SNP/gerp11m_in_gene_b0.csv -n no  -o largedata/SNP/gerp_gene_b0",
-           
-           "gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 \\
-            -g largedata/SNP/gerp11m_in_gene_s0.csv -n no  -o largedata/SNP/gerp_gene_s0",
-           
-           "gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 \\
-            -g largedata/SNP/gerp11m_in_exon_b0.csv -n no  -o largedata/SNP/gerp_exon_b0",
-           
-           "gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 \\
-            -g largedata/SNP/gerp11m_in_exon_s0.csv -n no  -o largedata/SNP/gerp_exon_s0",
-           
-           "gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 \\
-            -g largedata/SNP/gerp11m_in_intron_b0.csv -n no  -o largedata/SNP/gerp_intron_b0",
-           
-           "gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 \\
-            -g largedata/SNP/gerp11m_in_intron_s0.csv -n no  -o largedata/SNP/gerp_intron_s0"
-           )
+############# GERP > 0, per se #############
+### array job for 7 traits => 3 modes
+setup_gerpibd_array_7traits(
+  outdir="slurm-scripts/gene_perse", jobbase="gerpid_ps", jobid =1,
+  genobase="largedata/SNP/gene_perse_cs/gene_perse_cs0")
 
-source("lib/setUpslurm.R")
-###### read data
-for(i in 1:6){
-  ### Note: install the new version of gerpIBD
-  setUpslurm(slurmsh= paste0("largedata/SNP/gerp", i, ".sh"),
-             oneline=TRUE,
-             codesh= codes[i],
-             wd=NULL,
-             sbatho="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/testout-%j.txt",
-             sbathe="/home/jolyang/Documents/Github/pvpDiallel/slurm-log/error-%j.txt",
-             sbathJ= paste0("gerp", i)) 
-}
-###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
-###>>> note --ntask=x, 8GB of memory per CPU
-###>>> RUN: sbatch -p bigmemh --mem 16000 largedata/SNP/gerp1.sh
 
-###>>> RUN: sbatch -p bigmemh --mem 16000 largedata/SNP/gerp2.sh
 
-###>>> RUN: sbatch -p bigmemh --mem 16000 largedata/SNP/gerp3.sh
 
-###>>> RUN: sbatch -p bigmemm --mem 16000 largedata/SNP/gerp4.sh
 
-###>>> RUN: sbatch -p bigmemm --mem 16000 largedata/SNP/gerp5.sh
 
-###>>> RUN: sbatch -p bigmemm --mem 16000 largedata/SNP/gerp6.sh
+
+## note: it is for 7 traits with 3 modes for one random shuffling or real data
+setup_newbin_array(
+  genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0", jobid=1,
+  jobdir="slurm-scripts/get_newbin", jobbase="run_newbin_job")
+
+check <- list.files(path="largedata/SNP/geno_b0_cs", pattern="newbin$")
+# rm *gs
+
+##### gensel: 100 sp x (7traits x 5 cv x 3 modes)
+setup_gensel_array(
+  outdir="slurm-scripts/cv_b0", jobbase="gs_b0_job", jobid=1,
+  inpbase="slurm-scripts/cv_b0/cs0",
+  genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0")
+
+
+############# GERP > 0, BPH #############
+### array job for 7 traits => 3 modes
+setup_gerpibd_array_7traits(
+  outdir="slurm-scripts/gene_bph", jobbase="gerpid_bph", jobid =1,
+  genobase="largedata/SNP/gene_bph_cs/gene_bph_cs0")
+
+
+
+
+
+
+## note: it is for 7 traits with 3 modes for one random shuffling or real data
+setup_newbin_array(
+  genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0", jobid=1,
+  jobdir="slurm-scripts/get_newbin", jobbase="run_newbin_job")
+
+check <- list.files(path="largedata/SNP/geno_b0_cs", pattern="newbin$")
+# rm *gs
+
+##### gensel: 100 sp x (7traits x 5 cv x 3 modes)
+setup_gensel_array(
+  outdir="slurm-scripts/cv_b0", jobbase="gs_b0_job", jobid=1,
+  inpbase="slurm-scripts/cv_b0/cs0",
+  genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0")

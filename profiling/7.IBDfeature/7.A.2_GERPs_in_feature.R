@@ -40,6 +40,8 @@ get_gerp_in_feature <- function(gerp11m=gerp11m){
   
   #### sample the same number of >0 and <0 GERP in each feature
   sub1 <- subset(gerp11m, snpid %in% subset(gene, V5 > 0)$V4)
+  #> dim(sub1)
+  #[1] 313821      5
   write.table(sub1, "largedata/SNP/gerp11m_in_gene_b0.csv", sep=",", quote=FALSE, row.names=FALSE)
   
   sub2 <- subset(gerp11m, snpid %in% subset(gene, V5 < 0)$V4)

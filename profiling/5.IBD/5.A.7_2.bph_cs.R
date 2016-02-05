@@ -2,14 +2,23 @@
 ### Jan. 9th, 2014
 
 source("lib/cv_array_jobs.R")
+############# GERP > 0, BPH #############
+### array job for 7 traits => 3 modes
+setup_gerpibd_array_7traits(
+  outdir="slurm-scripts/bph_cv_b0", jobbase="run_gerpid_job", jobid =1,
+  kfile_path="largedata/snpeff/BPH/",
+  genobase="largedata/SNP/bph_b0_cs/gerpv2_b0_cs0")
 
+
+source("lib/cv_array_jobs.R")
 ############# GERP > 0, per se #############
 ### 700 (100cs x 7 traits) array jobs, =>gerpid x 3modes
 
-for(i in 1:10){
+for(i in 1:11){
   setup_gerpibd_array_7traits(
     outdir="slurm-scripts/bph_cv_b0", jobbase="gerpid_bph_job", jobid = 7*(i-1)+1,
-    genobase= paste0("largedata/SNP/bph_b0_cs/gerpv2_b0_cs", i))
+    kfile_path="largedata/snpeff/BPH/",
+    genobase= paste0("largedata/SNP/bph_b0_cs/gerpv2_b0_cs", i-1))
 }
 
 ## note: it is for 7 traits with 3 modes for one random shuffling or real data

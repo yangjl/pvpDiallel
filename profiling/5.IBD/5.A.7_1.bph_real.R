@@ -4,10 +4,11 @@
 
 source("lib/cv_array_jobs.R")
 
-############# GERP > 0, per se #############
+############# GERP > 0, BPH #############
 ### array job for 7 traits => 3 modes
 setup_gerpibd_array_7traits(
   outdir="slurm-scripts/bph_cv_b0", jobbase="run_gerpid_job", jobid =1,
+  kfile_path="largedata/snpeff/BPH/",
   genobase="largedata/SNP/bph_b0_cs/gerpv2_b0_cs0")
 
 ## note: it is for 7 traits with 3 modes for one random shuffling or real data

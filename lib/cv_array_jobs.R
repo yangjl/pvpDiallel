@@ -3,6 +3,7 @@
 source("~/Documents/Github/zmSNPtools/Rcodes/set_arrayjob.R")
 setup_gerpibd_array_7traits <- function(
   outdir="slurm-scripts/cv_b0/", jobbase="run_cv_job", jobid =1,
+  kfile_path="largedata/snpeff/BPH/",
   genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0"){
   #jobid: the start number of jobid
   
@@ -13,7 +14,7 @@ setup_gerpibd_array_7traits <- function(
     shid <- paste0(outdir, "/", jobbase, jobid, ".sh")
     ### gerpIBD command goes into the sh
     sh1 <- paste0("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 ",
-                  "-g ", genobase, ".csv -f largedata/snpeff/BPH/", traits[j], "_k.txt ",
+                  "-g ", genobase, ".csv -f ", kfile_path, "/", traits[j], "_k.txt ",
                   "-o ", genobase, "_", traits[j],
                   " -t k")
     cat(sh1, file=shid, sep="\n", append=FALSE)
