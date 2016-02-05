@@ -30,7 +30,11 @@ for(i in 1:11){
 }
 
 
-
+###>>> setup gensel array jobs: [ 1001 - 1100]
+###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
+###>>> [ note: --ntasks=INT, number of cup ]
+###>>> [ note: --mem=16000, 16G memory ]
+###>>> RUN: sbatch -p serial largedata/SNP/bph_b0_cs//bph_gs_job.sh
 
 
 
