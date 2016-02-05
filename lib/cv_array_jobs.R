@@ -34,7 +34,8 @@ setup_gerpibd_array_7traits <- function(
 source("lib/slurm4gerpIBDCV.R")
 setup_newbin_array <- function(
   ### note: it is for 7 traits with 3 modes for one random shuffling or real data
-  genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0", 
+  genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0",
+  phenobase="largedata/pheno/CV5fold",
   jobdir="slurm-scripts/get_newbin", inpbase= "cs0",
   jobbase="run_newbin_job", jobid =1){
   
@@ -57,8 +58,10 @@ setup_newbin_array <- function(
         inp= myinp, pi=0.995,
         # largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", i, "_", traits[j]
         geno= paste0(wd, "/", genobase, "_", ti[myti], "_", mode, ".gs"), 
-        trainpheno= paste0(wd, "/largedata/pheno/CV5fold/", ti[myti], "_train", cv, "_sp", sp, ".txt"),
-        testpheno= paste0(wd, "/largedata/pheno/CV5fold/", ti[myti], "_test", cv, "_sp", sp, ".txt"),
+        
+        #phenobase
+        trainpheno= paste0(wd, "/", phenobase, "/", ti[myti], "_train", cv, "_sp", sp, ".txt"),
+        testpheno= paste0(wd, "/", phenobase, "/", ti[myti], "_test", cv, "_sp", sp, ".txt"),
         chainLength=100, burnin=10, varGenotypic=gen[myti], varResidual=res[myti]
       )
       shcommand <- c(shcommand, paste("GenSel4R", myinp))
@@ -85,7 +88,8 @@ setup_newbin_array <- function(
   
 
 setup_gensel_array <- function(outdir="slurm-scripts/cv_b2", jobbase="run_gs_job", jobid=1,
-                               inpbase="slurm-scripts/cv_b2/cs0",
+                               inpbase="slurm-scripts/cv_b2/cs0", 
+                               phenobase="largedata/pheno/CV5fold",
                        genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0"){
   
   traits <- tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW"))
@@ -96,7 +100,7 @@ setup_gensel_array <- function(outdir="slurm-scripts/cv_b2", jobbase="run_gs_job
     
     sh1 <- c() #=> 105 shell commands
     for(i in 1:7){# 7 traits
-      mysh <- cv15_mode_cv(inpbase=inpbase, genobase=genobase, myti=i, sp)
+      mysh <- cv15_mode_cv(inpbase=inpbase, genobase=genobase, phenobase=phenobase, myti=i, sp)
       sh1 <- c(sh1, mysh)
     }
     
@@ -123,7 +127,9 @@ setup_gensel_array <- function(outdir="slurm-scripts/cv_b2", jobbase="run_gs_job
 
 
 ############
-cv15_mode_cv <- function(inpbase="slurm-scripts/cv_b0/cs0", genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0", 
+cv15_mode_cv <- function(inpbase="slurm-scripts/cv_b0/cs0", 
+                         genobase="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0", 
+                         phenobase="largedata/pheno/CV5fold",
                          myti, sp){
   ## myti: ith trait; sp: nth sub sampling
   
@@ -142,8 +148,8 @@ cv15_mode_cv <- function(inpbase="slurm-scripts/cv_b0/cs0", genobase="largedata/
         inp= myinp, pi=0.995,
         # largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", i, "_", traits[j]
         geno= paste0(wd, "/", genobase, "_", ti[myti], "_", mode, ".gs.newbin"), 
-        trainpheno= paste0(wd, "/largedata/pheno/CV5fold/", ti[myti], "_train", cv, "_sp", sp, ".txt"),
-        testpheno= paste0(wd, "/largedata/pheno/CV5fold/", ti[myti], "_test", cv, "_sp", sp, ".txt"),
+        trainpheno= paste0(wd, "/", phenobase, "/", ti[myti], "_train", cv, "_sp", sp, ".txt"),
+        testpheno= paste0(wd, "/", phenobase, "/", ti[myti], "_test", cv, "_sp", sp, ".txt"),
         chainLength=11000, burnin=1000, varGenotypic=gen[myti], varResidual=res[myti])
         
         shcommand <- c(shcommand, paste("GenSel4R", myinp))
