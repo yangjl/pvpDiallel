@@ -82,12 +82,28 @@ test <- ddply(g0, .(mode, trait, type), summarise,
 write.table(g0, "cache/g0_k_perse.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
-bph0 <- collect_res(dir="slurm-scripts/bph_cv_b0/")
+###############
+bph0 <- collect_res(dir="largedata/SNP/bph_b0_cs/")
 test <- ddply(bph0, .(mode, trait, type), summarise,
               r = mean(r))
 
-write.table(bph0, "cache/g0_k_bph.csv", sep=",", row.names=FALSE, quote=FALSE)
+write.table(bph0, "cache/g0_k_bph_2016.csv", sep=",", row.names=FALSE, quote=FALSE)
 
+b0 <- read.csv("cache/g0_k_bph.csv")
 
+test <- ddply(b0, .(mode, trait, type), summarise,
+              r = mean(r))
 
+res02 <- read.csv("cache/g0_k_bph.csv")
+res2 <- ddply(bph0, .(type, trait, mode, sp), summarise,
+              r = mean(r),
+              m = median(r))
+############
+pdf("graphs/Fig3_BPH_3plots_test.pdf", height=4, width=12)
+par(mfrow=c(1,3))
 
+mybean(res2, mymode = "a2", ylim=c(0, 1), main="Additive", ylab="Cross-validation Accuracy")
+mybean(res2, mymode = "d2", ylim=c(0, 1), main="Dominance", ylab="Cross-validation Accuracy")
+mybean(res2, mymode = "h2", ylim=c(0, 1), main="Incomplete Dominance", ylab="Cross-validation Accuracy")
+
+dev.off()

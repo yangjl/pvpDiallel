@@ -25,7 +25,7 @@ library(ggplot2, lib="~/bin/Rlib/")
 library(plyr)
 
 res01 <- read.csv("cache/g0_k_perse.csv")
-res1 <- ddply(res01, .(type, trait, mode, sp), summarise,
+res1 <- ddply(res01, .(trait, mode, sp, type), summarise,
               r = mean(r),
               m = median(r))
 res02 <- read.csv("cache/g0_k_bph.csv")
@@ -33,7 +33,17 @@ res2 <- ddply(res02, .(type, trait, mode, sp), summarise,
               r = mean(r),
               m = median(r))
 
+res02 <- read.csv("cache/g0_k_bph_2016.csv")
+res2 <- ddply(res02, .(trait, mode, sp, type), summarise,
+              r = mean(r),
+              m = median(r))
+m2 <- ddply(res2, .(trait, mode, type), summarise,
+            r = mean(r),
+            m = median(r))
 
+res2 <- ddply(res02, .(type, trait, mode), summarise,
+              r = mean(r),
+              m = median(r))
 
 
 ############
