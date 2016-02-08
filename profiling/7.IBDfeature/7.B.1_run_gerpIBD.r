@@ -65,6 +65,9 @@ for(i in 1:11){
     genobase= paste0("largedata/SNP/gene_bph_cs/gene_bph_cs", i-1))
 }
 
-
+###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
+###>>> [ note: --ntasks=INT, number of cup ]
+###>>> [ note: --mem=16000, 16G memory ]
+###>>> RUN: sbatch -p bigmemh largedata/SNP/gene_bph_cs//bph_gs_job.sh
 
 

@@ -38,7 +38,7 @@ dev.off()
 #############################################
 pdf("graphs/Fig1_c.pdf", width=5, height=5)
 plotReg(x=as.numeric(as.character(snptab$MAF2)), y=snptab$rsmean,
-        pch=16, col="cornflowerblue", xlab="MAF", ylab="Avg. GERP", main="GERP vs. MAF")
+        pch=16, col="cornflowerblue", xlab="MAF", ylab="Avg. GERP", main="")
 dev.off()
 
 #matlines(d$x,p_pred1[,c("lwr","upr")],col=2,lty=2,type="b",pch=1)

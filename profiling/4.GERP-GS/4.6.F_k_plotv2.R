@@ -100,29 +100,15 @@ for(i in 1:10){
 
 
 ###### calculate the porportion of positive
-excess_pos <- function(myt="TW"){
+excess_pos <- function(dat, myt="TW", cutoff=0){
+  out2 <- dat
   out2tw <- subset(out2, trait == myt)
-  a <- nrow(subset(out2tw, h >= 0))/nrow(out2tw) - nrow(subset(out2tw, h < 0))/nrow(out2tw)
+  a <- nrow(subset(out2tw, k >= cutoff))/nrow(out2tw) - nrow(subset(out2tw, k < -cutoff))/nrow(out2tw)
   print(a)
 }
 
-excess_pos(myt="TW") #0.2505068
-excess_pos(myt="PHT") #0.1352641
-excess_pos(myt="EHT") #0.17809
-excess_pos(myt="GY") #0.1656072
-
-###### calculate the porportion of positive
-per_overd <- function(myt="TW"){
-  out2tw <- subset(out2, trait == myt)
-  a <- nrow(subset(out2tw, h >= 1))/nrow(out2tw)
-  print(a)
-}
-
-per_overd(myt="TW") #0.1368988
-per_overd(myt="PHT") #0.05725433
-per_overd(myt="EHT") #0.04802514
-per_overd(myt="GY") #0.2914191
-
+excess_pos(dat=res2, myt="GY", cutoff=0) #0.4598517
+excess_pos(dat=res2, myt="GY", cutoff=1) #0.1057723
 
 
 
