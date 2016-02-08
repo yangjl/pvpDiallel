@@ -13,6 +13,7 @@ H2 <- H2[order(H2$h),]
 
 pdf("graphs/Fig1a_v2.pdf", width=5, height=5)
 barplot(H2[,4], ylim=c(0, 1), col="antiquewhite3", names.arg = H2$Traits, ylab="Heritability")
+box()
 dev.off()
 
 

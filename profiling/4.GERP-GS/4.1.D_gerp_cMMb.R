@@ -35,6 +35,12 @@ axis(side =1, at =1:2, labels =c("< 0.5", " >= 0.5"))
 dev.off()
 
 
+
+#################
+gerp <- read.csv("cache/gerpsnp_506898_gp.csv")
+
+
+library(plyr)
 BINSIZE = 1000000
 gerp$bin <- paste(gerp$chr, round(gerp$pos/BINSIZE, 0), sep="_")
 res <- ddply(gerp, .(bin), summarise,
@@ -60,3 +66,12 @@ beanplot(mgerp ~ sq, data = res, kernel="cosine", ll = 0.04, cex=1.5, side = "no
 axis(side =1, at =1:4, labels =c("<25%", "25-50%", "50-75%", " >75%"), cex.lab=0.25)
 
 dev.off()
+
+t.test(subset(res, sq == 1)$mgerp, subset(res, sq ==2)$mgerp)
+t.test(subset(res, sq == 1)$mgerp, subset(res, sq ==3)$mgerp)
+t.test(subset(res, sq == 1)$mgerp, subset(res, sq ==4)$mgerp)
+
+t.test(subset(res, sq == 2)$mgerp, subset(res, sq ==3)$mgerp)
+t.test(subset(res, sq == 2)$mgerp, subset(res, sq ==4)$mgerp)
+
+t.test(subset(res, sq == 3)$mgerp, subset(res, sq ==4)$mgerp)
