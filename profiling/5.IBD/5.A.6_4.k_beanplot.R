@@ -2,6 +2,8 @@
 ### beanplot
 
 library("beanplot")
+library(ggplot2)
+library(plyr)
 #http://www.jstatsoft.org/v28/c01/paper
 mybean <- function(res0, mymode="a2", ...){
   res0$mode <- as.character(res0$mode)
@@ -21,19 +23,55 @@ mybean <- function(res0, mymode="a2", ...){
 
 ############################################################
 
-library(ggplot2, lib="~/bin/Rlib/")
-library(plyr)
+
 
 res01 <- read.csv("cache/g0_k_perse.csv")
-res1 <- ddply(res01, .(type, trait, mode, sp), summarise,
+res1 <- ddply(res01, .(trait, mode, sp, type), summarise,
               r = mean(r),
               m = median(r))
+mean(subset(res1, mode=="a2")$r) #0.8352665
+mean(subset(res1, mode=="d2")$r) #0.7495015
+mean(subset(res1, mode=="h2")$r) #0.7741429
+
+mean(subset(res1, mode=="a2" & trait == "gy" & type=="real")$r)
+mean(subset(res1, mode=="a2" & trait == "gy" & type=="random")$r)
+
+mean(subset(res1, mode=="d2" & trait == "gy" & type=="real")$r)
+mean(subset(res1, mode=="d2" & trait == "gy" & type=="random")$r)
+mean(subset(res1, mode=="h2" & trait == "gy" & type=="real")$r)
+mean(subset(res1, mode=="h2" & trait == "gy" & type=="random")$r)
+
+mean(subset(res1, mode=="h2" & trait == "tw" & type=="real")$r) - mean(subset(res1, mode=="h2" & trait == "tw" & type=="random")$r)
+mean(subset(res1, mode=="h2" & trait == "asi" & type=="real")$r) - mean(subset(res1, mode=="h2" & trait == "asi" & type=="random")$r)
+mean(subset(res1, mode=="h2" & trait == "pht" & type=="real")$r) - mean(subset(res1, mode=="h2" & trait == "pht" & type=="random")$r)
+
+mean(subset(res1, mode=="h2" & trait == "gy" & type=="real")$r) - mean(subset(res1, mode=="h2" & trait == "gy" & type=="random")$r)
+
+
+
+
+
 res02 <- read.csv("cache/g0_k_bph.csv")
 res2 <- ddply(res02, .(type, trait, mode, sp), summarise,
               r = mean(r),
               m = median(r))
 
+res02 <- read.csv("cache/g0_k_bph_2016.csv")
+res2 <- ddply(res02, .(trait, mode, sp, type), summarise,
+              r = mean(r),
+              m = median(r))
+mean(subset(res2, mode=="a2")$r)
+mean(subset(res2, mode=="d2")$r)
+mean(subset(res2, mode=="h2")$r)
 
+
+mean(subset(res2, mode=="a2" & trait == "gy" & type=="real")$r)
+mean(subset(res2, mode=="a2" & trait == "gy" & type=="random")$r)
+
+mean(subset(res2, mode=="d2" & trait == "gy" & type=="real")$r)
+mean(subset(res2, mode=="d2" & trait == "gy" & type=="random")$r)
+mean(subset(res2, mode=="h2" & trait == "gy" & type=="real")$r)
+mean(subset(res2, mode=="h2" & trait == "gy" & type=="random")$r)
 
 
 ############
@@ -43,11 +81,10 @@ par(mfrow=c(1,3))
 mybean(res2, mymode = "a2", ylim=c(0, 1), main="Additive", ylab="Cross-validation Accuracy")
 mybean(res2, mymode = "d2", ylim=c(0, 1), main="Dominance", ylab="Cross-validation Accuracy")
 mybean(res2, mymode = "h2", ylim=c(0, 1), main="Incomplete Dominance", ylab="Cross-validation Accuracy")
-
 dev.off()
 
 #######
-pdf("graphs/Sfig_perse_3plots.pdf", height=4, width=12)
+pdf("graphs/SFig3_perse_3plots.pdf", height=4, width=12)
 par(mfrow=c(1,3))
 
 mybean(res1, mymode = "a2", ylim=c(0, 1), main="Additive", ylab="Cross-validation Accuracy")
@@ -127,7 +164,7 @@ dev.off()
 
 
 ###################################################################################
-myt <- c("tw", "dtp", "dts", "pht", "eht", "asi", "gy")
+myt <- c( "dtp", "dts", "tw", "asi", "pht", "eht",  "gy")
 runttest <- function(res0, mymode="h2", mytrait=myt[7]){
   
   res0$R2 <- res0$r^2
@@ -143,7 +180,11 @@ runttest <- function(res0, mymode="h2", mytrait=myt[7]){
 
 
 for(i in 1:7){
-  runttest(res0=res2, mymode="h2", mytrait=myt[i])
+  runttest(res0=res2, mymode="d2", mytrait=myt[i])
+}
+
+for(i in 1:7){
+  runttest(res0=res1, mymode="h2", mytrait=myt[i])
 }
 
 

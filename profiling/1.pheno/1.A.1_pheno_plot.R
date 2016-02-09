@@ -16,7 +16,7 @@ h1/((p1+p2)/2)
 plot_trait_per_se <- function(trait=trait, ...){
   par(mar=c(3,3,4,1))
   layout(matrix(c(1,1,2,3,4,1,1,5,6,7), 2, 5, byrow = TRUE))
-  ti <- c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW")
+  ti <- c("GY", "ASI", "DTP", "DTS", "EHT",  "PHT",  "TW")
   for(i in 1:length(ti)){
     myp <- subset(trait, trait==ti[i])
     myp$norv <- scale(myp$valHyb)
@@ -26,7 +26,7 @@ plot_trait_per_se <- function(trait=trait, ...){
   }
 }
 #####
-pdf("graphs/Fig1a.pdf", width=8, height=4)
+pdf("graphs/Fig1a.pdf", width=12, height=6)
 plot_trait_per_se(trait=trait)
 dev.off()
 
