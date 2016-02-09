@@ -2,78 +2,81 @@
 # Jan 12th, 2015
 # harvest the results of model training with gerp and random SNPs
 
-harvestCV <- function(dir="slurm-scripts/", fileptn="\\.ghatREL", remove=FALSE){
+harvestCV <- function(dir="slurm-scripts/", fileptn="\\.ghatREL1"){
   
-  files <- list.files(path = dir, pattern=fileptn)
+  files <- list.files(path = dir, pattern=fileptn, full.names=TRUE)
   ## file line of the shell file:
   message(sprintf("[ %s ] files detected!", length(files)))
   
-  resout <- data.frame()
-  for(i in 1:length(files)){
-    myfile <- paste(dir, files[i], sep="")
+  res <- unlist(lapply(1:length(files), function(i){
     #genotype gHat DTP Fix  meanBias PEV=Var(g/y)   R^2 
-    ghat <- read.table(myfile, skip=1, header=FALSE)
-    temp <- cor.test(ghat$V2, ghat$V3)
-    r2 <- (temp$estimate)^2
-    temout <- data.frame(file=files[i], R2=r2, r=temp$estimate)
-    resout <- rbind(resout, temout)
-  }
+    ghat <- read.table(files[i], skip=1, header=FALSE)
+    if(i %% 10000 ==0) {
+      # Print on the screen some message
+      message(sprintf("###>>> finished reading [ %s ] files!", i))
+    }
+    return(cor(ghat$V2, ghat$V3))
+  }))
   
-  ### remove all the files
-  if(remove == TRUE){
-    system(paste("cd", dir, "|", "rm", fileptn))
-  }
+  resout <- data.frame(file=files, r=res)
   return(resout)
 }
 
 ########
-SplitName <- function(infile=rand1){
+SplitName <- function(infile=resout){
   
   infile$file <- as.character(infile$file)
-  infile$trait <- "A"
-  infile$mode <- "a"
-  infile$cv <- "cv"
-  infile$sp <- "sp"
-  for(i in 1:nrow(infile)){
-    tem <- unlist(strsplit(infile$file[i], split="_"))
-    infile$trait[i] <- tem[1]
-    #infile$cs[i] <- tem[2]
-    infile$mode[i] <- tem[2]
-    infile$cv[i] <- tem[3]
-    infile$sp[i] <- tem[4] 
-  }
+  infile$file <- gsub(".*/", "", infile$file)
+  
+  infile$cs <- gsub("_.*", "", infile$file)
+  infile$trait <- gsub("_cv.*", "", infile$file)
+  infile$trait <- gsub("_.2", "", infile$trait)
+  infile$trait <- gsub(".*_", "", infile$trait)
+  
+  infile$mode <- gsub("_cv.*", "", infile$file) 
+  infile$mode <- gsub(".*_", "", infile$mode)
+  infile$cv <- paste0("cv", gsub(".*_cv|_.*", "", infile$file))
+  infile$sp <- paste0("sp", gsub(".*_sp|\\..*", "", infile$file))
+  infile$rel <- gsub(".*\\.", "", infile$file)
+  
+  infile$type <- infile$cs
+  infile$type <- gsub("cs0", "real", infile$type)
+  infile$type <- gsub("cs.*", "random", infile$type)
+  
+  print(table(infile$trait))
   return(infile)
 }
 
 #### extract with real data
-main1 <- function(){
-  res1 <- harvestCV(dir="slurm-scripts/exon/", fileptn="\\.ghatREL", remove=FALSE)
+collect_res <- function(dir="slurm-scripts/cv_b2/"){
+  res1 <- harvestCV(dir=dir, fileptn="\\.ghatREL")
   res1 <- SplitName(infile=res1) #885
   print(table(res1$trait))
   
-  write.table(res1, "cache/cv_exon_BPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
-}
-
-main1()
-
-#### extract with real data
-main2 <- function(){
-  res1 <- harvestCV(dir="slurm-scripts/intron/", fileptn="\\.ghatREL", remove=FALSE)
-  res1 <- SplitName(infile=res1) #885
-  print(table(res1$trait))
+  #rand1 <- subset(rand1, trait != "asi")
+  #rand1$trait <- tolower(rand1$trait)
+  return(res1)
   
-  write.table(res1, "cache/cv_intron_pBPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
 }
 
-main2()
+library(plyr, lib="~/bin/Rlib/")
+################################################################
+#7*3*5*100*11 = [1] 115500
 
-#### extract with genic data
-main3 <- function(){
-  res1 <- harvestCV(dir="slurm-scripts/gerpfeature/", fileptn="\\.ghatREL", remove=FALSE)
-  res1 <- SplitName(infile=res1) #885
-  print(table(res1$trait))
-  
-  write.table(res1, "cache/cv_genic_BPHmax.csv", sep=",", row.names=FALSE, quote=FALSE)
-}
+gene_perse0 <- collect_res(dir="largedata/SNP/gene_perse_cs/")
+write.table(gene_perse0, "cache/gene_perse_2016.csv", sep=",", row.names=FALSE, quote=FALSE)
 
-main3()
+###############################
+gene_bph0 <- collect_res(dir="largedata/SNP/gene_bph_cs/")
+
+write.table(gene_bph0, "cache/gene_bph_2016.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+############
+pdf("graphs/Fig3_BPH_3plots_test.pdf", height=4, width=12)
+par(mfrow=c(1,3))
+
+mybean(res2, mymode = "a2", ylim=c(0, 1), main="Additive", ylab="Cross-validation Accuracy")
+mybean(res2, mymode = "d2", ylim=c(0, 1), main="Dominance", ylab="Cross-validation Accuracy")
+mybean(res2, mymode = "h2", ylim=c(0, 1), main="Incomplete Dominance", ylab="Cross-validation Accuracy")
+
+dev.off()
