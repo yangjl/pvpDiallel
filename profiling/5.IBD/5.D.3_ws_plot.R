@@ -43,4 +43,8 @@ dev.off()
 
 multiplot(p1, p2, cols=2)
 
+########
+pdf("graphs/Fig_post_var_v1.pdf", width=6, height=5)
+p2
+dev.off()
 
