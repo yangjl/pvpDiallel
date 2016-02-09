@@ -8,25 +8,28 @@ res2 <- read.csv("cache/gerpsnp_wholeset_bph.csv")
 library(ggplot2)
 source("~/Documents/Github/zmSNPtools/Rcodes/multiplot.R")
 
-med2 <- data.frame(trait=tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW")), 
-                   phph=c(-0.24725, -0.08345, -0.10605,  0.29005,  1.24175,  0.25460, -0.00955 ))
+h <- read.csv("cache/loh_pBPHmax_median.csv")
+med2 <- h
 med2$traitlw <- tolower(med2$trait)
 #bymed2 <- with(trait, reorder(trait, pBPHmax, median))
-bymed2 <- med2[order(med2$phph),]
+bymed2 <- med2[order(med2$h),]
 
-p1 <- ggplot(res1, aes(x=factor(trait, levels=bymed2$trait), y=h2, 
+
+p1 <- ggplot(res1, aes(x=factor(trait, levels=bymed2$traitlw), y=h2,
                        fill=factor(mode, levels=c("a2", "d2", "h2"), labels=c("A", "D", "k")))) + 
   geom_bar(position=position_dodge(), stat="identity") +
   xlab("") +
+  ylim(c(0,1)) +
   ylab("Posterior Variance Explained") +
   ggtitle("Trait per se") + theme_bw() +
   labs(fill="Effect") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, size=12))
 
-p2 <- ggplot(res2, aes(x=factor(trait, levels=bymed2$trait), y=h2, 
+p2 <- ggplot(res2, aes(x=factor(trait, levels=bymed2$traitlw), y=h2, 
                        fill=factor(mode, levels=c("a2", "d2", "h2"), labels=c("A", "D", "k")))) + 
   geom_bar(position=position_dodge(), stat="identity") +
   xlab("") +
+  ylim(c(0,1)) +
   ylab("Posterior Variance Explained") +
   ggtitle("Heterosis") + theme_bw() +
   labs(fill="Effect") +
@@ -34,7 +37,7 @@ p2 <- ggplot(res2, aes(x=factor(trait, levels=bymed2$trait), y=h2,
 
 
 ########
-pdf("graphs/Fig_post_var.pdf", width=13, height=5)
+pdf("graphs/Fig_post_var.pdf", width=12, height=5)
 multiplot(p1, p2, cols=2)
 dev.off()
 

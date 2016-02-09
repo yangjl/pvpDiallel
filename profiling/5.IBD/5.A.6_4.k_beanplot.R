@@ -29,6 +29,10 @@ res01 <- read.csv("cache/g0_k_perse.csv")
 res1 <- ddply(res01, .(trait, mode, sp, type), summarise,
               r = mean(r),
               m = median(r))
+mean(subset(res1, mode=="a2")$r) #0.8352665
+mean(subset(res1, mode=="d2")$r) #0.7495015
+mean(subset(res1, mode=="h2")$r) #0.7741429
+
 mean(subset(res1, mode=="a2" & trait == "gy" & type=="real")$r)
 mean(subset(res1, mode=="a2" & trait == "gy" & type=="random")$r)
 
@@ -36,6 +40,12 @@ mean(subset(res1, mode=="d2" & trait == "gy" & type=="real")$r)
 mean(subset(res1, mode=="d2" & trait == "gy" & type=="random")$r)
 mean(subset(res1, mode=="h2" & trait == "gy" & type=="real")$r)
 mean(subset(res1, mode=="h2" & trait == "gy" & type=="random")$r)
+
+mean(subset(res1, mode=="h2" & trait == "tw" & type=="real")$r) - mean(subset(res1, mode=="h2" & trait == "tw" & type=="random")$r)
+mean(subset(res1, mode=="h2" & trait == "asi" & type=="real")$r) - mean(subset(res1, mode=="h2" & trait == "asi" & type=="random")$r)
+mean(subset(res1, mode=="h2" & trait == "pht" & type=="real")$r) - mean(subset(res1, mode=="h2" & trait == "pht" & type=="random")$r)
+
+mean(subset(res1, mode=="h2" & trait == "gy" & type=="real")$r) - mean(subset(res1, mode=="h2" & trait == "gy" & type=="random")$r)
 
 
 

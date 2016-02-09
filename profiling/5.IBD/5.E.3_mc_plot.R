@@ -11,38 +11,59 @@ library(ggplot2)
 source("~/Documents/Github/zmSNPtools/Rcodes/multiplot.R")
 library(reshape2)
 res1 <- melt(mc1, id.vars = c("trait", "mode"))
+res1$qval <- p.adjust(res1$value, method="fdr")
+
 res2 <- melt(mc2, id.vars = c("trait", "mode"))
+res2$qval <- p.adjust(res2$value, method="fdr")
 
-
-med2 <- data.frame(trait=c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW"), 
-                   phph=c(-0.24725, -0.08345, -0.10605,  0.29005,  1.24175,  0.25460, -0.00955 ))
+h <- read.csv("cache/loh_pBPHmax_median.csv")
+med2 <- h
 med2$traitlw <- tolower(med2$trait)
 #bymed2 <- with(trait, reorder(trait, pBPHmax, median))
-bymed2 <- med2[order(med2$phph),]
+bymed2 <- med2[order(med2$h),]
 
-p1 <- ggplot(subset(res1, mode=="a2"), aes(x=factor(trait, levels=bymed2$trait), y= -log10(value) )) + 
-  geom_point(aes(color = variable), size = 5) +
+res1 <- subset(res1, variable %in% c("p21", "p43"))
+res1$variable <- gsub("p21", "m2 vs m1", res1$variable)
+res1$variable <- gsub("p43", "m2 vs m3", res1$variable)
+names(res1)[3] <- "Comparison"
+p1 <- ggplot(subset(res1, mode=="a2"), aes(x=factor(trait, levels=bymed2$trait), y= -log10(qval) )) + 
+  geom_point(aes(color = Comparison), size = 5) +
   xlab("") +
-  ylab("Posterior Variance Explained") +
+  ylab("-log10(Adjusted P-value)") +
   ggtitle("Additive") + theme_bw() +
-  labs(fill="Models") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1, size=12))
+  ylim(c(0, 30)) +
+  #guides(fill=guide_legend(title="Comparison")) + 
+  geom_hline(yintercept=-log10(0.01), colour = "red", lty=2) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, size=12), legend.position=c(0.8, 0.8))
 
-p2 <- ggplot(subset(res1, mode=="d2"), aes(x=factor(trait, levels=bymed2$trait), y= -log10(value) )) + 
-  geom_point(aes(color = variable), size = 5) +
+p2 <- ggplot(subset(res1, mode=="d2"), aes(x=factor(trait, levels=bymed2$trait), y= -log10(qval) )) + 
+  geom_point(aes(color = Comparison), size = 5) +
   xlab("") +
-  ylab("Posterior Variance Explained") +
+  ylab("-log10(Adjusted P-value)") +
   ggtitle("Dominance") + theme_bw() +
-  labs(fill="Models") +
+  ylim(c(0, 30)) +
+  guides(colour=FALSE) + 
+  geom_hline(yintercept=-log10(0.01), colour = "red", lty=2) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, size=12))
 
-p3 <- ggplot(subset(res1, mode=="h2"), aes(x=factor(trait, levels=bymed2$trait), y= -log10(value) )) + 
-  geom_point(aes(color = variable), size = 5) +
+p3 <- ggplot(subset(res1, mode=="h2"), aes(x=factor(trait, levels=bymed2$trait), y= -log10(qval) )) + 
+  geom_point(aes(color = Comparison), size = 5) +
   xlab("") +
-  ylab("Posterior Variance Explained") +
+  ylab("-log10(Adjusted P-value)") +
   ggtitle("Incomplete Dominance") + theme_bw() +
-  labs(fill="Models") +
+  geom_hline(yintercept=-log10(0.01), colour = "red", lty=2) +
+  ylim(c(0, 30)) +
+  guides(colour=FALSE) + 
   theme(axis.text.x = element_text(angle = 90, hjust = 1, size=12))
+
+########
+pdf("graphs/Fig_model_comp.pdf", width=12, height=4)
+multiplot(p1, p2, p3, cols=3)
+dev.off()
+
+
+
+
 
 p4 <- ggplot(subset(res2, mode=="a2"), aes(x=factor(trait, levels=bymed2$trait), y= -log10(value) )) + 
   geom_point(aes(color = variable), size = 5) +
@@ -71,9 +92,6 @@ p6 <- ggplot(subset(res2, mode=="h2"), aes(x=factor(trait, levels=bymed2$trait),
 
 
 
-########
-pdf("graphs/Fig_post_var.pdf", width=13, height=5)
-multiplot(p1, p2, p3, cols=3)
-dev.off()
+
 
 
