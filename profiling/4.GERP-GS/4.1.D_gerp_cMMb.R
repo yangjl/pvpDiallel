@@ -30,7 +30,8 @@ table(res$sq)
 library("beanplot")
 pdf("graphs/Fig1d.pdf", width=5, height=5)
 beanplot(mgerp ~ sq, data = res, kernel="cosine", ll = 0.04, cex=1.5, side = "no", cut=3,
-         border = NA, col="antiquewhite3", xaxt="n", ylab="GERP Score", xlab="Recombination rate (cM/Mb)")
+         border = NA, col= list(c("#cd5b45", "antiquewhite3", "antiquewhite3", "antiquewhite3")), 
+         xaxt="n", ylab="GERP Score", xlab="Recombination rate (cM/Mb)")
 axis(side =1, at =1:2, labels =c("< 0.5", " >= 0.5"))
 dev.off()
 
@@ -61,7 +62,8 @@ res[res$gen >= cutoff[3], ]$sq <- 4
 pdf("graphs/Fig1d.pdf", width=5, height=5)
 #par(mar = c(7, 4, 4, 2) + 0.1)
 beanplot(mgerp ~ sq, data = res, kernel="cosine", ll = 0.04, cex=1.5, side = "no", cut=10, ylim=c(0.5, 1.5),
-         border = NA, col="antiquewhite3", xaxt="n", ylab="GERP Score", xlab="Recombination Rate (cM/Mb)")
+         border = NA, col=list("#cd5b45", "antiquewhite3", "antiquewhite3", "antiquewhite3"), 
+         xaxt="n", ylab="GERP Score", xlab="Recombination Rate (cM/Mb)")
 #axis(side =1, at =1:4, las=3, labels =c("[0, 25%)", "[25%, 50%)", "[50%, 75%)", "[75%, 100%)"))
 axis(side =1, at =1:4, labels =c("<25%", "25-50%", "50-75%", " >75%"), cex.lab=0.25)
 

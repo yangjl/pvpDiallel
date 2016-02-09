@@ -71,12 +71,3 @@ gene_bph0 <- collect_res(dir="largedata/SNP/gene_bph_cs/")
 
 write.table(gene_bph0, "cache/gene_bph_2016.csv", sep=",", row.names=FALSE, quote=FALSE)
 
-############
-pdf("graphs/Fig3_BPH_3plots_test.pdf", height=4, width=12)
-par(mfrow=c(1,3))
-
-mybean(res2, mymode = "a2", ylim=c(0, 1), main="Additive", ylab="Cross-validation Accuracy")
-mybean(res2, mymode = "d2", ylim=c(0, 1), main="Dominance", ylab="Cross-validation Accuracy")
-mybean(res2, mymode = "h2", ylim=c(0, 1), main="Incomplete Dominance", ylab="Cross-validation Accuracy")
-
-dev.off()

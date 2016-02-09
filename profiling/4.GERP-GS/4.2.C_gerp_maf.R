@@ -3,12 +3,13 @@
 ### purpose: find the relationship of RS with SNP frq
 
 library("plyr")
-library("ggplot2", lib="~/bin/Rlib/")
+library("ggplot2")
 #load data in the local machine for plotting
 ob <- load("largedata/lcache/snpnzRS.RData")
-snpnz$MAF2 <- as.factor(round(snpnz$MAF, 2))
+snpnz$MAF2 <- as.factor(round(snpnz$MAF, 3))
 
-snptab <- ddply(snpnz, .(MAF2), summarise,
+
+snptab <- ddply(subset(snpnz, RS >0 ), .(MAF2), summarise,
                 rsmean= mean(RS),
                 rssd = sd(RS))
 
@@ -36,7 +37,7 @@ plotReg(x=as.numeric(as.character(snptab$MAF2)), y=snptab$rsmean,
 dev.off()
 
 #############################################
-pdf("graphs/Fig1_c.pdf", width=5, height=5)
+pdf("graphs/Fig1_c_new.pdf", width=5, height=5)
 plotReg(x=as.numeric(as.character(snptab$MAF2)), y=snptab$rsmean,
         pch=16, col="cornflowerblue", xlab="MAF", ylab="Avg. GERP", main="")
 dev.off()
