@@ -118,6 +118,7 @@ excess_pos(dat=res2, myt="GY", cutoff=1) #0.1057723
 theme_set(theme_grey(base_size = 18)) 
 
 res2 <- subset(res2, trait %in% c("DTP", "PHT", "GY"))
+res2 <- subset(res2, abs(k) < 2)
 res2$trait <- toupper(res2$trait)
 res2$trait <- factor(res2$trait, levels=bymed$trait)
 p2 <- ggplot(data=res2) +
