@@ -49,13 +49,6 @@ mean(subset(res1, mode=="h2" & trait == "gy" & type=="real")$r) - mean(subset(re
 
 
 
-
-
-res02 <- read.csv("cache/g0_k_bph.csv")
-res2 <- ddply(res02, .(type, trait, mode, sp), summarise,
-              r = mean(r),
-              m = median(r))
-
 res02 <- read.csv("cache/g0_k_bph_2016.csv")
 res2 <- ddply(res02, .(trait, mode, sp, type), summarise,
               r = mean(r),
@@ -101,6 +94,29 @@ mybean(res2, mymode = "h2", ylim=c(0, 1), main="Heterosis", ylab="Cross-validati
 dev.off()
 
 
+############ For BAPG meeting
+my_BAPG_bean <- function(res0, mymode="a2", ...){
+  res0$mode <- as.character(res0$mode)
+  res1 <- subset(res0, mode == mymode)
+  res1$trait <- toupper(res1$trait)
+  #print(nrow(res1))
+  par(lend = 1, mai = c(0.8, 0.8, 0.5, 0.5))
+  res1$type <- factor(res1$type, levels = c("real", "random"))
+  res1$trait <- factor(res1$trait, levels = toupper(c("dtp", "pht", "gy")))
+  beanplot(m ~ type + trait, data = res1, kernel="cosine", ll = 0.04, cex=1.5, side = "both", bw=0.02,
+           border = NA, col = list(c("#d41243", "#d41243"), c("grey", "grey")), ...)
+  #legend("bottomleft", fill = c("black", "grey"),
+  #       legend = c("Group 2", "Group 1"))
+  #return(res0)
+  
+}
+res1 <- subset(res1, trait %in% c("dtp", "pht", "gy"))
+res2 <- subset(res2, trait %in% c("dtp", "pht", "gy"))
+pdf("graphs/Figure3_BAPG.pdf", height=5, width=10)
+par(mfrow=c(1,2))
+my_BAPG_bean(res1, mymode = "h2", ylim=c(0, 1), main="Trait per se", ylab="Cross-validation Accuracy")
+my_BAPG_bean(res2, mymode = "h2", ylim=c(0, 1), main="Heterosis", ylab="Cross-validation Accuracy")
+dev.off()
 
 
 

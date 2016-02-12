@@ -48,3 +48,11 @@ pdf("graphs/Fig_post_var_v1.pdf", width=6, height=5)
 p2
 dev.off()
 
+####### BAPG meeting
+res1 <- subset(res1, trait %in% c("dtp", "pht", "gy"))
+res2 <- subset(res2, trait %in% c("dtp", "pht", "gy"))
+
+pdf("graphs/Fig2_BAPG.pdf", width=12, height=5)
+multiplot(p1, p2, cols=2)
+dev.off()
+

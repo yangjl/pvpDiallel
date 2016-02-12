@@ -114,6 +114,23 @@ excess_pos(dat=res2, myt="GY", cutoff=1) #0.1057723
 
 
 #########################################
+####### for BAPG meeting
+theme_set(theme_grey(base_size = 18)) 
+
+res2 <- subset(res2, trait %in% c("DTP", "PHT", "GY"))
+res2$trait <- toupper(res2$trait)
+res2$trait <- factor(res2$trait, levels=bymed$trait)
+p2 <- ggplot(data=res2) +
+  geom_density(aes(x= k, y=-..scaled.., fill= as.factor(trait)) ) +
+  #guides(fill=FALSE) +
+  labs(y=NULL, fill="Trait") + theme_bw() +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  coord_flip() + xlab("Degree of Dominance (k)") + ylab("") + facet_grid(~ trait) 
+
+########
+pdf("graphs/Fig_BAPG.pdf", width=6, height=5)
+p2
+dev.off()
 
 
 
