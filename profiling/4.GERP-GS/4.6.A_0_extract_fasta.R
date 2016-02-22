@@ -5,6 +5,11 @@
 ### get the parental genotype info
 geno <- read.csv("largedata/GERPv2/gerpsnp_506898.csv")
 
+bed3 <- geno[, c("chr", "pos")]
+bed3$end <- bed3$pos
+bed3$pos <- bed3$pos - 1
+write.table(bed3, "largedata/Alignment/GERP_b0_AGPv2.bed", sep="\t",
+            row.names=FALSE, quote=FALSE, col.names=FALSE)
 
 sps <- c("Zea", "Coelorachis","Vossia","Sorghum","Oryza","Setaria",
          "Brachypodium","Hordeum","Musa","Populus","Vitis","Arabidopsis","Panicum")
