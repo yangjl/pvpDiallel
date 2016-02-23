@@ -1,79 +1,6 @@
 ### Jinliang Yang
 ### 9/24/2015
 
-
-pdf("largedata/lgraphs/tem.pdf")
-#gy <- merge(gy, geno, by.x="snpid", by.y="marker")
-plot(gy$RS, gy$Effect_A)
-dev.off()
-
-#####
-geno <- read.csv("largedata/GERPv2/gerpsnp_506898.csv")
-geno <- geno[, 1:5]
-
-for(i in 0:10){
-  kval <- read.csv(paste0("largedata/lcache/kval_perse_", i, "x.csv"))
-  dat <- merge(kval, geno, by.x="snpid", by.y="marker")
-  #dat$Effect_A <- dat$Effect_A + mean(dat$Effect_A)
-  #dat$Effect_D <- -dat$Effect_D
-  #dat$k <- -dat$Effect_D/abs(dat$Effect_A)
-  #dat$Effect_D <- -dat$Effect_D
-  dat$k <- dat$Effect_D/abs(dat$Effect_A)
-  dat$Effect_A <- dat$Effect_A + mean(dat$Effect_A)
-  
-  if(sum(dat$k > 1) > 0){
-    if(sum(dat$k > 2) > 0){
-      dat[dat$k > 2, ]$k <- 2
-    }
-    #out[out$k > 1, ]$k <- rescale(out[out$k > 1, ]$k, c(1, 2))
-  }
-  if(sum(dat$k < -1) > 0){
-    if(sum(dat$k < -2) > 0){
-      dat[dat$k < -2, ]$k <- -2
-    }
-    #out[out$k < -1, ]$k <- rescale(out[out$k < -1, ]$k, c(-2, -1))
-  }
-  med2 <- data.frame(trait=tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW")), 
-                     phph=c(-0.24725, -0.08345, -0.10605,  0.29005,  1.24175,  0.25460, -0.00955 ))
-  med2 <- med2[order(med2$phph),]
-  
-  out <- data.frame()
-  #med2$trait <- as.character(med2$trait)
-  for(j in 1:7){
-    sub <- subset(dat, trait == med2$trait[j])
-    t1 <- cor.test(sub$Effect_A, sub$RS)
-    t2 <- cor.test(sub$Effect_D, sub$RS)
-    t3 <- cor.test(sub$k, sub$RS)
-    t4 <- cor.test(sub$h2_mrk_A, sub$RS)
-    t5 <- cor.test(sub$h2_mrk_D, sub$RS)
-    t6 <- cor.test(sub$H2_mrk, sub$RS)
-
-    tem <- data.frame(trait=med2$trait[j], effa=t1$p.value, effar=t1$estimate,
-                      effd=t2$p.value, effdr=t2$estimate,
-                      effk=t3$p.value, effkr=t3$estimate,
-                      h2a=t4$p.value, h2ar=t4$estimate,
-                      h2d=t5$p.value, h2dr=t5$estimate,
-                      h2k=t6$p.value, h2kr=t6$estimate)
-    out <- rbind(out, tem)
-  }
-  print(i)
-  print(out)
-  #### start to plot:
-  plot_k_gerp(dat, med2, out, outfile=paste0("largedata/lgraphs/gerp_k", i, "x_others.pdf"))
-  #plot_k_gerp(dat, med2, out, outfile=paste0("largedata/lgraphs/gerp_k_q", i, ".pdf"))
-  
-}
-
-
-
-
-
-
-
-
-
-
-
 ##############################################
 library(wesanderson)
 library(ggplot2)
@@ -101,7 +28,7 @@ plot_k_gerp <- function(dat,med2, out, outfile="largedata/lgraphs/gerp_k7x_other
     
     geom_smooth(method="gam", size=1.3) +
     theme(axis.text.y = element_text(angle = 90, hjust = 1))
-    
+  
   
   lty2 <- getlty(df=out, eff="effd", cutoff=0.05)$l
   p2 <- ggplot(dat, aes(x=RS, y=Effect_D, colour=factor(trait, levels=med2$trait),
@@ -188,6 +115,75 @@ getlty <- function(df, eff, cutoff=0.05){
   if(nrow(df[df[, eff] < cutoff, ]) >0) df[df[, eff] < cutoff, ]$l <- 1
   return(df)
 }
+
+
+
+##########################################################
+#####
+geno <- read.csv("largedata/GERPv2/gerpsnp_506898.csv")
+geno <- geno[, 1:5]
+
+for(i in 5:10){
+  kval <- read.csv(paste0("largedata/lcache/kval_perse_", i, "x.csv"))
+  dat <- merge(kval, geno, by.x="snpid", by.y="marker")
+  #dat$Effect_A <- dat$Effect_A + mean(dat$Effect_A)
+  #dat$Effect_D <- -dat$Effect_D
+  #dat$k <- -dat$Effect_D/abs(dat$Effect_A)
+  #dat$Effect_D <- -dat$Effect_D
+  dat$Effect_A <- -dat$Effect_A
+  dat$k <- dat$Effect_D/abs(dat$Effect_A)
+  
+  if(sum(dat$k > 1) > 0){
+    if(sum(dat$k > 2) > 0){
+      dat[dat$k > 2, ]$k <- 2
+    }
+    #out[out$k > 1, ]$k <- rescale(out[out$k > 1, ]$k, c(1, 2))
+  }
+  if(sum(dat$k < -1) > 0){
+    if(sum(dat$k < -2) > 0){
+      dat[dat$k < -2, ]$k <- -2
+    }
+    #out[out$k < -1, ]$k <- rescale(out[out$k < -1, ]$k, c(-2, -1))
+  }
+  med2 <- data.frame(trait=tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW")), 
+                     phph=c(-0.24725, -0.08345, -0.10605,  0.29005,  1.24175,  0.25460, -0.00955 ))
+  med2 <- med2[order(med2$phph),]
+  
+  out <- data.frame()
+  #med2$trait <- as.character(med2$trait)
+  for(j in 1:7){
+    sub <- subset(dat, trait == med2$trait[j])
+    t1 <- cor.test(sub$Effect_A, sub$RS)
+    t2 <- cor.test(sub$Effect_D, sub$RS)
+    t3 <- cor.test(sub$k, sub$RS)
+    t4 <- cor.test(sub$h2_mrk_A, sub$RS)
+    t5 <- cor.test(sub$h2_mrk_D, sub$RS)
+    t6 <- cor.test(sub$H2_mrk, sub$RS)
+
+    tem <- data.frame(trait=med2$trait[j], effa=t1$p.value, effar=t1$estimate,
+                      effd=t2$p.value, effdr=t2$estimate,
+                      effk=t3$p.value, effkr=t3$estimate,
+                      h2a=t4$p.value, h2ar=t4$estimate,
+                      h2d=t5$p.value, h2dr=t5$estimate,
+                      h2k=t6$p.value, h2kr=t6$estimate)
+    out <- rbind(out, tem)
+  }
+  print(i)
+  print(out)
+  #### start to plot:
+  plot_k_gerp(dat, med2, out, outfile=paste0("largedata/lgraphs/gerp_k", i, "x_others.pdf"))
+  #plot_k_gerp(dat, med2, out, outfile=paste0("largedata/lgraphs/gerp_k_q", i, ".pdf"))
+  
+}
+
+
+
+
+
+
+
+
+
 
 
 
