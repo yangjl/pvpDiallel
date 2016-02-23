@@ -96,4 +96,11 @@ plot_tri(kdat=k_b0, mytrait="TW",getmax=TRUE, main="Test Weight")
 dev.off()
 
 
+#######
+ab <- density(dat$AB)
+aab <- density(dat$AAB)
+abb <- density(dat$ABB)
+
+plot(aab, xlim=c(150, 200))
+lines(abb)
 
