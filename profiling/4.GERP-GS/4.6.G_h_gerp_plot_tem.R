@@ -9,7 +9,7 @@ source("~/Documents/Github/zmSNPtools/Rcodes/multiplot.R")
 plot_k_gerp <- function(dat,med2, out, outfile="largedata/lgraphs/gerp_k7x_others.pdf"){
   
   #cols <- wes_palette(7, name = "Zissou", type = "continuous")
-  cols <- c("#f6546a", "#daa520", "#00ff00", "#66cdaa", "#3b5998", "#8a2be2", "#ff00ff")
+  cols <- c( "#daa520", "#3b5998", "#ff00ff")
   theme_set(theme_grey(base_size = 18)) 
   
   lty1 <- getlty(df=out, eff="effa", cutoff=0.05)$l
@@ -123,7 +123,7 @@ getlty <- function(df, eff, cutoff=0.05){
 geno <- read.csv("largedata/GERPv2/gerpsnp_506898.csv")
 geno <- geno[, 1:5]
 
-for(i in 5:10){
+for(i in 0:1){
   kval <- read.csv(paste0("largedata/lcache/kval_perse_", i, "x.csv"))
   dat <- merge(kval, geno, by.x="snpid", by.y="marker")
   #dat$Effect_A <- dat$Effect_A + mean(dat$Effect_A)
@@ -133,6 +133,7 @@ for(i in 5:10){
   dat$Effect_A <- -dat$Effect_A
   dat$k <- dat$Effect_D/abs(dat$Effect_A)
   
+  dat <- subset(dat, trait %in% c("dtp", "pht", "gy"))
   if(sum(dat$k > 1) > 0){
     if(sum(dat$k > 2) > 0){
       dat[dat$k > 2, ]$k <- 2
@@ -145,13 +146,13 @@ for(i in 5:10){
     }
     #out[out$k < -1, ]$k <- rescale(out[out$k < -1, ]$k, c(-2, -1))
   }
-  med2 <- data.frame(trait=tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW")), 
-                     phph=c(-0.24725, -0.08345, -0.10605,  0.29005,  1.24175,  0.25460, -0.00955 ))
+  med2 <- data.frame(trait=tolower(c( "DTP",  "GY", "PHT")), 
+                     phph=c(-0.24725,  1.24175,  0.25460))
   med2 <- med2[order(med2$phph),]
   
   out <- data.frame()
-  #med2$trait <- as.character(med2$trait)
-  for(j in 1:7){
+  med2$trait <- as.character(med2$trait)
+  for(j in 1:3){
     sub <- subset(dat, trait == med2$trait[j])
     t1 <- cor.test(sub$Effect_A, sub$RS)
     t2 <- cor.test(sub$Effect_D, sub$RS)
@@ -171,46 +172,10 @@ for(i in 5:10){
   print(i)
   print(out)
   #### start to plot:
-  plot_k_gerp(dat, med2, out, outfile=paste0("largedata/lgraphs/gerp_k", i, "x_others.pdf"))
+  plot_k_gerp(dat, med2, out, outfile=paste0("largedata/lgraphs/gerp_k", i, "x_tem.pdf"))
   #plot_k_gerp(dat, med2, out, outfile=paste0("largedata/lgraphs/gerp_k_q", i, ".pdf"))
   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-###########################
-med2$l <- getlty(df=out, eff="effa", cutoff=0.05)$l
- 
-cols <- c("#f6546a", "#daa520", "#00ff00", "#66cdaa", "#3b5998", "#8a2be2", "#ff00ff")
-theme_set(theme_grey(base_size = 18)) 
-le <- ggplot(dat, aes(x=RS, y=Effect_A, colour=factor(trait, levels=med2$trait),
-                      linetype=factor(trait, levels=med2$trait))) +
-  #geom_point(shape=1) +    # Use hollow circles
-  labs(colour="Traits", linetype="type") +
-  theme_bw() +
-  xlab("GERP Score") +
-  ylab("Total Variance") +
-  #guides(colour=FALSE) +
-  scale_colour_manual(values=cols) +
-  scale_linetype_manual(values=med2$l) +
-  theme(axis.text.y = element_text(angle = 90, hjust = 1)) +
-  geom_smooth(method="gam", size=1.3) 
-
-pdf("graphs/Fig4_k_others_legend.pdf", width=4, height=4)
-le
-dev.off()
 
 
 

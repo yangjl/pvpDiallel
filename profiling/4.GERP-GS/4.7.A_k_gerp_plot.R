@@ -2,8 +2,9 @@
 ### Sept 19th, 2015
 
 ##########################################
-getk <- function(filepath="largedata/snpeff/pBPH/", q=0.9, method="q"){
+getk <- function(filepath="largedata/snpeff/pBPH/", deff, q=0.9, method="q"){
   files <- list.files(path=filepath, pattern="snpe$", full.names=TRUE)
+  
   output <- data.frame()
   for(i in 1:length(files)){
     h1 <- read.table(files[i], header=TRUE)
@@ -12,6 +13,12 @@ getk <- function(filepath="largedata/snpeff/pBPH/", q=0.9, method="q"){
                    "h2_mrk_D","H2_mrk","h2_mrk_A_p","h2_mrk_D_p","H2_mrk_p","log10_h2_mrk_A","log10_h2_mrk_D","log10_H2_mrk")
     #h1 <- subset(h1, Effect_A !=0)
     #tot <- sum(h1$H2_mrk)
+    out1 <- h1[h1$snpid %in% deff$snpid, ]
+    out1$Effect_A <- -out1$Effect_A
+    out1$Effect_D <- -out1$Effect_D
+    
+    out2 <- h1[!(h1$snpid %in% deff$snpid), ]
+    h1 <- rbind(out1, out2)
     
     if(method == "q"){
       qv <- quantile(h1$H2_mrk, probs=q)
@@ -51,16 +58,24 @@ getk <- function(filepath="largedata/snpeff/pBPH/", q=0.9, method="q"){
 }
 
 ###############################
+### determine direction of effects
+deff <- read.csv("largedata/Alignment/conserved_alleles_AGPv2.csv")
+deff$major <- as.character(deff$major)
+deff$Zea <- as.character(deff$Zea)
+deff <- subset(deff, major != Zea)
+
+
+
 ### var/#snp filteration
 for(i in 0:10){
-  res2 <- getk(filepath="largedata/snpeff/perse/", q=i, method="var")
+  res2 <- getk(filepath="largedata/snpeff/perse/", deff, q=i, method="var")
   write.table(res2, paste0("largedata/lcache/kval_perse_", i, "x.csv"), sep=",", row.names=FALSE, quote=FALSE)
 }
 
 
 ### quantile filtering
 for(i in c(1:10, 2.5, 7.5)){
-  res2 <- getk(filepath="largedata/snpeff/perse/", q=0.1*i)
+  res2 <- getk(filepath="largedata/snpeff/perse/", q=0.1*i, method="q")
   write.table(res2, paste0("largedata/lcache/kval_perse_q", i, ".csv"), sep=",", row.names=FALSE, quote=FALSE)
 }
 
