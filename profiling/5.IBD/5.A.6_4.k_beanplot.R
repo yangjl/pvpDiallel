@@ -67,6 +67,17 @@ mean(subset(res2, mode=="h2" & trait == "gy" & type=="real")$r)
 mean(subset(res2, mode=="h2" & trait == "gy" & type=="random")$r)
 
 
+##########
+pdf("graphs/Fig3_perse_BPH_2plots.pdf", height=5, width=10)
+par(mfrow=c(1,2))
+mybean(res1, mymode = "h2", ylim=c(0, 1), main="Trait per se", ylab="Cross-validation Accuracy")
+mybean(res2, mymode = "h2", ylim=c(0, 1), main="Heterosis (BPH)", ylab="Cross-validation Accuracy")
+dev.off()
+
+
+
+
+
 ############
 pdf("graphs/Fig3_BPH_3plots.pdf", height=4, width=12)
 par(mfrow=c(1,3))
@@ -201,6 +212,10 @@ for(i in 1:7){
 
 for(i in 1:7){
   runttest(res0=res1, mymode="h2", mytrait=myt[i])
+}
+
+for(i in 1:7){
+  runttest(res0=res2, mymode="h2", mytrait=myt[i])
 }
 
 
