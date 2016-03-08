@@ -3,13 +3,13 @@
 
 library("data.table", lib="~/bin/Rlib")
 
-gerp130m <- fread("largedata/GERPv2/gerp130m.csv")
-dim(gerp130m)
-#[1] 130896913         4
-gerpb0 <- subset(gerp130m, RS > 0)
-gerpb0 <- as.data.frame(gerpb0)
+chrall <- fread("largedata/gerpv3_228m.csv")
+dim(chrall)
+#[1] 228,951,075         4
+
+gerps <- as.data.frame(chrall)
 #[1] 86006888        4
-bed5 <- gerpb0[, c("chr", "pos", "pos", "chr", "RS")]
+bed5 <- gerps[, c("chr", "pos", "pos", "chr", "RS")]
 names(bed5) <- c("chrom", "start", "end", "name", "score")
 bed5$start <- bed5$start - 1
 bed5$name <- paste(bed5$chrom, bed5$end, sep="_")
