@@ -1,10 +1,7 @@
 ### Jinliang Yang
 ### extract SNP from fasta file
 
-
 library("data.table", lib="~/bin/Rlib")
-
-
 
 pre_bed <- function(){
   chrall <- fread("largedata/gerpv3_228m.csv")
@@ -38,6 +35,20 @@ pre_bed <- function(){
 ###########
 pre_bed5()
 
+library(maizeR)
+for(i in 1:9){
+  shid <- paste0("slurm-scripts/run_bed_chr", i, ".sh")
+  #bedtools getfasta -name -tab -fi roast.chrom.10.msa.in -bed AGPv3_chr10.bed -fo AGPv3_chr10_gerpsnp.txt
+  command <- paste0("cd largedata/Alignment/", "\n", 
+                    "bedtools getfasta -name -tab -fi roast.chrom.", i, ".msa.in",
+                    " -bed AGPv3_chr", i, ".bed -fo AGPv3_chr", i, "_gerpsnp.txt")
+  cat(command, file=shid, sep="\n", append=FALSE)
+}
+shcode <- "sh slurm-scripts/run_bed_chr$SLURM_ARRAY_TASK_ID.sh"
+
+set_array_job(shid = "slurm-scripts/run_bed_chr.sh",
+              shcode = shcode, arrayjobs = "1-8", wd = NULL,
+              jobid = "runbedtools", email = "yangjl0930@gmail.com")
 #bedtools getfasta -name -tab -fi roast.chrom.1.msa.in -bed chr1.bed -fo chr1_gerpsnp.txt
 #bedtools getfasta -name -tab -fi roast.chrom.2.msa.in -bed chr2.bed -fo chr2_gerpsnp.txt
 #bedtools getfasta -name -tab -fi roast.chrom.3.msa.in -bed chr3.bed -fo chr3_gerpsnp.txt
