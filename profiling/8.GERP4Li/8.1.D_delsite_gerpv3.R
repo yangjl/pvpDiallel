@@ -4,11 +4,15 @@
 
 ##############
 library(tidyr)
+library("data.table", lib="~/bin/Rlib")
 cal_del_allele <- function(chri = 1){
-  res1 <- read.table(paste0("largedata/Alignment/chr", chri, "_gerpsnp.txt"), header=FALSE)
+  res1 <- fread(paste0("largedata/Alignment/AGPv3_chr", chri, "_gerpsnp.txt"), header=FALSE)
+  res1 <- as.data.frame(res1)
   res1$sp <- gsub("-.*", "", res1$V1)
   res1$V1 <- gsub(".*-", "", res1$V1)
   res2 <- spread(res1, sp, V2)
+  res2 <- res2[-2,]
+
   
   ### calculate maf
   message(sprintf("###>>> calculating major allele for chr [%s] ... ", chri))
