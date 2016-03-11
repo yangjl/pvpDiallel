@@ -11,48 +11,44 @@ readgerp <- function(gerpfile="largedata/GERPv2/roast.chrom.10.msa.in.rates.full
   chr1$pos <- 1:nrow(chr1)
   
   #### read chr length
-  chrlen <- read.table("data/ZmB73_RefGen_v2.length", header=FALSE)
-  names(chrlen) <- c("chrom", "length")
-  
-  len <- subset(chrlen, chrom ==paste("chr", chr, sep=""))$length
-  endpart <- data.frame(N=0, RS=0, chr=chr, pos=(nrow(chr1)+1):len)
-  
-  chr1 <- rbind(chr1, endpart)
+  #chrlen <- read.csv("data/ZmB73_RefGen_v3.csv", header=T)
+  #names(chrlen) <- c("chrom", "length")
+  #len <- subset(chrlen, chrom == chr)$length
+  #endpart <- data.frame(N=0, RS=0, chr=chr, pos=(nrow(chr1)+1):len)
+  #chr1 <- rbind(chr1, endpart)
   
   message(sprintf("Chr [%s]: tot length [ %s ], >0 [ %s ], <0 [ %s ]", chr, nrow(chr1),
                   nrow(subset(chr1, RS>0)), nrow(subset(chr1, RS<0)) ))
-  return(subset(chr1, RS!=0))
-  
+  return(subset(chr1, RS>0))
 }
 
 ####
 chr1 <- readgerp(gerpfile="/group/jrigrp/gerp/GERPv3/roast.chrom.1.msa.in.rates.full", chr=1)
-# Chr [1], tot length [301354135], >0 [13437827], <0 [6937810]
+# Chr [1]: tot length [ 301433381 ], >0 [ 35672919 ], <0 [ 15361221 ]
 chr2 <- readgerp(gerpfile="/group/jrigrp/gerp/GERPv3/roast.chrom.2.msa.in.rates.full", chr=2)
-# Chr [2]: tot length [ 237068873 ], >0 [ 10279322 ], <0 [ 5417491 ]
+# Chr [2]: tot length [ 237865861 ], >0 [ 27149438 ], <0 [ 11830592 ]
 chr3 <- readgerp(gerpfile="/group/jrigrp/gerp/GERPv3/roast.chrom.3.msa.in.rates.full", chr=3)
-# Chr [3]: tot length [ 232140174 ], >0 [ 9349572 ], <0 [ 4862035 ]
+# Chr [3]: tot length [ 232221667 ], >0 [ 25265529 ], <0 [ 11159023 ]
 chr4 <- readgerp(gerpfile="/group/jrigrp/gerp/GERPv3/roast.chrom.4.msa.in.rates.full", chr=4)
-# Chr [4]: tot length [ 241473504 ], >0 [ 8745127 ], <0 [ 4649992 ]
+# Chr [4]: tot length [ 242024971 ], >0 [ 24828834 ], <0 [ 11350803 ]
 chr5 <- readgerp(gerpfile="/group/jrigrp/gerp/GERPv3/roast.chrom.5.msa.in.rates.full", chr=5)
-# Chr [5]: tot length [ 217872852 ], >0 [ 10044887 ], <0 [ 5238169 ]
+# Chr [5]: tot length [ 217906509 ], >0 [ 25150515 ], <0 [ 10616256 ]
 chr6 <- readgerp(gerpfile="/group/jrigrp/gerp/GERPv3/roast.chrom.6.msa.in.rates.full", chr=6)
-# Chr [6]: tot length [ 169174353 ], >0 [ 7032695 ], <0 [ 3670782 ]
+# Chr [6]: tot length [ 169354735 ], >0 [ 18722827 ], <0 [ 8220868 ]
 chr7 <- readgerp(gerpfile="/group/jrigrp/gerp/GERPv3/roast.chrom.7.msa.in.rates.full", chr=7)
-# Chr [7]: tot length [ 176764762 ], >0 [ 6785123 ], <0 [ 3579891 ]
+# Chr [7]: tot length [ 176810428 ], >0 [ 18662751 ], <0 [ 8187078 ]
 chr8 <- readgerp(gerpfile="/group/jrigrp/gerp/GERPv3/roast.chrom.8.msa.in.rates.full", chr=8)
-# Chr [8]: tot length [ 175793759 ], >0 [ 7643517 ], <0 [ 3950170 ]
+# Chr [8]: tot length [ 175344930 ], >0 [ 19580690 ], <0 [ 8497692 ]
 chr9 <- readgerp(gerpfile="/group/jrigrp/gerp/GERPv3/roast.chrom.9.msa.in.rates.full", chr=9)
-# Chr [9]: tot length [ 156750706 ], >0 [ 6854718 ], <0 [ 3516827 ]
+# Chr [9]: tot length [ 157014581 ], >0 [ 18144925 ], <0 [ 7744240 ]
 chr10 <- readgerp(gerpfile="/group/jrigrp/gerp/GERPv3/roast.chrom.10.msa.in.rates.full", chr=10)
-# Chr [10]: tot length [ 150189435 ], >0 [ 5834100 ], <0 [ 3066858 ]
+# Chr [10]: tot length [ 149611521 ], >0 [ 15772647 ], <0 [ 7123455 ]
 
-save(file="largedata/lcache/4.1.A_gerpdis.RData", 
-     list=c("chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10"))
+
 chrall <- rbind(chr1, chr2, chr3, chr4, chr5, chr6, chr7, chr8, chr9, chr10)
 # server only
-write.table(chrall, "largedata/GERPv2/gerp130m.csv", sep=",", row.names=FALSE, quote=FALSE)
+write.table(chrall, "largedata/gerpv3_228m.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
-chr1 <- readgerp(gerpfile="largedata/GERPv2/roast.chrom.1.msa.in.rates.full", chr=1)
+#chr1 <- readgerp(gerpfile="largedata/GERPv2/roast.chrom.1.msa.in.rates.full", chr=1)
 
