@@ -8,9 +8,9 @@ gerp <- read.csv("largedata/GERPv2/gerpsnp_506898.csv")
 gerp <- gerp[, 1:8]
 write.table(gerp, "cache/gerpsnp_506898_gp.csv", sep=",", row.names=FALSE, quote=FALSE)
 
+
+#####
 gerp <- read.csv("cache/gerpsnp_506898_gp.csv")
-
-
 library(plyr)
 BINSIZE = 5000000
 gerp$bin <- paste(gerp$chr, round(gerp$pos/BINSIZE, 0), sep="_")
@@ -31,7 +31,7 @@ library("beanplot")
 pdf("graphs/Fig1d.pdf", width=5, height=5)
 beanplot(mgerp ~ sq, data = res, kernel="cosine", ll = 0.04, cex=1.5, side = "no", cut=3,
          border = NA, col= list(c("#cd5b45", "antiquewhite3", "antiquewhite3", "antiquewhite3")), 
-         xaxt="n", ylab="GERP Score", xlab="Recombination rate (cM/Mb)")
+         xaxt="n", ylab="mean ERP Score", xlab="Recombination rate (cM/Mb)")
 axis(side =1, at =1:2, labels =c("< 0.5", " >= 0.5"))
 dev.off()
 
