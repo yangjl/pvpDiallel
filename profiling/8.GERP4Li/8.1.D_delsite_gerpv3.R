@@ -44,3 +44,21 @@ for(i in 1:10){
 idx <- which(as.character(outp$Zea) != as.character(outp$major))
 write.table(outp[, -2], "largedata/Alignment/conserved_alleles_AGPv2.csv", sep=",", row.names=FALSE, quote=FALSE )
 
+########
+library("data.table", lib="~/bin/Rlib")
+library(tidyr)
+cal_del_allele <- function(chri = 1){
+  res1 <- fread(paste0("largedata/Alignment/AGPv3_chr", chri, "_gerpsnp.txt"), header=FALSE)
+  res1 <- as.data.frame(res1)
+  res1$sp <- gsub("-.*", "", res1$V1)
+  res1$V1 <- gsub(".*-", "", res1$V1)
+  res2 <- spread(res1, sp, V2)
+  #res2 <- res2[-2,]
+  res2 <- res2[, c(1,14, 2:14)]
+  write.table(res2, paste0("largedata/Alignment/AGPv3_chr", chri, "_gerpsnp.txt"), sep="\t", 
+              row.names=FALSE,quote=FALSE)
+}
+
+t2 <- spread(test, sp, V2)
+t2 <- t2[, c(1,14, 2:14)]
+write.table(t2, "largedata/Alignment/test.txt", sep="\t", row.names=FALSE, quote=FALSE)

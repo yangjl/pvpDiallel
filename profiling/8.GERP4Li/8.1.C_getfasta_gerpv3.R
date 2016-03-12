@@ -2,7 +2,6 @@
 ### extract SNP from fasta file
 
 library("data.table", lib="~/bin/Rlib")
-
 pre_bed <- function(){
   chrall <- fread("largedata/gerpv3_228m.csv")
   dim(chrall)
@@ -27,13 +26,21 @@ pre_bed <- function(){
     mybed <- data.frame(chrom= rep(sps, times=nrow(chr)), start=rep(chr$start, each=length(sps)),
                        end = rep(chr$end, each=length(sps)), name= rep(chr$name, each=length(sps)))
     mybed$name <- paste(mybed$chrom, mybed$name, sep="-")
+    
+    mybed$start <- format(mybed$start , scientific = FALSE)
+    mybed$end <- format(mybed$end, scientific = FALSE)
     write.table(mybed, paste0("largedata/Alignment/AGPv3_chr", i, ".bed"), sep="\t", 
                 row.names=FALSE, quote=FALSE, col.names=FALSE)
+    print(i)
   }
 }
 
+
 ###########
-pre_bed5()
+#options(scipen=10)
+#write.table(foo, "foo.txt")
+#options(scipen=0)  # restore the default
+pre_bed()
 
 library(maizeR)
 for(i in 1:9){

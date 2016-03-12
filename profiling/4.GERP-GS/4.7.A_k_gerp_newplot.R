@@ -32,6 +32,7 @@ nx_flt <- function(res=dat, x=5){
 dat <- read.csv("largedata/lcache/kval_perse_0x.csv")
 res1 <- getvar(res=dat)
 res2 <- nx_flt(res=dat, x=5)
+res2 <- subset(res2, abs(k) < 2)
 #############################################
 library(ggplot2)
 library(reshape2)
@@ -49,7 +50,7 @@ p1 <- ggplot(out1, aes(x=factor(trait, levels=bymed$trait), y=value,
                        fill=factor(variable, levels =c("A", "D"), labels=c("A", "D")))) + 
   geom_bar(position=position_dodge(), stat="identity") +
   xlab("") +
-  ylab("Accumulative Variance") +
+  ylab("Cumulative Variance") +
   ggtitle("") + theme_bw() +
   labs(fill="Effect") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, size=12))
@@ -89,16 +90,6 @@ for(i in 1:10){
 }
 
 
-
-
-
-
-
-
-
-
-
-
 ###### calculate the porportion of positive
 excess_pos <- function(dat, myt="TW", cutoff=0){
   out2 <- dat
@@ -109,9 +100,6 @@ excess_pos <- function(dat, myt="TW", cutoff=0){
 
 excess_pos(dat=res2, myt="GY", cutoff=0) #0.4598517
 excess_pos(dat=res2, myt="GY", cutoff=1) #0.1057723
-
-
-
 
 #########################################
 ####### for BAPG meeting
