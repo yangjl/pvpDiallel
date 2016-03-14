@@ -15,7 +15,7 @@ bed5$start <- bed5$start - 1
 bed5$name <- paste(bed5$chrom, bed5$end, sep="_")
 
 bed4 <- bed5[, 1:4]
-for(i in 1:10){
+for(i in 2:10){
   sub <- subset(bed4, chrom == i)
   write.table(sub, paste0("largedata/Alignment/GERP_b0_86M_AGPv2_chr", i,  ".bed"), sep="\t",
               row.names=FALSE, quote=FALSE, col.names=FALSE)
@@ -38,8 +38,6 @@ for(i in 1:10){
 
 
 
-### AGPv2 -> AGPv3 conversion
-### http://plants.ensembl.org/Oryza_sativa/Tools/AssemblyConverter?db=core
 
 
 
@@ -51,15 +49,5 @@ for(i in 1:10){
 
 
 
-
-
-
-
-
-
-write.table(chrall, , sep=",", row.names=FALSE, quote=FALSE)
-
-
-chr1 <- readgerp(gerpfile="largedata/GERPv2/roast.chrom.1.msa.in.rates.full", chr=1)
 
 

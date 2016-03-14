@@ -67,17 +67,7 @@ set_array_job(shid = "slurm-scripts/run_bed_chr.sh",
 #bedtools getfasta -name -tab -fi roast.chrom.9.msa.in -bed chr9.bed -fo chr9_gerpsnp.txt
 #bedtools getfasta -name -tab -fi roast.chrom.10.msa.in -bed AGPv3_chr10.bed -fo AGPv3_chr10_gerpsnp.txt
 
-res1 <- read.table("largedata/Alignment/chr1_gerpsnp.txt", header=FALSE)
-res1$sp <- gsub("-.*", "", res1$V1)
 
-res <- subset(res1, sp %in% "Zea")
-
-geno <- read.table("largedata/Alignment/chr1.bed", header=FALSE)
-test <- merge(res, geno[, c("V4", "V5")], by.x="V1", by.y="V4", sort=FALSE)
-
-test$V2 <- as.character(test$V2)
-test$V5 <- as.character(test$V5)
-idx <- which(test$V2 != test$V5 & test$V5 != "N")
 ### 182/81127
 
 
