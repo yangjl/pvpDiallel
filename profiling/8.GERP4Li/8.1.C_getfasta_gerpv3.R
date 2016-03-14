@@ -20,6 +20,7 @@ pre_bed <- function(){
   sps <- c("Zea", "Coelorachis","Vossia","Sorghum","Oryza","Setaria",
            "Brachypodium","Hordeum","Musa","Populus","Vitis","Arabidopsis","Panicum")
   
+  options(scipen=10)
   for(i in 1:10){
     chr <- subset(v3, chrom==i)
     
@@ -27,12 +28,13 @@ pre_bed <- function(){
                        end = rep(chr$end, each=length(sps)), name= rep(chr$name, each=length(sps)))
     mybed$name <- paste(mybed$chrom, mybed$name, sep="-")
     
-    mybed$start <- format(mybed$start , scientific = FALSE)
-    mybed$end <- format(mybed$end, scientific = FALSE)
+    #mybed$start <- format(mybed$start , scientific = FALSE)
+    #mybed$end <- format(mybed$end, scientific = FALSE)
     write.table(mybed, paste0("largedata/Alignment/AGPv3_chr", i, ".bed"), sep="\t", 
                 row.names=FALSE, quote=FALSE, col.names=FALSE)
     print(i)
   }
+  options(scipen=0)
 }
 
 
@@ -42,7 +44,5 @@ pre_bed <- function(){
 #options(scipen=0)  # restore the default
 pre_bed()
 
-
-### 182/81127
 
 

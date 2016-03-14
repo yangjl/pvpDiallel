@@ -23,9 +23,10 @@ shcode <- "sh slurm-scripts/run_bed_chr$SLURM_ARRAY_TASK_ID.sh"
 set_array_job(shid = "slurm-scripts/run_bed_chr.sh",
               shcode = shcode, arrayjobs = "1-8", wd = NULL,
               jobid = "runbedtools", email = "yangjl0930@gmail.com")
-#bedtools getfasta -name -tab -fi roast.chrom.1.msa.in -bed chr1.bed -fo chr1_gerpsnp.txt
-#bedtools getfasta -name -tab -fi roast.chrom.2.msa.in -bed chr2.bed -fo chr2_gerpsnp.txt
-#bedtools getfasta -name -tab -fi roast.chrom.3.msa.in -bed chr3.bed -fo chr3_gerpsnp.txt
+
+###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
+###>>> RUN: sbatch -p med slurm-scripts/run_bed_chr.sh
+
 #bedtools getfasta -name -tab -fi roast.chrom.4.msa.in -bed chr4.bed -fo chr4_gerpsnp.txt
 #bedtools getfasta -name -tab -fi roast.chrom.5.msa.in -bed chr5.bed -fo chr5_gerpsnp.txt
 #bedtools getfasta -name -tab -fi roast.chrom.6.msa.in -bed chr6.bed -fo chr6_gerpsnp.txt

@@ -34,5 +34,7 @@ sd(trait$BPHmax)
 mean(trait$pBPHmax) #0.33
 sd(trait$pBPHmax) #0.45
 
-mean(subset(trait, trait == "GY")$BPHmax) #95.01229 
-sd(subset(trait, trait == "GY")$BPHmax) #16
+mean(subset(trait, trait == "GY")$pBPHmax) #95.01229 
+sd(subset(trait, trait == "GY")$pBPHmax) #16
+
+median(subset(trait, trait == "GY")$BPHmax) 

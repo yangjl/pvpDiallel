@@ -23,7 +23,7 @@ trait <- read.csv("data/trait_matrix.csv")
 
 ### get percentage of MPH
 myp3 <- get_pheno(trait=trait, pheno="valHyb")
-pdf("graphs/Fig1c.pdf", width=5, height=5)
+pdf("graphs/Fig1c.pdf", width=7, height=7)
 pairs(myp3[, 2:8], text.panel = diag, upper.panel=panel.smooth,
       lower.panel=panel.cor, gap=0, main="", pch=19, col="grey", lwd=2)
 dev.off()

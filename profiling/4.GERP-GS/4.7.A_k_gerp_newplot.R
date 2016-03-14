@@ -33,6 +33,7 @@ dat <- read.csv("largedata/lcache/kval_perse_0x.csv")
 res1 <- getvar(res=dat)
 res2 <- nx_flt(res=dat, x=5)
 res2 <- subset(res2, abs(k) < 2)
+dim(res2) #
 #############################################
 library(ggplot2)
 library(reshape2)
