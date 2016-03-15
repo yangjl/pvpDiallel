@@ -10,10 +10,11 @@ set_farm_job(slurmsh = "slurm-scripts/run_getfa.sh",
 
 
 library(maizeR)
-for(i in 1:9){
+for(i in 1:10){
   shid <- paste0("slurm-scripts/run_bed_chr", i, ".sh")
   #bedtools getfasta -name -tab -fi roast.chrom.10.msa.in -bed AGPv3_chr10.bed -fo AGPv3_chr10_gerpsnp.txt
   command <- paste0("cd largedata/Alignment/", "\n", 
+                    "sed -i 's/\\s\\+/\\t/g' AGPv3_chr", i, ".bed", "\n",
                     "bedtools getfasta -name -tab -fi roast.chrom.", i, ".msa.in",
                     " -bed AGPv3_chr", i, ".bed -fo AGPv3_chr", i, "_gerpsnp.txt")
   cat(command, file=shid, sep="\n", append=FALSE)
@@ -21,7 +22,7 @@ for(i in 1:9){
 shcode <- "sh slurm-scripts/run_bed_chr$SLURM_ARRAY_TASK_ID.sh"
 
 set_array_job(shid = "slurm-scripts/run_bed_chr.sh",
-              shcode = shcode, arrayjobs = "1-8", wd = NULL,
+              shcode = shcode, arrayjobs = "1-10", wd = NULL,
               jobid = "runbedtools", email = "yangjl0930@gmail.com")
 
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel

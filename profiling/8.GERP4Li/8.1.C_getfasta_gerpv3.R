@@ -44,3 +44,9 @@ pre_bed <- function(){
 #options(scipen=0)  # restore the default
 pre_bed()
 
+sed -i 's/\s\+/\t/g' AGPv3_chr10.bed
+
+
+res <- read.delim("largedata/Alignment/test2.bed")
+write.table(res, "largedata/Alignment/test3.bed",, sep="\t", 
+            row.names=FALSE, quote=FALSE, col.names=FALSE)
