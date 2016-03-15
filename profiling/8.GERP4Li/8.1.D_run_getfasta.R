@@ -33,5 +33,5 @@ set_array_job(shid = "slurm-scripts/run_bed_chr.sh",
 #bedtools getfasta -name -tab -fi roast.chrom.7.msa.in -bed chr7.bed -fo chr7_gerpsnp.txt
 #bedtools getfasta -name -tab -fi roast.chrom.8.msa.in -bed chr8.bed -fo chr8_gerpsnp.txt
 #bedtools getfasta -name -tab -fi roast.chrom.9.msa.in -bed chr9.bed -fo chr9_gerpsnp.txt
-#bedtools getfasta -name -tab -fi roast.chrom.10.msa.in -bed AGPv3_chr10.bed -fo AGPv3_chr10_gerpsnp.txt
+#bedtools getfasta -name -tab -fi roast.chrom.10.msa.in -bed AGPv3_chr0.bed -fo AGPv3_chr0_gerpsnp.txt
 

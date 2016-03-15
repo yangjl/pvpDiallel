@@ -33,7 +33,7 @@ dat <- read.csv("largedata/lcache/kval_perse_0x.csv")
 res1 <- getvar(res=dat)
 res2 <- nx_flt(res=dat, x=5)
 res2 <- subset(res2, abs(k) < 2)
-dim(res2) #
+dim(res2) #107346      8
 #############################################
 library(ggplot2)
 library(reshape2)
@@ -92,6 +92,11 @@ for(i in 1:10){
 
 
 ###### calculate the porportion of positive
+dat <- read.csv("largedata/lcache/kval_perse_0x.csv")
+res1 <- getvar(res=dat)
+res2 <- nx_flt(res=dat, x=5)
+res2 <- subset(res2, abs(k) < 2)
+
 excess_pos <- function(dat, myt="TW", cutoff=0){
   out2 <- dat
   out2tw <- subset(out2, trait == myt)

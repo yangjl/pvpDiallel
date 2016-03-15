@@ -44,5 +44,3 @@ pre_bed <- function(){
 #options(scipen=0)  # restore the default
 pre_bed()
 
-
-
