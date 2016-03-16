@@ -43,3 +43,5 @@ cwd <- paste("cd largedata/Alignment",
 set_farm_job(slurmsh = "slurm-scripts/run_gerpinfo.sh",
              shcode = cwd, wd = NULL, jobid = "gerp",
              email = "yangjl0930@gmail.com")
+###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
+###>>> RUN: sbatch -p bigmemh slurm-scripts/run_gerpinfo.sh
