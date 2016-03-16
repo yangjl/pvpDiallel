@@ -36,3 +36,10 @@ set_array_job(shid = "slurm-scripts/run_bed_chr.sh",
 #bedtools getfasta -name -tab -fi roast.chrom.9.msa.in -bed chr9.bed -fo chr9_gerpsnp.txt
 #bedtools getfasta -name -tab -fi roast.chrom.10.msa.in -bed AGPv3_chr0.bed -fo AGPv3_chr0_gerpsnp.txt
 
+library(maizeR)
+cwd <- paste("cd largedata/Alignment",
+             "gerpinfo -i AGPv3_chr10_gerpsnp.txt -s 3 -m - -o AGPv3_GERP_chr10.txt", 
+             sep="\n")
+set_farm_job(slurmsh = "slurm-scripts/run_gerpinfo.sh",
+             shcode = cwd, wd = NULL, jobid = "gerp",
+             email = "yangjl0930@gmail.com")
