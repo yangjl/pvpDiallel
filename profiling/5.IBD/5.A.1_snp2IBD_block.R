@@ -30,7 +30,9 @@ system("bedtools intersect -a largedata/SNP/allsnps_11m.bed3 -b largedata/IBD/ib
 
 ###########################################
 ### April 17th, 2015
-bed <- read.table("largedata/IBD/allsnps_11m_IBD.bed", header=FALSE)
+library("data.table", lib="~/bin/Rlib")
+bed <- fread("largedata/IBD/allsnps_11m_IBD.bed", header=FALSE)
+bed <- as.data.frame(bed)
 names(bed) <- c("snpchr", "snpstart", "snpend", "ichr", "istart", "iend")
 bed$dis <- bed$iend - bed$istart
 

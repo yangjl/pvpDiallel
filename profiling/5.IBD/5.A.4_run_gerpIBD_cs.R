@@ -47,8 +47,8 @@ source("lib/setUpslurm.R")
 ###### read data, GERP>0, seven traits
 for(i in 1:length(traits)){
   codes <- paste0("gerpIBD -d largedata/IBD/allsnps_11m_IBD.bed -s largedata/SNP/allsnps_11m.dsf5 ",
-                  "-g largedata/SNP/gerpv2_b0_real.csv -f largedata/snpeff/", traits[i], "_k.txt ",
-                  "-o largedata/SNP/gerpIBD_k_", traits[i])
+                  "-g largedata/SNP/geno_b0_cs/gerpv2_b0_cs0.csv -f largedata/snpeff/perse/", traits[i], "_k.txt ",
+                  "-o largedata/newGERPv2/test_k_", traits[i])
   setUpslurm(slurmsh=paste0("slurm-scripts/run_k_", traits[i], ".sh"),
              oneline=TRUE,
              codesh=codes,
