@@ -15,20 +15,22 @@ CirShuffling <- function(gerp=gerp, SN=1000000, times=10, outfile="allsnps_11m_g
 library(data.table, lib="~/bin/Rlib/")
 gerp <- fread("largedata/SNP/allsnps_11m_gerpv2_tidy.csv", sep=",")
 gerp <- subset(gerp, RS>0) #506898      5
-write.table(gerp, "largedata/SNP/geno_b0_cs/gerpv2_b0_cs0.csv", sep=",", row.names=FALSE, quote=FALSE)
-CirShuffling(gerp=gerp, SN=50000, times=10, outfile="largedata/SNP/geno_b0_cs/gerpv2_b0")
+write.table(gerp, "largedata/newGERPv2/allgeno/gerpv2_b0_cs0.csv", sep=",",
+            row.names=FALSE, quote=FALSE)
+
+CirShuffling(gerp=gerp, SN=50000, times=10, outfile="largedata/newGERPv2/allgeno/gerpv2_b0")
+
+## turn all GERP=> 1 no information
+gerp1 <- gerp
+gerp1$RS <- 1
+write.table(gerp1, "largedata/newGERPv2/allgeno/gerpv2_b0_cs999.csv", sep=",",
+            row.names=FALSE, quote=FALSE)
 
 
 
 
-gerp1 <- subset(gerp, RS > 1) #167455      5
-write.table(gerp1, "largedata/SNP/geno_b1_cs/gerpv2_b1_cs0.csv", sep=",", row.names=FALSE, quote=FALSE)
-CirShuffling(gerp=gerp1, SN=50000, times=10, outfile="largedata/SNP/geno_b1_cs/gerpv2_b1")
 
 
-gerp2 <- subset(gerp, RS > 2) #28977     5
-write.table(gerp2, "largedata/SNP/geno_b2_cs/gerpv2_b2_cs0.csv", sep=",", row.names=FALSE, quote=FALSE)
-CirShuffling(gerp=gerp2, SN=5000, times=10, outfile="largedata/SNP/geno_b2_cs/gerpv2_b2")
 
 #################### circular shuffling
 CirShuffling_method2 <- function(allgerp, mygerp, SN=1000000, times=10, outfile="allsnps_11m_gerpv2"){

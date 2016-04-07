@@ -3,21 +3,22 @@
 ### purpose: run the gerpIBD program
 
 7*4*11
-
 traits <- tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW"))
+
+
+###############
+gerpfile <- list.files(path="largedata/newGERPv2/allgeno", pattern="gerpv2", full.names=TRUE)
 inputdf <- data.frame(
-  trait=rep(traits, each=44), 
-  mode=rep(rep(c("add", "dom", "k", "k5"), each=11), times=7 ), 
-  nperm=rep(0:10, times=28),
   d="largedata/IBD/allsnps_11m_IBD.bed", 
-  s="largedata/SNP/allsnps_11m.dsf5", 
-  g="largedata/SNP/geno_b0_cs/gerpv2_b0_cs0.csv", 
-  f="largedata/snpeff/perse/asi_k.txt",
-  out="res"
+  s="largedata/SNP/allsnps_newgerp2_50k.dsf7", #deine deleterious alleles
+  g=gerpfile, 
+  f="largedata/newGERPv2/allgeno/k5.txt",
+  out=gsub(".csv", "", gerpfile),
+  t="all"
 )
 
 library(farmeR)
-
+run_gerpIBD(inputdf, email="yangjl0930@gmail.com", runinfo = c(FALSE, "bigmemm", 2) )
 
 
 run_GATK <- function(inputdf,
