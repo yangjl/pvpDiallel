@@ -50,6 +50,8 @@ inputdf2 <- get_inputdf(mygeno=d2, pwd)
 run_GenSel4(inputdf=inputdf2, inpdir="largedata/newGERPv2/allgeno_perse_d", 
             email="yangjl0930@gmail.com", runinfo = c(FALSE, "bigmeml", 1) )
 write.table(inputdf2, "largedata/newGERPv2/inputdf_d2_perse_42000.csv", sep=",", quote=FALSE)
+###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
+###>>> RUN: sbatch -p bigmeml --mem 8196 --ntasks=1 slurm-script/run_gensel_array.sh
 
 ### k=0.5
 inputdf3 <- get_inputdf(mygeno=h2, pwd)
