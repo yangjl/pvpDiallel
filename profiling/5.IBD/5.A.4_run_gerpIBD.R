@@ -18,7 +18,7 @@ inputdf <- data.frame(
 )
 
 library(farmeR)
-run_gerpIBD(inputdf, email="yangjl0930@gmail.com", runinfo = c(FALSE, "bigmemm", 2) )
+run_gerpIBD(inputdf[11,], email="yangjl0930@gmail.com", runinfo = c(FALSE, "bigmemm", 2) )
 
 
 run_GATK <- function(inputdf,
