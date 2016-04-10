@@ -2,13 +2,10 @@
 # Jan 12th, 2015
 # harvest the results of model training with gerp and random SNPs
 
-
 harvestCV <- function(dir="slurm-scripts/", fileptn="\\.ghatREL1"){
-  
   files <- list.files(path = dir, pattern=fileptn, full.names=TRUE)
   ## file line of the shell file:
   message(sprintf("[ %s ] files detected!", length(files)))
-
   res <- unlist(lapply(1:length(files), function(i){
     #genotype gHat DTP Fix  meanBias PEV=Var(g/y)   R^2 
     ghat <- read.table(files[i], skip=1, header=FALSE)
@@ -20,7 +17,6 @@ harvestCV <- function(dir="slurm-scripts/", fileptn="\\.ghatREL1"){
   }))
   
   resout <- data.frame(file=files, r=res)
-  
   return(resout)
 }
 
@@ -50,7 +46,13 @@ SplitName <- function(infile=resout){
 }
 
 #### extract with real data
-collect_res <- function(dir="slurm-scripts/cv_b2/"){
+collect_res <- function(inputcsv="largedata/newGERPv2/inputdf_a2_perse_42000.csv",
+                        dir="largedata/newGERPv2/allgeno_perse_a/"){
+  
+  inputdf <- read.csv(inputcsv)
+  inputdf$geno <- paste0("cs", gsub(".*cs|.gs.newbin", "", inputdf$geno))
+  inputdf$trait <- gsub(".*/", "", inputdf$trainpheno)
+  
   res1 <- harvestCV(dir=dir, fileptn="\\.ghatREL")
   res1 <- SplitName(infile=res1) #885
   print(table(res1$trait))
