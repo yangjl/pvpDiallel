@@ -7,28 +7,29 @@ runttest <- function(resfile="cache/gerpall_perse.csv"){
   resin <- read.csv(resfile)
   print(table(resin$trait))
   print(head(resin))
-  #### >>>>
-  res <- data.frame()
+  
+  resin$trait <- as.character(resin$trait)
   myt <- unique(resin$trait)
   resin$cs <- gsub("cs.*", "cs", resin$cs)
-  mode <- unique(resin$mode)
+
+  #### >>>>
+  res <- data.frame()
   for(ti in myt){
-    for(modei in mode){
-      test <- t.test(subset(resin, cs=="real" & trait== ti & mode == modei)$r, 
-                     subset(resin, cs=="cs" & trait == ti & mode == modei)$r, alternative ="greater")
-      tem <- data.frame(trait= ti, pval=test$p.value, mode=modei,
-                        r_real=mean(subset(resin, cs=="real" & trait== ti & mode == modei)$r),
-                        r_cs=mean(subset(resin, cs=="cs" & trait == ti & mode == modei)$r))
-      res <- rbind(res, tem)
-    }
-    
+    test <- t.test(subset(resin, type=="real" & trait== ti)$r, 
+                   subset(resin, type=="cs" & trait == ti)$r, alternative ="greater")
+    tem <- data.frame(trait= ti, pval=test$p.value,
+                      r_real=mean(subset(resin, type=="real" & trait== ti )$r),
+                      r_cs=mean(subset(resin, type=="cs" & trait == ti )$r))
+    res <- rbind(res, tem)
   }
   res$file <- resfile
   return(res)
 }
 
 #####
-res1 <- runttest(resfile="cache/gerpall_h_perse_gy.csv")
+res1 <- runttest(resfile="largedata/newGERPv2/res_a2_perse_42000.csv")
+res2 <- runttest(resfile="largedata/newGERPv2/res_d2_perse_42000.csv")
+
 res2 <- runttest(resfile="cache/gerpall_BPHmax.csv")
 res3 <- runttest(resfile="cache/gerpall_pBPHmax.csv")
 res4 <- runttest(resfile="cache/gerpall_BPHmin.csv")

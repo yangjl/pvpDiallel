@@ -23,30 +23,28 @@ harvestCV <- function(dir="slurm-scripts/", fileptn="\\.ghatREL1"){
 ########
 SplitName <- function(infile=resout){
   
-  infile$file <- as.character(infile$file)
-  infile$file <- gsub(".*/", "", infile$file)
+  #infile$out <- as.character(infile$file)
+  #infile$file <- gsub(".*/", "", infile$file)
   
-  infile$cs <- gsub("_.*", "", infile$file)
-  infile$trait <- gsub("_cv.*", "", infile$file)
-  infile$trait <- gsub("_.2", "", infile$trait)
-  infile$trait <- gsub(".*_", "", infile$trait)
+  infile$cs <- gsub(".*_cs|_.*", "", infile$out)
+  infile$trait <- gsub("_.*", "", infile$out)
   
-  infile$mode <- gsub("_cv.*", "", infile$file) 
-  infile$mode <- gsub(".*_", "", infile$mode)
-  infile$cv <- paste0("cv", gsub(".*_cv|_.*", "", infile$file))
-  infile$sp <- paste0("sp", gsub(".*_sp|\\..*", "", infile$file))
-  infile$rel <- gsub(".*\\.", "", infile$file)
   
-  infile$type <- infile$cs
-  infile$type <- gsub("cs0", "real", infile$type)
-  infile$type <- gsub("cs.*", "random", infile$type)
+  infile$mode <- gsub(".*_", "", infile$out) 
+  
+  infile$cv <- gsub(".*_train|_sp.*", "", infile$out)
+  infile$sp <- gsub(".*_sp|_cs.*", "", infile$out)
+  
+  infile$type <- "cs"
+  infile[infile$cs==0,]$type <- "real"
+  infile[infile$cs==999,]$type <- "null"
   
   print(table(infile$trait))
   return(infile)
 }
 
 #### extract with real data
-collect_res <- function(inputcsv="largedata/newGERPv2/inputdf_a2_perse_42000.csv",
+collect_res_a <- function(inputcsv="largedata/newGERPv2/inputdf_a2_perse_42000.csv",
                         dir="largedata/newGERPv2/allgeno_perse_a/"){
   
   inputdf <- read.csv(inputcsv)
@@ -54,21 +52,34 @@ collect_res <- function(inputcsv="largedata/newGERPv2/inputdf_a2_perse_42000.csv
   inputdf$trait <- gsub(".*/", "", inputdf$trainpheno)
   
   res1 <- harvestCV(dir=dir, fileptn="\\.ghatREL")
-  res1 <- SplitName(infile=res1) #885
-  print(table(res1$trait))
+  res1$run <- gsub(".*_|.ghat.*", "", res1$file)
+  res1 <- res1[order(as.numeric(as.character(res1$run))),]
   
+  res2 <- cbind(inputdf, res1)
+  
+  res3 <- SplitName(infile=res2) #885
   #rand1 <- subset(rand1, trait != "asi")
   #rand1$trait <- tolower(rand1$trait)
-  return(res1)
+ 
+  return(res3)
   
 }
 
+
+res_add <- collect_res_a(inputcsv="largedata/newGERPv2/inputdf_a2_perse_42000.csv",
+                         dir="largedata/newGERPv2/allgeno_perse_a/")
+write.table(res_add[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
+            "largedata/newGERPv2/res_a2_perse_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+
 library(plyr, lib="~/bin/Rlib/")
 
-
-res1 <- collect_res(dir="slurm-scripts/cv_b2/")
-test <- ddply(res1, .(mode, trait, type), summarise,
+test <- ddply(res3, .(trait, type), summarise,
               r = mean(r))
+
+test2 <- ddply(res3, .(type, trait, mode, sp), summarise,
+              r = mean(r),
+              m = median(r))
 
 
 ################################################################
