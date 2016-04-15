@@ -30,13 +30,18 @@ runttest <- function(resfile="cache/gerpall_perse.csv"){
 res1 <- runttest(resfile="largedata/newGERPv2/res_a2_perse_42000.csv")
 res2 <- runttest(resfile="largedata/newGERPv2/res_d2_perse_42000.csv")
 
-res2 <- runttest(resfile="cache/gerpall_BPHmax.csv")
+res2 <- runttest(resfile="largedata/newGERPv2/res_d2_bph_42000.csv")
+
 res3 <- runttest(resfile="cache/gerpall_pBPHmax.csv")
+
 res4 <- runttest(resfile="cache/gerpall_BPHmin.csv")
 res5 <- runttest(resfile="cache/gerpall_pBPHmin.csv")
 res6 <- runttest(resfile="cache/gerpall_MPH.csv")
 res7 <- runttest(resfile="cache/gerpall_pMPH.csv")
 
+
+
+res7
 pval <- rbind(res1, res2, res3, res4, res5, res6, res7)
 pval <- subset(pval, mode %in% c("a2", "d2"))
 write.table(pval, "cache/pval_gerpall.csv", sep=",", row.names=FALSE, quote=FALSE)

@@ -20,6 +20,7 @@ runttest <- function(res0){
   #tab$trait <- as.character(tab$trait)
   #tab$type <- as.character(tab$type)
   
+  tab <- res0
   myt <- c( "dtp", "dts", "tw", "asi", "pht", "eht",  "gy")
   res <- data.frame()
   for(i in 1:7){
@@ -50,13 +51,11 @@ res3 <- read.csv("largedata/newGERPv2/res_k5_perse_42000.csv")
 t3 <- runttest(res0=res3)
 
 
-for(i in 1:7){
-  runttest(res0=res1, mymode="h2", mytrait=myt[i])
-}
+######
+res4 <- read.csv("largedata/newGERPv2/res_d2_bph_42000.csv")
+t4 <- runttest(res0=res4)
 
-for(i in 1:7){
-  runttest(res0=res2, mymode="h2", mytrait=myt[i])
-}
-
+res5 <- read.csv("largedata/newGERPv2/res_k5_bph_42000.csv")
+t5 <- runttest(res0=res5)
 
 

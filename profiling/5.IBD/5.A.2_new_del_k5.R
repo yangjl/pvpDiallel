@@ -26,6 +26,7 @@ nrow(dsf1[dsf1$B73 != dsf1$ben & dsf1$ben != "N", ])
 dsf1[dsf1$major != dsf1$ben & dsf1$ben != "N", ]$major <- dsf1[dsf1$major != dsf1$ben & dsf1$ben != "N", ]$minor
 write.table(dsf1[, -2], "largedata/SNP/allsnps_newgerp2_50k.dsf7", sep="\t", row.names=FALSE, quote=FALSE)
 
+
 ###### standard k
 kfile <- dsf1[, 1:2]
 names(kfile)[2] <- "h"

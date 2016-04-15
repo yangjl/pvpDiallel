@@ -59,3 +59,12 @@ res_k5 <- collect_res(dir="largedata/newGERPv2/allgeno_perse_k5/")
 write.table(res_k5[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
             "largedata/newGERPv2/res_k5_perse_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
 
+
+######### trait bph
+res_d <- collect_res(dir="largedata/newGERPv2/allgeno_bph_d/")
+write.table(res_d[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
+            "largedata/newGERPv2/res_d2_bph_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+res_k5 <- collect_res(dir="largedata/newGERPv2/allgeno_perse_k5/")
+write.table(res_k5[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
+            "largedata/newGERPv2/res_k5_perse_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
