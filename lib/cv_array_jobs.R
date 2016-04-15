@@ -145,7 +145,7 @@ cv15_mode_cv <- function(inpbase="slurm-scripts/cv_b0/cs0",
     for(cv in 1:5){
       myinp <- paste0(inpbase, "_", ti[myti], "_", mode,"_cv",cv, "_sp",sp, ".inp")
       GS_cv_inp(
-        inp= myinp, pi=0.995,
+        inp= myinp, pi=0.9995,
         # largedata/SNP/geno_b0_cs/gerpIBD_b0_cs", i, "_", traits[j]
         geno= paste0(wd, "/", genobase, "_", ti[myti], "_", mode, ".gs.newbin"), 
         trainpheno= paste0(wd, "/", phenobase, "/", ti[myti], "_train", cv, "_sp", sp, ".txt"),

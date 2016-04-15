@@ -20,7 +20,7 @@ runttest <- function(res0){
   #tab$trait <- as.character(tab$trait)
   #tab$type <- as.character(tab$type)
   
-  tab <- res0
+  #tab <- res0
   myt <- c( "dtp", "dts", "tw", "asi", "pht", "eht",  "gy")
   res <- data.frame()
   for(i in 1:7){
