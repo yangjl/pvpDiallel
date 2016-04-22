@@ -1,6 +1,5 @@
 ### Jinliang
 ### Jan. 8th, 2015
-### updated April, 21th, 2016
 
 ### circular shuffling
 CirShuffling <- function(gerp=gerp, SN=1000000, times=10, outfile="allsnps_11m_gerpv2"){
@@ -13,9 +12,6 @@ CirShuffling <- function(gerp=gerp, SN=1000000, times=10, outfile="allsnps_11m_g
 }
 
 #########
-
-largedata/SNP/allsnps_newgerp2_50k.dsf7
-
 library(data.table, lib="~/bin/Rlib/")
 gerp <- fread("largedata/SNP/allsnps_11m_gerpv2_tidy.csv", sep=",")
 gerp <- subset(gerp, RS>0) #506898      5

@@ -1,7 +1,6 @@
 ### Jinliang Yang
 ### test the accuracy differences
 
-
 ###################################################################################
 library(plyr, lib="~/bin/Rlib/")
 runttest <- function(res0){
@@ -13,17 +12,17 @@ runttest <- function(res0){
   res0$cv <- as.character(paste0("cv", res0$cv))
   res0$sp <- as.character(paste0("sp", res0$sp))
   
-  tab <- ddply(res0, .(trait, type, cs, sp), summarise,
-                r = mean(r),
-                m = median(r))
+  tab <- ddply(res0, .(trait, cs), summarise,
+                r = mean(r)
+                )
   
   #tab$trait <- as.character(tab$trait)
   #tab$type <- as.character(tab$type)
   
-  #tab <- res0
-  myt <- c( "dtp", "dts", "tw", "asi", "pht", "eht",  "gy")
+  tab <- res0
+  myt <- unique(tab$trait)
   res <- data.frame()
-  for(i in 1:7){
+  for(i in 1:length(myt)){
     real <- subset(tab, type == "real" & trait== myt[i])
     
     rand <- subset(tab, type == "cs" & trait == myt[i])
@@ -34,7 +33,8 @@ runttest <- function(res0){
     test <- t.test(real$r, rand$r)
     tem <- data.frame(trait = myt[i], pval=test$p.value,
                       r_real = mean(subset(res0, type == "real" & trait== myt[i] )$r),
-                      r_cs = mean(subset(res0, type == "cs" & trait == myt[i] )$r))
+                      r_cs = mean(subset(res0, type == "cs" & trait == myt[i] )$r),
+                      r_null = mean(subset(res0, type == "null" & trait == myt[i] )$r))
     res <- rbind(res, tem)
   }
   return(res)

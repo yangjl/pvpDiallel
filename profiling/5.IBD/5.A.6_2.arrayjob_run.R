@@ -16,10 +16,10 @@ get_inputdf <- function(mygeno=a2, phenopwd){
       for(f in 1:5){ #5-fold
         for(r in 1:100){ #pheno
           tem <- data.frame(
-            pi = 0.995, geno = mygeno[p],
+            pi = 0.9995, geno = mygeno[p],
             trainpheno = paste0(phenopwd, ti[i], "_train", f, "_sp", r, ".txt"),
             testpheno = paste0(phenopwd, ti[i], "_test", f, "_sp", r, ".txt"),
-            chainLength=41000, burnin=1000, varGenotypic=gen[i], varResidual=res[i]
+            chainLength=11000, burnin=1000, varGenotypic=gen[i], varResidual=res[i]
           ) 
           inputdf <- rbind(inputdf, tem)
         }
@@ -39,7 +39,7 @@ d2 <- list.files(path="/home/jolyang/Documents/Github/pvpDiallel/largedata/newGE
 h2 <- list.files(path="/home/jolyang/Documents/Github/pvpDiallel/largedata/newGERPv2/allgeno", 
                  pattern="h2.gs.newbin$", full.names=TRUE)
 ### add
-inputdf <- get_inputdf(mygeno=a2, phneopwd)
+inputdf <- get_inputdf(mygeno=a2, phenopwd)
 inputdf1 <- read.csv("largedata/newGERPv2/inputdf_a2_perse_42000.csv")
 inputdf1$out <- paste0(gsub(".*/|.txt", "", inputdf1$trainpheno), 
                        gsub(".*gerpv2_b0|.gs.newbin", "", inputdf1$geno))
@@ -51,7 +51,7 @@ run_GenSel4(inputdf, inpdir="largedata/newGERPv2/allgeno_perse_a", cmdno=500,
 
 ### dom
 inputdf2 <- get_inputdf(mygeno=d2, phenopwd)
-inputdf2 <- read.csv("largedata/newGERPv2/inputdf_d2_perse_42000.csv")
+#inputdf2 <- read.csv("largedata/newGERPv2/inputdf_d2_perse_42000.csv")
 inputdf2$out <- paste0(gsub(".*/|.txt", "", inputdf2$trainpheno), 
                        gsub(".*gerpv2_b0|.gs.newbin", "", inputdf2$geno))
 
@@ -60,7 +60,7 @@ write.table(inputdf2, "largedata/newGERPv2/inputdf_d2_perse_42000.csv", sep=",",
 
 run_GenSel4(inputdf=inputdf2, inpdir="largedata/newGERPv2/allgeno_perse_d", cmdno=100,
             shid = "slurm-script/run_gensel_d2_array.sh",
-            email="yangjl0930@gmail.com", runinfo = c(FALSE, "serial", 1) )
+            email="yangjl0930@gmail.com", runinfo = c(TRUE, "med", 1) )
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> RUN: sbatch -p bigmeml --mem 8196 --ntasks=1 slurm-script/run_gensel_array.sh
 

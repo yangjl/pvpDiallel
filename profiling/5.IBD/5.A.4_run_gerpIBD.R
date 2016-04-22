@@ -2,23 +2,36 @@
 ### 1.5.2014
 ### purpose: run the gerpIBD program
 
-7*4*11
-traits <- tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW"))
-
 
 ###############
-gerpfile <- list.files(path="largedata/newGERPv2/allgeno", pattern="gerpv2", full.names=TRUE)
+gerpfile <- list.files(path="largedata/newGERPv2/allgeno", pattern="csv$", full.names=TRUE)
 inputdf <- data.frame(
   d="largedata/IBD/allsnps_11m_IBD.bed", 
   s="largedata/SNP/allsnps_newgerp2_50k.dsf7", #deine deleterious alleles
   g=gerpfile, 
   f="largedata/newGERPv2/allgeno/k5.txt",
   out=gsub(".csv", "", gerpfile),
+  l=1,
   t="all"
 )
 
 library(farmeR)
-run_gerpIBD(inputdf[11,], email="yangjl0930@gmail.com", runinfo = c(FALSE, "bigmemm", 2) )
+run_gerpIBD(inputdf, email="yangjl0930@gmail.com", runinfo = c(TRUE, "med", 2) )
+
+############### trait-specific k
+gerpfile <- list.files(path="largedata/newGERPv2/allgeno", pattern="csv$", full.names=TRUE)
+kfile <- list.files(path="largedata/snpeff/perse", pattern="_k.txt$", full.names=TRUE)
+inputdf <- data.frame(
+  d="largedata/IBD/allsnps_11m_IBD.bed", 
+  s="largedata/SNP/allsnps_newgerp2_50k.dsf7", #deine deleterious alleles
+  g= rep(gerpfile, times = 7),
+  f= rep(kfile, each=12),
+  out=gsub("allgeno", "allgeno_k", gsub(".csv", "", gerpfile)),
+  t="k"
+)
+
+library(farmeR)
+run_gerpIBD(inputdf, email="yangjl0930@gmail.com", runinfo = c(TRUE, "med", 2) )
 
 
 
@@ -27,61 +40,7 @@ run_gerpIBD(inputdf[11,], email="yangjl0930@gmail.com", runinfo = c(FALSE, "bigm
 
 
 
-run_GATK <- function(inputdf,
-                     ref.fa="~/dbcenter/Ecoli/reference/Ecoli_k12_MG1655.fasta",
-                     gatkpwd="$HOME/bin/GenomeAnalysisTK-3.5/GenomeAnalysisTK.jar",
-                     picardpwd="$HOME/bin/picard-tools-2.1.1/picard.jar",
-                     minscore=5,
-                     markDup=TRUE,
-                     realignInDels=FALSE, indels.vcf="indels.vcf",
-                     recalBases=FALSE, dbsnp.vcf="dbsnp.vcf",
-                     ){
-  
-  ##### prepare parameters:
-  fq <- inputdf
-  ### determine memory based on partition
-  runinfo <- get_runinfo(runinfo)
-  
-  #### create dir if not exist
-  dir.create("slurm-script", showWarnings = FALSE)
-  for(i in 1:nrow(fq)){
-    
-    shid <- paste0("slurm-script/run_gatk_", i, ".sh")
-    ### header of the shell code
-    cat("### GATK pipeline created by farmeR",
-        paste("###", format(Sys.time(), "%a %b %d %X %Y")),
-        paste(""),
-        file=shid, sep="\n", append=FALSE)
-    
-    if(sum(names(fq) %in% "bam") > 0){
-      inputbam <- fq$bam[i]
-    }else{
-      ### alignment and sorting using picard-tools
-      inputbam <- set_bwa(fq, run, minscore, picardpwd, i, ref.fa, shid)
-    }
-    
-    #### mark duplicates
-    if(markDup) inputbam <- set_markDup(fq, picardpwd, inputbam, i, run, shid)
-    
-    ### Perform local realignment around indels
-    if(realignInDels) inputbam <- set_realignInDels(fq, inputbam, i, indels.vcf, ref.fa, gatkpwd, run, shid)
-    
-    ### Recalibrate Bases
-    if(recalBases) inputbam <- set_recalBases(fq, inputbam, i, indels.vcf, dbsnp.vcf, ref.fa, gatkpwd, run, shid)
-    
-    ### Variant Discovery using HaplotypeCaller
-    vcaller(fq, inputbam, i, ref.fa, gatkpwd, run, shid)
-  }
-  
-  shcode <- paste("module load java/1.8", "module load bwa/0.7.9a",
-                  "sh slurm-script/run_gatk_$SLURM_ARRAY_TASK_ID.sh", sep="\n")
-  set_array_job(shid="slurm-script/run_gatk_array.sh",
-                shcode=shcode, arrayjobs=paste("1", nrow(inputdf), sep="-"),
-                wd=NULL, jobid="gatk", email=email, runinfo=runinfo)
-  #  sbatch -p bigmemh --mem 32784 --ntasks=4  slurm-script/run_gatk_array.sh
-}
-
-
+##############################################
 
 
 
