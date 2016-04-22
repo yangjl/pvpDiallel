@@ -21,6 +21,12 @@ library(farmeR)
 run_gerpIBD(inputdf[11,], email="yangjl0930@gmail.com", runinfo = c(FALSE, "bigmemm", 2) )
 
 
+
+
+
+
+
+
 run_GATK <- function(inputdf,
                      ref.fa="~/dbcenter/Ecoli/reference/Ecoli_k12_MG1655.fasta",
                      gatkpwd="$HOME/bin/GenomeAnalysisTK-3.5/GenomeAnalysisTK.jar",
