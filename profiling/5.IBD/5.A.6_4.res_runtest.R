@@ -13,8 +13,7 @@ runttest <- function(res0){
   res0$sp <- as.character(paste0("sp", res0$sp))
   
   tab <- ddply(res0, .(trait, cs, sp), summarise,
-                r = mean(r)
-                )
+                r = mean(r) )
   
   #tab$trait <- as.character(tab$trait)
   #tab$type <- as.character(tab$type)
@@ -46,14 +45,14 @@ runttest <- function(res0){
 }
 
 
-res1 <- read.csv("largedata/newGERPv2/res_a2_perse_42000.csv")
-t1 <- runttest(res0=res1)
+res_a <- read.csv("largedata/newGERPv2/res_a2_perse_42000.csv")
+t1 <- runttest(res0=res_a)
 
-res2 <- read.csv("largedata/newGERPv2/res_d2_perse_42000.csv")
-t2 <- runttest(res0=res2)
+res_d <- read.csv("largedata/newGERPv2/res_d2_perse_42000.csv")
+t2 <- runttest(res0=res_d)
 
-res3 <- read.csv("largedata/newGERPv2/res_k5_perse_42000.csv")
-t3 <- runttest(res0=res3)
+res_k5 <- read.csv("largedata/newGERPv2/res_k5_perse_42000.csv")
+t3 <- runttest(res0=res_k5)
 
 
 ######
