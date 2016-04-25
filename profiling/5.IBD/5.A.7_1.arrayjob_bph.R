@@ -68,9 +68,10 @@ inputdf3$out <- paste0(gsub(".*/|.txt", "", inputdf3$trainpheno),
 
 write.table(inputdf3, "largedata/newGERPv2/inputdf_h2_bph_42000.csv", sep=",", quote=FALSE)
 
+inputdf3 <- read.csv("largedata/newGERPv2/inputdf_h2_bph_42000.csv")
 run_GenSel4(inputdf=inputdf3, inpdir="largedata/newGERPv2/allgeno_bph_k5", cmdno=100,
             shid = "slurm-script/run_gensel_h2_array.sh",
-            email="yangjl0930@gmail.com", runinfo = c(FALSE, "bigmeml", 1) )
+            email="yangjl0930@gmail.com", runinfo = c(TRUE, "bigmeml", 1) )
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> RUN: sbatch -p med --mem 2600 --ntasks=1 slurm-script/run_gensel_h2_array.sh
 

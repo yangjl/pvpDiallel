@@ -27,11 +27,14 @@ inputdf <- data.frame(
   g= rep(gerpfile, times = 7),
   f= rep(kfile, each=12),
   out=gsub("allgeno", "allgeno_k", gsub(".csv", "", gerpfile)),
+  l=1,
   t="k"
 )
 
+inputdf$out <- paste0(inputdf$out, "_", gsub(".*/|_k.txt", "", inputdf$f), "_perse")
+
 library(farmeR)
-run_gerpIBD(inputdf, email="yangjl0930@gmail.com", runinfo = c(TRUE, "med", 2) )
+run_gerpIBD(inputdf, email="yangjl0930@gmail.com", runinfo = c(TRUE, "bigmemh", 1) )
 
 
 

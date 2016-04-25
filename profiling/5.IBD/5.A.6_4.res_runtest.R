@@ -12,14 +12,18 @@ runttest <- function(res0){
   res0$cv <- as.character(paste0("cv", res0$cv))
   res0$sp <- as.character(paste0("sp", res0$sp))
   
-  tab <- ddply(res0, .(trait, cs), summarise,
+  tab <- ddply(res0, .(trait, cs, sp), summarise,
                 r = mean(r)
                 )
   
   #tab$trait <- as.character(tab$trait)
   #tab$type <- as.character(tab$type)
   
-  tab <- res0
+  #tab <- res0
+  tab$type <- "cs"
+  tab[tab$cs == "cs0",]$type <- "real"
+  tab[tab$cs == "cs999",]$type <- "null"
+  
   myt <- unique(tab$trait)
   res <- data.frame()
   for(i in 1:length(myt)){
@@ -30,8 +34,9 @@ runttest <- function(res0){
     
     message(sprintf("###>>> real [ %s ], null [ %s ] and random [ %s ]", 
                     nrow(real), nrow(nl), nrow(rand)))
-    test <- t.test(real$r, rand$r)
-    tem <- data.frame(trait = myt[i], pval=test$p.value,
+    test1 <- t.test(real$r, rand$r, alternative="greater")
+    test2 <- try(t.test(real$r, nl$r, alternative="greater"))
+    tem <- data.frame(trait = myt[i], pval1=test1$p.value, pval2=test2$p.value,
                       r_real = mean(subset(res0, type == "real" & trait== myt[i] )$r),
                       r_cs = mean(subset(res0, type == "cs" & trait == myt[i] )$r),
                       r_null = mean(subset(res0, type == "null" & trait == myt[i] )$r))
