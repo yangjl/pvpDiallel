@@ -18,7 +18,7 @@ runttest <- function(res0){
   #tab$trait <- as.character(tab$trait)
   #tab$type <- as.character(tab$type)
   
-  #tab <- res0
+  tab <- res0
   tab$type <- "cs"
   tab[tab$cs == "cs0",]$type <- "real"
   tab[tab$cs == "cs999",]$type <- "null"
@@ -54,6 +54,7 @@ t2 <- runttest(res0=res_d)
 res_k5 <- read.csv("largedata/newGERPv2/res_k5_perse_42000.csv")
 t3 <- runttest(res0=res_k5)
 
+t4 <- runttest(res0=res_k)
 
 ######
 res4 <- read.csv("largedata/newGERPv2/res_d2_bph_42000.csv")

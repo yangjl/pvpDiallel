@@ -20,11 +20,14 @@ idx <- which(test$Zea != test$B73 & test$B73 != "N")
 ####
 names(del)[2] <- "ben"
 dsf1 <- merge(del[,1:2], dsf0, by="snpid")
-nrow(dsf1[dsf1$major != dsf1$ben & dsf1$ben != "N", ])
-nrow(dsf1[dsf1$B73 != dsf1$ben & dsf1$ben != "N", ])
+nrow(dsf1[dsf1$major != dsf1$ben & dsf1$ben != "N", ]) #133030
+nrow(dsf1[dsf1$B73 != dsf1$ben & dsf1$ben != "N", ]) #75677
 
 dsf1[dsf1$major != dsf1$ben & dsf1$ben != "N", ]$major <- dsf1[dsf1$major != dsf1$ben & dsf1$ben != "N", ]$minor
 write.table(dsf1[, -2], "largedata/SNP/allsnps_newgerp2_50k.dsf7", sep="\t", row.names=FALSE, quote=FALSE)
+
+dsf1$major <- dsf1$B73
+write.table(dsf1[, -2], "largedata/SNP/allsnps2_newgerp2_50k.dsf7", sep="\t", row.names=FALSE, quote=FALSE)
 
 
 ###### standard k

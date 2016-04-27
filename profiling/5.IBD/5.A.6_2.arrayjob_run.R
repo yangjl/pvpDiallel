@@ -16,7 +16,7 @@ get_inputdf <- function(mygeno=a2, phenopwd){
       for(f in 1:5){ #5-fold
         for(r in 1:100){ #pheno
           tem <- data.frame(
-            pi = 0.9995, geno = mygeno[p],
+            pi = 0.995, geno = mygeno[p],
             trainpheno = paste0(phenopwd, ti[i], "_train", f, "_sp", r, ".txt"),
             testpheno = paste0(phenopwd, ti[i], "_test", f, "_sp", r, ".txt"),
             chainLength=11000, burnin=1000, varGenotypic=gen[i], varResidual=res[i]
