@@ -47,7 +47,7 @@ inputdf1$out <- paste0(gsub(".*/|.txt", "", inputdf1$trainpheno),
 write.table(inputdf1, "largedata/newGERPv2/inputdf_a2_perse_42000.csv", sep=",", quote=FALSE)
 
 inputdf1 <- read.csv("largedata/newGERPv2/inputdf_a2_perse_42000.csv")
-run_GenSel4(inputdf=inputdf1, inpdir="largedata/newGERPv2/allgeno_perse_a", cmdno=500,
+run_GenSel4(inputdf=inputdf1, inpdir="largedata/newGERPv2/allgeno_perse_a", cmdno=100,
             email="yangjl0930@gmail.com", runinfo = c(TRUE, "med", 1) )
 
 ### dom
@@ -58,7 +58,7 @@ inputdf2$out <- paste0(gsub(".*/|.txt", "", inputdf2$trainpheno),
 
 write.table(inputdf2, "largedata/newGERPv2/inputdf_d2_perse_42000.csv", sep=",", quote=FALSE)
 
-
+inputdf2 <- read.csv("largedata/newGERPv2/inputdf_d2_perse_42000.csv")
 run_GenSel4(inputdf=inputdf2, inpdir="largedata/newGERPv2/allgeno_perse_d", cmdno=100,
             shid = "slurm-script/run_gensel_d2_array.sh",
             email="yangjl0930@gmail.com", runinfo = c(TRUE, "med", 1) )
