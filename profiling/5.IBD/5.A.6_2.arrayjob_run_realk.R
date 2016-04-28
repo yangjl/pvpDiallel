@@ -30,7 +30,7 @@ get_inputdf <- function(mygeno=a2, phenopwd){
 }
 
 library(farmeR)
-### real k
+### real k for trait per se
 phenopwd <- "/home/jolyang/Documents/Github/pvpDiallel/largedata/pheno/CV5fold/"
 
 h2 <- list.files(path="/home/jolyang/Documents/Github/pvpDiallel/largedata/newGERPv2/allgeno_k", 
@@ -53,6 +53,28 @@ run_GenSel4(inputdf=inputdf, inpdir="largedata/newGERPv2/allgeno_perse_k", cmdno
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> RUN: sbatch -p med --mem 2600 --ntasks=1 slurm-script/run_gensel_h2_array.sh
 
+
+### real k for trait bph
+phenopwd <- "/home/jolyang/Documents/Github/pvpDiallel/largedata/pheno/CV5fold_BPHmax/"
+h2 <- list.files(path="/home/jolyang/Documents/Github/pvpDiallel/largedata/newGERPv2/allgeno_kbph", 
+                 pattern="h2.gs.newbin$", full.names=TRUE)
+
+df <- data.frame(asi=h2[grep("asi", h2)], dtp=h2[grep("dtp", h2)], dts=h2[grep("dts", h2)], 
+                 eht=h2[grep("eht", h2)], gy=h2[grep("gy", h2)], pht=h2[grep("pht", h2)], 
+                 tw=h2[grep("tw", h2)])
+
+inputdf2 <- get_inputdf(mygeno=df, phenopwd)
+inputdf2$out <- paste0(gsub(".*/|.txt", "", inputdf2$trainpheno), 
+                       gsub(".*gerpv2_b0|.gs.newbin", "", inputdf2$geno))
+
+write.table(inputdf, "largedata/newGERPv2/inputdf_realk_perse_42000.csv", sep=",", quote=FALSE)
+
+inputdf <- read.csv("largedata/newGERPv2/inputdf_realk_perse_42000.csv")
+run_GenSel4(inputdf=inputdf, inpdir="largedata/newGERPv2/allgeno_perse_k", cmdno=500,
+            shid = "slurm-script/run_gensel_realk_array.sh",
+            email="yangjl0930@gmail.com", runinfo = c(TRUE, "med", 1) )
+###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
+###>>> RUN: sbatch -p med --mem 2600 --ntasks=1 slurm-script/run_gensel_h2_array.sh
 
 
 
