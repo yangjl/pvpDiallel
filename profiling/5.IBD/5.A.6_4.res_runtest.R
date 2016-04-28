@@ -18,7 +18,7 @@ runttest <- function(res0){
   #tab$trait <- as.character(tab$trait)
   #tab$type <- as.character(tab$type)
   
-  tab <- res0
+  #tab <- res0
   tab$type <- "cs"
   tab[tab$cs == "cs0",]$type <- "real"
   tab[tab$cs == "cs999",]$type <- "null"

@@ -32,6 +32,6 @@ inputdf <- data.frame(
   out = gsub(".*/|.gs", "", gsfiles)
 )
 
-run_GenSel4(inputdf, inpdir="largedata/newGERPv2/allgeno_k", cmdno = 1,
-            email="yangjl0930@gmail.com", runinfo = c(TRUE, "med", 1) )
+run_GenSel4(inputdf, inpdir="largedata/newGERPv2/allgeno_k", cmdno = 21,
+            email="yangjl0930@gmail.com", runinfo = c(TRUE, "bigmemh", 1) )
 

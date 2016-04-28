@@ -16,7 +16,7 @@ get_inputdf <- function(mygeno=a2, phenopwd){
       for(f in 1:5){ #5-fold
         for(r in 1:100){ #pheno
           tem <- data.frame(
-            pi = 0.9995, geno = mygeno[p, ti[i]],
+            pi = 0.995, geno = mygeno[p, ti[i]],
             trainpheno = paste0(phenopwd, ti[i], "_train", f, "_sp", r, ".txt"),
             testpheno = paste0(phenopwd, ti[i], "_test", f, "_sp", r, ".txt"),
             chainLength=11000, burnin=1000, varGenotypic=gen[i], varResidual=res[i]
@@ -44,10 +44,10 @@ inputdf3 <- get_inputdf(mygeno=df, phenopwd)
 inputdf3$out <- paste0(gsub(".*/|.txt", "", inputdf3$trainpheno), 
                        gsub(".*gerpv2_b0|.gs.newbin", "", inputdf3$geno))
 
-write.table(inputdf3, "largedata/newGERPv2/inputdf_realk_perse_42000.csv", sep=",", quote=FALSE)
+write.table(inputdf, "largedata/newGERPv2/inputdf_realk_perse_42000.csv", sep=",", quote=FALSE)
 
 inputdf <- read.csv("largedata/newGERPv2/inputdf_realk_perse_42000.csv")
-run_GenSel4(inputdf=inputdf, inpdir="largedata/newGERPv2/allgeno_perse_k", cmdno=100,
+run_GenSel4(inputdf=inputdf, inpdir="largedata/newGERPv2/allgeno_perse_k", cmdno=500,
             shid = "slurm-script/run_gensel_realk_array.sh",
             email="yangjl0930@gmail.com", runinfo = c(TRUE, "med", 1) )
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
