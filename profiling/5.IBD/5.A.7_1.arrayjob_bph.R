@@ -44,8 +44,10 @@ inputdf1$out <- paste0(gsub(".*/|.txt", "", inputdf1$trainpheno),
                        gsub(".*gerpv2_b0|.gs.newbin", "", inputdf1$geno))
 write.table(inputdf1, "largedata/newGERPv2/inputdf_a2_bph_42000.csv", sep=",", quote=FALSE)
 
-run_GenSel4(inputdf1, inpdir="largedata/newGERPv2/allgeno_bph_a", cmdno=500,
-            email="yangjl0930@gmail.com", runinfo = c(TRUE, "med", 1) )
+inputdf1 <- read.csv("largedata/newGERPv2/inputdf_a2_bph_42000.csv")
+run_GenSel4(inputdf=inputdf1, inpdir="largedata/newGERPv2/allgeno_bph_a", cmdno=100,
+            email="yangjl0930@gmail.com", runinfo = c(TRUE, "serial", 1) )
+
 
 ### dom
 inputdf2 <- get_inputdf(mygeno=d2, phenopwd)
@@ -55,7 +57,9 @@ inputdf2$out <- paste0(gsub(".*/|.txt", "", inputdf2$trainpheno),
 
 write.table(inputdf2, "largedata/newGERPv2/inputdf_d2_bph_42000.csv", sep=",", quote=FALSE)
 
-run_GenSel4(inputdf=inputdf2, inpdir="largedata/newGERPv2/allgeno_bph_d", cmdno=500,
+
+inputdf2 <- read.csv("largedata/newGERPv2/inputdf_d2_bph_42000.csv")
+run_GenSel4(inputdf=inputdf2, inpdir="largedata/newGERPv2/allgeno_bph_d", cmdno=100,
             shid = "slurm-script/run_gensel_d2_array.sh",
             email="yangjl0930@gmail.com", runinfo = c(TRUE, "serial", 1) )
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
@@ -72,6 +76,7 @@ inputdf3 <- read.csv("largedata/newGERPv2/inputdf_h2_bph_4200.csv")
 run_GenSel4(inputdf=inputdf3, inpdir="largedata/newGERPv2/allgeno_bph_k5", cmdno=30,
             shid = "slurm-script/run_gensel_h2_array.sh",
             email="yangjl0930@gmail.com", runinfo = c(TRUE, "serial", 1) )
+
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> RUN: sbatch -p med --mem 2600 --ntasks=1 slurm-script/run_gensel_h2_array.sh
 
