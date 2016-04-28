@@ -59,11 +59,11 @@ res_d <- collect_res(dir="largedata/newGERPv2/allgeno_perse_d/") ### done
 write.table(res_d[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
             "largedata/newGERPv2/res_d2_perse_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
 
-res_k5 <- collect_res(dir="largedata/newGERPv2/allgeno_perse_k5/") ### done
+res_k5 <- collect_res(dir="largedata/newGERPv2/allgeno_perse_k5/") ### 
 write.table(res_k5[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
             "largedata/newGERPv2/res_k5_perse_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
 
-res_k <- collect_res(dir="largedata/newGERPv2/allgeno_perse_k/") ### done
+res_k <- collect_res(dir="largedata/newGERPv2/allgeno_perse_k/") ### 
 write.table(res_k[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
             "largedata/newGERPv2/res_realk_perse_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
 

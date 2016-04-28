@@ -50,7 +50,7 @@ inputdf2 <- data.frame(
   t="k"
 )
 
-inputdf2$out <- paste0(inputdf2$out, "_", gsub(".*/|_k.txt", "", inputdf2$f), "_perse")
+inputdf2$out <- paste0(inputdf2$out, "_", gsub(".*/|_k.txt", "", inputdf2$f), "_bph")
 
 library(farmeR)
 run_gerpIBD(inputdf=rbind(inputdf1, inputdf2), email="yangjl0930@gmail.com", runinfo = c(TRUE, "med", 2) )
