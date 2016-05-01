@@ -14,7 +14,7 @@ get_inputdf <- function(mygeno=a2, phenopwd){
   for(i in 1:7){ #traits
     for(p in 1:12){ #gerp
       for(f in 1:5){ #5-fold
-        for(r in 1:10){ #pheno
+        for(r in 1:100){ #pheno
           tem <- data.frame(
             pi = 0.995, geno = mygeno[p],
             trainpheno = paste0(phenopwd, ti[i], "_train", f, "_sp", r, ".txt"),
@@ -59,7 +59,7 @@ write.table(inputdf2, "largedata/newGERPv2/inputdf_d2_bph_42000.csv", sep=",", q
 
 
 inputdf2 <- read.csv("largedata/newGERPv2/inputdf_d2_bph_42000.csv")
-run_GenSel4(inputdf=inputdf2, inpdir="largedata/newGERPv2/allgeno_bph_d", cmdno=100,
+run_GenSel4(inputdf=inputdf2, inpdir="largedata/newGERPv2/allgeno_bph_d", cmdno=500,
             shid = "slurm-script/run_gensel_d2_array.sh",
             email="yangjl0930@gmail.com", runinfo = c(TRUE, "serial", 1) )
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
@@ -72,8 +72,8 @@ inputdf3$out <- paste0(gsub(".*/|.txt", "", inputdf3$trainpheno),
 
 write.table(inputdf3, "largedata/newGERPv2/inputdf_h2_bph_4200.csv", sep=",", quote=FALSE)
 
-inputdf3 <- read.csv("largedata/newGERPv2/inputdf_h2_bph_4200.csv")
-run_GenSel4(inputdf=inputdf3, inpdir="largedata/newGERPv2/allgeno_bph_k5", cmdno=30,
+inputdf3 <- read.csv("largedata/newGERPv2/inputdf_h2_bph_42000.csv")
+run_GenSel4(inputdf=inputdf3, inpdir="largedata/newGERPv2/allgeno_bph_k5", cmdno=500,
             shid = "slurm-script/run_gensel_h2_array.sh",
             email="yangjl0930@gmail.com", runinfo = c(TRUE, "serial", 1) )
 
