@@ -51,7 +51,7 @@ collect_res <- function(dir="largedata/newGERPv2/allgeno_perse_d/"){
 }
 
 ######### trait perse
-res_a <- collect_res(dir="largedata/newGERPv2/allgeno_perse_a/") ### no
+res_a <- collect_res(dir="largedata/newGERPv2/allgeno_perse_a/") ### done
 write.table(res_a[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
             "largedata/newGERPv2/res_a2_perse_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
 
@@ -59,24 +59,24 @@ res_d <- collect_res(dir="largedata/newGERPv2/allgeno_perse_d/") ### done
 write.table(res_d[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
             "largedata/newGERPv2/res_d2_perse_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
 
-res_k5 <- collect_res(dir="largedata/newGERPv2/allgeno_perse_k5/") ### 
+res_k5 <- collect_res(dir="largedata/newGERPv2/allgeno_perse_k5/") ### done
 write.table(res_k5[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
             "largedata/newGERPv2/res_k5_perse_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
 
-res_k <- collect_res(dir="largedata/newGERPv2/allgeno_perse_k/") ### 
+res_k <- collect_res(dir="largedata/newGERPv2/allgeno_perse_k/") ### running
 write.table(res_k[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
             "largedata/newGERPv2/res_realk_perse_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
 ######### trait bph
-res_a <- collect_res(dir="largedata/newGERPv2/allgeno_bph_a/")
+res_a <- collect_res(dir="largedata/newGERPv2/allgeno_bph_a/") ### 
 write.table(res_a[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
             "largedata/newGERPv2/res_a2_bph_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
 
-res_d <- collect_res(dir="largedata/newGERPv2/allgeno_bph_d/")
+res_d <- collect_res(dir="largedata/newGERPv2/allgeno_bph_d/") ###
 write.table(res_d[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
             "largedata/newGERPv2/res_d2_bph_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
 
-res_k5 <- collect_res(dir="largedata/newGERPv2/allgeno_bph_k5/")
+res_k5 <- collect_res(dir="largedata/newGERPv2/allgeno_bph_k5/") ###
 write.table(res_k5[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
             "largedata/newGERPv2/res_k5_perse_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
