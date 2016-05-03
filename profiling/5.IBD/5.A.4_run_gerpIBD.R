@@ -57,7 +57,7 @@ run_gerpIBD(inputdf=rbind(inputdf1, inputdf2), email="yangjl0930@gmail.com", run
 
 
 library(farmeR)
-run_gerpIBD(inputdf=inputdf2, email="yangjl0930@gmail.com", runinfo = c(TRUE, "serial", 2) )
+run_gerpIBD(inputdf=inputdf2, email="yangjl0930@gmail.com", runinfo = c(TRUE, "serial", 4) )
 
 
 
