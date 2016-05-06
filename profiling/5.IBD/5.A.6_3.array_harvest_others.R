@@ -80,3 +80,8 @@ write.table(res_d[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
 res_k5 <- collect_res(dir="largedata/newGERPv2/allgeno_bph_k5/") ### done
 write.table(res_k5[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
             "largedata/newGERPv2/res_k5_bph_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+res_k <- collect_res(dir="largedata/newGERPv2/allgeno_bph_k/") ### done
+write.table(res_k[, c("file", "trait", "r", "cs", "mode", "cv", "sp", "type")],
+            "largedata/newGERPv2/res_realk_bph_42000.csv", sep=",", row.names=FALSE, quote=FALSE)
+

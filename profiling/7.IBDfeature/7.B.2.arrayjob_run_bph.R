@@ -30,8 +30,8 @@ get_inputdf <- function(mygeno=a2, phenopwd){
 }
 
 library(farmeR)
-####### For trait perse
-phenopwd <- "/home/jolyang/Documents/Github/pvpDiallel/largedata/pheno/CV5fold/"
+####### For BPH with genegeno
+phenopwd <- "/home/jolyang/Documents/Github/pvpDiallel/largedata/pheno/CV5fold_BPHmax/"
 a2 <- list.files(path="/home/jolyang/Documents/Github/pvpDiallel/largedata/newGERPv2/genegeno", 
                  pattern="a2.gs.newbin$", full.names=TRUE)
 d2 <- list.files(path="/home/jolyang/Documents/Github/pvpDiallel/largedata/newGERPv2/genegeno", 
@@ -42,22 +42,25 @@ h2 <- list.files(path="/home/jolyang/Documents/Github/pvpDiallel/largedata/newGE
 inputdf1 <- get_inputdf(mygeno=a2, phenopwd)
 inputdf1$out <- paste0(gsub(".*/|.txt", "", inputdf1$trainpheno), 
                        gsub(".*genegeno|.gs.newbin", "", inputdf1$geno))
-write.table(inputdf1, "largedata/newGERPv2/gene_inputdf_a2_perse_42000.csv", sep=",", quote=FALSE)
+write.table(inputdf1, "largedata/newGERPv2/gene_inputdf_a2_bph_42000.csv", sep=",", quote=FALSE)
 
-inputdf1 <- read.csv("largedata/newGERPv2/gene_inputdf_a2_perse_42000.csv")
+inputdf1 <- read.csv("largedata/newGERPv2/gene_inputdf_a2_bph_42000.csv")
 run_GenSel4(inputdf=inputdf1, inpdir="largedata/newGERPv2/genegeno_bph_a", cmdno=500,
             email="yangjl0930@gmail.com", runinfo = c(TRUE, "serial", 1) )
+
 
 ### dom
 inputdf2 <- get_inputdf(mygeno=d2, phenopwd)
 inputdf2$out <- paste0(gsub(".*/|.txt", "", inputdf2$trainpheno), 
                        gsub(".*genegeno|.gs.newbin", "", inputdf2$geno))
-write.table(inputdf2, "largedata/newGERPv2/gene_inputdf_d2_perse_42000.csv", sep=",", quote=FALSE)
 
-inputdf2 <- read.csv("largedata/newGERPv2/gene_inputdf_d2_perse_42000.csv")
-run_GenSel4(inputdf=inputdf2, inpdir="largedata/newGERPv2/genegeno_perse_d", cmdno=500,
+write.table(inputdf2, "largedata/newGERPv2/gene_inputdf_d2_bph_42000.csv", sep=",", quote=FALSE)
+
+
+inputdf2 <- read.csv("largedata/newGERPv2/gene_inputdf_d2_bph_42000.csv")
+run_GenSel4(inputdf=inputdf2, inpdir="largedata/newGERPv2/genegeno_bph_d", cmdno=500,
             shid = "slurm-script/run_gensel_d2_array.sh",
-            email="yangjl0930@gmail.com", runinfo = c(TRUE, "bigmeml", 1) )
+            email="yangjl0930@gmail.com", runinfo = c(TRUE, "serial", 1) )
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> RUN: sbatch -p bigmeml --mem 8196 --ntasks=1 slurm-script/run_gensel_array.sh
 
@@ -65,12 +68,14 @@ run_GenSel4(inputdf=inputdf2, inpdir="largedata/newGERPv2/genegeno_perse_d", cmd
 inputdf3 <- get_inputdf(mygeno=h2, phenopwd)
 inputdf3$out <- paste0(gsub(".*/|.txt", "", inputdf3$trainpheno), 
                        gsub(".*genegeno|.gs.newbin", "", inputdf3$geno))
-write.table(inputdf3, "largedata/newGERPv2/gene_inputdf_h2_perse_42000.csv", sep=",", quote=FALSE)
 
-inputdf3 <- read.csv("largedata/newGERPv2/gene_inputdf_h2_perse_42000.csv")
-run_GenSel4(inputdf=inputdf3, inpdir="largedata/newGERPv2/genegeno_perse_k5", cmdno=500,
+write.table(inputdf3, "largedata/newGERPv2/gene_inputdf_h2_bph_4200.csv", sep=",", quote=FALSE)
+
+inputdf3 <- read.csv("largedata/newGERPv2/gene_inputdf_h2_bph_4200.csv")
+run_GenSel4(inputdf=inputdf3, inpdir="largedata/newGERPv2/genegeno_bph_k5", cmdno=30,
             shid = "slurm-script/run_gensel_h2_array.sh",
             email="yangjl0930@gmail.com", runinfo = c(TRUE, "serial", 1) )
+
 ###>>> In this path: cd /home/jolyang/Documents/Github/pvpDiallel
 ###>>> RUN: sbatch -p med --mem 2600 --ntasks=1 slurm-script/run_gensel_h2_array.sh
 
