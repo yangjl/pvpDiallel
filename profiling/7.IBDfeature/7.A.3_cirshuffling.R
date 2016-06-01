@@ -20,8 +20,14 @@ CirShuffling <- function(gerp=gerp, SN=1000000, times=10, outfile="allsnps_11m_g
 library(data.table, lib="~/bin/Rlib/")
 gerp <- fread("largedata/SNP/gerp11m_in_gene_b0.csv", sep=",")
 # 313821
-CirShuffling(gerp=gerp, SN=50000, times=10, outfile="largedata/SNP/gene_perse_cs/gene_perse")
+CirShuffling(gerp=gerp, SN=50000, times=10, outfile="largedata/newGERPv2/genegeno/genegeno")
+
+
 CirShuffling(gerp=gerp, SN=50000, times=10, outfile="largedata/SNP/gene_bph_cs/gene_bph")
 
 
-
+## turn all GERP=> 1 no information
+gerp1 <- gerp
+gerp1$RS <- 1
+write.table(gerp1, "largedata/newGERPv2/genegeno/genegeno_cs999.csv", sep=",",
+            row.names=FALSE, quote=FALSE)
