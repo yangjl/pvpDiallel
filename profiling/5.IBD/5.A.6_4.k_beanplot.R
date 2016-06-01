@@ -61,7 +61,7 @@ res6 <- read.csv("largedata/newGERPv2/res_d2_bph_42000.csv")
 res7 <- read.csv("largedata/newGERPv2/res_k5_perse_42000.csv")
 res8 <- read.csv("largedata/newGERPv2/res_k5_bph_42000.csv")
 
-pdf("graphs/FigS5_BPH_4plots.pdf", height=8, width=12)
+pdf("graphs/FigS5_BPH_4plots.pdf", height=10, width=10)
 par(mfrow=c(2,2))
 
 out3 <- mybean(res3, mymode = "a2", ylim=c(0, 1), main="Trait per se with additive", ylab="Cross-validation Accuracy")

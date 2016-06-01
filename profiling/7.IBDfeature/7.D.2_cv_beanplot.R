@@ -14,7 +14,7 @@ mybean <- function(res0, mymode="a2", ...){
   res1$type <- factor(res1$type, levels = c("real", "random"))
   res1$trait <- factor(res1$trait, levels = toupper(c("dts", "dtp", "tw", "asi","pht", "eht", "gy")))
   beanplot(m ~ type + trait, data = res1, kernel="cosine", ll = 0.04, cex=1.5, side = "both", bw=0.02,
-           border = NA, col = list(c("#d41243", "#d41243"), c("#00aedb", "#00aedb")), ...)
+           border = NA, col = list( c("#008080", "#008080"), c("grey", "grey")), ...)
   #legend("bottomleft", fill = c("black", "grey"),
   #       legend = c("Group 2", "Group 1"))
   #return(res0)
@@ -75,15 +75,15 @@ mean(subset(res2, mode=="h2" & trait == "gy" & type=="random")$r)
 ############
 
 #######
-pdf("graphs/SFig4_6plots.pdf", height=8, width=12)
+pdf("graphs/SFig4_6plots.pdf", height=10, width=15)
 par(mfrow=c(2,3))
-mybean(res2, mymode = "a2", ylim=c(0, 1), main="Additive", ylab="Cross-validation Accuracy")
-mybean(res2, mymode = "d2", ylim=c(0, 1), main="Dominance", ylab="Cross-validation Accuracy")
-mybean(res2, mymode = "h2", ylim=c(0, 1), main="Incomplete Dominance", ylab="Cross-validation Accuracy")
-
 mybean(res1, mymode = "a2", ylim=c(0, 1), main="Additive", ylab="Cross-validation Accuracy")
 mybean(res1, mymode = "d2", ylim=c(0, 1), main="Dominance", ylab="Cross-validation Accuracy")
 mybean(res1, mymode = "h2", ylim=c(0, 1), main="Incomplete Dominance", ylab="Cross-validation Accuracy")
+
+mybean(res2, mymode = "a2", ylim=c(0, 1), main="Additive", ylab="Cross-validation Accuracy")
+mybean(res2, mymode = "d2", ylim=c(0, 1), main="Dominance", ylab="Cross-validation Accuracy")
+mybean(res2, mymode = "h2", ylim=c(0, 1), main="Incomplete Dominance", ylab="Cross-validation Accuracy")
 dev.off()
 
 
