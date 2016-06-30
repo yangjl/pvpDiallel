@@ -133,7 +133,7 @@ for(i in 0:1){
   dat$Effect_A <- -dat$Effect_A
   dat$k <- dat$Effect_D/abs(dat$Effect_A)
   
-  dat <- subset(dat, trait %in% c("dtp", "pht", "gy"))
+  dat <- subset(dat, trait %in% tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW")))
   if(sum(dat$k > 1) > 0){
     if(sum(dat$k > 2) > 0){
       dat[dat$k > 2, ]$k <- 2
@@ -146,13 +146,13 @@ for(i in 0:1){
     }
     #out[out$k < -1, ]$k <- rescale(out[out$k < -1, ]$k, c(-2, -1))
   }
-  med2 <- data.frame(trait=tolower(c( "DTP",  "GY", "PHT")), 
-                     phph=c(-0.24725,  1.24175,  0.25460))
-  med2 <- med2[order(med2$phph),]
+  med2 <- data.frame(trait=tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW")), 
+                     phph=c(-0.24725, -0.08345, -0.10605,  0.29005,  1.24175,  0.25460, -0.00955) )
+  med2 <- med2[order(med2$phph), ]
   
   out <- data.frame()
   med2$trait <- as.character(med2$trait)
-  for(j in 1:3){
+  for(j in 1:7){
     sub <- subset(dat, trait == med2$trait[j])
     t1 <- cor.test(sub$Effect_A, sub$RS)
     t2 <- cor.test(sub$Effect_D, sub$RS)
@@ -177,6 +177,7 @@ for(i in 0:1){
   
 }
 
+write.table(out, "cache/s_estimation.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 ###########################
 med2$l <- getlty(df=out, eff="effa", cutoff=0.05)$l
