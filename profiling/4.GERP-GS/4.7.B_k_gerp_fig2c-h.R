@@ -182,6 +182,9 @@ for(i in 1){
   plot_k_gerp(dat, med2, out, outfile=paste0("largedata/lgraphs/gerp_k", i, "x_tem.pdf"))
   #plot_k_gerp(dat, med2, out, outfile=paste0("largedata/lgraphs/gerp_k_q", i, ".pdf"))
   
+  ## write data to Jeff
+  #gy <- subset(dat, trait == "gy")
+  #write.table(gy, "cache/gy_effect_GERP.csv", sep=",", row.names=FALSE, quote=FALSE)
 }
 
 write.table(out, "cache/s_estimation.csv", sep=",", row.names=FALSE, quote=FALSE)
