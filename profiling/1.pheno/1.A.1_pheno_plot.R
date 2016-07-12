@@ -5,6 +5,14 @@
 #setwd("~/Documents/Github/pvpDiallel/")
 trait <- read.csv("data/trait_matrix.csv")
 
+out <- data.frame()
+for(t in c("GY", "ASI", "DTP", "DTS", "EHT",  "PHT",  "TW")){
+  sub <- subset(trait, trait == t)
+  tem <- data.frame(trait=t, ybar=mean(sub$valHyb))
+  out <- rbind(out, tem)
+}
+write.table(out, "cache/ybar.csv", sep=",", row.names=FALSE)
+
 p1 <- mean(subset(trait, trait == "GY")$valP1)
 p2 <- mean(subset(trait, trait == "GY")$valP2)
 
