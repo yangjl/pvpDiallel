@@ -12,6 +12,10 @@ plot_loh <- function(trait=trait, ...){
 }
 ##### note: change to abs value
 trait <- read.csv("data/trait_matrix.csv")
+write.table(trait, "manuscript/Figure_Table/STable_heterosis.csv")
+
+trait[trait$trait == "DTS", ]$pBPHmax <- abs(trait[trait$trait == "DTS", ]$pBPHmin)
+trait[trait$trait == "DTP", ]$pBPHmax <- abs(trait[trait$trait == "DTP", ]$pBPHmin)
 trait[trait$trait == "ASI", ]$pBPHmax <- abs(trait[trait$trait == "ASI", ]$pBPHmin)
 trait$pBPHmax <- trait$pBPHmax*100
 trait <- subset(trait, pBPHmax<300)
@@ -27,6 +31,7 @@ loh <- ddply(trait, .(trait), summarise,
              h = median(pBPHmax))
 loh <- loh[order(loh$h),]
 write.table(loh, "cache/loh_pBPHmax_median.csv", sep=",", row.names=FALSE, quote=FALSE)
+
 
 ####>>>>
 mean(trait$BPHmax)

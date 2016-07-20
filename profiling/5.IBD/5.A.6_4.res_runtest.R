@@ -54,7 +54,9 @@ t2 <- runttest(res0=res_d)
 res_k5 <- read.csv("largedata/newGERPv2/res_k5_perse_42000.csv")
 t3 <- runttest(res0=res_k5)
 
+res_k <- read.csv("largedata/newGERPv2/res_realk_perse_42000.csv")
 t4 <- runttest(res0=res_k)
+t4$diff <- t4$r_real - t4$r_cs
 
 ######
 res4 <- read.csv("largedata/newGERPv2/res_d2_bph_42000.csv")
