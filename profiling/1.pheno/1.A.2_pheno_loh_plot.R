@@ -1,34 +1,41 @@
 # Jinliang Yang
 # Octo. 27th, 2014
+# updated 8/15/2016, changed the calculation of BPH for flowering time traits
 # purpose: levels of heterosis
 
 
 #######
-plot_loh <- function(trait=trait, ...){
-  bymed2 <- with(trait, reorder(trait, pBPHmax, median))
-  boxplot(pBPHmax ~ bymed2, data=trait,
+plot_loh <- function(trait,  ...){
+  bymed2 <- with(trait, reorder(trait, pBPH, median))
+  boxplot(pBPH ~ bymed2, data=trait,
           xlab = "", ylab= "BPH (100%)", col="antiquewhite3", 
           ...)
 }
 ##### note: change to abs value
 trait <- read.csv("data/trait_matrix.csv")
-write.table(trait, "manuscript/Figure_Table/STable_heterosis.csv")
 
-trait[trait$trait == "DTS", ]$pBPHmax <- abs(trait[trait$trait == "DTS", ]$pBPHmin)
-trait[trait$trait == "DTP", ]$pBPHmax <- abs(trait[trait$trait == "DTP", ]$pBPHmin)
-trait[trait$trait == "ASI", ]$pBPHmax <- abs(trait[trait$trait == "ASI", ]$pBPHmin)
-trait$pBPHmax <- trait$pBPHmax*100
-trait <- subset(trait, pBPHmax<300)
+trait <- read.csv("data/trait_matrix.csv")
+trait$pBPH <- trait$pBPHmax
+trait[trait$trait == "TW", ]$pBPH <- abs(trait[trait$trait == "TW", ]$pBPH)
+trait[trait$trait == "DTS", ]$pBPH <- -(trait[trait$trait == "DTS", ]$pBPHmin)
+trait[trait$trait == "DTP", ]$pBPH <- -(trait[trait$trait == "DTP", ]$pBPHmin)
+trait[trait$trait == "ASI", ]$pBPH <- -(trait[trait$trait == "ASI", ]$pBPHmin)
+
+trait$pBPH <- trait$pBPH*100
+trait <- subset(trait, pBPH<300)
+
+bymed <- plot_loh(trait, main="")
 
 pdf("graphs/Fig1b_v2.pdf", width=5, height=5)
-bymed <- plot_loh(trait=trait, main="")
+bymed <- plot_loh(trait, main="")
 dev.off()
 
+write.table(trait, "manuscript/Figure_Table/STable_heterosis.csv")
 
 ##########
 library(plyr)
 loh <- ddply(trait, .(trait), summarise,
-             h = median(pBPHmax))
+             h = median(pBPH))
 loh <- loh[order(loh$h),]
 write.table(loh, "cache/loh_pBPHmax_median.csv", sep=",", row.names=FALSE, quote=FALSE)
 
