@@ -134,7 +134,26 @@ save(list="dat2", file="largedata/dat2_08152016.RData")
 ob <- load("largedata/dat2_08152016.RData")
 dat <- dat2
 
+d <- dat$data
+hist(abs(subset(d, trait == "gy")$Effect_A ))
 
+#lty1 <- getlty(df=out, eff="effa", cutoff=0.05)$l
+p1 <- ggplot(d, aes(x=abs(Effect_A), y=k, colour=factor(trait, levels=dat$med$trait),
+                           linetype=factor(trait, levels=dat$med$trait))) +
+  facet_grid(~trait, scales = "free") +
+  labs(colour="Traits") +
+  theme_bw() +
+  xlab("Additive Effect") +
+  ylab("Degree of Dominance") +
+  #  (by default includes 95% confidence region)
+  #scale_fill_manual(values=cols) +
+  #http://www.sthda.com/english/wiki/ggplot2-colors-how-to-change-colors-automatically-and-manually
+  scale_color_manual(values=cols) +
+  #scale_linetype_manual(values=lty1) +
+  guides(colour=FALSE, linetype=FALSE) +
+  
+  geom_smooth(method="gam", size=1.3) +
+  theme(axis.text.y = element_text(angle = 90, hjust = 1))
 
 #### start to plot:
 plot_k_gerp(dat, med2, out, outfile=paste0("largedata/lgraphs/gerp_k", i, "x_tem.pdf"))
