@@ -123,7 +123,8 @@ getlty <- function(df, eff, cutoff=0.05){
 geno <- read.csv("largedata/GERPv2/gerpsnp_506898.csv")
 geno <- geno[, 1:5]
 
-for(i in 0:1){
+toremove=FALSE
+for(i in 1){
   kval <- read.csv(paste0("largedata/lcache/kval_perse_", i, "x.csv"))
   dat <- merge(kval, geno, by.x="snpid", by.y="marker")
   #dat$Effect_A <- dat$Effect_A + mean(dat$Effect_A)
@@ -133,40 +134,46 @@ for(i in 0:1){
   dat$Effect_A <- -dat$Effect_A
   dat$k <- dat$Effect_D/abs(dat$Effect_A)
   
-  dat <- subset(dat, trait %in% c("dtp", "pht", "gy"))
-  if(sum(dat$k > 1) > 0){
-    if(sum(dat$k > 2) > 0){
-      dat[dat$k > 2, ]$k <- 2
+  dat <- subset(dat, trait %in% tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW")))
+  
+  if(toremove){
+    if(sum(dat$k > 1) > 0){
+      if(sum(dat$k > 2) > 0){
+        dat[dat$k > 2, ]$k <- 2
+      }
+      #out[out$k > 1, ]$k <- rescale(out[out$k > 1, ]$k, c(1, 2))
     }
-    #out[out$k > 1, ]$k <- rescale(out[out$k > 1, ]$k, c(1, 2))
-  }
-  if(sum(dat$k < -1) > 0){
-    if(sum(dat$k < -2) > 0){
-      dat[dat$k < -2, ]$k <- -2
+    if(sum(dat$k < -1) > 0){
+      if(sum(dat$k < -2) > 0){
+        dat[dat$k < -2, ]$k <- -2
+      }
+      #out[out$k < -1, ]$k <- rescale(out[out$k < -1, ]$k, c(-2, -1))
     }
-    #out[out$k < -1, ]$k <- rescale(out[out$k < -1, ]$k, c(-2, -1))
   }
-  med2 <- data.frame(trait=tolower(c( "DTP",  "GY", "PHT")), 
-                     phph=c(-0.24725,  1.24175,  0.25460))
-  med2 <- med2[order(med2$phph),]
+  
+  med2 <- data.frame(trait=tolower(c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW")), 
+                     phph=c(-0.24725, -0.08345, -0.10605,  0.29005,  1.24175,  0.25460, -0.00955) )
+  med2 <- med2[order(med2$phph), ]
   
   out <- data.frame()
   med2$trait <- as.character(med2$trait)
-  for(j in 1:3){
+  for(j in 1:7){
     sub <- subset(dat, trait == med2$trait[j])
-    t1 <- cor.test(sub$Effect_A, sub$RS)
-    t2 <- cor.test(sub$Effect_D, sub$RS)
-    t3 <- cor.test(sub$k, sub$RS)
-    t4 <- cor.test(sub$h2_mrk_A, sub$RS)
-    t5 <- cor.test(sub$h2_mrk_D, sub$RS)
-    t6 <- cor.test(sub$H2_mrk, sub$RS)
+    fit1 <- lm(sub$Effect_A ~ sub$RS)
+    #t1 <- cor.test(sub$Effect_A, sub$RS)
+    #t2 <- cor.test(sub$Effect_D, sub$RS)
+    #t3 <- cor.test(sub$k, sub$RS)
+    #t4 <- cor.test(sub$h2_mrk_A, sub$RS)
+    #t5 <- cor.test(sub$h2_mrk_D, sub$RS)
+    #t6 <- cor.test(sub$H2_mrk, sub$RS)
 
-    tem <- data.frame(trait=med2$trait[j], effa=t1$p.value, effar=t1$estimate,
-                      effd=t2$p.value, effdr=t2$estimate,
-                      effk=t3$p.value, effkr=t3$estimate,
-                      h2a=t4$p.value, h2ar=t4$estimate,
-                      h2d=t5$p.value, h2dr=t5$estimate,
-                      h2k=t6$p.value, h2kr=t6$estimate)
+    #tem <- data.frame(trait=med2$trait[j], effa=t1$p.value, effar=t1$estimate,
+    #                  effd=t2$p.value, effdr=t2$estimate,
+    #                  effk=t3$p.value, effkr=t3$estimate,
+    #                  h2a=t4$p.value, h2ar=t4$estimate,
+    #                  h2d=t5$p.value, h2dr=t5$estimate,
+    #                  h2k=t6$p.value, h2kr=t6$estimate)
+    tem <- data.frame(trait=med2$trait[j], a=coef(fit1)["(Intercept)"], beta=coef(fit1)["sub$RS"])
     out <- rbind(out, tem)
   }
   print(i)
@@ -175,8 +182,12 @@ for(i in 0:1){
   plot_k_gerp(dat, med2, out, outfile=paste0("largedata/lgraphs/gerp_k", i, "x_tem.pdf"))
   #plot_k_gerp(dat, med2, out, outfile=paste0("largedata/lgraphs/gerp_k_q", i, ".pdf"))
   
+  ## write data to Jeff
+  #gy <- subset(dat, trait == "gy")
+  #write.table(gy, "cache/gy_effect_GERP.csv", sep=",", row.names=FALSE, quote=FALSE)
 }
 
+write.table(out, "cache/s_estimation.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 ###########################
 med2$l <- getlty(df=out, eff="effa", cutoff=0.05)$l

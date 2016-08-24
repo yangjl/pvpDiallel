@@ -39,7 +39,7 @@ run_model_comp <- function(ghatfile="cache/ghat_wholeset.csv", modes=c("1a2", "1
       #fit3 <- lmer(valHyb ~ (1|GCA1.all) + (1|GCA2.all) + (1|SCA.all), data=df)
       #fit4 <- lmer(valHyb ~ (1|GCA1.all) + (1|GCA2.all) + (1|SCA.all) + (1|ghat), data=df)
       out <- data.frame(trait = ti, mode = mi, p21=anova(fit2, fit1)[2, 6], p43=anova(fit4, fit3)[2, 6],
-                        p42=anova(fit4, fit2)[2,6], p31=anova(fit3, fit1)[2,6], p32=anova(fit3, fit2)[2,6])
+                        aic21=AIC(fit2) - AIC(fit1), aic43=AIC(fit4) - AIC(fit3))
       outres <- rbind(outres, out)
     } 
   }
