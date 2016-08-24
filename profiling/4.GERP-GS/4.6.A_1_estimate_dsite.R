@@ -46,10 +46,15 @@ cal_del_allele <- function(chri = 1, outbase="largedata/Alignment/hmp3_major"){
 library(tidyr)
 library(plyr)
 library(pbapply)
+library(data.table)
 
-for(i in 1:5){
-  out <- cal_del_allele(chri = i, outbase="largedata/Alignment/hmp3_major")
-}
+##get command line args
+options(echo=TRUE) # if you want see commands in output file
+args <- commandArgs(trailingOnly = TRUE)
+
+myi <- as.numeric(as.character(args[1]))
+
+out <- cal_del_allele(chri = myi, outbase="largedata/Alignment/hmp3_major")
 
 #for(i in 6:10){
 #  out <- cal_del_allele(chri = i, outbase="largedata/Alignment/hmp3_major")
