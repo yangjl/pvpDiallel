@@ -47,10 +47,10 @@ library(tidyr)
 library(plyr)
 library(pbapply)
 
-#for(i in 1:5){
-#  out <- cal_del_allele(chri = i, outbase="largedata/Alignment/hmp3_major")
-#}
-
-for(i in 6:10){
+for(i in 1:5){
   out <- cal_del_allele(chri = i, outbase="largedata/Alignment/hmp3_major")
 }
+
+#for(i in 6:10){
+#  out <- cal_del_allele(chri = i, outbase="largedata/Alignment/hmp3_major")
+#}
