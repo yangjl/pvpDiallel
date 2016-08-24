@@ -47,18 +47,10 @@ library(tidyr)
 library(plyr)
 library(pbapply)
 
-for(i in 1:5){
-  out <- cal_del_allele(chri = i, outbase="largedata/Alignment/hmp3_major")
-}
+#for(i in 1:5){
+#  out <- cal_del_allele(chri = i, outbase="largedata/Alignment/hmp3_major")
+#}
 
 for(i in 6:10){
   out <- cal_del_allele(chri = i, outbase="largedata/Alignment/hmp3_major")
 }
-
-
-
-
-
-idx <- which(as.character(outp$Zea) != as.character(outp$major))
-write.table(outp[, -2], "largedata/Alignment/conserved_alleles_AGPv2.csv", sep=",", row.names=FALSE, quote=FALSE )
-
