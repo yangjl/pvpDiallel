@@ -5,7 +5,7 @@
 #setwd("~/Documents/Github/pvpDiallel/")
 trait5fold <- function(times=10, typep="valHyb", outdir="largedata/pheno/CV5fold/"){
   
-  trait <- read.csv("data/trait_matrix.csv")
+  trait <- read.csv("data/trait_matrix_updated_pBPH.csv")
   ### => Table_S1.trait_matrix.csv
   trait$Hyb <- paste(trait$P1, trait$P2, sep="x")
   ti <- c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW")
@@ -93,6 +93,12 @@ trait5fold(times=100, typep="pBPHmax", outdir="largedata/pheno/CV5fold_MPH/")
 set.seed(12345)
 # total file 7 traits x 5fold x 10 sample =350 x 2(test file and validation file)
 trait5fold(times=100, typep="pBPHmax", outdir="largedata/pheno/CV5fold_pMPH/") 
+
+#### pBPH
+set.seed(12345)
+# total file 7 traits x 5fold x 10 sample =350 x 2(test file and validation file)
+trait5fold(times=100, typep="pBPH", outdir="largedata/pheno/CV5fold_pBPH/") 
+
 
 
 

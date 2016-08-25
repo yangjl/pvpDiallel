@@ -5,7 +5,7 @@
 #setwd("~/Documents/Github/pvpDiallel/")
 trait2gsCV <- function(){
   
-  trait <- read.csv("data/trait_matrix.csv")
+  trait <- read.csv("data/trait_matrix_updated_pBPH.csv")
   trait$Hyb <- paste(trait$P1, trait$P2, sep="x")
   
   ti <- c("ASI", "DTP", "DTS", "EHT",  "GY", "PHT",  "TW")
@@ -37,5 +37,5 @@ trait2gsCV <- function(){
 
 ####
 system("mkdir largedata/pheno/CV/")
-
+seed(1234567)
 trait2gsCV()
