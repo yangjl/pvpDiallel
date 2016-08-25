@@ -95,3 +95,31 @@ for(i in bph_idx){
 ###>>> run this [ greml_ce largedata/snpeff/BPH/gp_gy_BPHmax.dat > largedata/snpeff/BPH//gy_BPHmax_logff_ce.log ]
 ###>>> run this [ greml_ce largedata/snpeff/BPH/gp_pht_BPHmax.dat > largedata/snpeff/BPH//pht_BPHmax_logff_ce.log ]
 ###>>> run this [ greml_ce largedata/snpeff/BPH/gp_tw_BPHmax.dat > largedata/snpeff/BPH//tw_BPHmax_logff_ce.log ]
+
+trait <- read.table("largedata/pheno/wholeset/trait_mx.dat", header=TRUE)
+pbph_idx <- grep("_pBPH$", names(trait))
+names(trait[pbph_idx])
+#"asi_pBPH" "dtp_pBPH" "dts_pBPH" "eht_pBPH" "gy_pBPH"  "pht_pBPH" "tw_pBPH"
+for(i in pbph_idx){
+  set_gblup(out_pwd="largedata/snpeff/pBPH/",
+            out_gpar= paste0("gp_", names(trait)[i], ".dat"), 
+            out_snpe= paste0(names(trait)[i], "_snpeff_ce.snpe"),
+            geno_path_pattern=c("largedata/SNP/", "genotype_h_chr"),
+            phenofile="largedata/pheno/wholeset/trait_mx.dat", trait_col=i, 
+            mapfile="largedata/SNP/genotype_h.map")
+}
+
+## not interesting!
+
+trait <- read.table("largedata/pheno/wholeset/trait_mx.dat", header=TRUE)
+bph_idx <- grep("_BPH$", names(trait))
+names(trait[bph_idx])
+#[1] "asi_BPH" "dtp_BPH" "dts_BPH" "eht_BPH" "gy_BPH"  "pht_BPH" "tw_BPH"
+for(i in bph_idx){
+  set_gblup(out_pwd="largedata/snpeff/BPH/",
+            out_gpar= paste0("gp_", names(trait)[i], ".dat"), 
+            out_snpe= paste0(names(trait)[i], "_snpeff_ce.snpe"),
+            geno_path_pattern=c("largedata/SNP/", "genotype_h_chr"),
+            phenofile="largedata/pheno/wholeset/trait_mx.dat", trait_col=i, 
+            mapfile="largedata/SNP/genotype_h.map")
+}

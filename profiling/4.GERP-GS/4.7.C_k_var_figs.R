@@ -1,5 +1,68 @@
 ### Jinliang Yang
-### 9/24/2015
+### 8/24/2016
+### answer howie's question 
+
+dat <- read.csv("largedata/lcache/kval_perse_0x.csv")
+res1 <- getvar(res=dat)
+res2 <- nx_flt(res=dat, x=5)
+res2 <- subset(res2, abs(k) < 2)
+dim(res2) #107346      8
+
+pdf("graphs/explore1.pdf")
+for(mytrait in c("ASI", "DTP", "DTS", "EHT", "GY", "PHT", "TW")){
+  c1 <- cor(abs(subset(res2, trait==mytrait)$Effect_D), abs(subset(res2, trait==mytrait)$Effect_A))
+  c2 <- cor(abs(subset(res2, trait==mytrait)$Effect_D)/abs(subset(res2, trait==mytrait)$Effect_A), 
+            abs(subset(res2, trait==mytrait)$Effect_A))
+  par(mfrow=c(2,2))
+  hist(abs(subset(res2, trait==mytrait)$Effect_A), xlab="Additive Effect", main=mytrait)
+  hist(abs(subset(res2, trait==mytrait)$Effect_D), xlab="Dominant Effect", main=mytrait)
+  plot(abs(subset(res2, trait==mytrait)$Effect_D), abs(subset(res2, trait==mytrait)$Effect_A),
+       xlab="Additive Effect", ylab="Dominant Effect", main=paste("correlation =", round(c1,3)))
+  plot(abs(subset(res2, trait==mytrait)$Effect_D)/abs(subset(res2, trait==mytrait)$Effect_A), 
+       abs(subset(res2, trait==mytrait)$Effect_A),
+       xlab="Additive Effect", ylab="Dominant/Additive", main=paste("correlation =", round(c2,3)))
+  
+}
+dev.off()
+
+
+
+i <- seq(from=0.6, to=0.75, by=0.05)
+
+for(myi in i){
+  mytrait <- "PHT"
+  sub <- subset(res2, trait==mytrait)
+  sub <- sort(abs(sub$Effect_A), decreasing=T)
+  l <- length(sub)
+  sub2 <- sub[round(l*myi):l]
+  hist(sub2, xlab="Additive Effect", main= paste("removing", myi*100, "% large effect loci") )
+  
+}
+
+
+
+c1 <- cor(abs(), abs(subset(res2, trait==mytrait)$Effect_A))
+c2 <- cor(abs(subset(res2, trait==mytrait)$Effect_D)/abs(subset(res2, trait==mytrait)$Effect_A), 
+          abs(subset(res2, trait==mytrait)$Effect_A))
+par(mfrow=c(2,2))
+
+hist(abs(subset(res2, trait==mytrait)$Effect_D), xlab="Dominant Effect", main=mytrait)
+plot(abs(subset(res2, trait==mytrait)$Effect_D), abs(subset(res2, trait==mytrait)$Effect_A),
+     xlab="Additive Effect", ylab="Dominant Effect", main=paste("correlation =", round(c1,3)))
+plot(abs(subset(res2, trait==mytrait)$Effect_D)/abs(subset(res2, trait==mytrait)$Effect_A), 
+     abs(subset(res2, trait==mytrait)$Effect_A),
+     xlab="Additive Effect", ylab="Dominant/Additive", main=paste("correlation =", round(c2,3)))
+
+
+
+
+
+
+
+
+
+
+
 
 ##############################################
 library(wesanderson)

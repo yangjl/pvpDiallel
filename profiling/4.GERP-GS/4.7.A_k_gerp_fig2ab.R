@@ -51,7 +51,7 @@ p1 <- ggplot(out1, aes(x=factor(trait, levels=bymed$trait), y=value,
                        fill=factor(variable, levels =c("A", "D"), labels=c("A", "D")))) + 
   geom_bar(position=position_dodge(), stat="identity") +
   xlab("") +
-  ylab("Cumulative Variance") +
+  ylab("Variance Explained") +
   ggtitle("") + theme_bw() +
   labs(fill="Effect") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, size=12))
