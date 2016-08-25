@@ -28,11 +28,4 @@ setup_gensel_array(
 
 
 
-
-
-
-
-
-
-
 # serial --mem 8000 --ntasks=4
