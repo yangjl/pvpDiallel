@@ -30,6 +30,7 @@ pdf("graphs/Fig1b_v2.pdf", width=5, height=5)
 bymed <- plot_loh(trait, main="")
 dev.off()
 
+write.table(trait, "data/trait_matrix_updated_pBPH.csv", sep=",", row.names=FALSE, quote=FALSE)
 write.table(trait, "manuscript/Figure_Table/STable_heterosis.csv")
 
 ##########
