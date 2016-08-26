@@ -42,7 +42,7 @@ plotH2(getpdf=getpdf, outfile="graphs/Fig1a_v3.pdf",
 
 ```{r, eval=TRUE, fig.width=6, fig.height=6}
 plotloh <- function(getpdf=TRUE, outfile, ...){
-  trait <- read.csv("manuscript/Figure_Table/STable_heterosis.csv")
+  trait <- read.csv("cache/STable_heterosis.csv")
   bymed2 <- with(trait, reorder(trait, pBPH, median))
   boxplot(pBPH ~ bymed2, data=trait,
           xlab = "", ylab= "BPH (100%)", col="antiquewhite3", 
