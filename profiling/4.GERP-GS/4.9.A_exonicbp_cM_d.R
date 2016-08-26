@@ -36,13 +36,53 @@ get_exonicbp_cM <- function(gff_file="~/dbcenter/AGP/AGPv2/ZmB73_5b_FGS_exon.gff
 ########
 out <- get_exonicbp_cM(gff_file="~/dbcenter/AGP/AGPv2/ZmB73_5b_FGS_exon.gff")
 write.table(out, "cache/exonic_cM.csv", sep=",", row.names=FALSE, quote=FALSE)
+out <- read.csv("cache/exonic_cM.csv")
 
-########
+
+######## k values 5x variance explained!
 res2 <- read.csv("cache/kval_perse_5x.csv")
-res1 <- getvar(res=dat)
-res2 <- nx_flt(res=dat, x=5)
-res2 <- subset(res2, abs(k) < 2)
-dim(res2) #107346      8
+gerp <- read.csv("cache/gerpsnp_506898_gp.csv")
+gerp$bingen <- paste(gerp$chr, round(gerp$genetic, 0), sep="_")
+
+res3 <- merge(res2, gerp, by.x="snpid", by.y="marker")
+
+res4 <- merge(res3, out, by.x="bingen", by.y="cM")
+
+
+t <- subset(res4, trait == "GY")
+r <- cor(t$exonbp, abs(t$Effect_D))
+plot(t$exonbp, abs(t$Effect_D), main= paste("GY cor=", round(r,5)))
 
 
 
+
+
+
+#################
+#cols <- wes_palette(7, name = "Zissou", type = "continuous")
+cols <- c("#f6546a", "#daa520", "#00ff00", "#66cdaa", "#3b5998", "#8a2be2", "#ff00ff")
+theme_set(theme_grey(base_size = 18)) 
+
+#lty1 <- getlty(df=out, eff="effa", cutoff=0.05)$l
+p1 <- ggplot(res4, aes(x=round(exonbp/1000,0), y=abs(Effect_D))) +
+  facet_grid(~trait, scales = "free") +
+  theme_bw() +
+  xlab("Exonic Kb") +
+  ylab("abs(dominance effect)") +
+  guides(colour=FALSE, linetype=FALSE) +
+  
+  geom_point() +
+  theme(axis.text.y = element_text(angle = 90, hjust = 1))
+p1
+
+#lty1 <- getlty(df=out, eff="effa", cutoff=0.05)$l
+p2 <- ggplot(res4, aes(x=round(exonbp/1000,0), y=abs(Effect_A))) +
+  facet_grid(~trait, scales = "free") +
+  theme_bw() +
+  xlab("Exonic Kb") +
+  ylab("abs(Additive effect)") +
+  guides(colour=FALSE, linetype=FALSE) +
+  
+  geom_point() +
+  theme(axis.text.y = element_text(angle = 90, hjust = 1))
+p2
