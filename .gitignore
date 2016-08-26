@@ -21,3 +21,5 @@ packrat/lib*/
 1.R
 .RData
 README.html
+manuscript/
+reports/
