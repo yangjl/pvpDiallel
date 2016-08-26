@@ -16,9 +16,9 @@ This project contains ~400 commits. A `largedata` directory was intentionally ig
 7. **profilling**: Analysis scripts for the project. It contains some sub-directories.
 
 ## Figures
-Rmd codes to generate Figures in the paper. This fold `doc/` is `gitignored` for now. They will be released soon.
+Rmd codes to generate Figures in the paper. The `doc/` fold is `gitignored` at the moment. It will be released soon.
 
-1. Figure 1.
+1. **Figure 1**: The four panels can be produced with code [`doc/Fig1.Rmd`](https://github.com/yangjl/pvpDiallel/blob/master/doc/Fig1.Rmd). And the [Figure1](https://github.com/yangjl/pvpDiallel/blob/master/doc/Fig1.pdf) in a pdf version.
 2. Figure 2.
 3. Figure 3.
 4. Figure 4.
