@@ -3,19 +3,20 @@ title: "Figure 1 for Deleterious Alleles paper"
 output: pdf_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include=TRUE}
+#setwd("~/Documents/Github/pvpDiallel/")
+knitr::opts_knit$set(root.dir=normalizePath('../'))
 ```
 
-To reproduce the figures, we should set `pvpDiallel` as the current path, i.e. `setwd("~/Documents/Github/pvpDiallel/")`. And then use `knitr` package to knit a pdf file. Or simplely click `Knit PDF` icon in `RStudio`. Note, to generate each panel into seperate pdf files, we should turn `getpdf` into `TRUE` (i.e. `getpdf=TRUE`) when calling the plotting functions.
+To reproduce the figures, we should set `pvpDiallel` as the root path, i.e. `setwd("~/Documents/Github/pvpDiallel/")`. And then use `knitr` package to knit a pdf file. Or simplely click `Knit PDF` icon in `RStudio`. Note, to generate each panel into seperate pdf files, we should turn `getpdf` into `TRUE` (i.e. `getpdf=TRUE`) when calling the plotting functions.
 
-First of all, determine fond size:
+First of all, determine fond size and set the getpdf option:
 ```{r}
 fs <- 1.3 # times bigger than default
-getpdf <- TRUE # get figures in seperated pdf [TRUE] or not [FALSE]
+getpdf <- FALSE # get figures in seperated pdf [TRUE] or not [FALSE]
 ```
 
-## Figure 1a
+# Figure 1a
 
 ```{r, eval=TRUE, fig.width=6, fig.height=6}
 plotH2 <- function(getpdf=TRUE, outfile, ...){
@@ -38,7 +39,7 @@ plotH2(getpdf=getpdf, outfile="graphs/Fig1a_v3.pdf",
           cex.axis=fs, cex.names=fs, cex.lab=fs)
 ```
 
-## Figure 1b
+# Figure 1b
 
 ```{r, eval=TRUE, fig.width=6, fig.height=6}
 plotloh <- function(getpdf=TRUE, outfile, ...){
@@ -60,7 +61,7 @@ plotloh(getpdf=getpdf, outfile="graphs/Fig1b_v3.pdf",
         main="", cex.axis=fs, cex.lab=fs)
 ```
 
-## Figure 1c
+# Figure 1c
 
 ```{r, eval=TRUE, fig.width=6, fig.height=6}
 plotReg <- function(getpdf=TRUE, outfile, ...){
@@ -91,7 +92,7 @@ plotReg(getpdf=getpdf, outfile="graphs/Fig1c_v3.pdf",
         main="", cex.axis=fs, cex.lab=fs)
 ```
 
-## Figure 1d
+# Figure 1d
 
 To run this chunk, we need to install `beanplot` package.
 
