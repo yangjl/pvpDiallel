@@ -17,6 +17,7 @@ This project contains ~400 commits. A `largedata` directory was intentionally ig
 
 ## Figures
 Rmd codes to generate Figures in the paper. This fold `doc/` is `gitignored` for now. They will be released soon.
+
 1. Figure 1.
 2. Figure 2.
 3. Figure 3.
