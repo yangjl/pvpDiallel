@@ -27,7 +27,7 @@ bymed <- plot_loh(trait, main="")
 pdf("graphs/Fig1b_v2.pdf", width=5, height=5)
 bymed <- plot_loh(trait, main="")
 dev.off()
-write.table(trait, "manuscript/Figure_Table/STable_heterosis.csv")
+write.table(trait, "manuscript/Figure_Table/STable_heterosis.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 #######################
 trait <- read.csv("data/trait_matrix.csv")
