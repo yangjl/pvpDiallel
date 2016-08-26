@@ -13,7 +13,7 @@ This project contains ~400 commits. A `largedata` directory was intentionally ig
 4. **lib**: Some functions for our work.
 5. **munge**: Here we store some preprocessing or data munging codes.
 6. **profilling**: Analysis scripts for the project. It contains some sub-directories.
-7. 
+7. **doc**: Documentation (i.e. Rmd files) for generating the figures.
 
 
 
