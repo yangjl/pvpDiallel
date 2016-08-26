@@ -51,6 +51,7 @@ range(res$gen)
 
 res <- subset(res, !is.na(gen))
 t.test(subset(res, gen < 0.5)$mgerp, subset(res, gen > 0.5)$mgerp)
+write.table(res, "cache/mgerp_cm.csv", sep=",", row.names = FALSE, quote = FALSE)
 
 cutoff <- quantile(res$gen, c(0.25, 0.5, 0.75))
 res$sq <- 0
