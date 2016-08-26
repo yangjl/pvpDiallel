@@ -7,7 +7,13 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-To reproduce the figures, we should set `pvpDiallel` as you current path, i.e. `setwd("~/Documents/Github/pvpDiallel/")`.
+To reproduce the figures, we should set `pvpDiallel` as the current path, i.e. `setwd("~/Documents/Github/pvpDiallel/")`. And then use `knitr` package to knit a pdf file. Or simplely click `Knit PDF` icon in `RStudio`. Note, to generate each panel into seperate pdf files, we should turn `getpdf` into `TRUE` (i.e. `getpdf=TRUE`) when calling the plotting functions.
+
+First of all, determine fond size:
+```{r}
+fs <- 1.3 # times bigger than default
+getpdf <- TRUE # get figures in seperated pdf [TRUE] or not [FALSE]
+```
 
 ## Figure 1a
 
@@ -27,9 +33,9 @@ plotH2 <- function(getpdf=TRUE, outfile, ...){
   }
 }
 
-plotH2(getpdf=F, outfile="graphs/Fig1a_v3.pdf",
+plotH2(getpdf=getpdf, outfile="graphs/Fig1a_v3.pdf",
        ylim=c(0, 1), col="antiquewhite3",  ylab="Heritability", 
-          cex.axis=1.3, cex.names=1.3, cex.lab=1.3)
+          cex.axis=fs, cex.names=fs, cex.lab=fs)
 ```
 
 ## Figure 1b
@@ -50,8 +56,8 @@ plotloh <- function(getpdf=TRUE, outfile, ...){
   }
 }
 
-plotloh(getpdf=F, outfile="graphs/Fig1a_v3.pdf",
-        main="", cex.axis=1.3, cex.lab=1.3)
+plotloh(getpdf=getpdf, outfile="graphs/Fig1b_v3.pdf",
+        main="", cex.axis=fs, cex.lab=fs)
 ```
 
 ## Figure 1c
@@ -80,9 +86,9 @@ plotReg <- function(getpdf=TRUE, outfile, ...){
   }
 }
 
-plotReg(getpdf=F, outfile="graphs/Fig1c_v3.pdf",
+plotReg(getpdf=getpdf, outfile="graphs/Fig1c_v3.pdf",
         pch=16, col="antiquewhite3", xlab="GERP Score", ylab="Deleterious Allele Frequency", 
-        main="", cex.axis=1.3, cex.lab=1.3)
+        main="", cex.axis=fs, cex.lab=fs)
 ```
 
 ## Figure 1d
@@ -101,10 +107,10 @@ plotbeans <- function(getpdf=TRUE, outfile, ...){
   res[res$gen >= cutoff[2] & res$gen < cutoff[3], ]$sq <- 3
   res[res$gen >= cutoff[3], ]$sq <- 4
 
-  beanplot(mgerp ~ sq, data = res, kernel="cosine", ll = 0.04, cex=1.5, side = "no", cut=10, ylim=c(0.5, 1.5),
+  beanplot(mgerp ~ sq, data = res, kernel="cosine", ll = 0.04, cex=fs, side = "no", cut=10, ylim=c(0.5, 1.5),
          border = NA, col=list("#cd5b45", "antiquewhite3", "antiquewhite3", "antiquewhite3"), 
          xaxt="n", ...)
-  axis(side =1, at =1:4, labels =c("<25%", "25-50%", "50-75%", " >75%"), cex.axis=1.3)
+  axis(side =1, at =1:4, labels =c("<25%", "25-50%", "50-75%", " >75%"), cex.axis=fs)
 
   if(getpdf == TRUE){
     pdf(outfile, width=6, height=6)
@@ -116,8 +122,8 @@ plotbeans <- function(getpdf=TRUE, outfile, ...){
   }
 }
 
-plotbeans(getpdf=F, outfile="graphs/Fig1d.pdf",
+plotbeans(getpdf=getpdf, outfile="graphs/Fig1d_v3.pdf",
           ylab="GERP Score", xlab="Quantiles of Recombination Rate (cM/Mb)",
-          cex.axis=1.3, cex.lab=1.3)
+          cex.axis=fs, cex.lab=fs)
 ```
 
