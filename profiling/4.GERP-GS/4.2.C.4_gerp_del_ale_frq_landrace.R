@@ -87,14 +87,18 @@ cmd <- paste("bcftools query -R pvp_sites_v3.bed -S bkn_samples.txt -f",
 library("farmeR")
 cmd <- c("cd /home/jolyang/dbcenter/HapMap/HapMap3")
 for(i in 1:10){
-  ext <- paste0("pigz -d -p 4 merged_flt_c", i, ".vcf.gz")
-  bgzip <- "bgzip merged_flt_c10.vcf -@ 4"
+  ext <- paste0("pigz -d -p 16 merged_flt_c", i, ".vcf.gz")
+  bgzip <- paste0("bgzip merged_flt_c", i, ".vcf -@ 16")
+  idx <- paste0("tabix -p vcf merged_flt_c", i, ".vcf.gz")
   tmp <- paste0("bcftools query -R pvp_sites_v3.bed -S bkn_samples.txt",
-                " -f '%CHROM\t%POS[%SAMPLE]\n'",
+                " -f '%CHROM\t%POS\t[%SAMPLE\t]\n'",
                 " merged_flt_c", i, ".vcf.gz > chr", i, "_frq.txt")
-  cmd <- c(cmd, tmp)
+  tmp2 <- paste0("bcftools query -R pvp_sites_v3.bed -S bkn_samples.txt",
+                " -f '%CHROM\t%POS\t[%GT\t]\n'",
+                " merged_flt_c", i, ".vcf.gz > chr", i, "_bkn_gt.txt")
+  cmd <- c(cmd, ext, bgzip, idx)
 }
 
-set_farm_job(slurmsh = "slurm-script/getmaf.sh",
-             shcode = cmd, wd = NULL, jobid = "getmaf",
-             email = "yangjl0930@gmail.com", runinfo = c(TRUE, "bigmemh", "8"))
+set_farm_job(slurmsh = "slurm-script/getbzip.sh",
+             shcode = cmd, wd = NULL, jobid = "bzip",
+             email = "yangjl0930@gmail.com", runinfo = c(TRUE, "bigmemh", 16))
