@@ -2,7 +2,7 @@
 This is a research repo for our recent project "**incomplete dominance of deleterious alleles contribute substantially to trait variation and heterosis in maize**". The manuscript could be found via [bioRxiv]().
 
 ## Introduction
-In this study, we take advantage of the genetic and genomic tools available to investigate the contribution of deleterious alleles to phenotypic variation. And then we use the deleterious annotation to inform our genomic prediction model to improve the prediction accuracy for phenotypic traits and heterosis.
+In this study, we take advantage of the genetic and genomic tools available in maize to investigate the contribution of deleterious alleles to phenotypic variation. And then we use the deleterious annotation to inform our genomic prediction model to improve the prediction accuracy for phenotypic traits and heterosis.
 
 ## Architecture about this Repo
 This project contains ~400 commits. A `largedata` directory was intentionally ignored by `github` because of large size of the files. To guide the visitors having a better sense about the project, here we briefly introduce the functions or sepecific purposes of the directories. The layout of directories is based on the idea from [ProjectTemplate](http://projecttemplate.net/architecture.html). 
@@ -16,7 +16,7 @@ This project contains ~400 commits. A `largedata` directory was intentionally ig
 7. **profilling**: Analysis scripts for the project. It contains some sub-directories.
 
 ## Figures
-Rmd codes to generate Figures in the paper. The `doc/` fold is `gitignored` at the moment. It will be released soon.
+Rmd code to generate Figures in the paper. The `doc/` fold is in `gitignore` at the moment. It will be released soon.
 
 1. **Figure 1**: Panels of this figure can be produced with code [`doc/Fig1.Rmd`](https://github.com/yangjl/pvpDiallel/blob/master/doc/Fig1.Rmd). And the [Figure1](https://github.com/yangjl/pvpDiallel/blob/master/doc/Fig1.pdf) in a pdf version.
 2. Figure 2.
@@ -24,5 +24,5 @@ Rmd codes to generate Figures in the paper. The `doc/` fold is `gitignored` at t
 4. Figure 4.
 
 ## License
-This repo is free and open source for reserach usage, licensed under [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
+This repo is free and open source for research usage, licensed under [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
 
