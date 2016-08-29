@@ -86,7 +86,7 @@ cmd <- paste("bcftools query -R pvp_sites_v3.bed -S bkn_samples.txt -f",
 
 library("farmeR")
 cmd <- c("cd /home/jolyang/dbcenter/HapMap/HapMap3")
-for(i in 1:10){
+for(i in 1:9){
   ext <- paste0("pigz -d -p 16 merged_flt_c", i, ".vcf.gz")
   bgzip <- paste0("bgzip merged_flt_c", i, ".vcf -@ 16")
   idx <- paste0("tabix -p vcf merged_flt_c", i, ".vcf.gz")
@@ -101,4 +101,4 @@ for(i in 1:10){
 
 set_farm_job(slurmsh = "slurm-script/getbzip.sh",
              shcode = cmd, wd = NULL, jobid = "bzip",
-             email = "yangjl0930@gmail.com", runinfo = c(TRUE, "bigmemh", 16))
+             email = "yangjl0930@gmail.com", runinfo = c(TRUE, "bigmemm", 16))

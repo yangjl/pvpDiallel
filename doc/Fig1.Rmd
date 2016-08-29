@@ -12,6 +12,7 @@ To reproduce the figures, we should set `pvpDiallel` as the root path, i.e. `set
 
 First of all, determine fond size and set the getpdf option:
 ```{r}
+#par(mar=c(5,4,4,2))
 fs <- 1.3 # times bigger than default
 getpdf <- FALSE # get figures in seperated pdf [TRUE] or not [FALSE]
 ```
