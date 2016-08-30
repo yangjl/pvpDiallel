@@ -24,7 +24,17 @@ hybplot <- function(trait, myt="GY"){
   
 }
 
-hybplot(trait, myt="TW")
+hybplot(trait, myt="PHT")
+
+pht <- subset(trait, trait == "PHT")
+hist(pht$valHyb)
+shapiro.test(pht$valHyb)
+res <- c()
+for(i in 1:nrow(pht)){
+  tem <- max(pht$valP1[i], pht$valP2[i])
+  res <- c(res, tem)
+}
+cor(res, pht$BPHmax)
 
 
 allinbred <- c(dts$valP1, dts$valP2)
