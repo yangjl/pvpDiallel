@@ -123,7 +123,7 @@ getlty <- function(df, eff, cutoff=0.05){
 geno <- read.csv("largedata/GERPv2/gerpsnp_506898.csv")
 geno <- geno[, 1:5]
 
-for(i in 0:1){
+for(i in 0:0){
   kval <- read.csv(paste0("largedata/lcache/kval_bph_", i, "x.csv"))
   dat <- merge(kval, geno, by.x="snpid", by.y="marker")
   #dat$Effect_A <- dat$Effect_A + mean(dat$Effect_A)
@@ -171,7 +171,8 @@ for(i in 0:1){
   print(i)
   print(out)
   #### start to plot:
-  plot_k_gerp(dat, med2, out, outfile=paste0("graphs/SFig_gerp_k", i, "x_bph.pdf"))
+  write.table(dat, "largedata/gerp_dat.csv", sep=",", row.names=FALSE, quote=FALSE)
+  #plot_k_gerp(dat, med2, out, outfile=paste0("graphs/SFig_gerp_k", i, "x_bph.pdf"))
   
 }
 
