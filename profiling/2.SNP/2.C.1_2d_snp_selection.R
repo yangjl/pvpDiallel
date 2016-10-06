@@ -20,10 +20,10 @@ data_cleaning <- function(){
   ### Exonic bp per cM => quantiles
   excm <- read.csv("cache/exonic_cM.csv")
   excm$qt0 <- 9
-  excm[excm$exonbp <= quantile(excm$exonbp)[2], ]$qt <- 1
-  excm[excm$exonbp > quantile(excm$exonbp)[2] & excm$exonbp <= quantile(excm$exonbp)[3], ]$qt <- 2
-  excm[excm$exonbp > quantile(excm$exonbp)[3] & excm$exonbp <= quantile(excm$exonbp)[4], ]$qt <- 3
-  excm[excm$exonbp > quantile(excm$exonbp)[4], ]$qt <- 4
+  excm[excm$exonbp <= quantile(excm$exonbp)[2], ]$qt0 <- 1
+  excm[excm$exonbp > quantile(excm$exonbp)[2] & excm$exonbp <= quantile(excm$exonbp)[3], ]$qt0 <- 2
+  excm[excm$exonbp > quantile(excm$exonbp)[3] & excm$exonbp <= quantile(excm$exonbp)[4], ]$qt0 <- 3
+  excm[excm$exonbp > quantile(excm$exonbp)[4], ]$qt0 <- 4
   
   map$cM <- paste(map$chr, map$genetic, sep="_")
   map2 <- merge(map[, -2], excm[, c("cM", "exonbp", "qt")], by="cM")
@@ -61,9 +61,15 @@ getRandomSNP <- function(snpdf, verbose=FALSE, outfile="largedata/SNP/randomsnp/
     }
   }
   
+  #write.table(sub, "largedata/SNP/randomsnp/rsnp0.csv", sep=",", row.names=FALSE, quote=FALSE)
   write.table(out, outfile, sep=",", row.names=FALSE, quote=FALSE)
 }
 
-###
+###################################
 set.seed(1234567)
+snpdf <- data_cleaning()
 
+for(i in 2:10){
+  getRandomSNP(snpdf, verbose=FALSE, 
+               outfile= paste0("largedata/SNP/randomsnp/rsnp", i, ".csv"))
+}

@@ -3,9 +3,13 @@
 ### get degree of dominance from random SNP
 
 
-
 ################
-geno_for_k <- function(geno, ped, outfile="test"){
+geno_for_k <- function(geno, outfile="test"){
+  
+  ### get the pedigree info
+  ped <- read.table("largedata/pheno/wholeset/asi_perse.txt", header=TRUE)
+  ped$P1 <- gsub("x.*", "", ped$Genotype)
+  ped$P2 <- gsub(".*x", "", ped$Genotype)
   
   #geno <- subset(geno, RS > RS_cutoff)
   message(sprintf("###>>> [ %s ] SNPs for computing!", nrow(geno)))
@@ -43,20 +47,16 @@ geno_for_k <- function(geno, ped, outfile="test"){
   message(sprintf("###>>> DONE!")) 
 } 
 
-
 ### get the parental genotype info
-geno <- read.csv("largedata/SNP/randomsnp/rsnp1.csv")
-
-### get the pedigree info
-ped <- read.table("largedata/pheno/wholeset/asi_perse.txt", header=TRUE)
-ped$P1 <- gsub("x.*", "", ped$Genotype)
-ped$P2 <- gsub(".*x", "", ped$Genotype)
-
-### output map file
-map <- geno[, c("snpid", "chr", "pos")]
-map <- map[order(map$chr, map$pos), ]
-write.table(map, "largedata/SNP/randomsnp/rsnp1.map", sep="\t", row.names=FALSE, quote=FALSE)
-
-####
-geno_for_k(geno, ped, outfile="largedata/SNP/randomsnp/rsnp1_chr")
+for(i in 2:10){
+  geno <- read.csv(paste0("largedata/SNP/randomsnp/rsnp", i, ".csv"))
+  
+  ### output map file
+  map <- geno[, c("snpid", "chr", "pos")]
+  map <- map[order(map$chr, map$pos), ]
+  write.table(map, paste0("largedata/SNP/randomsnp/rsnp", i, ".map"), sep="\t", 
+              row.names=FALSE, quote=FALSE)
+  ### run the function
+  geno_for_k(geno, outfile= paste0("largedata/SNP/randomsnp/rsnp", i, "_chr"))
+}
 

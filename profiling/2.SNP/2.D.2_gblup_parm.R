@@ -43,10 +43,11 @@ set_gblup <- function(out_pwd, out_gpar="gparameter.dat", out_snpe="output_snpef
     paste("#map_file",  mapfile), #snpid chr position
     paste0("output_mrk_effect ", out_pwd, out_snpe),
     file=out_gpar, append=TRUE, sep="\n")
-  message(sprintf("###>>> run this [ greml_ce %s > %s/%s ]", out_gpar, out_pwd, gsub("snpe", "log", out_snpe)))
+  message(sprintf("###>>> run this [ greml_ce %s > %s/%s ]", 
+                  out_gpar, out_pwd, gsub("snpe", "log", out_snpe)))
 }
 
-##########
+##############################################################################
 library("data.table", lib="~/bin/Rlib/")
 
 trait <- read.table("largedata/pheno/wholeset/trait_mx.dat", header=TRUE)
@@ -56,14 +57,19 @@ pmph_idx[1] <- grep("asi_pBPHmin", names(trait))
 names(trait[pmph_idx])
 #[1] "asi_pBPHmin" "dtp_pBPHmax" "dts_pBPHmax" "eht_pBPHmax" "gy_pBPHmax" 
 #[6] "pht_pBPHmax" "tw_pBPHmax" 
-for(i in perse_idx){
-  set_gblup(out_pwd="largedata/snpeff/rsnp1/",
-            out_gpar= paste0("gp_", names(trait)[i], ".dat"), 
-            out_snpe= paste0(names(trait)[i], "_snpeff_ce.snpe"),
-            geno_path_pattern=c("largedata/SNP/randomsnp/", "rsnp1_h"),
-            phenofile="largedata/pheno/wholeset/trait_mx.dat", trait_col=i, 
-            mapfile="largedata/SNP/randomsnp/rsnp1.map")
+
+### the randamization id, k=0, true observation
+for(k in 2:10){ 
+  for(i in perse_idx){
+    set_gblup(out_pwd= paste0("largedata/snpeff/rsnp", k, "/"),
+              out_gpar= paste0("gp_", names(trait)[i], ".dat"), 
+              out_snpe= paste0(names(trait)[i], "_snpeff_ce.snpe"),
+              geno_path_pattern=c("largedata/SNP/randomsnp/", paste0("rsnp", k, "_chr")),
+              phenofile="largedata/pheno/wholeset/trait_mx.dat", trait_col=i, 
+              mapfile= paste0("largedata/SNP/randomsnp/rsnp", k, ".map"))
+  }
 }
+
 
 ###>>> run this [ greml_ce largedata/snpeff/gp_CD.dat > largedata/snpeff//CD_logff_ce.log ]
 ###>>> run this [ greml_ce largedata/snpeff/gp_KRN.dat > largedata/snpeff//KRN_logff_ce.log ]
