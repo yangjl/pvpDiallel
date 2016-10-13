@@ -5,13 +5,15 @@ library("data.table")
 library("plyr")
 ##########################################
 getvar <- function(gblup_efile="largedata/snpeff/rsnp1/gy_perse_snpeff_ce.snpe",
-                 genofile="largedata/SNP/randomsnp/rsnp1.csv"){
+                 genofile="largedata/SNP/randomsnp/rsnp1.csv", nf=1){
   
   h1 <- fread(gblup_efile, header=TRUE, data.table=FALSE)
   #h1 <- as.data.frame(h1)
   names(h1) <- c("snpid","chr","pos","Effect_A","Effect_D","Effect_A2","Effect_D2","h2_mrk_A", 
                  "h2_mrk_D","H2_mrk","h2_mrk_A_p","h2_mrk_D_p","H2_mrk_p","log10_h2_mrk_A","log10_h2_mrk_D","log10_H2_mrk")
   #h1 <- subset(h1, Effect_A !=0)
+  h1 <- subset(h1, H2_mrk > nf*mean(h1$H2_mrk))
+  message(sprintf("###>>> remaining SNPs [ %s ]", nrow(h1)))
   
   ### get the parental genotype info
   geno <- fread(genofile, data.table=FALSE)
@@ -30,11 +32,18 @@ getvar <- function(gblup_efile="largedata/snpeff/rsnp1/gy_perse_snpeff_ce.snpe",
 
 ###################################
 res0 <- getvar(gblup_efile="largedata/snpeff/rsnp0/gy_perse_snpeff_ce.snpe",
-               genofile="largedata/SNP/randomsnp/rsnp0.csv")
-write.table(res0, "cache/rsnp_var0.csv", sep=",", row.names=FALSE, quote=FALSE)
+               genofile="largedata/SNP/randomsnp/rsnp0.csv", nf=1)
 
 res1 <- getvar(gblup_efile="largedata/snpeff/rsnp1/gy_perse_snpeff_ce.snpe",
-              genofile="largedata/SNP/randomsnp/rsnp1.csv")
+              genofile="largedata/SNP/randomsnp/rsnp1.csv", nf=1)
+
+for(i in 1:10){
+  res1 <- getvar(gblup_efile=paste0("largedata/snpeff/rsnp", i, "/gy_perse_snpeff_ce.snpe"),
+                 genofile=paste0("largedata/SNP/randomsnp/rsnp", i, ".csv"), nf=1)
+  
+}
+
+write.table(res0, "cache/rsnp_var0.csv", sep=",", row.names=FALSE, quote=FALSE)
 write.table(res1, "cache/rsnp_var1.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
