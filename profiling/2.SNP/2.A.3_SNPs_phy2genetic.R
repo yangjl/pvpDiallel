@@ -42,3 +42,17 @@ use_p2g <- function(training=map){
 snpmap <- use_p2g(training=map)
 write.table(snpmap, "largedata/SNP/allsnps_11m_genetic.map", sep="\t", row.names=FALSE, quote=FALSE)
 
+
+#### Genetic Map data passed to Lu Fei
+library(data.table)
+genetic <- fread("largedata/SNP/allsnps_11m_genetic.map", data.table=FALSE)
+genetic$AGPv2_physical <- gsub(".*_", "", genetic$snpid)
+names(genetic)[3] <- "AGPv2_cM"
+genetic$AGPv2_cM <- genetic$AGPv2_cM/1000000
+write.table(genetic, "largedata/SNP/AGPv2_11m_genetic.map", sep="\t", row.names=FALSE, quote=FALSE)
+
+
+
+
+
+

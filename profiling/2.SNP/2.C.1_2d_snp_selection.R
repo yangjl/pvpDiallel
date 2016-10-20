@@ -26,7 +26,7 @@ data_cleaning <- function(){
   excm[excm$exonbp > quantile(excm$exonbp)[4], ]$qt0 <- 4
   
   map$cM <- paste(map$chr, map$genetic, sep="_")
-  map2 <- merge(map[, -2], excm[, c("cM", "exonbp", "qt")], by="cM")
+  map2 <- merge(map[, -2], excm[, c("cM", "exonbp", "qt0")], by="cM")
   
   snpdf <- merge(map2, snp11m, by="snpid")
   # round to nearest .05 or .10
@@ -69,7 +69,7 @@ getRandomSNP <- function(snpdf, verbose=FALSE, outfile="largedata/SNP/randomsnp/
 set.seed(1234567)
 snpdf <- data_cleaning()
 
-for(i in 2:10){
+for(i in 10:10){
   getRandomSNP(snpdf, verbose=FALSE, 
                outfile= paste0("largedata/SNP/randomsnp/rsnp", i, ".csv"))
 }
