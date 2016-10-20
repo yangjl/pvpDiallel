@@ -31,9 +31,13 @@ nx_flt <- function(res=dat, x=5){
 
 dat <- read.csv("largedata/lcache/kval_perse_0x.csv")
 res1 <- getvar(res=dat)
+write.table(res1, "cache/gblup_var.csv", sep=",", row.names=FALSE, quote=FALSE)
+
 res2 <- nx_flt(res=dat, x=5)
 res2 <- subset(res2, abs(k) < 2)
 dim(res2) #107346      8
+write.table(res2, "cache/kval_perse_5x.csv", sep=",", row.names=FALSE, quote=FALSE)
+
 #############################################
 library(ggplot2)
 library(reshape2)

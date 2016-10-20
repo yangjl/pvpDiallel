@@ -33,7 +33,8 @@ write.table(subset(snps4, select="snpid"), "largedata/SNP/inmarker/snp_gerp_sm4.
 #############################################################################
 
 ##### generate same number of random SNPs
-getRandomSNP <- function(fromdf=snp11m, num=nrow(snpb), nrep=10, basenm="snprandom_set", writeto="largedata/SNP/inmarker/"){
+getRandomSNP <- function(fromdf=snp11m, num=nrow(snpb), nrep=10, 
+                         basenm="snprandom_set", writeto="largedata/SNP/inmarker/"){
   
   ###
   for(i in 1:nrep){

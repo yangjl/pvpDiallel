@@ -1,57 +1,28 @@
-## Welcome to Project exPVP Diallel!
+# Welcome to `Deleterious Alleles`
+This is a research repo for our recent project "**incomplete dominance of deleterious alleles contribute substantially to trait variation and heterosis in maize**". The manuscript could be found via [bioRxiv]().
 
+## Introduction
+In this study, we take advantage of the genetic and genomic tools available in maize to investigate the contribution of deleterious alleles to phenotypic variation. And then we use the deleterious annotation to inform our genomic prediction model to improve the prediction accuracy for phenotypic traits and heterosis.
 
-### Traits of interest:
-* **PHT**: plant height
-* **EHT**: ear height
-* **DTS**: days to silking
-* **DTP**: days to pollen
-* **ASI**: anthesis-silk Interval
-* **Adj.GY**: adjusted grain yield
-* **TW**: test weight
+## Architecture about this Repo
+This project contains ~400 commits. A `largedata` directory was intentionally ignored by `github` because of large size of the files. To guide the visitors having a better sense about the project, here we briefly introduce the functions or sepecific purposes of the directories. The layout of directories is based on the idea from [ProjectTemplate](http://projecttemplate.net/architecture.html). 
 
+1. **cache**: Here we store intermediate data sets that are generated during a preprocessing step.
+2. **data**: Here we store our raw data of small size. Data of large size, i.e. > 100M, store in a `largedata` folder that has been ignored using `gitignore`.
+3. **doc**: Documentation codes (i.e. Rmd files) for generating the figures.
+4. **graphs**: Graphs produced during the study.
+5. **lib**: Some functions for our work.
+6. **munge**: Here we store some preprocessing or data munging codes.
+7. **profilling**: Analysis scripts for the project. It contains some sub-directories.
 
-### Jinliang's report on phenotypic data checking
+## Figures
+Rmd code to generate Figures in the paper. The `doc/` fold is in `gitignore` at the moment. It will be released soon.
 
-The 1st report could be found in the report folder, which was generated using *.Rmd.
-Or you could found the final pdf through the following link: 
-[report1](https://github.com/yangjl/pvpDiallel/blob/master/reports/10.13.14_diallel.pdf)
+1. **Figure 1**: Panels of this figure can be produced with code [`doc/Fig1.Rmd`](https://github.com/yangjl/pvpDiallel/blob/master/doc/Fig1.Rmd). And the [Figure1](https://github.com/yangjl/pvpDiallel/blob/master/doc/Fig1.pdf) in a pdf version.
+2. Figure 2.
+3. Figure 3.
+4. Figure 4.
 
+## License
+This repo is free and open source for research usage, licensed under [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
 
-```{r, eval=FALSE}
-source("~/Documents/Github/pvpDiallel/munge/1.raw_pheno/1.A.1_format_pheno.R")
-```
-
-
-### Notes from Sofiane 10/13/2014
-
-Here are the links to the data: 
-
-```
-Genetic values, MPH, BPH and combining abilities:
-"/group/jrigrp2/DiallelSofiane/GeneticValues/"
-
-"GCA-SCA*.txt" are the combining abilities (one file per traits)
-
-"Gvalues_*" are the hybrid values with MPH and BPH as well (one file per trait)
-
-"GeneticValuesExPVPdiallelbis" is the file of fitted values that I used to create GCA-SCA and Gvalues. 
-
-
-
-We have 7 traits PHT(plant height),	EHT(ear height),DTS(days to silking),DTP(Days to pollen), ASI,
-Adj.GY (afjusted yield) and TW (Test weight).
-
-The SNP data (only the parents) is in "/group/jrigrp2/DiallelSofiane/BWA/SNPfiles/FinalSNPs_all.txt" 
-
-I also imputed missing alleles with Beagle and the data is in 
-"/group/jrigrp2/DiallelSofiane/BWA/SNPfiles/ImpSNPs_all"
-
-The SNP annotation is in "/group/jrigrp2/DiallelSofiane/BWA/SNPfiles/SNP-DelCall-all.txt"
-
-The hybrid genotypes are in "/group/jrigrp2/DiallelSofiane/BWA/SNPfiles/HetGeno_chr*" with one file per chromosome; 
-it was faster to run the analyses on parallel for all chromosomes and I had them in separate file to limit I/O problems.
-
-Finally,  I have the same hybrid information coded 0/1 in 
-"/group/jrigrp2/DiallelSofiane/BWA/SNPfiles/Het0-1_chr$" 
-```

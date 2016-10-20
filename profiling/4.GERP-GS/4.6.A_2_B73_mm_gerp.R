@@ -8,11 +8,13 @@ gp <- fread("largedata/GERPv3_hmp3.csv", header=TRUE, data.table=FALSE)
 gp$snpid <- paste(gp$chr, gp$pos, sep="_")
 
 ########
-get_daf(chri=1, outbase)
+for(i in 1:10){
+  get_daf(gp, chri=i, outbase="largedata/del_allele_frq")
+}
 
 
 #######  
-get_daf <- function(chri=1, outbase){
+get_daf <- function(gp, chri=1, outbase){
   ## Note, major/minor obtained from alignment, Zea only sites been ignored, should be RS=0
   mm <- fread(paste0("largedata/Alignment/hmp3_major_chr", chri, ".csv"), header=TRUE, data.table=FALSE)
   ## RS, maf and ref/alt from hmp3 data
@@ -25,6 +27,7 @@ get_daf <- function(chri=1, outbase){
   idx <- which(abs(sub$maf - round(sub$MAF, 3)) > 0.01)
   message(sprintf("###>>> For chr [%s], tot [%s] mafs are different between two methods!", chri, length(idx) ))
   
+  sub <- as.data.frame(sub)
   mgp <- merge(mm[,c("snpid","major", "minor")], sub[, c("snpid", "RS", "ref", "alt", "maf", "A1", "A2")], all=TRUE)
   
   ### test whether missing sites == 0
