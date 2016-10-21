@@ -64,23 +64,51 @@ write.table(out5, "cache/rsnp_var_nf5.csv", sep=",", row.names=FALSE, quote=FALS
 
 # heterosis trait: BPHmax ----------------------------
 ### collect all data
-out <- data.frame()
+out1 <- data.frame()
 for(i in 0:10){
-  res1 <- getvar(gblup_efile=paste0("largedata/snpeff/rsnp", i, "/gy_perse_snpeff_ce.snpe"),
+  res1 <- getvar(gblup_efile=paste0("largedata/snpeff/rsnp", i, "/gy_BPHmax_snpeff_ce.snpe"),
                  genofile=paste0("largedata/SNP/randomsnp/rsnp", i, ".csv"), nf=1)
   res1$sample <- i
-  out <- rbind(out, res1)
+  out1 <- rbind(out1, res1)
 }
-write.table(out, "cache/rsnp_var_nf1.csv", sep=",", row.names=FALSE, quote=FALSE)
+write.table(out1, "cache/rsnp_var_BPH_nf1.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 ### collect all data
 out5 <- data.frame()
 for(i in 0:10){
-  res1 <- getvar(gblup_efile=paste0("largedata/snpeff/rsnp", i, "/gy_perse_snpeff_ce.snpe"),
+  res1 <- getvar(gblup_efile=paste0("largedata/snpeff/rsnp", i, "/gy_BPHmax_snpeff_ce.snpe"),
                  genofile=paste0("largedata/SNP/randomsnp/rsnp", i, ".csv"), nf=5)
   res1$sample <- i
   out5 <- rbind(out5, res1)
 }
-write.table(out5, "cache/rsnp_var_nf5.csv", sep=",", row.names=FALSE, quote=FALSE)
+write.table(out5, "cache/rsnp_var_BPH_nf5.csv", sep=",", row.names=FALSE, quote=FALSE)
 
+### collect all data
+out4 <- data.frame()
+for(i in 0:10){
+  res1 <- getvar(gblup_efile=paste0("largedata/snpeff/rsnp", i, "/gy_BPHmax_snpeff_ce.snpe"),
+                 genofile=paste0("largedata/SNP/randomsnp/rsnp", i, ".csv"), nf=4)
+  res1$sample <- i
+  out4 <- rbind(out4, res1)
+}
+write.table(out4, "cache/rsnp_var_BPH_nf4.csv", sep=",", row.names=FALSE, quote=FALSE)
 
+### collect all data
+out3 <- data.frame()
+for(i in 0:10){
+  res1 <- getvar(gblup_efile=paste0("largedata/snpeff/rsnp", i, "/gy_BPHmax_snpeff_ce.snpe"),
+                 genofile=paste0("largedata/SNP/randomsnp/rsnp", i, ".csv"), nf=3)
+  res1$sample <- i
+  out3 <- rbind(out3, res1)
+}
+write.table(out3, "cache/rsnp_var_BPH_nf3.csv", sep=",", row.names=FALSE, quote=FALSE)
+
+### collect all data
+out0 <- data.frame()
+for(i in 0:10){
+  res1 <- getvar(gblup_efile=paste0("largedata/snpeff/rsnp", i, "/gy_BPHmax_snpeff_ce.snpe"),
+                 genofile=paste0("largedata/SNP/randomsnp/rsnp", i, ".csv"), nf=0)
+  res1$sample <- i
+  out0 <- rbind(out0, res1)
+}
+write.table(out0, "cache/rsnp_var_BPH_nf0.csv", sep=",", row.names=FALSE, quote=FALSE)

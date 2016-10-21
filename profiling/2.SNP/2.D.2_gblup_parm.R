@@ -85,7 +85,7 @@ bph_idx[1] <- grep("asi_BPHmin", names(trait))
 names(trait[bph_idx])
 #[1] "asi_BPHmin" "dtp_BPHmax" "dts_BPHmax" "eht_BPHmax" "gy_BPHmax" 
 #[6] "pht_BPHmax" "tw_BPHmax" 
-for(k in 6:10){ 
+for(k in 0:0){ 
   for(i in bph_idx){
     set_gblup(out_pwd= paste0("largedata/snpeff/rsnp", k, "/"),
               out_gpar= paste0("gp_", names(trait)[i], ".dat"), 
@@ -95,10 +95,5 @@ for(k in 6:10){
               mapfile= paste0("largedata/SNP/randomsnp/rsnp", k, ".map"))
   }
 }
-###>>> run this [ greml_ce largedata/snpeff/BPH/gp_asi_BPHmin.dat > largedata/snpeff/BPH//asi_BPHmin_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/BPH/gp_dtp_BPHmax.dat > largedata/snpeff/BPH//dtp_BPHmax_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/BPH/gp_dts_BPHmax.dat > largedata/snpeff/BPH//dts_BPHmax_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/BPH/gp_eht_BPHmax.dat > largedata/snpeff/BPH//eht_BPHmax_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/BPH/gp_gy_BPHmax.dat > largedata/snpeff/BPH//gy_BPHmax_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/BPH/gp_pht_BPHmax.dat > largedata/snpeff/BPH//pht_BPHmax_logff_ce.log ]
-###>>> run this [ greml_ce largedata/snpeff/BPH/gp_tw_BPHmax.dat > largedata/snpeff/BPH//tw_BPHmax_logff_ce.log ]
+###>>> run this [ greml_ce largedata/snpeff/rsnp0/gp_gy_BPHmax.dat > largedata/snpeff/rsnp0//gy_BPHmax_logff_ce.log ]
+
