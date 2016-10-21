@@ -48,7 +48,7 @@ geno_for_k <- function(geno, outfile="test"){
 } 
 
 ### get the parental genotype info
-for(i in 10:10){
+for(i in 0:10){
   geno <- read.csv(paste0("largedata/SNP/randomsnp/rsnp", i, ".csv"))
   
   ### output map file
