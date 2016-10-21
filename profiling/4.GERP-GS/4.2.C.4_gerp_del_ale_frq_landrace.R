@@ -3,8 +3,6 @@
 ### get the genetic load in landrace and pvp diallel lines
 
 library("data.table")
-
-
 ### get the parental genotype info
 get_del_count <- function(){
   #### v2 and v3 coordinates conversion
@@ -82,7 +80,7 @@ write.table(data.frame(v1=bkn), "~/dbcenter/HapMap/HapMap3/bkn_samples.txt",
 ### RUNNINg
 # bcftools query -R pvp_sites_v3.bed -S bkn_samples.txt -f 
 cmd <- paste("bcftools query -R pvp_sites_v3.bed -S bkn_samples.txt -f", 
-             "'%CHROM\t%POS[\t%SAMPLE]\n'")
+             "'%CHROM\t%POS[\t%SAMPLE]\n' merged_flt_c10.vcf.gz")
 
 library("farmeR")
 cmd <- c("cd /home/jolyang/dbcenter/HapMap/HapMap3")
@@ -102,3 +100,8 @@ for(i in 1:9){
 set_farm_job(slurmsh = "slurm-script/getbzip.sh",
              shcode = cmd, wd = NULL, jobid = "bzip",
              email = "yangjl0930@gmail.com", runinfo = c(TRUE, "bigmemm", 16))
+
+
+# bcftools query -R pvp_sites_v3.bed -S bkn_samples.txt -f 
+cmd <- paste("bcftools query -R pvp_sites_v3.bed -S bkn_samples.txt -f", 
+             "'%CHROM\t%POS\t%REF\t%ALT[\t%TGT]\n' merged_flt_c10.vcf.gz > out.txt")
