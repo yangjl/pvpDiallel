@@ -17,9 +17,18 @@ myd0 <- myd0[-1,]
 
 #### for trait perse
 beanplot(totvar ~ frq, data = myd, ll = 0.04, cex=1.5, border = NA,
-         what=c(0, 1, 0, 1), col=c(c("grey", "black")) )
+         what=c(0, 1, 0, 1), col=c(c("grey", "black")), cex=1.3, xlab="Allele Frequency", ylab="Variance Explained" )
 for(i in 1:nrow(myd0)){
   lines(x=c(i-0.3, i+0.3), y=c(myd0$totvar[i], myd0$totvar[i]), lwd=2, col="red")
+}
+
+
+
+
+beanplot(nvar ~ frq, data = myd, ll = 0.04, cex=1.5, border = NA,
+         what=c(0, 1, 0, 1), col=c(c("grey", "black")) )
+for(i in 1:nrow(myd0)){
+  lines(x=c(i-0.3, i+0.3), y=c(myd0$nvar[i], myd0$nvar[i]), lwd=2, col="red")
 }
 
 
@@ -66,7 +75,7 @@ for(i in 1:nrow(myd0)){
 
 
 
-avar1 <- read.csv("cache/rsnp_var_BPH_nf0.csv")
+avar1 <- read.csv("cache/rsnp_var_BPH_nf5.csv")
 
 ### Note: 0.15 is missing from the analysis for the random samples
 ### therefore, concatenate 0.1 and 0.15 into a single catergory
@@ -76,8 +85,7 @@ myd <- subset(avar1, sample != 0)
 myd0 <- subset(avar1, sample == 0)
 
 #### for trait perse
-beanplot(nvar ~ frq, data = myd, ll = 0.04, cex=1.5, border = NA, ylim=c(0, 0.04),
-         what=c(0, 1, 0, 1), col=c(c("grey", "black")) )
+beanplot(nvar ~ frq, data = myd, ll = 0.04, cex=1.5, border = NA,  what=c(0, 1, 0, 1), col=c(c("grey", "black")) )
 for(i in 1:nrow(myd0)){
   lines(x=c(i-0.3, i+0.3), y=c(myd0$nvar[i], myd0$nvar[i]), lwd=2, col="red")
 }
