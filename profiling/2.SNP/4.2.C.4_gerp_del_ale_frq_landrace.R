@@ -103,5 +103,8 @@ set_farm_job(slurmsh = "slurm-script/getbzip.sh",
 
 
 # bcftools query -R pvp_sites_v3.bed -S bkn_samples.txt -f 
-cmd <- paste("bcftools query -R pvp_sites_v3.bed -S bkn_samples.txt -f", 
+cmd <- paste("bcftools query -S bkn_samples.txt -f", 
              "'%CHROM\t%POS\t%REF\t%ALT[\t%TGT]\n' merged_flt_c10.vcf.gz > out.txt")
+
+
+chr10 <- fread("~/dbcenter/HapMap/HapMap3/genotype_chr10.txt")
