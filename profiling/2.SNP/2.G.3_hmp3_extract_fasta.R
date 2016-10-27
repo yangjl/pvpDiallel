@@ -34,7 +34,7 @@ gerpb0_hmp3 <- function(){
   }
 }
 ########
-gerpb0_hmp3 <- function()
+gerpb0_hmp3()
 
 
 ### -------------
@@ -62,15 +62,16 @@ pre_bed5 <- function(){
 ###########
 pre_bed5()
 
-# bedtools getfasta -name -tab -fi roast.chrom.1.msa.in -bed chr1.bed -fo chr1_gerpsnp.txt
-# bedtools getfasta -name -tab -fi roast.chrom.2.msa.in -bed chr2.bed -fo chr2_gerpsnp.txt
-# bedtools getfasta -name -tab -fi roast.chrom.3.msa.in -bed chr3.bed -fo chr3_gerpsnp.txt
-# bedtools getfasta -name -tab -fi roast.chrom.4.msa.in -bed chr4.bed -fo chr4_gerpsnp.txt
-# bedtools getfasta -name -tab -fi roast.chrom.5.msa.in -bed chr5.bed -fo chr5_gerpsnp.txt
-# bedtools getfasta -name -tab -fi roast.chrom.6.msa.in -bed chr6.bed -fo chr6_gerpsnp.txt
-# bedtools getfasta -name -tab -fi roast.chrom.7.msa.in -bed chr7.bed -fo chr7_gerpsnp.txt
-# bedtools getfasta -name -tab -fi roast.chrom.8.msa.in -bed chr8.bed -fo chr8_gerpsnp.txt
-# bedtools getfasta -name -tab -fi roast.chrom.9.msa.in -bed chr9.bed -fo chr9_gerpsnp.txt
+# bedtools getfasta -name -tab -fi roast.chrom.1.msa.in -bed GERPv3_chr1.bed -fo hmp3_chr1_gerpv3.txt
+# bedtools getfasta -name -tab -fi roast.chrom.2.msa.in -bed GERPv3_chr2.bed -fo hmp3_chr2_gerpv3.txt
+# bedtools getfasta -name -tab -fi roast.chrom.3.msa.in -bed GERPv3_chr3.bed -fo hmp3_chr3_gerpv3.txt
+# bedtools getfasta -name -tab -fi roast.chrom.4.msa.in -bed GERPv3_chr4.bed -fo hmp3_chr4_gerpv3.txt
+# bedtools getfasta -name -tab -fi roast.chrom.5.msa.in -bed GERPv3_chr5.bed -fo hmp3_chr5_gerpv3.txt
+# bedtools getfasta -name -tab -fi roast.chrom.6.msa.in -bed GERPv3_chr6.bed -fo hmp3_chr6_gerpv3.txt
+# bedtools getfasta -name -tab -fi roast.chrom.7.msa.in -bed GERPv3_chr7.bed -fo hmp3_chr7_gerpv3.txt
+# bedtools getfasta -name -tab -fi roast.chrom.8.msa.in -bed GERPv3_chr8.bed -fo hmp3_chr8_gerpv3.txt
+# bedtools getfasta -name -tab -fi roast.chrom.9.msa.in -bed GERPv3_chr9.bed -fo hmp3_chr9_gerpv3.txt
+
 # bedtools getfasta -name -tab -fi roast.chrom.10.msa.in -bed GERPv3_chr10.bed -fo hmp3_chr10_gerpv3.txt
 
 
