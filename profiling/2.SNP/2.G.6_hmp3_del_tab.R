@@ -109,19 +109,30 @@ res <- get_del_rate()
 write.table(res, "cache/hmp3_deleterious_ratio.csv", sep=",", row.names=FALSE, quote=FALSE)
 
 
-
+library(plyr)
 res <- read.csv("cache/hmp3_deleterious_ratio.csv")
 res$chr <- as.factor(res$chr)
 res$geno <- "maize"
 idx <- grep("BKN", res$id)
 res[idx,]$geno <- "landrace"
 
+dres <- ddply(res, .(id, type, geno), summarise,
+              DN=sum(DN),
+              nonmiss=sum(nonmiss))
+dres$DR <- with(dres, round(DN/nonmiss, 4))
 
-res <- subset(res, id != "B73")
-boxplot(DR ~ geno*type, data=res, notch=FALSE, 
+
+
+dres <- subset(dres, id != "B73")
+dres$ordered <- "a"
+dres[dres$type %in% "fixed", ]$ordered <- "b"
+dres[dres$type %in% "seg", ]$ordered <- "c"
+
+write.table(dres, "data/sup_deleterious_hmp3.txt", sep="\t", row.names=FALSE, quote=FALSE)
+
+boxplot(DR ~ geno*ordered, data=dres, notch=FALSE, 
         col=(c("gold","darkgreen")), names=c("landrace", "maize", "landrace", "maize", "landrace", "maize"),
         main="", xlab="", ylab="Deleterious Load per bp")
-
 
 
 

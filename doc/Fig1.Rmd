@@ -13,35 +13,35 @@ To reproduce the figures, we should set `pvpDiallel` as the root path, i.e. `set
 First of all, determine fond size and set the getpdf option:
 ```{r}
 #par(mar=c(5,4,4,2))
-par(font=2, font.lab=2, font.axis=2)
+par(font= 2, font.lab= 2, font.axis= 2)
 fs <- 1.6 # times bigger than default
-ht=4.5; wt=4.5 #figure height and weight
-getpdf <- FALSE # get figures in seperated pdf [TRUE] or not [FALSE]
+ht= 6; wt= 6 #figure height and weight
+getpdf <- TRUE # get figures in seperated pdf [TRUE] or not [FALSE]
 ```
 
 # Figure 1a
 
 ```{r, eval=TRUE, fig.width=ht, fig.height=wt}
-plotH2 <- function(getpdf, outfile, ...){
-  H2 <- read.csv("data/DIalleleHeritability.csv")
-  h <- read.csv("cache/loh_pBPHmax_median.csv")
-  H2 <- merge(H2, h, by.x="Traits", by.y="trait")
-  H2 <- H2[order(H2$h), ]
+plot_load <- function(getpdf, outfile, ...){
+  dres <- read.table("data/sup_deleterious_hmp3.txt", header=T)
   
-  barplot(H2[,4], names.arg = H2$Traits, ...)
+  boxplot(DR ~ geno*ordered, data=dres, border=c("darkgreen","darkblue"), col="grey",  ...)
   #text(cex=fs, x=x-.25, y=-1.25, H2$Traits, xpd=TRUE, srt=45, pos=2)
   if(getpdf == TRUE){
     pdf(outfile, width=ht, height=wt)
     par(mar=c(5,5,4,2))
-    barplot(H2[,4], names.arg = H2$Traits, ...)
+    boxplot(DR ~ geno*ordered, data=dres, border=c("darkgreen","darkblue"), col="grey",  ...)
+
     box()
     dev.off()
   }
 }
 
-plotH2(getpdf, outfile="graphs/Fig1a_v3.pdf",
-       ylim=c(0, 1), col="antiquewhite3",  ylab="Heritability", 
-          cex.axis=fs, cex.names=fs, cex.lab=fs, las=2)
+plot_load(getpdf, outfile="graphs/Fig1a_v2.pdf",
+          names=c("LR", "MZ", "LR", "MZ", "LR", "MZ"),
+          xlab="", ylab="Deleterious Load per bp",
+          main="", cex.axis=fs, cex.lab=fs)
+
 ```
 
 # Figure 1b
