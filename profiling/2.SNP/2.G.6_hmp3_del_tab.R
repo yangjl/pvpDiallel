@@ -117,9 +117,10 @@ idx <- grep("BKN", res$id)
 res[idx,]$geno <- "landrace"
 
 
+res <- subset(res, id != "B73")
 boxplot(DR ~ geno*type, data=res, notch=FALSE, 
-        col=(c("gold","darkgreen")), names=c("landrace", "maize"),
-        main="deleterious load", xlab="", ylab="ratio")
+        col=(c("gold","darkgreen")), names=c("landrace", "maize", "landrace", "maize", "landrace", "maize"),
+        main="", xlab="", ylab="Deleterious Load per bp")
 
 
 
