@@ -135,19 +135,28 @@ boxplot(DR ~ geno*ordered, data=dres, notch=FALSE,
         main="", xlab="", ylab="Deleterious Load per bp")
 
 
+###### get some values
+res <- read.table("data/sup_deleterious_hmp3.txt", header=T)
 
+a <- subset(res, type == "overall")
+t.test(subset(a, geno == "landrace")$DR, subset(a, geno == "maize")$DR)
 
-library("ggplot2")
-fsize=16
-ggplot(res, aes(x=chr, y=DR, fill=chr)) +
-  facet_grid(.~geno) + 
-  geom_boxplot() +
-  guides(fill=FALSE) +
-  theme_bw() + 
-  theme(axis.text.x=element_blank(), 
-        axis.ticks.x=element_blank(),
-        axis.text=element_text(size=fsize), 
-        axis.title=element_text(size=fsize, face="bold"), 
-        legend.title = element_text(size=fsize, face="bold"), 
-        legend.text = element_text(size=fsize)) +
-  xlab("") + ylab("Deleterious sites / total sites (%)")
+mean(subset(a, geno == "landrace")$DN)
+mean(subset(a, geno == "maize")$DN)
+mean(subset(a, geno == "maize")$nonmiss)*0.007
+
+b <- subset(res, type == "fixed")
+t.test(subset(b, geno == "landrace")$DR, subset(b, geno == "maize")$DR)
+
+mean(subset(b, geno == "landrace")$DN)
+mean(subset(b, geno == "maize")$DN)
+mean(subset(b, geno == "maize")$nonmiss)*0.019
+# 62491.38
+
+c <- subset(res, type == "seg")
+t.test(subset(c, geno == "landrace")$DR, subset(c, geno == "maize")$DR)
+
+mean(subset(c, geno == "landrace")$DN)
+mean(subset(c, geno == "maize")$DN)
+mean(subset(c, geno == "maize")$nonmiss)*0.026
+
