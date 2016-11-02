@@ -18,7 +18,12 @@ res <- ddply(gerp, .(bin), summarise,
             mgerp = mean(RS),
             gen = 1000000*(max(genetic) - min(genetic))/(max(pos) - min(pos)) )
 range(res$gen)
+#####
+mygerp <- merge(gerp, res, by="bin")
+quantile(mygerp$gen)
+write.table(gerp, "cache/gerpsnp_506898_gp_withcm_mb.csv", sep=",", row.names=FALSE, quote=FALSE)
 
+#######
 t.test(subset(res, gen < 0.5)$mgerp, subset(res, gen > 0.5)$mgerp)
 
 res$sq <- 0

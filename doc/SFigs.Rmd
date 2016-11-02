@@ -21,87 +21,49 @@ getpdf = TRUE # get figures in seperated pdf [TRUE] or not [FALSE]
 
 --------------------------
 
-# Figure 2a
+# Supplementary Fig
 ```{r, eval=TRUE, fig.width=6, fig.height=5}
 
-plot_fig2a <- function(outfile, getpdf){
-  library("beanplot")
-  res <- read.csv("cache/persnp_var_perse.csv")
-  myd <- subset(res, sample != 0)
-  myd0 <- subset(res, sample == 0)
+plot_supp1 <- function(outfile, getpdf){
+  res1 <- read.csv("cache/gblup_var_1x.csv")
+  #############################################
+  library(ggplot2)
+  library(reshape2)
+  source("~/Documents/Github/zmSNPtools/Rcodes/multiplot.R")
 
-  #### for trait perse
-  beanplot(nvar ~ frq1, data = myd, ll = 0.04, cex=1.5, border = NA,
-         what=c(0, 1, 0, 1), col=c(c("antiquewhite3", "black")), cex=fs, 
-         xlab="Allele Frequency", ylab="Variance Explained" )
-  for(i in 1:nrow(myd0)){
-    lines(x=c(i-0.3, i+0.3), y=c(myd0$nvar[i], myd0$nvar[i]), lwd=2, col="red")
-  }
-
-  if(getpdf == TRUE){
-    pdf(outfile, width=5, height=5)
-    #### for trait perse
-    par(font=2, font.lab=2, font.axis=2, cex.lab=fs)
-    beanplot(nvar ~ frq1, data = myd, ll = 0.04, border = NA,
-            what=c(0, 1, 0, 1), col=c(c("antiquewhite3", "black")),
-            xlab="Allele Frequency", ylab="Variance Explained" )
-    for(i in 1:nrow(myd0)){
-      lines(x=c(i-0.3, i+0.3), y=c(myd0$nvar[i], myd0$nvar[i]), lwd=2, col="red")
-    }
-    dev.off()
-  }
-}
-
-########
-plot_fig2a(outfile="graphs/Fig2a_del_snps.pdf", getpdf)
-```
-
-
-# Figure 2b
-
-```{r, eval=TRUE, fig.width=6, fig.height=5}
-
-library(ggplot2)
-library(reshape2)
-source("lib/multiplot.R")
-
-plot_eff <- function(outfile, getpdf){
-  res1 <- read.csv("cache/gblup_var.csv")
-  res2 <- read.csv("cache/kval_perse_5x.csv")
   med <- read.csv("cache/loh_pBPHmax_median.csv")
+  #bymed2 <- with(trait, reorder(trait, pBPHmax, median))
   bymed <- med[order(med$h),]
 
   #######
   theme_set(theme_grey(base_size = 18)) 
 
-  res2$trait <- toupper(res2$trait)
-  res2$trait <- factor(res2$trait, levels=bymed$trait)
-  p2 <- ggplot(data=res2) +
-    geom_density(aes(x= k, y=-..scaled.., fill= as.factor(trait)) ) +
-    #guides(fill=FALSE) +
-    labs(y=NULL, fill="Traits") + theme_bw() +
-    theme(axis.text.x=element_blank(), axis.ticks.x=element_blank(),
-          axis.text=element_text(size=fsize),
-          axis.title=element_text(size=fsize, face="bold"),
-          legend.title = element_text(size=fsize, face="bold"),
-          legend.text = element_text(size=fsize)) +
-    coord_flip() + xlab("Degree of Dominance (k)") + ylab("") + facet_grid(~ trait)
-  
-  
-  return(p2)
+  out1 <- melt(res1, id.var="trait")
+  p1 <- ggplot(out1, aes(x=factor(trait, levels=bymed$trait), y=value, 
+                       fill=factor(variable, levels =c("A", "D"), labels=c("A", "D")))) + 
+    geom_bar(position=position_dodge(), stat="identity") +
+    xlab("") +
+    ylab("Variance Explained") +
+    ggtitle("") + theme_bw() +
+    labs(fill="Effect") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, size=12))
+  return(p1)
 }
 
 ########
-p <- plot_eff(outfile="graphs/Fig2b_var.pdf", getpdf)
-p
+p1 <- plot_supp1(outfile="graphs/suppl_fig_var.pdf", getpdf)
+p1
 if(getpdf){
-    pdf("graphs/Fig2b_var.pdf", width=8, height=4)
-    p
+    pdf("graphs/suppl_fig_var.pdf", width=6, height=5)
+    p1
     dev.off()
 }
 ```
 
-# Figure 2c-e
+
+
+
+# Supplementary Figure for variance explained by additive, dominance and k
 
 ```{r, eval=TRUE, fig.width=13, fig.height=4}
 
@@ -124,7 +86,97 @@ plot_adk_gerp <- function(outfile, getpdf){
     if(nrow(df[df[, eff] < cutoff, ]) >0) df[df[, eff] < cutoff, ]$l <- 1
     return(df)
   }
+  
+  lty4 <- getlty(df=out, eff="h2a", cutoff=0.05)$l
+  p4 <- ggplot(dat, aes(x=RS, y=h2_mrk_A, colour=factor(trait, levels=med2$trait),
+                        linetype=factor(trait, levels=med2$trait))) +
+    #geom_point(shape=1) +    # Use hollow circles
+    labs(colour="Traits") +
+    theme_bw() +
+    xlab("GERP Score") +
+    ylab("Additive Variance") +
+    scale_color_manual(values=cols) +
+    scale_linetype_manual(values=lty4) +
+    guides(colour=FALSE, linetype=FALSE) +
+    
+    theme(axis.text.y = element_text(angle = 90, hjust = 1)) +
+    geom_smooth(method="gam", size=1.3) 
+  
+  lty5 <- getlty(df=out, eff="h2d", cutoff=0.05)$l
+  p5 <- ggplot(dat, aes(x=RS, y=h2_mrk_D, colour=factor(trait, levels=med2$trait),
+                        linetype=factor(trait, levels=med2$trait))) +
+    #geom_point(shape=1) +    # Use hollow circles
+    labs(colour="Traits") +
+    theme_bw() +
+    xlab("GERP Score") +
+    ylab("Dominant Variance") +
+    scale_color_manual(values=cols) +
+    scale_linetype_manual(values=lty5) +
+    guides(colour=FALSE, linetype=FALSE) +
+    
+    theme(axis.text.y = element_text(angle = 90, hjust = 1)) +
+    geom_smooth(method="gam", size=1.3) 
+  
+  lty6 <- getlty(df=out, eff="h2k", cutoff=0.05)$l
+  p6 <- ggplot(dat, aes(x=RS, y=H2_mrk, colour=factor(trait, levels=med2$trait),
+                        linetype=factor(trait, levels=med2$trait))) +
+    #geom_point(shape=1) +    # Use hollow circles
+    labs(colour="Traits") +
+    theme_bw() +
+    xlab("GERP Score") +
+    ylab("Total Variance") +
+    scale_color_manual(values=cols) +
+    scale_linetype_manual(values=lty6) +
+    guides(colour=FALSE, linetype=FALSE) +
+    
+    theme(axis.text.y = element_text(angle = 90, hjust = 1)) +
+    geom_smooth(method="gam", size=1.3) 
+  
+  
+  multiplot(p4, p5, p6, cols=3)
+  if(getpdf == TRUE){
+    pdf(outfile, width=13, height=4)
+    multiplot(p4, p5, p6, cols=3)
+    dev.off()
+  }
+  
+}
 
+####
+plot_adk_gerp(outfile="graphs/suppl_Fig_variance_adk.pdf", getpdf)
+
+```
+
+
+# Supplementary Figure ADK vs GERP after filtering low recombination regions
+
+```{r, eval=TRUE, fig.width=13, fig.height=4}
+
+library(wesanderson)
+library(data.table)
+source("lib/multiplot.R")
+
+plot_adk_filtered <- function(outfile, getpdf){
+  
+  gerp <- read.csv("cache/gerpsnp_506898_gp_withcm_mb.csv")
+  mysnp <- subset(gerp, gen > quantile(gerp$gen)[2])
+  
+  dat <- fread("largedata/gerpdat1x.csv", data.table=FALSE)
+  dat <- subset(dat, snpid %in% mysnp$marker)
+  
+  dat$trait <- toupper(dat$trait)
+  med2 <- read.csv("cache/loh_pBPHmax_median.csv")
+  out <- read.csv("cache/eff_adk_1x.csv")
+  #cols <- wes_palette(7, name = "Zissou", type = "continuous")
+  cols <- c("#f6546a", "#daa520", "#00ff00", "#66cdaa", "#3b5998", "#8a2be2", "#ff00ff")
+  theme_set(theme_grey(base_size = 18)) 
+  
+  getlty <- function(df, eff, cutoff=0.05){
+    df$l <- 2
+    if(nrow(df[df[, eff] < cutoff, ]) >0) df[df[, eff] < cutoff, ]$l <- 1
+    return(df)
+  }
+  
   lty1 <- getlty(df=out, eff="effa", cutoff=0.05)$l
   p1 <- ggplot(dat, aes(x=RS, y=Effect_A, colour=factor(trait, levels=med2$trait),
                         linetype=factor(trait, levels=med2$trait))) +
@@ -179,18 +231,62 @@ plot_adk_gerp <- function(outfile, getpdf){
           legend.text = element_text(size=fsize)) +
     geom_smooth(method="gam", size=1.3)   # Add linear regression line 
   
-  multiplot(p1, p2, p3, cols=3)
+  lty4 <- getlty(df=out, eff="h2a", cutoff=0.05)$l
+  p4 <- ggplot(dat, aes(x=RS, y=h2_mrk_A, colour=factor(trait, levels=med2$trait),
+                        linetype=factor(trait, levels=med2$trait))) +
+    #geom_point(shape=1) +    # Use hollow circles
+    labs(colour="Traits") +
+    theme_bw() +
+    xlab("GERP Score") +
+    ylab("Additive Variance") +
+    scale_color_manual(values=cols) +
+    scale_linetype_manual(values=lty4) +
+    guides(colour=FALSE, linetype=FALSE) +
+    
+    theme(axis.text.y = element_text(angle = 90, hjust = 1)) +
+    geom_smooth(method="gam", size=1.3) 
+  
+  lty5 <- getlty(df=out, eff="h2d", cutoff=0.05)$l
+  p5 <- ggplot(dat, aes(x=RS, y=h2_mrk_D, colour=factor(trait, levels=med2$trait),
+                        linetype=factor(trait, levels=med2$trait))) +
+    #geom_point(shape=1) +    # Use hollow circles
+    labs(colour="Traits") +
+    theme_bw() +
+    xlab("GERP Score") +
+    ylab("Dominant Variance") +
+    scale_color_manual(values=cols) +
+    scale_linetype_manual(values=lty5) +
+    guides(colour=FALSE, linetype=FALSE) +
+    
+    theme(axis.text.y = element_text(angle = 90, hjust = 1)) +
+    geom_smooth(method="gam", size=1.3) 
+  
+  lty6 <- getlty(df=out, eff="h2k", cutoff=0.05)$l
+  p6 <- ggplot(dat, aes(x=RS, y=H2_mrk, colour=factor(trait, levels=med2$trait),
+                        linetype=factor(trait, levels=med2$trait))) +
+    #geom_point(shape=1) +    # Use hollow circles
+    labs(colour="Traits") +
+    theme_bw() +
+    xlab("GERP Score") +
+    ylab("Total Variance") +
+    scale_color_manual(values=cols) +
+    scale_linetype_manual(values=lty6) +
+    guides(colour=FALSE, linetype=FALSE) +
+    
+    theme(axis.text.y = element_text(angle = 90, hjust = 1)) +
+    geom_smooth(method="gam", size=1.3) 
+  
+  
+  multiplot(p1, p4, p2, p5, p3, p6, cols=3)
   if(getpdf == TRUE){
-    pdf(outfile, width=13, height=4)
-    multiplot(p1, p2, p3, cols=3)
+    pdf(outfile, width=13, height=8)
+    multiplot(p1, p4, p2, p5, p3, p6, cols=3)
     dev.off()
   }
   
 }
 
 ####
-plot_adk_gerp(outfile="graphs/Fig2c-e_adk.pdf", getpdf)
+plot_adk_filtered(outfile="graphs/suppl_Fig_adk_filtered.pdf", getpdf)
 
 ```
-
-
