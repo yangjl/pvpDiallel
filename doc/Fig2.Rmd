@@ -1,5 +1,5 @@
 ---
-title: "Figure 2 of Deleterious Alleles paper"
+title: "Figure 2 of the GERP paper"
 output: pdf_document
 ---
 
@@ -137,7 +137,6 @@ plot_adk_gerp <- function(outfile, getpdf){
     guides(colour=FALSE, linetype=FALSE) +
     geom_smooth(method="gam", size=1.3) +
     theme(axis.text.y = element_text(angle = 90, hjust = 1),
-          axis.text.x=element_blank(), axis.ticks.x=element_blank(),
           axis.text=element_text(size=fsize),
           axis.title=element_text(size=fsize, face="bold"),
           legend.title = element_text(size=fsize, face="bold"),
@@ -155,7 +154,6 @@ plot_adk_gerp <- function(outfile, getpdf){
     guides(colour=FALSE, linetype=FALSE) +
     geom_smooth(method="gam", size=1.3) +  # Add linear regression line 
     theme(axis.text.y = element_text(angle = 90, hjust = 1),
-          axis.text.x=element_blank(), axis.ticks.x=element_blank(),
           axis.text=element_text(size=fsize),
           axis.title=element_text(size=fsize, face="bold"),
           legend.title = element_text(size=fsize, face="bold"),
@@ -172,7 +170,6 @@ plot_adk_gerp <- function(outfile, getpdf){
     scale_linetype_manual(values=lty3) +
     guides(colour=FALSE, linetype=FALSE) +
     theme(axis.text.y = element_text(angle = 90, hjust = 1),
-          axis.text.x=element_blank(), axis.ticks.x=element_blank(),
           axis.text=element_text(size=fsize),
           axis.title=element_text(size=fsize, face="bold"),
           legend.title = element_text(size=fsize, face="bold"),

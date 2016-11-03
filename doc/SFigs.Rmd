@@ -16,7 +16,7 @@ First of all, determine fond size and set the getpdf option:
 par(font=2, font.lab=2, font.axis=2)
 fs = 1.6 # times bigger than default
 fsize = 16 # absolute font size
-getpdf = TRUE # get figures in seperated pdf [TRUE] or not [FALSE]
+getpdf = F # get figures in seperated pdf [TRUE] or not [FALSE]
 ```
 
 --------------------------
@@ -99,7 +99,12 @@ plot_adk_gerp <- function(outfile, getpdf){
     scale_linetype_manual(values=lty4) +
     guides(colour=FALSE, linetype=FALSE) +
     
-    theme(axis.text.y = element_text(angle = 90, hjust = 1)) +
+    theme(axis.text.y = element_text(angle = 90, hjust = 1),
+          axis.text.x=element_blank(), axis.ticks.x=element_blank(),
+          axis.text=element_text(size=fsize),
+          axis.title=element_text(size=fsize, face="bold"),
+          legend.title = element_text(size=fsize, face="bold"),
+          legend.text = element_text(size=fsize)) +
     geom_smooth(method="gam", size=1.3) 
   
   lty5 <- getlty(df=out, eff="h2d", cutoff=0.05)$l
@@ -114,7 +119,12 @@ plot_adk_gerp <- function(outfile, getpdf){
     scale_linetype_manual(values=lty5) +
     guides(colour=FALSE, linetype=FALSE) +
     
-    theme(axis.text.y = element_text(angle = 90, hjust = 1)) +
+    theme(axis.text.y = element_text(angle = 90, hjust = 1),
+          axis.text.x=element_blank(), axis.ticks.x=element_blank(),
+          axis.text=element_text(size=fsize),
+          axis.title=element_text(size=fsize, face="bold"),
+          legend.title = element_text(size=fsize, face="bold"),
+          legend.text = element_text(size=fsize)) +
     geom_smooth(method="gam", size=1.3) 
   
   lty6 <- getlty(df=out, eff="h2k", cutoff=0.05)$l
@@ -129,7 +139,12 @@ plot_adk_gerp <- function(outfile, getpdf){
     scale_linetype_manual(values=lty6) +
     guides(colour=FALSE, linetype=FALSE) +
     
-    theme(axis.text.y = element_text(angle = 90, hjust = 1)) +
+    theme(axis.text.y = element_text(angle = 90, hjust = 1),
+          axis.text.x=element_blank(), axis.ticks.x=element_blank(),
+          axis.text=element_text(size=fsize),
+          axis.title=element_text(size=fsize, face="bold"),
+          legend.title = element_text(size=fsize, face="bold"),
+          legend.text = element_text(size=fsize)) +
     geom_smooth(method="gam", size=1.3) 
   
   
@@ -150,7 +165,7 @@ plot_adk_gerp(outfile="graphs/suppl_Fig_variance_adk.pdf", getpdf)
 
 # Supplementary Figure ADK vs GERP after filtering low recombination regions
 
-```{r, eval=TRUE, fig.width=13, fig.height=4}
+```{r, eval=TRUE, fig.width=13, fig.height=8}
 
 library(wesanderson)
 library(data.table)
@@ -242,8 +257,12 @@ plot_adk_filtered <- function(outfile, getpdf){
     scale_color_manual(values=cols) +
     scale_linetype_manual(values=lty4) +
     guides(colour=FALSE, linetype=FALSE) +
-    
-    theme(axis.text.y = element_text(angle = 90, hjust = 1)) +
+    theme(axis.text.y = element_text(angle = 90, hjust = 1),
+          axis.text.x=element_blank(), axis.ticks.x=element_blank(),
+          axis.text=element_text(size=fsize),
+          axis.title=element_text(size=fsize, face="bold"),
+          legend.title = element_text(size=fsize, face="bold"),
+          legend.text = element_text(size=fsize)) +
     geom_smooth(method="gam", size=1.3) 
   
   lty5 <- getlty(df=out, eff="h2d", cutoff=0.05)$l
@@ -257,8 +276,12 @@ plot_adk_filtered <- function(outfile, getpdf){
     scale_color_manual(values=cols) +
     scale_linetype_manual(values=lty5) +
     guides(colour=FALSE, linetype=FALSE) +
-    
-    theme(axis.text.y = element_text(angle = 90, hjust = 1)) +
+    theme(axis.text.y = element_text(angle = 90, hjust = 1),
+          axis.text.x=element_blank(), axis.ticks.x=element_blank(),
+          axis.text=element_text(size=fsize),
+          axis.title=element_text(size=fsize, face="bold"),
+          legend.title = element_text(size=fsize, face="bold"),
+          legend.text = element_text(size=fsize)) +
     geom_smooth(method="gam", size=1.3) 
   
   lty6 <- getlty(df=out, eff="h2k", cutoff=0.05)$l
@@ -272,8 +295,12 @@ plot_adk_filtered <- function(outfile, getpdf){
     scale_color_manual(values=cols) +
     scale_linetype_manual(values=lty6) +
     guides(colour=FALSE, linetype=FALSE) +
-    
-    theme(axis.text.y = element_text(angle = 90, hjust = 1)) +
+    theme(axis.text.y = element_text(angle = 90, hjust = 1),
+          axis.text.x=element_blank(), axis.ticks.x=element_blank(),
+          axis.text=element_text(size=fsize),
+          axis.title=element_text(size=fsize, face="bold"),
+          legend.title = element_text(size=fsize, face="bold"),
+          legend.text = element_text(size=fsize)) +
     geom_smooth(method="gam", size=1.3) 
   
   
