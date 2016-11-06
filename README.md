@@ -19,9 +19,8 @@ This project contains ~400 commits. A `largedata` directory was intentionally ig
 Rmd code to generate Figures in the paper. The `doc/` fold is in `gitignore` at the moment. It will be released soon.
 
 1. **Figure 1**: Panels of this figure can be produced with code [`doc/Fig1.Rmd`](https://github.com/yangjl/pvpDiallel/blob/master/doc/Fig1.Rmd). And the [Figure1](https://github.com/yangjl/pvpDiallel/blob/master/doc/Fig1.pdf) in a pdf version.
-2. Figure 2.
-3. Figure 3.
-4. Figure 4.
+2. **Figure 2**: Panels of this figure can be produced with code [`doc/Fig2.Rmd`](https://github.com/yangjl/pvpDiallel/blob/master/doc/Fig2.Rmd). And the [Figure2](https://github.com/yangjl/pvpDiallel/blob/master/doc/Fig2.pdf) in a pdf version.
+3. **Figure 3**: Panels of this figure can be produced with code [`doc/Fig3.Rmd`](https://github.com/yangjl/pvpDiallel/blob/master/doc/Fig3.Rmd). And the [Figure3](https://github.com/yangjl/pvpDiallel/blob/master/doc/Fig3.pdf) in a pdf version.
 
 ## License
 This repo is free and open source for research usage, licensed under [GPLv2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
