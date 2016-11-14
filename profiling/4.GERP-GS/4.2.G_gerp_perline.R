@@ -67,12 +67,18 @@ gerp_mc_plot <- function(tab=gerpmean){
     #lines (c(centromere[i,]$Start,centromere[i,]$End),
     #       c(105-10*i, 105-10*i),lwd=5, col="tomato") 
   }
+  
+  cent <- read.csv("data/centromere_AGPv2.csv")
   ### core plot
   cols <- rep(c("slateblue", "cyan4"), 5)
   for (chri in 1:10){
     mytab <- subset(tab, chr == chri & pos > 0)
+    subc <- subset(cent, chr == chri)
     mytab$mean <- rescale(mytab$mean, c(0, 9))
+    rect(xleft=subc$cm_start, ybottom= 110 - 10*chri, xright=subc$cm_end, ytop=109 - 10*(chri-1),
+         col="red", border="red")
     points(mytab$pos, 100 - 10*(chri-1) + mytab$mean, pch=19, cex=0.5, col=cols[chri])
+    
   } 
 }
 
@@ -83,6 +89,6 @@ gerpmean$pos <- as.numeric(as.character(gsub(".*_", "", gerpmean$bin)))
 
 
 #tab <- rbind(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10)
-pdf("graphs/Figure2_d.pdf", width=10, height=5)
+pdf("graphs/suppl_del_chrs.pdf", width=10, height=5)
 gerp_mc_plot(tab=gerpmean)
 dev.off()
